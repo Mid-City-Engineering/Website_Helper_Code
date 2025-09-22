@@ -1,0 +1,1 @@
+This repo contains code snippets that are used for Mid City Engineering's website. The code files are either visibile on the website via 'Embed Code' widgets that render HTML or they were used for internal demos/sampling and are not visible on the website.
