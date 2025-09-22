@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="map-container">
+    <div id="dealer-map">
+        <div class="loading">Loading dealer locations...</div>
+    </div>
+    <div class="locations-panel">
+        <div class="panel-header">
+            <h3 class="panel-title">DEALER LOCATIONS</h3>
+        </div>
+        <div class="search-controls">
+            <div class="search-group">
+                <label class="search-label" for="address-input">Location</label>
+                <input type="text" id="address-input" class="search-input"
+                    placeholder="Enter address, city, or ZIP code">
+            </div>
+            <div class="search-group">
+                <label class="search-label" for="radius-select">Radius</label>
+                <select id="radius-select" class="search-select">
+                    <option value="all">Show All</option>
+                    <option value="1">Within 1 mile</option>
+                    <option value="5">Within 5 miles</option>
+                    <option value="10">Within 10 miles</option>
+                    <option value="25">Within 25 miles</option>
+                    <option value="50">Within 50 miles</option>
+                    <option value="100">Within 100 miles</option>
+                    <option value="250">Within 250 miles</option>
+                </select>
+            </div>
+            <div class="search-group">
+                <button class="search-btn" onclick="filterAndShowDealers()">Find Dealers</button>
+            </div>
+            <div class="button-row">
+                <button class="secondary-btn" onclick="setRadiusToAll()">Show all dealers</button>
+                <button class="secondary-btn" onclick="getCurrentLocation()">Get current location</button>
+            </div>
+        </div>
+        <div class="locations-list" id="locations-list">
+            <div class="location-item" style="text-align: center; color: #999; font-style: italic;">
+                Loading locations...
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

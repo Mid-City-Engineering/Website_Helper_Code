@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dealer Locator Test</title>
+</head>
+
+<body>
+    <!-- Your existing code goes here -->
+    <div id="dealer-locator-container"></div>
+
+    <script>
+        (async function () {
+            // Load CSS
+            const cssResponse = await fetch('https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/DealerLocator/dealer-locator.css');
+            const cssText = await cssResponse.text();
+            const style = document.createElement('style');
+            style.textContent = cssText;
+            document.head.appendChild(style);
+
+            // Load HTML
+            const htmlResponse = await fetch('https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/DealerLocator/dealer-locator.html');
+            const htmlText = await htmlResponse.text();
+            document.getElementById('dealer-locator-container').innerHTML = htmlText;
+
+            // Load JavaScript
+            const script = document.createElement('script');
+            script.src = 'https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/DealerLocator/dealer-locator.js';
+            script.onload = function () {
+                loadDealersAndInitializeMap();
+            };
+            document.head.appendChild(script);
+        })();
+    </script>
+</body>
+
+</html>

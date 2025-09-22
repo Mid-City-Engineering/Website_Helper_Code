@@ -1,0 +1,301 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8fafc;
+}
+
+.map-container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+}
+
+#dealer-map {
+    flex: 1;
+    height: 100%;
+}
+
+.locations-panel {
+    width: 380px;
+    height: 100%;
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border-left: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -12px 0 35px rgba(0, 0, 0, 0.12), -6px 0 15px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+}
+
+.panel-header {
+    padding: 28px 24px 20px 24px;
+    border-bottom: 1px solid #e2e8f0;
+    background: linear-gradient(135deg, #000000 0%, #374151 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.panel-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+}
+
+.panel-title {
+    font-weight: 700;
+    color: white;
+    font-size: 18px;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -0.025em;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.search-controls {
+    padding: 20px 24px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.search-group {
+    margin-bottom: 16px;
+}
+
+.search-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    background: white;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #374151;
+    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
+}
+
+.search-input::placeholder {
+    color: #94a3b8;
+}
+
+.search-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.search-select:focus {
+    outline: none;
+    border-color: #374151;
+    box-shadow: 0 0 0 3px rgba(55, 65, 81, 0.1);
+}
+
+.search-btn {
+    background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.search-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(55, 65, 81, 0.3);
+}
+
+.search-btn:active {
+    transform: translateY(0);
+}
+
+.button-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.secondary-btn {
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+}
+
+.secondary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+}
+
+.secondary-btn:active {
+    transform: translateY(0);
+}
+
+.locations-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.location-item {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    background: white;
+    margin: 0 12px 8px 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+.location-item:first-child {
+    margin-top: 12px;
+}
+
+.location-item:last-child {
+    margin-bottom: 12px;
+}
+
+.location-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15), 0 6px 15px rgba(0, 0, 0, 0.18);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.location-item.selected {
+    background: linear-gradient(135deg, #000000 0%, #374151 100%);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.location-item.selected::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    pointer-events: none;
+}
+
+.location-name {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 15px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.location-address {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.5;
+    font-weight: 400;
+    margin-bottom: 6px;
+}
+
+.location-contact {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.location-item.selected .location-address {
+    color: #cbd5e1;
+}
+
+.location-item.selected .location-contact {
+    color: #e2e8f0;
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.98);
+    padding: 24px 32px;
+    color: #475569;
+    box-shadow: 0 25px 35px rgba(0, 0, 0, 0.15), 0 12px 15px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+}
+
+/* Custom scrollbar */
+.locations-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.locations-list::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+.locations-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #cbd5e1, #94a3b8);
+    border-radius: 3px;
+}
+
+.locations-list::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(145deg, #94a3b8, #64748b);
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        flex-direction: column;
+    }
+
+    .locations-panel {
+        width: 100%;
+        height: 320px;
+        border-left: none;
+        border-top: 1px solid #e2e8f0;
+        order: 2;
+    }
+
+    #dealer-map {
+        height: calc(100vh - 320px);
+    }
+}
