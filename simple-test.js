@@ -2,7 +2,7 @@
 (function () {
     // Create the H2 element
     const heading = document.createElement('h2');
-    heading.textContent = 'This is the title of a test script';
+    heading.textContent = `This is the title of a test script located in Mid City's GitHub repository`;
 
     // Add some basic styling
     heading.style.color = '#333';
