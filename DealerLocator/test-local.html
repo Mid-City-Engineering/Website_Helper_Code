@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dealer Locator - Local Test</title>
+
+    <!-- Load Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Load your local CSS -->
+    <link rel="stylesheet" href="./dealer-locator.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Container for the dealer locator -->
+    <div id="dealer-locator-container">
+        <!-- This will be populated by JavaScript -->
+    </div>
+
+    <!-- Load Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        (async function () {
+            try {
+                console.log('Loading dealer locator locally...');
+
+                // Load HTML content from your local file
+                const htmlResponse = await fetch('./dealer-locator.html');
+                if (!htmlResponse.ok) {
+                    throw new Error(`Failed to load HTML: ${htmlResponse.status}`);
+                }
+                const htmlText = await htmlResponse.text();
+
+                // Insert HTML into container
+                const container = document.getElementById('dealer-locator-container');
+                container.innerHTML = htmlText;
+
+                // Load and execute your local JavaScript
+                const script = document.createElement('script');
+                script.src = './dealer-locator.js';
+                script.onload = function () {
+                    console.log('JavaScript loaded, initializing dealer map...');
+                    // Initialize the dealer locator
+                    loadDealersAndInitializeMap();
+                };
+                script.onerror = function () {
+                    console.error('Failed to load dealer-locator.js');
+                };
+                document.head.appendChild(script);
+
+            } catch (error) {
+                console.error('Error loading dealer locator:', error);
+                document.getElementById('dealer-locator-container').innerHTML =
+                    '<div style="padding: 20px; text-align: center; color: red;">Error loading dealer locator: ' + error.message + '</div>';
+            }
+        })();
+    </script>
+</body>
+
+</html>

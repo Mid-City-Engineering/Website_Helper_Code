@@ -79,34 +79,125 @@ function setupEventListeners() {
     }
 }
 
-// Get all dealer contacts from Odoo
+// Get all dealer contacts from GitHub CSV with field mapping
 async function getDealerContacts() {
     try {
-        const response = await fetch('/web/dataset/call_kw', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                jsonrpc: '2.0',
-                method: 'call',
-                params: {
-                    model: 'res.partner',
-                    method: 'search_read',
-                    args: [[['category_id.name', '=', 'Dealer']]],
-                    kwargs: {
-                        fields: ['name', 'partner_latitude', 'partner_longitude', 'x_latitude', 'x_longitude', 'street', 'city', 'state_id', 'zip', 'phone', 'email']
-                    }
-                }
-            })
-        });
+        // Use the raw GitHub URL for direct CSV access
+        const csvUrl = 'https://raw.githubusercontent.com/Mid-City-Engineering/Website_Helper_Code/main/DealerLocator/DealerList.csv';
 
-        const data = await response.json();
-        return data.result || [];
+        // Fetch the CSV data
+        const response = await fetch(csvUrl);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const csvText = await response.text();
+
+        // Parse CSV data
+        const rawDealers = parseCSV(csvText);
+
+        // Map CSV fields to expected field names
+        const mappedDealers = rawDealers.map(dealer => mapDealerFields(dealer));
+
+        console.log(`Successfully loaded and mapped ${mappedDealers.length} dealer contacts`);
+        console.log('Sample mapped dealer:', mappedDealers[0]);
+
+        return mappedDealers;
+
     } catch (error) {
-        console.error('Error fetching dealers:', error);
-        throw new Error('Unable to fetch dealer data');
+        console.error(`Error fetching dealer contacts: ${error}`);
+        throw error;
     }
+}
+
+// Field mapping function - customize this based on your actual CSV headers
+function mapDealerFields(csvDealer) {
+    const mapped = {};
+
+    // Direct field mappings from your CSV to expected field names
+    mapped.name = csvDealer['Complete Name'];
+    mapped.partner_latitude = parseFloat(csvDealer['Geo Latitude']);
+    mapped.x_latitude = parseFloat(csvDealer['Geo Latitude']); // Duplicate for compatibility
+    mapped.partner_longitude = parseFloat(csvDealer['Geo Longitude']);
+    mapped.x_longitude = parseFloat(csvDealer['Geo Longitude']); // Duplicate for compatibility
+    mapped.street = csvDealer['Street'];
+    mapped.city = csvDealer['City'];
+    mapped.phone = csvDealer['Phone'];
+    mapped.email = csvDealer['Email'];
+
+    // Handle Street2 by combining with Street if it exists
+    if (csvDealer['Street2'] && csvDealer['Street2'].trim()) {
+        mapped.street = csvDealer['Street'] + ' ' + csvDealer['Street2'];
+    }
+
+    // Your CSV doesn't have state/zip, so we'll use Country as state for now
+    // You can modify this based on your needs
+    if (csvDealer['Country']) {
+        mapped.state_id = [null, csvDealer['Country']];
+        mapped.state = csvDealer['Country'];
+    }
+
+    // Clean up empty/null values and ensure coordinates are valid numbers
+    Object.keys(mapped).forEach(key => {
+        if (mapped[key] === '' || mapped[key] === null || mapped[key] === undefined) {
+            delete mapped[key];
+        }
+
+        // Ensure coordinates are valid numbers, not NaN
+        if ((key.includes('latitude') || key.includes('longitude')) && isNaN(mapped[key])) {
+            delete mapped[key];
+        }
+    });
+
+    return mapped;
+}
+
+// CSV parser function (unchanged)
+function parseCSV(csvText) {
+    const lines = csvText.split('\n').filter(line => line.trim() !== '');
+    if (lines.length === 0) return [];
+
+    // Get headers from first line
+    const headers = lines[0].split(',').map(header => header.trim().replace(/"/g, ''));
+
+    // Parse data rows
+    const dealers = [];
+    for (let i = 1; i < lines.length; i++) {
+        const values = parseCSVLine(lines[i]);
+        if (values.length === headers.length) {
+            const dealer = {};
+            headers.forEach((header, index) => {
+                dealer[header] = values[index];
+            });
+            dealers.push(dealer);
+        }
+    }
+
+    return dealers;
+}
+
+// Handle CSV line parsing with quoted values (unchanged)
+function parseCSVLine(line) {
+    const result = [];
+    let current = '';
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+
+        if (char === '"') {
+            inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+            result.push(current.trim());
+            current = '';
+        } else {
+            current += char;
+        }
+    }
+
+    result.push(current.trim());
+    return result;
 }
 
 // Filter and format dealers based on user location and radius
