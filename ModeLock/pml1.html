@@ -9,19 +9,21 @@
 </head>
 
 <body>
-    <section class="hero">
-        <div class="hero-bg"></div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg"></div> <!-- Background gradient layer -->
         <div class="hero-content">
             <h1>Mode Lock Module</h1>
             <p class="subtitle">Your Porsche. Your Mode. Every Time.</p>
             <a href="#solution" class="cta-button">Learn More</a>
         </div>
-        <div class="scroll-indicator"></div>
+        <div class="scroll-indicator"> ↓ </div>
     </section>
 
+    <!-- Problem Section -->
     <section class="problem-section">
         <h2 class="section-title">The Frustration</h2>
-        <div class="problem-cards">
+        <div class="problem-cards-grid">
             <div class="problem-card">
                 <div class="problem-icon">🔄</div>
                 <h3>Always Resets</h3>
@@ -43,38 +45,50 @@
         </div>
     </section>
 
+    <!-- Solution Section -->
     <section class="solution-section" id="solution">
-        <div class="feature-showcase">
-            <div class="feature-visual">
-                <div class="car-status" id="carStatus">ENGINE OFF</div>
-                <div class="mode-display" id="modeDisplay">
-                    <div class="mode-dial">
+        <div class="solution-grid">
+
+            <div class="animation-container">
+                <!-- Engine Off/On -->
+                <div class="engine-status" id="engineStatus">ENGINE OFF</div>
+
+                <!-- mode-visualizer: has the current mode name in the center + the main svg -->
+                <div class="mode-visualizer" id="modeVisualizer">
+
+                    <!-- Container for current-mode that is overlayed on the dial's center -->
+                    <div class="current-mode-container">
+                        <div class="current-mode" id="currentMode">---</div>
+                    </div>
+
+                    <!-- Actual SVG with the dial, slider, and mode labels-->
+                    <div class="mode-svg-container">
                         <svg viewBox="0 0 450 450" id="modeSvg">
-                            <!-- Outer ring with 25% gap at bottom center -->
-                            <circle class="dial-bg" cx="225" cy="225" r="140" stroke-dasharray="659.73 219.91"
+                            <!-- Outer dial with 25% gap at bottom center -->
+                            <circle class="outer-dial" cx="225" cy="225" r="140" stroke-dasharray="659.73 219.91"
                                 transform="rotate(135 225 225)" />
 
-                            <!-- Inner slider ring -->
+                            <!-- Inner dial slider ring -->
                             <circle class="dial-slider" id="dialSlider" cx="225" cy="225" r="120"
                                 stroke-dasharray="80 673" transform="rotate(135 225 225)" />
 
+                            <!-- Mode labels (outside the dial) -->
                             <text class="mode-label normal" id="labelNormal" text-anchor="middle"
                                 dy="0.3em">NORMAL</text>
                             <text class="mode-label wet" id="labelWet" text-anchor="middle" dy="0.3em">WET</text>
                             <text class="mode-label sport" id="labelSport" text-anchor="middle" dy="0.3em">SPORT</text>
                             <text class="mode-label sport-plus" id="labelSportPlus" text-anchor="middle"
                                 dy="0.3em">SPORT+</text>
-                        </svg>
-                    </div>
 
-                    <div class="mode-center">
-                        <div class="mode-text" id="modeText">---</div>
-                    </div>
-                </div>
-            </div>
-            <div class="feature-content">
+                        </svg> <!-- End of SVG -->
+                    </div> <!-- End of mode-svg-container -->
+
+                </div> <!-- End of mode-visualizer -->
+            </div> <!-- End of animation-container -->
+
+            <div class="feature-list-section">
                 <h2>The Solution</h2>
-                <p style="color: #aaa; font-size: 1.2rem; line-height: 1.6;">
+                <p>
                     Mid City's Mode Lock Module remembers your last drive mode and ensures your Porsche starts exactly
                     how you left it.
                 </p>
@@ -89,13 +103,14 @@
         </div>
     </section>
 
-    <section class="product-images">
+    <!-- Product Images Section -->
+    <section class="product-images-section">
         <h2 class="section-title">See It In Action</h2>
         <div class="image-gallery">
             <div class="product-image-card">
                 <img src="[YOUR_PRODUCT_IMAGE_1_URL]" alt="Mode Lock Module Hardware"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-                <div class="placeholder-text" style="display: none;">Product Image 1<br><small>Replace with actual
+                <div class="placeholder-text" style="display: none;">Product Image 1 <br><small>Replace with actual
                         image</small></div>
             </div>
             <div class="product-image-card">
@@ -107,6 +122,7 @@
         </div>
     </section>
 
+    <!-- Specs Section -->
     <section class="specs-section">
         <h2 class="section-title">By the Numbers</h2>
         <div class="specs-grid">
@@ -129,6 +145,7 @@
         </div>
     </section>
 
+    <!-- CTA Section -->
     <section class="cta-section">
         <h2>Ready to Take Control?</h2>
 

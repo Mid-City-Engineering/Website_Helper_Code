@@ -1,3 +1,9 @@
+/* 
+--------------------------
+UNIVERSAL STYLING 
+--------------------------
+*/
+
 * {
     margin: 0;
     padding: 0;
@@ -5,13 +11,33 @@
 }
 
 body {
+    /* styling for the entire HTML body tag */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    /* System font stack for native OS appearance */
     background: #0a0a0a;
-    color: #fff;
+    /* Dark background visible when scrolling beyond page bounds */
+    color: #931b1b;
+    /* Default white text color for all content */
     overflow-x: hidden;
+    /* Prevents horizontal scrollbar from appearing */
 }
 
-.hero {
+.section-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+    color: #aaa;
+    opacity: 1;
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 700;
+}
+
+/* 
+--------------------------
+HERO SECTION STYLING 
+--------------------------
+*/
+
+.hero-section {
     height: 100vh;
     display: flex;
     align-items: center;
@@ -22,6 +48,7 @@ body {
 }
 
 .hero-bg {
+    /* Gradient of the hero section */
     position: absolute;
     width: 100%;
     height: 100%;
@@ -29,30 +56,17 @@ body {
     background:
         radial-gradient(circle at 20% 50%, #ff4444 0%, transparent 50%),
         radial-gradient(circle at 80% 50%, #00ff88 0%, transparent 50%);
-    animation: pulse 8s ease-in-out infinite;
-}
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 0.1;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 0.2;
-        transform: scale(1.1);
-    }
 }
 
 .hero-content {
+    /* Adds a fade in animation to hero section's content  */
     text-align: center;
     z-index: 2;
     padding: 2rem;
     animation: fadeInUp 1s ease-out;
 }
 
+/* Animation for the content items of hero section */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -65,7 +79,8 @@ body {
     }
 }
 
-.hero h1 {
+.hero-section h1 {
+    /* All H-1 headings in hero-section */
     font-size: clamp(2rem, 8vw, 4.5rem);
     font-weight: 800;
     margin-bottom: 1rem;
@@ -76,7 +91,8 @@ body {
     letter-spacing: -0.02em;
 }
 
-.hero .subtitle {
+.hero-section .subtitle {
+    /* All subtitles in hero-section */
     font-size: clamp(1rem, 3vw, 1.5rem);
     color: #aaa;
     margin-bottom: 2rem;
@@ -84,6 +100,7 @@ body {
 }
 
 .cta-button {
+    /* cta-buttons in general */
     display: inline-block;
     padding: 1rem 2.5rem;
     background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
@@ -95,6 +112,7 @@ body {
     transition: all 0.3s ease;
     box-shadow: 0 10px 30px rgba(255, 68, 68, 0.3);
     animation: fadeInUp 1s ease-out 0.3s backwards;
+    /* Delayed fade-in for the CTA button */
 }
 
 .cta-button:hover {
@@ -102,20 +120,46 @@ body {
     box-shadow: 0 15px 40px rgba(255, 68, 68, 0.5);
 }
 
+.scroll-indicator {
+    /* The down arrow telling people to scroll down */
+    color: #ff6b6b;
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollBounce 2s ease-in-out infinite;
+    font-size: 2rem;
+    opacity: 0.75;
+    z-index: 2;
+    /* Ensure it's above hero-bg */
+}
+
+/* animation for the scroll indicator */
+@keyframes scrollBounce {
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(10px);
+    }
+}
+
+/* 
+--------------------------
+PROBLEM SECTION STYLING 
+--------------------------
+*/
+
 .problem-section {
     padding: 6rem 2rem;
     background: #0f0f0f;
     position: relative;
 }
 
-.section-title {
-    font-size: clamp(2rem, 6vw, 3rem);
-    text-align: center;
-    margin-bottom: 3rem;
-    font-weight: 700;
-}
-
-.problem-cards {
+.problem-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
@@ -124,15 +168,17 @@ body {
 }
 
 .problem-card {
-    background: linear-gradient(135deg, #1a1a1a 0%, #151515 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
     padding: 2rem;
-    border-radius: 20px;
+    border-radius: 2px;
     border: 1px solid #222;
-    transition: all 0.4s ease;
     opacity: 0;
+    /* Start hidden for animation added by .problem-card.visible*/
     transform: translateY(30px);
+    transition: all 0.4s ease;
 }
 
+/* Entry animation for the problem cards */
 .problem-card.visible {
     opacity: 1;
     transform: translateY(0);
@@ -166,6 +212,13 @@ body {
     line-height: 1.6;
 }
 
+/* 
+--------------------------
+SOLUTION SECTION STYLING 
+(Has animation)
+--------------------------
+*/
+
 .solution-section {
     padding: 6rem 2rem;
     background: #0a0a0a;
@@ -173,27 +226,30 @@ body {
     overflow: hidden;
 }
 
-.feature-showcase {
-    max-width: 1200px;
+.solution-grid {
+    max-width: 90vw;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 3rem;
     align-items: center;
+    /* justify-content: center; */
+    /* justify-items: center; */
 }
 
-.feature-visual {
+/* ***** ANIMATION RELATED STYLING ***** */
+.animation-container {
     position: relative;
-    height: 550px;
-    /* Increased from 400px to accommodate larger dial */
+    /* height: 70vh; */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0rem;
 }
 
-.car-status {
+/* Animation's ENGINE OFF styling */
+.engine-status {
     font-size: 1.5rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -202,12 +258,14 @@ body {
     transition: all 0.5s ease;
 }
 
-.car-status.active {
+/* Animation's ENGINE ON styling */
+.engine-status.active {
     color: #00ff88;
     text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
 }
 
-.mode-display {
+/* Container for mode-visualizer: shows current mode name in the center + the main svg */
+.mode-visualizer {
     width: 450px;
     /* Increased from 320px */
     height: 450px;
@@ -218,20 +276,75 @@ body {
     justify-content: center;
 }
 
-.mode-dial {
+/* ----- Current Mode related styling */
+
+.current-mode-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+}
+
+/* Default styling when engine is off */
+.current-mode {
+    color: #888;
+    font-size: 2rem;
+    font-weight: 800;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.current-mode.active {
+    /* 
+    JS needs a current-mode.active for failsafe
+    The idea is we will only style current-mode when a currentMode is active = when engine is on
+    */
+    opacity: 1;
+    transform: scale(1);
+}
+
+.current-mode.normal {
+    color: #00ff88;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+}
+
+.current-mode.wet {
+    color: #00aaff;
+    text-shadow: 0 0 20px rgba(0, 170, 255, 0.6);
+}
+
+.current-mode.sport {
+    color: #ff6600;
+    text-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
+}
+
+.current-mode.sport-plus {
+    color: #ff4444;
+    text-shadow: 0 0 20px rgba(255, 68, 68, 0.6);
+}
+
+/* ----- End of Current Mode related styling */
+
+/* Container for the main svg */
+.mode-svg-container {
     width: 100%;
     height: 100%;
     position: relative;
 }
 
-.dial-bg {
+.outer-dial {
     fill: none;
     stroke: #333;
     stroke-width: 3;
     stroke-linecap: round;
 }
 
+/* ---- Inner dial slider related styling */
 .dial-slider {
+    /* Default styling for slider (applies when engine is off) */
     fill: none;
     stroke: #5c5e5d;
     /* stroke: #00ff88; */
@@ -241,19 +354,14 @@ body {
     transform-origin: center;
 }
 
-.dial-slider.wet {
-    stroke: #00aaff;
-    filter: drop-shadow(0 0 15px rgba(0, 170, 255, 0.8));
-}
-
 .dial-slider.normal {
     stroke: #00ff88;
     filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.8));
 }
 
-.dial-slider.sport-plus {
-    stroke: #ff4444;
-    filter: drop-shadow(0 0 15px rgba(255, 68, 68, 0.8));
+.dial-slider.wet {
+    stroke: #00aaff;
+    filter: drop-shadow(0 0 15px rgba(0, 170, 255, 0.8));
 }
 
 .dial-slider.sport {
@@ -261,15 +369,14 @@ body {
     filter: drop-shadow(0 0 15px rgba(255, 102, 0, 0.8));
 }
 
-.mode-labels {
-    position: absolute;
-    width: 120%;
-    height: 120%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.dial-slider.sport-plus {
+    stroke: #ff4444;
+    filter: drop-shadow(0 0 15px rgba(255, 68, 68, 0.8));
 }
 
+/* ---- End of inner dial slider related styling */
+
+/* ---- Styling for mode labels (outisde of the big dial) */
 .mode-label {
     /* position: absolute; */
     fill: #666;
@@ -285,49 +392,10 @@ body {
     font-size: 1.2rem;
 }
 
-.mode-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 10;
-}
+/* ***** END OF ANIMATION RELATED STYLING ***** */
 
-.mode-text {
-    font-size: 2rem;
-    font-weight: 800;
-    transition: all 0.3s ease;
-    opacity: 0;
-    transform: scale(0.8);
-}
-
-.mode-text.active {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.mode-text.sport-plus {
-    color: #ff4444;
-    text-shadow: 0 0 20px rgba(255, 68, 68, 0.6);
-}
-
-.mode-text.sport {
-    color: #ff6600;
-    text-shadow: 0 0 20px rgba(255, 102, 0, 0.6);
-}
-
-.mode-text.normal {
-    color: #00ff88;
-    text-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
-}
-
-.mode-text.wet {
-    color: #00aaff;
-    text-shadow: 0 0 20px rgba(0, 170, 255, 0.6);
-}
-
-.feature-content h2 {
+/* ***** SOLUTION FEATURE LIST RELATED STYLING ***** */
+.feature-list-section h2 {
     font-size: clamp(2rem, 5vw, 3rem);
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, #fff 0%, #888 100%);
@@ -336,11 +404,18 @@ body {
     background-clip: text;
 }
 
+.feature-list-section p {
+    color: #aaa;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
 .feature-list {
     list-style: none;
     margin-top: 2rem;
 }
 
+/* Each line of feature list */
 .feature-list li {
     padding: 1rem 0;
     border-bottom: 1px solid #222;
@@ -350,6 +425,7 @@ body {
     opacity: 0;
     transform: translateX(-20px);
     transition: all 0.4s ease;
+    color: #aaa;
 }
 
 .feature-list li.visible {
@@ -362,11 +438,71 @@ body {
     height: 30px;
     background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
     border-radius: 50%;
+    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
 }
+
+/* ***** END OF SOLUTION FEATURE LIST RELATED STYLING ***** */
+
+/* 
+--------------------------
+PRODUCT IMAGES SECTION 
+STYLING 
+--------------------------
+*/
+
+.product-images-section {
+    padding: 4rem 2rem;
+    background: #0a0a0a;
+}
+
+.image-gallery {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.product-image-card {
+    background: #1a1a1a;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #222;
+    transition: all 0.4s ease;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.product-image-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff4444;
+    box-shadow: 0 20px 50px rgba(255, 68, 68, 0.3);
+}
+
+.product-image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-text {
+    color: #666;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+/* 
+--------------------------
+SPECS SECTION STYLING 
+--------------------------
+*/
 
 .specs-section {
     padding: 6rem 2rem;
@@ -410,49 +546,13 @@ body {
     font-size: 1rem;
 }
 
-.product-images {
-    padding: 4rem 2rem;
-    background: #0a0a0a;
-}
 
-.image-gallery {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
+/* 
+--------------------------
+CTA SECTION STYLING 
+--------------------------
+*/
 
-.product-image-card {
-    background: #1a1a1a;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid #222;
-    transition: all 0.4s ease;
-    aspect-ratio: 4/3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.product-image-card:hover {
-    transform: translateY(-10px);
-    border-color: #ff4444;
-    box-shadow: 0 20px 50px rgba(255, 68, 68, 0.3);
-}
-
-.product-image-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.placeholder-text {
-    color: #666;
-    font-size: 1.2rem;
-    text-align: center;
-}
 
 .cta-section {
     padding: 6rem 2rem;
@@ -631,66 +731,4 @@ body {
 
 .trust-badge-icon {
     font-size: 1.4rem;
-}
-
-.scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: scrollBounce 2s ease-in-out infinite;
-}
-
-@keyframes scrollBounce {
-
-    0%,
-    100% {
-        transform: translateX(-50%) translateY(0);
-    }
-
-    50% {
-        transform: translateX(-50%) translateY(10px);
-    }
-}
-
-.scroll-indicator::before {
-    content: '↓';
-    font-size: 2rem;
-    opacity: 0.5;
-}
-
-@media (max-width: 768px) {
-    .feature-showcase {
-        grid-template-columns: 1fr;
-    }
-
-    .feature-visual {
-        height: 350px;
-    }
-
-    .mode-display {
-        width: 280px;
-        height: 280px;
-    }
-
-    .mode-label {
-        font-size: 0.9rem;
-    }
-
-    .mode-label.active {
-        font-size: 1rem;
-    }
-
-    .mode-text {
-        font-size: 1.6rem;
-    }
-
-    .guarantees {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-    }
-
-    .trust-badges {
-        gap: 1.5rem;
-    }
 }

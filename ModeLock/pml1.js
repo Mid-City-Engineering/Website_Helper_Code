@@ -23,9 +23,9 @@ document.querySelectorAll('.feature-list li').forEach(item => {
 });
 
 // Mode sequence animation
-const carStatus = document.getElementById('carStatus');
-const modeDisplay = document.getElementById('modeDisplay');
-const modeText = document.getElementById('modeText');
+const engineStatus = document.getElementById('engineStatus');
+const modeVisualizer = document.getElementById('modeVisualizer');
+const currentMode = document.getElementById('currentMode');
 const dialSlider = document.getElementById('dialSlider');
 
 function polarToCartesian(centerX, centerY, radius, angleInDegrees, offsetX = 0, offsetY = 0) {
@@ -114,14 +114,14 @@ function getRandomMode(excludeModes) {
 }
 
 function updateDisplay(mode, status) {
-    carStatus.textContent = status;
+    engineStatus.textContent = status;
     if (status === 'ENGINE ON') {
-        carStatus.classList.add('active');
+        engineStatus.classList.add('active');
     } else {
-        carStatus.classList.remove('active');
+        engineStatus.classList.remove('active');
     }
 
-    modeText.classList.remove('active');
+    currentMode.classList.remove('active');
 
     // Reset all labels
     Object.values(labels).forEach(label => label.classList.remove('active'));
@@ -133,8 +133,8 @@ function updateDisplay(mode, status) {
             dialSlider.className.baseVal = 'dial-slider ' + mode.class;
 
             // Update center text
-            modeText.className = 'mode-text active ' + mode.class;
-            modeText.textContent = mode.mode;
+            currentMode.className = 'current-mode active ' + mode.class;
+            currentMode.textContent = mode.mode;
 
             // Highlight active label
             const labelKey = mode.class;
@@ -142,8 +142,8 @@ function updateDisplay(mode, status) {
                 labels[labelKey].classList.add('active');
             }
         } else {
-            modeText.className = 'mode-text active';
-            modeText.textContent = '---';
+            currentMode.className = 'current-mode active';
+            currentMode.textContent = '---';
             dialSlider.style.transform = 'rotate(69deg)';
             dialSlider.className.baseVal = 'dial-slider';
         }
