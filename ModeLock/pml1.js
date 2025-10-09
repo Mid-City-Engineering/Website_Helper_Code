@@ -38,7 +38,7 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees, offsetX = 0,
 
 const label_position_config = {
     center: { x: 225, y: 225 },
-    labelRadius: 175,  // Pushed further out
+    labelRadius: 160,  // Pushed further out
     angles: {
         normal: 165,       // Bottom-left
         wet: 225,          // Top-Left

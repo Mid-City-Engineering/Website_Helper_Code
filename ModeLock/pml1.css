@@ -380,7 +380,7 @@ SOLUTION SECTION STYLING
 .mode-label {
     /* position: absolute; */
     fill: #666;
-    font-size: 1.1rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -389,7 +389,7 @@ SOLUTION SECTION STYLING
 
 .mode-label.active {
     fill: #fff;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
 }
 
 /* ***** END OF ANIMATION RELATED STYLING ***** */
