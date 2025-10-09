@@ -26,18 +26,89 @@ document.querySelectorAll('.feature-list li').forEach(item => {
 const carStatus = document.getElementById('carStatus');
 const modeDisplay = document.getElementById('modeDisplay');
 const modeText = document.getElementById('modeText');
+const dialSlider = document.getElementById('dialSlider');
+
+function polarToCartesian(centerX, centerY, radius, angleInDegrees, offsetX = 0, offsetY = 0) {
+    const angleInRadians = angleInDegrees * Math.PI / 180;
+    return {
+        x: centerX + radius * Math.cos(angleInRadians) + offsetX,
+        y: centerY + radius * Math.sin(angleInRadians) + offsetY
+    };
+}
+
+const label_position_config = {
+    center: { x: 225, y: 225 },
+    labelRadius: 175,  // Pushed further out
+    angles: {
+        normal: 165,       // Bottom-left
+        wet: 225,          // Top-Left
+        sport: 315,        // Top-Right
+        sportPlus: 15      // Bottom-right
+    },
+    offsets: {
+        normal: { x: -10, y: 0 },
+        wet: { x: 5, y: 0 },
+        sport: { x: 0, y: 0 },
+        sportPlus: { x: 10, y: 0 }
+    }
+};
+
+// For a circle at (160, 160) with radius 160 (outside the dial)
+// WET at 225°, NORMAL at 135°, SPORT at 45°, SPORT+ at 315°
+const positions = {
+    wet: {
+        angle: label_position_config.angles.wet,
+        ...polarToCartesian(label_position_config.center.x, label_position_config.center.y, label_position_config.labelRadius, label_position_config.angles.wet, label_position_config.offsets.wet.x, label_position_config.offsets.wet.y)
+    },
+    normal: {
+        angle: label_position_config.angles.normal,
+        ...polarToCartesian(label_position_config.center.x, label_position_config.center.y, label_position_config.labelRadius, label_position_config.angles.normal, label_position_config.offsets.normal.x, label_position_config.offsets.normal.y)
+    },
+    sport: {
+        angle: label_position_config.angles.sport,
+        ...polarToCartesian(label_position_config.center.x, label_position_config.center.y, label_position_config.labelRadius, label_position_config.angles.sport, label_position_config.offsets.sport.x, label_position_config.offsets.sport.y)
+    },
+    sportPlus: {
+        angle: label_position_config.angles.sportPlus,
+        ...polarToCartesian(label_position_config.center.x, label_position_config.center.y, label_position_config.labelRadius, label_position_config.angles.sportPlus, label_position_config.offsets.sportPlus.x, label_position_config.offsets.sportPlus.y)
+    }
+};
+
+const svg = document.getElementById('modeSvg');
+const labelData = [
+    { id: 'labelWet', class: 'wet', text: 'WET', pos: positions.wet },
+    { id: 'labelNormal', class: 'normal', text: 'NORMAL', pos: positions.normal },
+    { id: 'labelSport', class: 'sport', text: 'SPORT', pos: positions.sport },
+    { id: 'labelSportPlus', class: 'sport-plus', text: 'SPORT+', pos: positions.sportPlus }
+];
+
+labelData.forEach(data => {
+    const label = document.getElementById(data.id);
+    label.setAttribute('x', data.pos.x);
+    label.setAttribute('y', data.pos.y);
+});
+
+const labels = {
+    wet: document.getElementById('labelWet'),
+    normal: document.getElementById('labelNormal'),
+    sport: document.getElementById('labelSport'),
+    'sport-plus': document.getElementById('labelSportPlus')
+};
 
 const driveModes = [
-    { mode: 'SPORT', class: 'sport', duration: 1750 },
-    { mode: 'SPORT+', class: 'sport-plus', duration: 1750 },
-    { mode: 'TRACK', class: 'track', duration: 1750 },
-    { mode: 'WET', class: 'wet', duration: 1750 }
+    { mode: 'NORMAL', class: 'normal', duration: 1750, rotation: 140 },
+    { mode: 'WET', class: 'wet', duration: 1750, rotation: 210 },
+    { mode: 'SPORT', class: 'sport', duration: 1750, rotation: 290 },
+    { mode: 'SPORT+', class: 'sport-plus', duration: 1750, rotation: 0 }
 ];
 
 let lastMode = null;
 
-function getRandomMode(excludeMode) {
-    const availableModes = driveModes.filter(mode => mode !== excludeMode);
+function getRandomMode(excludeModes) {
+    // Convert single mode to array for backwards compatibility
+    const excludeArray = Array.isArray(excludeModes) ? excludeModes : [excludeModes];
+
+    const availableModes = driveModes.filter(mode => !excludeArray.includes(mode));
     const randomIndex = Math.floor(Math.random() * availableModes.length);
     return availableModes[randomIndex];
 }
@@ -50,18 +121,32 @@ function updateDisplay(mode, status) {
         carStatus.classList.remove('active');
     }
 
-    modeDisplay.classList.add('changing');
     modeText.classList.remove('active');
+
+    // Reset all labels
+    Object.values(labels).forEach(label => label.classList.remove('active'));
 
     setTimeout(() => {
         if (mode) {
+            // Rotate the slider to the mode position
+            dialSlider.style.transform = `rotate(${mode.rotation}deg)`;
+            dialSlider.className.baseVal = 'dial-slider ' + mode.class;
+
+            // Update center text
             modeText.className = 'mode-text active ' + mode.class;
             modeText.textContent = mode.mode;
+
+            // Highlight active label
+            const labelKey = mode.class;
+            if (labels[labelKey]) {
+                labels[labelKey].classList.add('active');
+            }
         } else {
             modeText.className = 'mode-text active';
             modeText.textContent = '---';
+            dialSlider.style.transform = 'rotate(69deg)';
+            dialSlider.className.baseVal = 'dial-slider';
         }
-        modeDisplay.classList.remove('changing');
     }, 300);
 }
 
@@ -82,12 +167,20 @@ function runSequence() {
 
 function cycleRandomModes() {
     let currentIndex = 0;
-    const maxModes = 3;
+    const maxModes = 2;
     let currentMode = lastMode;
 
     function showNextMode() {
         if (currentIndex < maxModes) {
-            const mode = getRandomMode(currentMode);
+            let mode;
+
+            // If this is the last mode, exclude both current mode and NORMAL
+            if (currentIndex === maxModes - 1) {
+                mode = getRandomMode([currentMode, driveModes.find(m => m.mode === 'NORMAL')]);
+            } else {
+                mode = getRandomMode([currentMode]);
+            }
+
             updateDisplay(mode, 'ENGINE ON');
             lastMode = mode;
             currentMode = mode;

@@ -14,7 +14,7 @@
         <div class="hero-content">
             <h1>Mode Lock Module</h1>
             <p class="subtitle">Your Porsche. Your Mode. Every Time.</p>
-            <a href="#solution" class="cta-button">Discover How</a>
+            <a href="#solution" class="cta-button">Learn More</a>
         </div>
         <div class="scroll-indicator"></div>
     </section>
@@ -48,7 +48,28 @@
             <div class="feature-visual">
                 <div class="car-status" id="carStatus">ENGINE OFF</div>
                 <div class="mode-display" id="modeDisplay">
-                    <span class="mode-text" id="modeText">---</span>
+                    <div class="mode-dial">
+                        <svg viewBox="0 0 450 450" id="modeSvg">
+                            <!-- Outer ring with 25% gap at bottom center -->
+                            <circle class="dial-bg" cx="225" cy="225" r="140" stroke-dasharray="659.73 219.91"
+                                transform="rotate(135 225 225)" />
+
+                            <!-- Inner slider ring -->
+                            <circle class="dial-slider" id="dialSlider" cx="225" cy="225" r="120"
+                                stroke-dasharray="80 673" transform="rotate(135 225 225)" />
+
+                            <text class="mode-label normal" id="labelNormal" text-anchor="middle"
+                                dy="0.3em">NORMAL</text>
+                            <text class="mode-label wet" id="labelWet" text-anchor="middle" dy="0.3em">WET</text>
+                            <text class="mode-label sport" id="labelSport" text-anchor="middle" dy="0.3em">SPORT</text>
+                            <text class="mode-label sport-plus" id="labelSportPlus" text-anchor="middle"
+                                dy="0.3em">SPORT+</text>
+                        </svg>
+                    </div>
+
+                    <div class="mode-center">
+                        <div class="mode-text" id="modeText">---</div>
+                    </div>
                 </div>
             </div>
             <div class="feature-content">
