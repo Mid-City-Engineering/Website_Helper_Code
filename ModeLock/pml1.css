@@ -16,19 +16,57 @@ body {
     /* System font stack for native OS appearance */
     background: #0a0a0a;
     /* Dark background visible when scrolling beyond page bounds */
-    color: #931b1b;
+    color: #ff6b6b;
     /* Default white text color for all content */
     overflow-x: hidden;
     /* Prevents horizontal scrollbar from appearing */
 }
 
-.section-title {
+.universal-section-title {
     font-size: clamp(2rem, 6vw, 3rem);
     color: #aaa;
     opacity: 1;
     text-align: center;
     margin-bottom: 3rem;
     font-weight: 700;
+}
+
+.universal-cta-button {
+    display: inline-block;
+    padding: 1.5rem 4rem;
+    background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 800;
+    font-size: 1rem;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 15px 50px rgba(255, 68, 68, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    position: relative;
+    overflow: hidden;
+    margin: 2rem 0;
+}
+
+.universal-cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.universal-cta-button:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 20px 60px rgba(255, 68, 68, 0.6);
+}
+
+.universal-cta-button:hover::before {
+    left: 100%;
 }
 
 /* 
@@ -81,7 +119,8 @@ HERO SECTION STYLING
 
 .hero-section h1 {
     /* All H-1 headings in hero-section */
-    font-size: clamp(2rem, 8vw, 4.5rem);
+    /* font-size: clamp(2rem, 8vw, 4.5rem); */
+    font-size: clamp(3rem, 12vw, 4.5rem);
     font-weight: 800;
     margin-bottom: 1rem;
     background: linear-gradient(135deg, #fff 0%, #888 100%);
@@ -89,6 +128,13 @@ HERO SECTION STYLING
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -0.02em;
+    /* Add these for wrapping: */
+    white-space: normal;
+    /* Allows wrapping (this is default, but good to be explicit) */
+    word-wrap: break-word;
+    /* Breaks long words if needed */
+    max-width: 90vw;
+    /* Prevents overflow */
 }
 
 .hero-section .subtitle {
@@ -97,27 +143,6 @@ HERO SECTION STYLING
     color: #aaa;
     margin-bottom: 2rem;
     font-weight: 300;
-}
-
-.cta-button {
-    /* cta-buttons in general */
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(255, 68, 68, 0.3);
-    animation: fadeInUp 1s ease-out 0.3s backwards;
-    /* Delayed fade-in for the CTA button */
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(255, 68, 68, 0.5);
 }
 
 .scroll-indicator {
@@ -510,7 +535,7 @@ SPECS SECTION STYLING
 }
 
 .specs-grid {
-    max-width: 1000px;
+    max-width: 90vw;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -541,7 +566,7 @@ SPECS SECTION STYLING
     margin-bottom: 0.5rem;
 }
 
-.spec-label {
+.spec-text {
     color: #aaa;
     font-size: 1rem;
 }
@@ -559,6 +584,9 @@ CTA SECTION STYLING
     background: #0f0f0f;
     text-align: center;
     border-top: 2px solid #222;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
 }
 
 .cta-section h2 {
@@ -569,30 +597,33 @@ CTA SECTION STYLING
     letter-spacing: -0.02em;
 }
 
-.price-container {
+.cta-section p {
+    font-size: 1.3rem;
     margin: 2.5rem auto;
+    color: #999;
+    line-height: 1.7;
+    max-width: 700px;
+}
+
+.cta-price-container {
+    margin: 3rem auto;
     padding: 2.5rem;
-    max-width: 500px;
+    min-width: 30vw;
+    min-height: 30vh;
     background: rgba(255, 68, 68, 0.05);
     border: 2px solid rgba(255, 68, 68, 0.3);
     border-radius: 25px;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.price-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #ff4444, transparent);
-}
-
-.price-tag {
-    font-size: clamp(4rem, 12vw, 7rem);
-    font-weight: 900;
+.cta-price-tag {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 700;
     background: linear-gradient(135deg, #ff4444 0%, #ff8844 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -602,23 +633,34 @@ CTA SECTION STYLING
     letter-spacing: -0.03em;
 }
 
-.price-subtext {
-    color: #666;
-    font-size: 1.1rem;
+.cta-price-subtext {
+    color: #aaa;
+    font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
     font-weight: 600;
 }
 
-.guarantees {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+.cta-guarantees-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    /* Makes all items same height */
     gap: 1.5rem;
-    max-width: 900px;
+    max-width: 90vw;
     margin: 3rem auto;
+    flex-wrap: wrap;
+    /* Wraps to multiple rows on smaller screens */
 }
 
-.guarantee-item {
+.cta-guarantee-item {
+    flex: 1 1 30%;
+    /* Grow, shrink, base 30% width */
+    min-width: 280px;
+    /* Prevents items from getting too narrow */
+    max-width: 350px;
+    /* Prevents items from getting too wide */
     background: #1a1a1a;
     padding: 2rem 1.5rem;
     border-radius: 20px;
@@ -626,14 +668,14 @@ CTA SECTION STYLING
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.guarantee-item:hover {
+.cta-guarantee-item:hover {
     transform: translateY(-8px);
     border-color: #00ff88;
     box-shadow: 0 15px 40px rgba(0, 255, 136, 0.2);
     background: #1f1f1f;
 }
 
-.guarantee-icon {
+.cta-guarantee-item-icon {
     width: 60px;
     height: 60px;
     background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
@@ -646,70 +688,20 @@ CTA SECTION STYLING
     box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
 }
 
-.guarantee-content {
-    text-align: center;
-}
-
-.guarantee-title {
+.cta-guarantee-item-title {
     font-weight: 700;
     font-size: 1.2rem;
     color: #fff;
     margin-bottom: 0.5rem;
 }
 
-.guarantee-desc {
+.cta-guarantee-item-text {
     color: #888;
     font-size: 0.95rem;
     line-height: 1.5;
 }
 
-.cta-description {
-    font-size: 1.3rem;
-    margin: 2.5rem auto;
-    color: #999;
-    line-height: 1.7;
-    max-width: 700px;
-}
-
-.cta-button-primary {
-    display: inline-block;
-    padding: 1.5rem 4rem;
-    background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
-    color: #fff;
-    text-decoration: none;
-    border-radius: 60px;
-    font-weight: 800;
-    font-size: 1.3rem;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 15px 50px rgba(255, 68, 68, 0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    position: relative;
-    overflow: hidden;
-    margin: 2rem 0;
-}
-
-.cta-button-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: left 0.6s ease;
-}
-
-.cta-button-primary:hover {
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 20px 60px rgba(255, 68, 68, 0.6);
-}
-
-.cta-button-primary:hover::before {
-    left: 100%;
-}
-
-.trust-badges {
+.cta-trust-badge-row {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -720,7 +712,7 @@ CTA SECTION STYLING
     border-top: 1px solid #222;
 }
 
-.trust-badge {
+.cta-trust-badge {
     color: #666;
     font-size: 1rem;
     display: flex;
@@ -729,6 +721,6 @@ CTA SECTION STYLING
     font-weight: 500;
 }
 
-.trust-badge-icon {
+.cta-trust-badge-icon {
     font-size: 1.4rem;
 }
