@@ -1,0 +1,44 @@
+<!--
+==================================================
+WIDGET: SPECS SECTION
+==================================================
+Parallax background section with product statistics
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- sections/specs.css (includes parallax background)
+- universal/green-card.css (loaded via base-styles)
+- universal/card-layout.css (loaded via base-styles)
+- universal/section-titles.css (loaded via base-styles)
+
+JS Used:
+- None (parallax effect is CSS-only via background-attachment: fixed)
+
+For Odoo Deployment:
+- Replace "../css/" with GitHub URL
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<link rel="stylesheet" href="../css/sections/specs.css">
+
+<!-- Specs Section HTML -->
+<section class="specs-section">
+    <h2 class="universal-section-title">By the Numbers</h2>
+    <div class="universal-cards-row">
+        <div class="universal-green-card">
+            <h3>100%</h3>
+            <p>Mode Retention</p>
+        </div>
+        <div class="universal-green-card">
+            <h3>&lt;15</h3>
+            <p>Minute Install</p>
+        </div>
+        <div class="universal-green-card">
+            <h3>∞</h3>
+            <p>Customization Saves</p>
+        </div>
+    </div>
+</section>

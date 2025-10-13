@@ -1,0 +1,59 @@
+<!--
+==================================================
+WIDGET: PROBLEM SECTION
+==================================================
+Displays customer pain points using red cards with fade-in animations
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- sections/problem.css
+- universal/red-card.css (loaded via base-styles)
+- universal/card-layout.css (loaded via base-styles)
+- universal/section-titles.css (loaded via base-styles)
+
+JS Used:
+- fade-in-on-scroll.js (card fade-in animations)
+
+For Odoo Deployment:
+- Replace "../css/" with GitHub URL
+- Replace "../js/" with GitHub URL
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<link rel="stylesheet" href="../css/sections/problem.css">
+
+<!-- Problem Section HTML -->
+<section class="problem-section">
+    <h2 class="universal-section-title">The Frustration</h2>
+    <div class="universal-cards-row">
+        <div class="universal-red-card">
+            <div class="icon">🔄</div>
+            <h3>Always Resets</h3>
+            <p>Every time you start your Porsche, it defaults back to Normal mode. Your custom drive settings? Gone.</p>
+        </div>
+        <div class="universal-red-card">
+            <div class="icon">🎵</div>
+            <h3>Missing the Roar</h3>
+            <p>You want to hear that exhaust note on startup, but Eco mode keeps it muted. The full symphony of your
+                engine stays hidden.</p>
+        </div>
+        <div class="universal-red-card">
+            <div class="icon">⚙️</div>
+            <h3>Constant Adjustments</h3>
+            <p>Every startup means reconfiguring your suspension, throttle response, and shifting patterns. Your perfect
+                setup shouldn't require a ritual.</p>
+        </div>
+        <div class="universal-red-card">
+            <div class="icon">⚙️</div>
+            <h3>Auto Start/Stop Annoyance</h3>
+            <p>Hate the engine cutting out at every stop? Normal mode forces it on. You're stuck manually switching
+                modes every single drive just to disable it.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Section-specific JavaScript -->
+<script src="../js/fade-in-on-scroll.js"></script>

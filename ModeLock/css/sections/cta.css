@@ -1,0 +1,55 @@
+/*
+==================================================
+CTA SECTION
+==================================================
+Final call-to-action with pricing, product cards, and guarantees
+Dependencies: red-card.css, green-card.css, cta-button.css, 
+              trust-badge.css, card-layout.css, section-titles.css
+==================================================
+*/
+
+.cta-section {
+    padding: var(--spacing-3xl) var(--spacing-md);
+    background: var(--color-bg-secondary);
+    text-align: center;
+    border-top: 2px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==================== PRICE TAG ==================== */
+
+.cta-price-container {
+    margin: var(--spacing-lg) auto;
+    padding: 2.5rem;
+    min-width: 30vw;
+    min-height: 30vh;
+    background: rgba(255, 68, 68, 0.05);
+    border: 2px solid rgba(255, 68, 68, 0.3);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cta-price-tag {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(135deg, var(--color-accent-red) 0%, var(--color-accent-orange-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: var(--line-height-tight);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.03em;
+}
+
+.cta-price-container p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+}

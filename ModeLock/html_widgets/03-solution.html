@@ -1,0 +1,76 @@
+<!--
+==================================================
+WIDGET: SOLUTION SECTION
+==================================================
+Interactive drive mode animation with feature list
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- sections/solution.css (includes animation styles)
+- universal/section-titles.css (loaded via base-styles)
+
+JS Used:
+- mode-animation.js (drive mode dial animation)
+- fade-in-on-scroll.js (feature list fade-in)
+
+For Odoo Deployment:
+- Replace "../css/" with GitHub URL
+- Replace "../js/" with GitHub URL
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<link rel="stylesheet" href="../css/sections/solution.css">
+
+<!-- Solution Section HTML -->
+<section class="solution-section" id="solution">
+    <div class="solution-grid">
+
+        <!-- Animation Container -->
+        <div class="animation-container">
+            <div class="engine-status" id="engineStatus">ENGINE OFF</div>
+            <div class="mode-visualizer" id="modeVisualizer">
+                <div class="current-mode-container">
+                    <div class="current-mode" id="currentMode">---</div>
+                </div>
+                <div class="mode-svg-container">
+                    <svg viewBox="-15 -15 480 480" id="modeSvg">
+                        <circle class="outer-dial" cx="240" cy="240" r="140" stroke-dasharray="659.73 219.91"
+                            transform="rotate(135 240 240)" />
+                        <circle class="dial-slider" id="dialSlider" cx="240" cy="240" r="120" stroke-dasharray="80 673"
+                            transform="rotate(135 240 240)" />
+                        <text class="mode-label normal" id="labelNormal" text-anchor="middle" dy="0.3em">NORMAL</text>
+                        <text class="mode-label wet" id="labelWet" text-anchor="middle" dy="0.3em">WET</text>
+                        <text class="mode-label sport" id="labelSport" text-anchor="middle" dy="0.3em">SPORT</text>
+                        <text class="mode-label sport-plus" id="labelSportPlus" text-anchor="middle"
+                            dy="0.3em">SPORT+</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature List -->
+        <div class="feature-list-section">
+            <h2 class="universal-brighter-section-title">The Solution</h2>
+            <p>
+                Mid City's ModeLock Module remembers your last drive mode and ensures your Porsche starts exactly
+                how you left it.
+            </p>
+            <ul class="feature-list">
+                <li><span class="check-icon">✓</span> <span>Remember your last drive mode</span></li>
+                <li><span class="check-icon">✓</span> <span>Hear your exhaust from ignition</span></li>
+                <li><span class="check-icon">✓</span> <span>Lock in suspension settings</span></li>
+                <li><span class="check-icon">✓</span> <span>Preserve throttle & shift patterns</span></li>
+                <li><span class="check-icon">✓</span> <span>Disable auto start/stop persistently</span></li>
+                <li><span class="check-icon">✓</span> <span>Plug-and-play installation</span></li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- Section-specific JavaScript -->
+<script src="../js/mode-animation.js"></script>
+<script src="../js/fade-in-on-scroll.js"></script>

@@ -1,0 +1,126 @@
+<!--
+==================================================
+WIDGET: CTA SECTION
+==================================================
+Final call-to-action with pricing, product cards, and trust elements
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- sections/cta.css
+- universal/red-card.css (loaded via base-styles)
+- universal/green-card.css (loaded via base-styles)
+- universal/cta-button.css (loaded via base-styles)
+- universal/trust-badge.css (loaded via base-styles)
+- universal/card-layout.css (loaded via base-styles)
+- universal/section-titles.css (loaded via base-styles)
+
+JS Used:
+- fade-in-on-scroll.js (product card animations)
+
+For Odoo Deployment:
+- Replace "../css/" with GitHub URL
+- Replace "../js/" with GitHub URL
+- Update product image URLs if needed
+- Update shop URLs to match your Odoo store
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<link rel="stylesheet" href="../css/sections/cta.css">
+
+<!-- CTA Section HTML -->
+<section class="cta-section">
+    <h2 class="universal-brighter-section-title">Ready to Take Control?</h2>
+
+    <!-- Price Container -->
+    <div class="cta-price-container">
+        <div class="cta-price-tag">$279</div>
+        <p>One-Time Purchase</p>
+    </div>
+
+    <!-- Product Cards -->
+    <div class="universal-cards-row">
+        <!-- 911 -->
+        <div class="universal-red-card">
+            <div class="image-container">
+                <img src="https://mid-city-engineering.odoo.com/web/image/8755-7c7d3aa5/911Online.webp"
+                    alt="2023-2025 Porsche 911"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="image-placeholder" style="display: none;">911<br>2023-2025</div>
+            </div>
+            <h4>2023-2025<br>Porsche 911</h4>
+            <a href="https://mid-city-engineering.odoo.com/shop/plm1-modelock-porsche-last-mode-plm1-10280"
+                class="universal-cta-button" target="_blank" rel="noopener noreferrer">Order for<br>911</a>
+        </div>
+
+        <!-- Cayenne -->
+        <div class="universal-red-card">
+            <div class="image-container">
+                <img src="https://mid-city-engineering.odoo.com/web/image/8758-607a85cb/CayenneGPT.webp"
+                    alt="2022-2025 Porsche Cayenne"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="image-placeholder" style="display: none;">Cayenne<br>2022-2025</div>
+            </div>
+            <h4>2022-2025<br>Porsche Cayenne</h4>
+            <a href="https://mid-city-engineering.odoo.com/shop/plm2-modelock-porsche-last-mode-plm2-10281"
+                class="universal-cta-button" target="_blank" rel="noopener noreferrer">Order for<br>Cayenne</a>
+        </div>
+
+        <!-- Macan -->
+        <div class="universal-red-card">
+            <div class="image-container">
+                <img src="https://mid-city-engineering.odoo.com/web/image/8753-a4a5d24f/MacanSketch.webp"
+                    alt="2025 Porsche Macan"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                <div class="image-placeholder" style="display: none;">Macan<br>2025</div>
+            </div>
+            <h4>2025 Porsche<br>Macan</h4>
+            <a href="https://mid-city-engineering.odoo.com/shop/plm3-modelock-porsche-last-mode-plm3-10261"
+                class="universal-cta-button" target="_blank" rel="noopener noreferrer">Order for<br>Macan</a>
+        </div>
+    </div>
+
+    <!-- Guarantee Cards -->
+    <div class="universal-cards-row">
+        <div class="universal-green-card">
+            <div class="icon">✓</div>
+            <h5>30-Day Money-Back</h5>
+            <p>Risk-free guarantee</p>
+        </div>
+        <div class="universal-green-card">
+            <div class="icon">🚚</div>
+            <h5>Fast Shipping</h5>
+            <p>2-3 business days</p>
+        </div>
+        <div class="universal-green-card">
+            <div class="icon">🔧</div>
+            <h5>Easy Install</h5>
+            <p>Plug-and-play ready</p>
+        </div>
+    </div>
+
+    <!-- Additional Copy -->
+    <p>Stop fighting your Porsche. Lock in your sound, suspension, throttle, and auto start/stop preferences - once and
+        for all.</p>
+
+    <!-- Trust Badges -->
+    <div class="universal-cards-row">
+        <div class="cta-trust-badge">
+            <span class="cta-trust-badge-icon">🔒</span>
+            <span>Secure Checkout</span>
+        </div>
+        <div class="cta-trust-badge">
+            <span class="cta-trust-badge-icon">⭐</span>
+            <span>5-Star Rated</span>
+        </div>
+        <div class="cta-trust-badge">
+            <span class="cta-trust-badge-icon">🇺🇸</span>
+            <span>Made in USA</span>
+        </div>
+    </div>
+</section>
+
+<!-- Section-specific JavaScript -->
+<script src="../js/fade-in-on-scroll.js"></script>

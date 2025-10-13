@@ -1,0 +1,42 @@
+/*
+==================================================
+SPECS SECTION
+==================================================
+Parallax background section with green cards
+Dependencies: green-card.css, card-layout.css, section-titles.css
+==================================================
+*/
+
+.specs-section {
+    background-image: url('https://mid-city-engineering.odoo.com/web/image/product.product/10196/image_1024/%5BPLM1%5D%20ModeLock%20%20PLM1?unique=7667b25');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* Parallax effect */
+    min-height: 90vh;
+    position: relative;
+    padding: var(--spacing-3xl) var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dark overlay for readability */
+.specs-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: var(--z-base);
+}
+
+/* Ensure content appears above overlay */
+.specs-section>* {
+    position: relative;
+    z-index: var(--z-above);
+}

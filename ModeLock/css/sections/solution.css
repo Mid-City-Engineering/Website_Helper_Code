@@ -1,0 +1,218 @@
+/*
+==================================================
+SOLUTION SECTION
+==================================================
+Features drive mode animation + feature list
+Dependencies: cta-button.css, section-titles.css
+==================================================
+*/
+
+.solution-section {
+    padding: var(--spacing-3xl) var(--spacing-md);
+    background: var(--color-bg-primary);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Two-column grid layout */
+.solution-grid {
+    max-width: 90vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+/* ==================== ANIMATION CONTAINER ==================== */
+
+.animation-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* Engine status text */
+.engine-status {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    transition: var(--transition-slow);
+    margin-left: 15px;
+    /* Compensate for -15 viewBox offset */
+}
+
+.engine-status.active {
+    color: var(--color-accent-green);
+    text-shadow: var(--text-shadow-glow-green);
+}
+
+/* Mode visualizer container */
+.mode-visualizer {
+    width: min(450px, 85vw);
+    height: min(450px, 85vw);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ==================== CURRENT MODE (CENTER TEXT) ==================== */
+
+.current-mode-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: var(--z-dropdown);
+    margin-left: 15px;
+    /* Compensate for -15 viewBox offset */
+    margin-top: 15px;
+}
+
+.current-mode {
+    color: var(--color-text-bright);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-extrabold);
+    transition: var(--transition-normal);
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.current-mode.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Mode-specific colors */
+.current-mode.normal {
+    color: var(--color-mode-normal);
+    text-shadow: var(--text-shadow-glow-green);
+}
+
+.current-mode.wet {
+    color: var(--color-mode-wet);
+    text-shadow: var(--text-shadow-glow-blue);
+}
+
+.current-mode.sport {
+    color: var(--color-mode-sport);
+    text-shadow: var(--text-shadow-glow-orange);
+}
+
+.current-mode.sport-plus {
+    color: var(--color-mode-sport-plus);
+    text-shadow: var(--text-shadow-glow-red);
+}
+
+/* ==================== SVG DIAL ELEMENTS ==================== */
+
+.mode-svg-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Outer dial ring */
+.outer-dial {
+    fill: none;
+    stroke: var(--color-border-light);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+/* Inner dial slider */
+.dial-slider {
+    fill: none;
+    stroke: #5c5e5d;
+    stroke-width: 5;
+    stroke-linecap: round;
+    transition: var(--transition-smooth);
+    transform-origin: center;
+}
+
+/* Slider mode states */
+.dial-slider.normal {
+    stroke: var(--color-mode-normal);
+    filter: drop-shadow(var(--shadow-mode-normal));
+}
+
+.dial-slider.wet {
+    stroke: var(--color-mode-wet);
+    filter: drop-shadow(var(--shadow-mode-wet));
+}
+
+.dial-slider.sport {
+    stroke: var(--color-mode-sport);
+    filter: drop-shadow(var(--shadow-mode-sport));
+}
+
+.dial-slider.sport-plus {
+    stroke: var(--color-mode-sport-plus);
+    filter: drop-shadow(var(--shadow-mode-sport-plus));
+}
+
+/* Mode labels (outside dial) */
+.mode-label {
+    fill: var(--color-text-muted);
+    font-size: 20px;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: var(--transition-normal);
+}
+
+.mode-label.active {
+    fill: var(--color-text-primary);
+    font-size: 22px;
+}
+
+/* ==================== FEATURE LIST ==================== */
+
+.feature-list-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.feature-list {
+    list-style: none;
+    margin-top: var(--spacing-md);
+}
+
+.feature-list li {
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: var(--transition-standard);
+    color: var(--color-text-secondary);
+}
+
+/* Scroll animation trigger */
+.feature-list li.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Checkmark icon */
+.check-icon {
+    width: 30px;
+    height: 30px;
+    background: var(--gradient-green);
+    border-radius: var(--radius-full);
+    color: var(--color-text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}

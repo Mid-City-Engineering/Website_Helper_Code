@@ -1,0 +1,40 @@
+<!--
+==================================================
+WIDGET: HERO SECTION
+==================================================
+Full-screen hero section with gradient background and CTA
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- sections/hero.css
+
+JS Used:
+- parallax.js (hero parallax effect)
+- smooth-scroll.js (smooth anchor scrolling)
+
+For Odoo Deployment:
+- Replace "../css/" with GitHub URL
+- Replace "../js/" with GitHub URL
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<link rel="stylesheet" href="../css/sections/hero.css">
+
+<!-- Hero Section HTML -->
+<section class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <p class="subtitle">Mid City Engineering's</p>
+        <h1>ModeLock Module</h1>
+        <p class="subtitle">Your Porsche. Your Preferences. Every Time.</p>
+        <a href="#solution" class="universal-cta-button">Learn More</a>
+    </div>
+    <div class="scroll-indicator" aria-label="Scroll down to continue">↓</div>
+</section>
+
+<!-- Section-specific JavaScript -->
+<script src="../js/parallax.js"></script>
+<script src="../js/smooth-scroll.js"></script>

@@ -1,0 +1,43 @@
+<!--
+==================================================
+WIDGET: BASE STYLES (LOAD FIRST)
+==================================================
+⚠️ CRITICAL: This widget must be loaded ONCE at the TOP of your page
+Provides foundation styles for all ModeLock section widgets
+
+Installation Order:
+1. This widget (00-base-styles) - FIRST
+2. Any section widgets below (01-hero, 02-problem, etc.)
+
+For Odoo Deployment:
+- Replace "../css/" with your GitHub raw URL
+- Example: https://cdn.jsdelivr.net/gh/USERNAME/REPO@main/ModeLock/css/
+
+Dependencies: None (this IS the foundation)
+==================================================
+-->
+
+<!-- ========== FOUNDATION STYLES ========== -->
+<link rel="stylesheet" href="../css/base/reset.css">
+<link rel="stylesheet" href="../css/base/variables.css">
+
+<!-- ========== UNIVERSAL COMPONENTS ========== -->
+<link rel="stylesheet" href="../css/universal/section-titles.css">
+<link rel="stylesheet" href="../css/universal/card-layout.css">
+<link rel="stylesheet" href="../css/universal/red-card.css">
+<link rel="stylesheet" href="../css/universal/green-card.css">
+<link rel="stylesheet" href="../css/universal/cta-button.css">
+<link rel="stylesheet" href="../css/universal/trust-badge.css">
+
+<!--
+==================================================
+✅ BASE STYLES LOADED
+==================================================
+All widgets below this point will inherit:
+- CSS variables (colors, spacing, transitions)
+- Universal components (cards, buttons, badges)
+- Consistent typography and resets
+
+Do NOT load this widget multiple times on the same page.
+==================================================
+-->

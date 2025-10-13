@@ -1,0 +1,17 @@
+/*
+==================================================
+UNIVERSAL CARDS ROW COMPONENT
+==================================================
+Used in: Problem, Specs, & CTA sections
+Features: How Green/Red Cards are displayed in a row
+==================================================
+*/
+
+.universal-cards-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    max-width: 90vw;
+    margin: var(--spacing-xl) auto;
+    flex-wrap: wrap;
+}
