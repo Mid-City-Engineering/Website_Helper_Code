@@ -16,11 +16,14 @@ body {
     /* System font stack for native OS appearance */
     background: #0a0a0a;
     /* Dark background visible when scrolling beyond page bounds */
-    color: #ff6b6b;
+    color: #aaa;
     /* Default white text color for all content */
+    font-size: 1.1rem;
+    line-height: 1.6;
     overflow-x: hidden;
     /* Prevents horizontal scrollbar from appearing */
 }
+
 
 .universal-section-title {
     font-size: clamp(2rem, 6vw, 3rem);
@@ -31,6 +34,163 @@ body {
     font-weight: 700;
 }
 
+.universal-brighter-section-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.universal-cards-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 90vw;
+    margin: 4rem auto;
+    flex-wrap: wrap;
+}
+
+/* Start - Universal red card related styling */
+.universal-red-card {
+    flex: 1 1 30%;
+    min-width: 280px;
+    max-width: 350px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+    padding: 2rem;
+    border-radius: 2px;
+    border: 1px solid #222;
+    /* Start hidden for animation added by .unieversal-red-card.visible */
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+/* Entry animation for the red cards */
+.universal-red-card.visible {
+    opacity: 1;
+}
+
+.universal-red-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: #ff4444;
+    box-shadow: 0 20px 40px rgba(255, 68, 68, 0.2);
+}
+
+.universal-red-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-wrap: wrap;
+    text-align: center;
+}
+
+.universal-red-card h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-wrap: wrap;
+    text-align: center;
+}
+
+.universal-red-card .image-container {
+    width: 100%;
+    aspect-ratio: 4/3;
+    /* background: #0a0a0a; */
+    border-radius: 15px;
+    overflow: hidden;
+    /* border: 1px solid #222; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.universal-red-card .image-placeholder {
+    color: #666;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.universal-red-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.universal-red-card .icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+/* End - Universal red card related styling */
+
+/* Start - Universal green card related styling */
+.universal-green-card {
+    flex: 1 1 30%;
+    min-width: 280px;
+    max-width: 350px;
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid #222;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.universal-green-card:hover {
+    border-color: #00ff88;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 255, 136, 0.2);
+    background: #1f1f1f;
+}
+
+.universal-green-card .icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 1.25rem;
+    box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
+}
+
+.universal-green-card h3 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.universal-green-card h5 {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+/* End - Universal green card related styling */
+
+/* Start - Universal CTA button related styling */
 .universal-cta-button {
     display: inline-block;
     padding: 1.5rem 4rem;
@@ -68,6 +228,8 @@ body {
 .universal-cta-button:hover::before {
     left: 100%;
 }
+
+/* End - Universal CTA button related styling */
 
 /* 
 --------------------------
@@ -182,65 +344,6 @@ PROBLEM SECTION STYLING
     padding: 6rem 2rem;
     background: #0f0f0f;
     position: relative;
-}
-
-.problem-cards-row {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    max-width: 90vw;
-    margin: 4rem auto;
-    flex-wrap: wrap;
-}
-
-.problem-card {
-    flex: 1 1 30%;
-    min-width: 280px;
-    max-width: 350px;
-    background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-    padding: 2rem;
-    border-radius: 2px;
-    border: 1px solid #222;
-    /* Start hidden for animation added by .problem-card.visible */
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-/* Entry animation for the problem cards */
-.problem-card.visible {
-    opacity: 1;
-}
-
-.problem-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: #ff4444;
-    box-shadow: 0 20px 40px rgba(255, 68, 68, 0.2);
-}
-
-.problem-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-.problem-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.problem-card p {
-    color: #aaa;
-    line-height: 1.6;
 }
 
 /* 
@@ -429,21 +532,6 @@ SOLUTION SECTION STYLING
 /* ***** END OF ANIMATION RELATED STYLING ***** */
 
 /* ***** SOLUTION FEATURE LIST RELATED STYLING ***** */
-.feature-list-section h2 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: 1.5rem;
-    background: linear-gradient(135deg, #fff 0%, #888 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.feature-list-section p {
-    color: #aaa;
-    font-size: 1.2rem;
-    line-height: 1.6;
-}
-
 .feature-list {
     list-style: none;
     margin-top: 2rem;
@@ -483,74 +571,10 @@ SOLUTION SECTION STYLING
 
 /* 
 --------------------------
-PRODUCT IMAGES SECTION 
-STYLING 
---------------------------
-*/
-
-.product-images-section {
-    padding: 4rem 2rem;
-    background: #0a0a0a;
-}
-
-.image-gallery {
-    max-width: 90vw;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
-    gap: 2rem;
-}
-
-.product-image-card {
-    height: 40vh;
-    border-radius: 20px;
-    overflow: hidden;
-    /* background: #1a1a1a; */
-    /* border: 1px solid #222; */
-    /* background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); */
-    padding: 5%;
-    /* display: inline-block; */
-    transition: all 0.4s ease;
-    aspect-ratio: 4/3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.product-image-card:hover {
-    transform: translateY(-10px);
-    border-color: #ff4444;
-    box-shadow: 0 20px 50px rgba(255, 68, 68, 0.3);
-}
-
-.product-image-card img {
-    width: auto;
-    height: 30vh;
-    object-fit: cover;
-    aspect-ratio: inherit;
-}
-
-.placeholder-text {
-    color: #666;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-/* 
---------------------------
 SPECS SECTION STYLING 
 --------------------------
 */
 
-/* .specs-section {
-    padding: 6rem 2rem;
-    background: #0f0f0f;
-} */
 .specs-section {
     background-image: url('https://mid-city-engineering.odoo.com/web/image/product.product/10196/image_1024/%5BPLM1%5D%20ModeLock%20%20PLM1?unique=7667b25');
     background-size: cover;
@@ -584,44 +608,6 @@ SPECS SECTION STYLING
     z-index: 1;
 }
 
-.specs-grid {
-    max-width: 90vw;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.spec-card {
-    background: #1a1a1a;
-    padding: 2rem;
-    border-radius: 15px;
-    border: 1px solid #222;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.spec-card:hover {
-    border-color: #00ff88;
-    transform: translateY(-5px);
-}
-
-.spec-value {
-    font-size: 2.5rem;
-    font-weight: 800;
-    background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 0.5rem;
-}
-
-.spec-text {
-    color: #aaa;
-    font-size: 1rem;
-}
-
-
 /* 
 --------------------------
 CTA SECTION STYLING 
@@ -637,22 +623,6 @@ CTA SECTION STYLING
     align-items: center;
     justify-content: center;
     justify-items: center;
-}
-
-.cta-section h2 {
-    font-size: clamp(2.5rem, 7vw, 4rem);
-    margin-bottom: 2rem;
-    color: #fff;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-}
-
-.cta-section p {
-    font-size: 1.3rem;
-    margin: 2.5rem auto;
-    color: #999;
-    line-height: 1.7;
-    max-width: 700px;
 }
 
 /* Price Tag Related Styling */
@@ -685,164 +655,7 @@ CTA SECTION STYLING
     letter-spacing: -0.03em;
 }
 
-.cta-price-subtext {
-    color: #aaa;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 600;
-}
-
-/* CTA Buy Now Related Styling */
-
-.cta-products-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: stretch;
-    gap: 2rem;
-    max-width: 90vw;
-    margin: 4rem auto;
-    flex-wrap: wrap;
-}
-
-.cta-product-card {
-    flex: 1 1 30%;
-    min-width: 280px;
-    max-width: 350px;
-    background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-    padding: 2rem;
-    border-radius: 2px;
-    border: 1px solid #222;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-}
-
-.cta-product-card:hover {
-    transform: translateY(-10px);
-    border-color: #ff4444;
-    box-shadow: 0 20px 50px rgba(255, 68, 68, 0.3);
-    background: linear-gradient(135deg, #1f1f1f 0%, #151515 100%);
-}
-
-.cta-product-image {
-    width: 100%;
-    aspect-ratio: 4/3;
-    /* background: #0a0a0a; */
-    border-radius: 15px;
-    overflow: hidden;
-    /* border: 1px solid #222; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.cta-product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.cta-product-placeholder {
-    color: #666;
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.4;
-}
-
-.cta-product-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #fff;
-    text-align: center;
-    margin: 0;
-}
-
-.cta-product-item .universal-cta-button {
-    margin: 0;
-    padding: 1.2rem 2.5rem;
-    font-size: 0.9rem;
-    width: 100%;
-    text-align: center;
-}
-
 /* CTA Guarantees Related Styling */
-
-.cta-guarantees-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: stretch;
-    /* Makes all items same height */
-    gap: 1.5rem;
-    max-width: 90vw;
-    margin: 3rem auto;
-    flex-wrap: wrap;
-    /* Wraps to multiple rows on smaller screens */
-}
-
-.cta-guarantee-item {
-    flex: 1 1 30%;
-    /* Grow, shrink, base 30% width */
-    min-width: 280px;
-    /* Prevents items from getting too narrow */
-    max-width: 350px;
-    /* Prevents items from getting too wide */
-    background: #1a1a1a;
-    padding: 2rem 1.5rem;
-    border-radius: 20px;
-    border: 2px solid #222;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.cta-guarantee-item:hover {
-    transform: translateY(-8px);
-    border-color: #00ff88;
-    box-shadow: 0 15px 40px rgba(0, 255, 136, 0.2);
-    background: #1f1f1f;
-}
-
-.cta-guarantee-item-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.8rem;
-    margin: 0 auto 1.25rem;
-    box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
-}
-
-.cta-guarantee-item-title {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: #fff;
-    margin-bottom: 0.5rem;
-}
-
-.cta-guarantee-item-text {
-    color: #888;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-.cta-trust-badge-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
-    margin-top: 3rem;
-    flex-wrap: wrap;
-    padding-top: 2rem;
-    border-top: 1px solid #222;
-}
 
 .cta-trust-badge {
     color: #666;

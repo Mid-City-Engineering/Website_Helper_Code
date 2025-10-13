@@ -14,7 +14,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-document.querySelectorAll('.problem-card').forEach(card => {
+document.querySelectorAll('.universal-red-card').forEach(card => {
     observer.observe(card);
 });
 
