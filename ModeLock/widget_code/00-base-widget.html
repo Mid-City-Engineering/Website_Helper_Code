@@ -1,8 +1,23 @@
 <script>
     (async () => {
+        // Load the base & universal styles first
         const response = await fetch('https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/html/00-base-styles.html');
-        // make sure the base styles are loaded first
+        // make sure the styles finish loading before proceeding
         const html = await response.text();
         document.head.insertAdjacentHTML('beforeend', html);
+
+        // Now load all JS files
+        const scripts = [
+            'https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/js/fade-in-on-scroll.js',
+            'https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/js/mode-animation.js',
+            'https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/js/parallax.js',
+            'https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/js/smooth-scroll.js'
+        ];
+
+        scripts.forEach(src => {
+            const script = document.createElement('script');
+            script.src = src;
+            document.body.appendChild(script);
+        });
     })();
 </script>
