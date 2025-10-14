@@ -14,10 +14,14 @@
             'https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/js/smooth-scroll.js'
         ];
 
-        scripts.forEach(src => {
-            const script = document.createElement('script');
-            script.src = src;
-            document.body.appendChild(script);
-        });
+        for (const src of scripts) {
+            await new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+        }
     })();
 </script>
