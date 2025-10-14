@@ -76,10 +76,21 @@ Remove Odoo's default container constraints
 section {
     width: 100%;
     max-width: 100%;
+    margin: 0 !important;
 }
 
 /* Remove any row constraints */
 .row {
     margin-left: 0 !important;
     margin-right: 0 !important;
+}
+
+/* Remove gaps between Odoo blocks/widgets */
+.o_colored_level,
+.s_allow_columns,
+[data-snippet] {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
