@@ -28,20 +28,22 @@ For Odoo Deployment:
 -->
 
 <!-- Section-specific CSS -->
-<link rel="stylesheet" href="https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/css/sections/cta.css">
+<link rel="stylesheet"
+    href="https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/css/sections/cta.css">
 
 <!-- CTA Section HTML -->
 <section class="cta-section">
     <h2 class="universal-brighter-section-title">Ready to Take Control?</h2>
 
     <!-- Price Container -->
-    <div class="cta-price-container">
+    <a class="cta-price-container" href="#buyNowCards">
         <div class="cta-price-tag">$279</div>
         <p>One-Time Purchase</p>
-    </div>
+        <p style="color: #FFF;">Choose From The 3 Models Below</p>
+    </a>
 
     <!-- Product Cards -->
-    <div class="universal-cards-row">
+    <div class="universal-cards-row" id="buyNowCards">
         <!-- 911 -->
         <div class="universal-red-card">
             <div class="image-container">
@@ -84,7 +86,7 @@ For Odoo Deployment:
 
     <!-- Guarantee Cards -->
     <div class="universal-cards-row">
-        <div class="universal-green-card">
+        <div class="universal-green-card" style="color: var(--color-text-primary);">
             <div class="icon">✓</div>
             <h5>30-Day Money-Back</h5>
             <p>Risk-free guarantee</p>
@@ -123,4 +125,5 @@ For Odoo Deployment:
 </section>
 
 <!-- Section-specific JavaScript -->
-<script src="https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/js/fade-in-on-scroll.js"></script>
+<script
+    src="https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/js/fade-in-on-scroll.js"></script>
