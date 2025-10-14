@@ -1,0 +1,6 @@
+<div id="modelock-specs-widget"></div>
+<script>
+    fetch('https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/html/04-specs.html')
+        .then(r => r.text())
+        .then(html => document.getElementById('modelock-specs-widget').innerHTML = html);
+</script>
