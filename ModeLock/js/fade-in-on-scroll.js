@@ -7,8 +7,7 @@ Used by: Problem section, Solution section
 ==================================================
 */
 
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
 
     // Intersection Observer configuration
     const observerOptions = {
@@ -38,4 +37,4 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.observe(item);
     });
 
-});
+})();

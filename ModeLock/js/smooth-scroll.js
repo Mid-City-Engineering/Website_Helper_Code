@@ -7,7 +7,7 @@ Used by: All sections with anchor links
 ==================================================
 */
 
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
 
     // Add smooth scrolling to all anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -23,4 +23,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-});
+})();

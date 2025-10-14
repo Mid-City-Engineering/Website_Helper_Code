@@ -8,7 +8,7 @@ Used by: Solution section only
 */
 
 // Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
 
     // Get DOM elements
     const engineStatus = document.getElementById('engineStatus');
@@ -294,4 +294,4 @@ document.addEventListener('DOMContentLoaded', function () {
     if (modeVisualizer) {
         animationObserver.observe(modeVisualizer);
     }
-});
+})();

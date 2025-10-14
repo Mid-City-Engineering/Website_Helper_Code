@@ -7,7 +7,7 @@ Used by: Hero section
 ==================================================
 */
 
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
 
     const heroContent = document.querySelector('.hero-content');
 
@@ -19,4 +19,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-});
+})();
