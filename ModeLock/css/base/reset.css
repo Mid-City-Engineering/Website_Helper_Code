@@ -94,3 +94,8 @@ section {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
 }
+
+a:hover {
+    /* remove auto highlighting links */
+    text-decoration: none !important;
+}
