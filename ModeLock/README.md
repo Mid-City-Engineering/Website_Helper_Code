@@ -20,13 +20,7 @@ ModeLock/
     ├── 03-solution.html
     ├── 04-specs.html
     └── 05-cta.html
-└── widget_code/       # Code snippets placed in Odoo widgets that are never fetched from GitHub, just here for reference
-    ├── 00-base-widget.html
-    ├── 01-hero-widget.html
-    ├── 02-problem-widget.html
-    ├── 03-solution-widget.html
-    ├── 04-specs-widget.html
-    └── 05-cta-widget.html
+└── widget_code.html   # Code placed in Odoo widget that's never fetched from GitHub, just here for reference
 ```
 
 ### How It Works
