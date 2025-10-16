@@ -2,86 +2,179 @@
 ==================================================
 HERO SECTION
 ==================================================
-Full viewport height landing section with gradient background
-Features: Animated fade-in, scroll indicator, parallax effect
+Full viewport height landing section with layered parallax images
+Features: Multi-layer parallax, animated fade-in, scroll indicator
 Dependencies: cta-button.css
 ==================================================
 */
 
 .hero-section {
     height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    width: 100vw;
+    background: url('https://mid-city-engineering.odoo.com/web/image/9107-a094017f/modelock-hero-background.webp') center/cover no-repeat;
     overflow: hidden;
-    background: var(--gradient-dark);
+    gap: 0;
 }
 
-/* Gradient background layer */
-.hero-bg {
+/* Overlay for the background image */
+.hero-section::before {
+    content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0.1;
-    background: var(--gradient-hero-bg);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    /* Black overlay at 50% opacity */
+    z-index: 1;
+    /* Above the background image */
 }
 
-/* Content container */
-.hero-content {
-    text-align: center;
-    z-index: var(--z-above);
-    padding: var(--spacing-md);
-    animation: fadeInUp 1s ease-out;
+/* Make sure your content appears above the overlay */
+.hero-section>* {
+    position: relative;
+    z-index: 2;
+    /* Above the overlay */
 }
 
-/* Fade-in animation */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.hero-section .upper-half {
+    height: 40%;
+    /* border: red 2px solid; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5%;
+    row-gap: 5%;
 }
 
-/* Main heading */
-.hero-section h1 {
-    font-size: clamp(3rem, 12vw, 4.5rem);
-    font-weight: var(--font-weight-extrabold);
-    margin-bottom: var(--spacing-sm);
+.mid-city-heading {
+    /* Default for mobile */
+    font-family: 'Michroma', sans-serif;
+    font-size: 0.6em;
+    text-transform: uppercase;
+    padding-top: 5%;
+
+    /* Gradient text */
     background: var(--gradient-text);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: -0.02em;
-    white-space: normal;
-    word-wrap: break-word;
-    max-width: 90vw;
+
+    text-wrap: wrap;
+    text-align: center;
 }
 
-/* Subtitle text */
-.hero-section .subtitle {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-md);
-    font-weight: var(--font-weight-light);
+/* For Tablets & Desktops*/
+@media (min-width: 768px) {
+    .mid-city-heading {
+        padding-top: 0%;
+        font-size: 1em;
+    }
+}
+
+.hero-section .middle-half {
+    height: 50%;
+    /* border: red 2px solid; */
+    position: relative;
+    padding-bottom: 3%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    row-gap: 5%;
+}
+
+.hero-section .middle-half::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://mid-city-engineering.odoo.com/web/image/9100-b6837261/modelock-hero-background.webp');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    filter: grayscale(100%);
+    opacity: 0.03;
+    z-index: 0;
+    /* Behind the content */
+}
+
+/* Responsive Height for mode-lock title image */
+
+.modelock-title {
+    /* Default for mobile */
+    max-width: 80%;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.25)) brightness(1.4);
+}
+
+/* Response ModeLock Title styling */
+
+/* For Tablets */
+@media (min-width: 768px) {
+    .modelock-title {
+        max-width: 60%;
+    }
+}
+
+/* For iPad Pro and similar devices */
+@media (min-width: 1024px) {
+    .modelock-title {
+        max-width: 50%;
+    }
+}
+
+/* For Desktops */
+@media (min-width: 1200px) {
+    .modelock-title {
+        max-width: 40%;
+    }
+}
+
+.tagline {
+    font-family: 'Jura', sans-serif-rounded;
+    color: var(--color-text-tertiary);
+    font-size: 0.9em;
+    max-width: 70vw;
+
+    text-wrap: wrap;
+    text-align: center;
+}
+
+.hero-section .hero-footer {
+    height: 10%;
+    /* border: red 2px solid; */
+    padding: 1%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* Scroll indicator arrow */
 .scroll-indicator {
-    color: var(--color-accent-red-light);
-    position: absolute;
+    color: white;
+    /* var(--color-bg-secondary); */
     bottom: var(--spacing-md);
-    left: 50%;
-    transform: translateX(-50%);
     animation: scrollBounce 2s ease-in-out infinite;
     font-size: var(--font-size-xl);
     opacity: 0.75;
-    z-index: var(--z-above);
+    z-index: 100;
+    /* text-shadow: var(--text-shadow-glow-dark-red);*/
+    filter: drop-shadow(0 0 5px rgba(246, 218, 42, 0.75));
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.scroll-indicator:hover {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.6);
+    animation-play-state: paused;
 }
 
 @keyframes scrollBounce {

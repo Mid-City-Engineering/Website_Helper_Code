@@ -27,7 +27,7 @@ Update here to change across all components.
     --color-border-light: #333;
 
     /* Accent Colors - Red */
-    --color-accent-red: #ff4444;
+    --color-accent-red: #ED1C24;
     --color-accent-red-light: #ff6b6b;
     --color-accent-red-dark: #cc3636;
 
@@ -50,7 +50,7 @@ Update here to change across all components.
 
     /* ==================== GRADIENTS ==================== */
 
-    --gradient-red: linear-gradient(135deg, #ff4444 0%, #ff6b6b 100%);
+    --gradient-red: linear-gradient(135deg, #ED1C24 0%, #ff6b6b 100%);
     --gradient-green: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
     --gradient-text: linear-gradient(135deg, #fff 0%, #888 100%);
     --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
@@ -150,7 +150,8 @@ Update here to change across all components.
     --text-shadow-glow-blue: 0 0 20px rgba(0, 170, 255, 0.6);
     --text-shadow-glow-orange: 0 0 20px rgba(255, 102, 0, 0.6);
     --text-shadow-glow-red: 0 0 20px rgba(255, 68, 68, 0.6);
-
+    --text-shadow-glow-dark-red: 0 0 8px rgba(204, 54, 54, 1),
+        0 0 24px rgba(204, 54, 54, 0.5);
 
     /* ==================== Z-INDEX ==================== */
 

@@ -13,6 +13,7 @@ CSS Used:
 JS Used:
 - parallax.js (hero parallax effect)
 - smooth-scroll.js (smooth anchor scrolling)
+- fade-out-on-scroll.js (fade out taglinh on scroll down)
 
 For Odoo Deployment:
 - Replace "https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/css/" with GitHub URL
@@ -26,12 +27,19 @@ For Odoo Deployment:
 
 <!-- Hero Section HTML -->
 <section class="hero-section">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-        <p class="subtitle">Mid City Engineering's</p>
-        <h1>ModeLock Module</h1>
-        <p class="subtitle">Your Porsche. Your Preferences. Every Time.</p>
-        <a href="#solution" class="universal-cta-button">Learn More</a>
+
+    <div class="upper-half">
+        <h3 class="mid-city-heading">MID CITY ENGINEERING PRESENTS</h3>
     </div>
-    <div class="scroll-indicator" aria-label="Scroll down to continue">↓</div>
+
+    <div class="middle-half">
+        <img class="modelock-title" src="https://mid-city-engineering.odoo.com/web/image/9099-0b3e86e4/Modelock.png"
+            alt="ModeLock">
+        <h3 class="tagline">Your Porsche. Your Preferences. Every Time</h3>
+    </div>
+
+    <div class="hero-footer">
+        <a href="#solution" class="scroll-indicator" aria-label="Scroll down to continue">↓</a>
+    </div>
+
 </section>

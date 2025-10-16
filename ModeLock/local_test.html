@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ModeLock Module - Mid City Engineering</title>
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap">
+
     <!-- Base Styles -->
     <link rel="stylesheet" href="./css/base/reset.css">
     <link rel="stylesheet" href="./css/base/variables.css">
@@ -29,14 +35,21 @@
 <body>
     <!-- Hero Section -->
     <section class="hero-section">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <p class="subtitle">Mid City Engineering's</p>
-            <h1>ModeLock Module</h1>
-            <p class="subtitle">Your Porsche. Your Preferences. Every Time.</p>
-            <a href="#solution" class="universal-cta-button">Learn More</a>
+
+        <div class="upper-half">
+            <h3 class="mid-city-heading">MID CITY ENGINEERING PRESENTS</h3>
         </div>
-        <div class="scroll-indicator" aria-label="Scroll down to continue">↓</div>
+
+        <div class="middle-half">
+            <img class="modelock-title" src="https://mid-city-engineering.odoo.com/web/image/9099-0b3e86e4/Modelock.png"
+                alt="ModeLock">
+            <h3 class="tagline">Your Porsche. Your Preferences. Every Time</h3>
+        </div>
+
+        <div class="hero-footer">
+            <a href="#solution" class="scroll-indicator" aria-label="Scroll down to continue">↓</a>
+        </div>
+
     </section>
 
     <!-- Problem Section -->
@@ -223,6 +236,7 @@
     <script src="./js/mode-animation.js"></script>
     <script src="./js/parallax.js"></script>
     <script src="./js/smooth-scroll.js"></script>
+    <script src="./js/fade-out-on-scroll.js"></script>
 </body>
 
 </html>

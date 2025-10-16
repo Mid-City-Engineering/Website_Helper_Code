@@ -2,21 +2,32 @@
 ==================================================
 PARALLAX EFFECT
 ==================================================
-Hero section parallax scrolling effect
-Used by: Hero section
+Multi-layer hero section parallax scrolling effect
+Used by: Hero section image layers
 ==================================================
 */
 
 (function () {
+    const layers = {
+        midCity: { element: document.querySelector('.mid-city-heading'), speed: 0.3 },
+        modelock: { element: document.querySelector('.modelock-title'), speed: 0.4 },
+        subtitle: { element: document.querySelector('.tagline'), speed: 0.5 },
+        // car: { element: document.querySelector('."middle-half'), speed: 0.5 }
+    };
 
-    const heroContent = document.querySelector('.hero-content');
+    const hasElements = Object.values(layers).some(layer => layer.element !== null);
 
-    if (heroContent) {
+    if (hasElements) {
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-            heroContent.style.opacity = 1 - (scrolled / 600);
+
+            // Apply parallax to each layer
+            Object.values(layers).forEach(layer => {
+                if (layer.element) {
+                    // Add parallax translateY
+                    layer.element.style.transform = `translateY(${scrolled * layer.speed}px)`;
+                }
+            });
         });
     }
-
 })();
