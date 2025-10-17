@@ -9,7 +9,8 @@ Dependencies: cta-button.css
 */
 
 .hero-section {
-    height: 100vh;
+    height: 100vh !important;
+    min-height: 100vh !important;
     width: 100vw;
     background: url('https://mid-city-engineering.odoo.com/web/image/9107-a094017f/modelock-hero-background.webp') center/cover no-repeat;
     overflow: hidden;
