@@ -632,15 +632,11 @@ async function loadDealersAndInitializeMap() {
         console.log(`<-*-*- Returning from getDealerContacts`);
         console.log(`Fetched ${allDealersCache.length} dealers from Odoo`);
 
-        // Get all dealers initially (no filtering)
-        const targetDealers = getTargetDealers(allDealersCache);
-        console.log(`Processed ${targetDealers.length} target dealers`);
-
-        // Update map with initial dealer locations
-        await updateMapMarkers(targetDealers);
-
-        // Setup event listeners after map is loaded
+        // Setup event listeners before triggering search
         setupEventListeners();
+
+        // Trigger initial search with default values (Chicago, 25 miles)
+        await filterAndShowDealers();
 
     } catch (error) {
         console.error('Error loading dealers:', error);
