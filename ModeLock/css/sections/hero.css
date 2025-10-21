@@ -25,7 +25,8 @@ Dependencies: cta-button.css
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.2);
+    /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.2) 70%, rgba(0, 0, 0, 0.6) 100%); */
     /* Black overlay at 50% opacity */
     z-index: 1;
     /* Above the background image */
@@ -52,15 +53,17 @@ Dependencies: cta-button.css
 .mid-city-heading {
     /* Default for mobile */
     font-family: 'Michroma', sans-serif;
-    font-size: 0.6em;
+    font-size: 0.8em;
     text-transform: uppercase;
-    padding-top: 5%;
+    padding-top: 10%;
 
     /* Gradient text */
-    background: var(--gradient-text);
+    /* color: var(--color-text-tertiary); */
+    color: white;
+    /* background: var(--gradient-text);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background-clip: text; */
 
     text-wrap: wrap;
     text-align: center;
@@ -69,8 +72,8 @@ Dependencies: cta-button.css
 /* For Tablets & Desktops*/
 @media (min-width: 768px) {
     .mid-city-heading {
-        padding-top: 0%;
-        font-size: 1em;
+        padding-top: 5%;
+        font-size: 1.1em;
     }
 }
 
@@ -79,7 +82,6 @@ Dependencies: cta-button.css
     /* border: red 2px solid; */
     position: relative;
     padding-bottom: 3%;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -99,7 +101,7 @@ Dependencies: cta-button.css
     background-repeat: no-repeat;
     background-position: center bottom;
     filter: grayscale(100%);
-    opacity: 0.03;
+    opacity: 0.1;
     z-index: 0;
     /* Behind the content */
 }
@@ -109,7 +111,8 @@ Dependencies: cta-button.css
 .modelock-title {
     /* Default for mobile */
     max-width: 80%;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.25)) brightness(1.4);
+    margin-top: -6.25%;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.25)) brightness(1.7) saturate(1.5);
 }
 
 /* Response ModeLock Title styling */
@@ -137,8 +140,9 @@ Dependencies: cta-button.css
 
 .tagline {
     font-family: 'Jura', sans-serif-rounded;
-    color: var(--color-text-tertiary);
-    font-size: 0.9em;
+    /* color: var(--color-text-tertiary); */
+    color: white;
+    font-size: 1em;
     max-width: 70vw;
 
     text-wrap: wrap;
