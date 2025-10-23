@@ -14,7 +14,7 @@ Features: Icon + text combination
     align-items: center;
     gap: 0.6rem;
     font-weight: var(--font-weight-medium);
-    padding: var(--spacing-sm);
+    /* padding: var(--spacing-sm); */
     transition: var(--transition-normal);
 }
 
