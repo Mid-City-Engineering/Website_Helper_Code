@@ -68,18 +68,40 @@ The manufacturing order form includes two action buttons:
 
 When a user clicks the "Print Product Label" button, the system executes the following steps:
 
-1. **Product Validation** - Verifies that the manufacturing order has a linked product
-2. **Label Type Detection** - Determines the appropriate label type (Harness, Small Module, or Big Module) based on product information
-3. **Data Validation** - Checks that all required fields for the label template are populated; raises a UserError if any field is missing
+1. **Product Validation** - Verifies that the manufacturing order has a linked product. If no product is found, raises: `"No product found in this manufacturing order!"`
+
+2. **Label Type Detection** - Determines the appropriate label type based on the product's internal reference:
+   - Products ending in `-HRNS` → Harness Label
+   - Products ending in `-MOD` → Small Module Label (default) or Big Module Label (if `x_needs_big_label` is set)
+   - If the product has no internal reference, raises: `"The product has no internal reference name - this field is needed to determine lable size/design"`
+   - If the product doesn't match either pattern, raises: `"No label type is specified for this product. We can only print labels for modules (small/big) and harnesses"`
+
+3. **Data Validation** - Checks that all required fields for the label template are populated:
+   - **For all label types:**
+     - Product quantity > 0, or raises: `"Manufacturing order quantity must be greater than 0!"`
+     - Lot/Serial Number exists, or raises: `"Generate a 'Lot/Serial Number' before trying to print the label"`
+     - Product Internal Reference exists, or raises: `"This product does not have seem to have any Internal Reference Number"`
+   - **For module labels only (in addition to above):**
+     - Firmware version exists, or raises: `"This manufacturing order doesn't have a product firmware version"`
+
 4. **Print Job Creation** - Determines the correct report based on label type and uses `report_action()` to create a new report record, which sends the print job to the printer
 
 ### Print Box Label Workflow
 
 When a user clicks the "Print Box Label" button, the system executes the following steps:
 
-1. **Product Validation** - Verifies that the manufacturing order has a linked product
-2. **Data Validation** - Checks that all required fields for the box label template are populated; raises a UserError if any field is missing
-3. **Print Job Creation** - Uses `report_action()` to create a new record of the "Print 4"×2" Box Label" report, sending the print job to the printer
+1. **Product Validation** - Verifies that the manufacturing order has a linked product. If no product is found, raises: `"No product found in this manufacturing order!"`
+
+2. **Box Requirement Check** - Confirms the product requires a box. If `x_needs_box` is not set, raises: `"This product doesn't need a box."`
+
+3. **Data Validation** - Checks that all required fields for the box label template are populated:
+   - Product name exists, or raises: `"The product must have a name!"`
+   - Product quantity > 0, or raises: `"Manufacturing order quantity must be greater than 0!"`
+   - Lot/Serial Number exists, or raises: `"Generate a 'Lot/Serial Number' before trying to print the label"`
+   - Product Internal Reference exists, or raises: `"This product does not have seem to have any Internal Reference Number"`
+   - Product Firmware version exists, or raises: `"This module doesn't have a product firmware version"`
+
+4. **Print Job Creation** - Uses `report_action()` to create a new record of the "Print 4"×2" Box Label" report, sending the print job to the printer
 
 ## Printer Setup
 
@@ -190,12 +212,51 @@ If both 203 DPI printers in the manufacturing room are down:
 
 ### Common Error Messages
 
-**"Product is not set on this manufacturing order"**
-- Ensure the manufacturing order has a linked product before attempting to print labels
+#### Product Label Errors
 
-**"Missing required field: [field_name]"**
-- The specified field required by the label template is empty
-- Fill in the missing field on the manufacturing order or product record before printing
+**"No product found in this manufacturing order!"**
+- The manufacturing order does not have a linked product
+- Ensure a product is selected before attempting to print labels
+
+**"The product has no internal reference name - this field is needed to determine lable size/design"**
+- The product is missing its Internal Reference (default_code)
+- Add an Internal Reference to the product record
+- The Internal Reference must end in `-HRNS` (for harness) or `-MOD` (for module)
+
+**"No label type is specified for this product. We can only print labels for modules (small/big) and harnesses"**
+- The product's Internal Reference doesn't match expected patterns
+- Ensure the Internal Reference ends with either `-HRNS` or `-MOD`
+
+**"Manufacturing order quantity must be greater than 0!"**
+- The manufacturing order has a quantity of 0 or negative
+- Update the product quantity to a positive value
+
+**"Generate a 'Lot/Serial Number' before trying to print the label"**
+- The manufacturing order is missing a Lot/Serial Number
+- Generate or assign a Lot/Serial Number before printing
+
+**"This product does not have seem to have any Internal Reference Number"**
+- The product is missing its Internal Reference field
+- Add an Internal Reference to the product record
+
+**"This manufacturing order doesn't have a product firmware version"** (Module labels only)
+- The manufacturing order is missing the firmware version field (`x_studio_firmware_version`)
+- Fill in the firmware version before printing module labels
+
+#### Box Label Errors
+
+**"This product doesn't need a box."**
+- The product's `x_needs_box` field is not set to True
+- Only products that require boxes can have box labels printed
+- If this product should have a box, enable the `x_needs_box` field on the product
+
+**"The product must have a name!"**
+- The product record is missing a name
+- Add a product name before printing box labels
+
+**"This module doesn't have a product firmware version"**
+- The product is missing the firmware version field (`x_studio_production_firmware_1`)
+- Fill in the product firmware version before printing box labels
 
 ### Printer Issues
 
@@ -246,3 +307,4 @@ When modifying label templates:
 **Last Updated:** October 30, 2025  
 **System:** Odoo Online/SaaS  
 **Module:** Manufacturing (MRP)
+**Data Model:** mrp.production (Manufacturing Order)
