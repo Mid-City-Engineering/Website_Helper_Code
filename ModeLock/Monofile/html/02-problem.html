@@ -1,0 +1,95 @@
+<!--
+==================================================
+WIDGET: PROBLEM SECTION
+==================================================
+Displays customer pain points using red cards with fade-in animations
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- sections/problem.css
+- universal/red-card.css (loaded via base-styles)
+- universal/card-layout.css (loaded via base-styles)
+- universal/section-titles.css (loaded via base-styles)
+
+JS Used:
+- fade-in-on-scroll.js (card fade-in animations)
+-->
+
+<!-- Section-specific CSS -->
+<style>
+    .problem-section {
+        padding: var(--spacing-3xl) var(--spacing-md);
+        background: var(--color-bg-secondary);
+        position: relative;
+    }
+</style>
+
+
+<!-- Problem Section HTML -->
+<section class="problem-section">
+    <h2 class="universal-section-title">The Frustration</h2>
+    <div class="universal-cards-row">
+        <div class="universal-red-card">
+            <div class="icon">🔄</div>
+            <h3>Always Resets</h3>
+            <p>Every time you start your Porsche, it defaults back to Normal mode. Your custom drive settings? Gone.</p>
+        </div>
+        <div class="universal-red-card">
+            <div class="icon">🎵</div>
+            <h3>Missing the Roar</h3>
+            <p>You want to hear that exhaust note on startup, but Eco mode keeps it muted. The full symphony of your
+                engine stays hidden.</p>
+        </div>
+        <div class="universal-red-card">
+            <div class="icon">⚙️</div>
+            <h3>Constant Adjustments</h3>
+            <p>Every startup means reconfiguring your suspension, throttle response, and shifting patterns. Your perfect
+                setup shouldn't require a ritual.</p>
+        </div>
+        <div class="universal-red-card">
+            <div class="icon">⚙️</div>
+            <h3>Auto Start/Stop Annoyance</h3>
+            <p>Hate the engine cutting out at every stop? Normal mode forces it on. You're stuck manually switching
+                modes every single drive just to disable it.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- Section-specific JavaScript -->
+<script>
+    (function () {
+
+        // Intersection Observer configuration
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        // Create observer instance
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Stagger animation with delay
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all red cards (problem section, CTA section)
+        document.querySelectorAll('.universal-red-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe all feature list items (solution section)
+        document.querySelectorAll('.feature-list li').forEach(item => {
+            observer.observe(item);
+        });
+
+    })();
+
+</script>

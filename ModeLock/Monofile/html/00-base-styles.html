@@ -1,0 +1,605 @@
+<!-- Keep Google Fonts as links -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap">
+
+<!-- Inline all your CSS -->
+<style>
+    /* ========== FOUNDATION STYLES ========== */
+
+    /* Paste reset.css content here */
+    /* Box model normalization */
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Base document styles */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: #0a0a0a;
+        color: #aaa;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Remove default link styling */
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Remove list styling */
+    ul,
+    ol {
+        list-style: none;
+    }
+
+    /* Make images responsive by default */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Remove button styling */
+    button {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    /* 
+    ==================================================
+    ODOO OVERRIDE
+    ==================================================
+    Remove Odoo's default container constraints
+    */
+
+    /* Remove max-width constraints from Odoo containers */
+    .o_container,
+    .o_container_small,
+    .container,
+    .container-fluid {
+        max-width: none !important;
+        padding: 0 !important;
+    }
+
+    /* Ensure sections can be full-width */
+    section {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    /* Remove any row constraints */
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Remove gaps between Odoo blocks/widgets */
+    .o_colored_level,
+    .s_allow_columns,
+    [data-snippet] {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    a:hover {
+        /* remove auto highlighting links */
+        text-decoration: none !important;
+    }
+
+    /* Paste variables.css content here */
+    /*
+==================================================
+CSS CUSTOM PROPERTIES (DESIGN TOKENS)
+==================================================
+All colors, spacing, transitions, and design values.
+Update here to change across all components.
+==================================================
+*/
+
+    :root {
+        /* ==================== COLORS ==================== */
+
+        /* Backgrounds */
+        --color-bg-primary: #0a0a0a;
+        --color-bg-secondary: #0f0f0f;
+        --color-bg-tertiary: #1a1a1a;
+
+        /* Text */
+        --color-text-primary: #fff;
+        --color-text-secondary: #aaa;
+        --color-text-tertiary: #ddd;
+        --color-text-muted: #666;
+        --color-text-bright: #888;
+
+        /* Borders */
+        --color-border: #222;
+        --color-border-light: #333;
+
+        /* Accent Colors - Red */
+        --color-accent-red: #ED1C24;
+        --color-accent-red-light: #ff6b6b;
+        --color-accent-red-dark: #cc3636;
+
+        /* Accent Colors - Green */
+        --color-accent-green: #00ff88;
+        --color-accent-green-dark: #00cc6a;
+        --color-accent-green-darker: #00aa55;
+
+        /* Accent Colors - Other */
+        --color-accent-blue: #00aaff;
+        --color-accent-orange: #ff6600;
+        --color-accent-orange-light: #ff8844;
+
+        /* Mode-specific colors (for animation) */
+        --color-mode-normal: #00ff88;
+        --color-mode-wet: #00aaff;
+        --color-mode-sport: #ff6600;
+        --color-mode-sport-plus: #ff4444;
+
+
+        /* ==================== GRADIENTS ==================== */
+
+        --gradient-red: linear-gradient(135deg, #ED1C24 0%, #ff6b6b 100%);
+        --gradient-green: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+        --gradient-text: linear-gradient(135deg, #fff 0%, #888 100%);
+        --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
+        --gradient-hero-bg: radial-gradient(circle at 20% 50%, #ff4444 0%, transparent 50%),
+            radial-gradient(circle at 80% 50%, #00ff88 0%, transparent 50%);
+
+
+        /* ==================== SPACING ==================== */
+
+        --spacing-xs: 0.5rem;
+        /* 8px */
+        --spacing-sm: 1rem;
+        /* 16px */
+        --spacing-md: 1.5rem;
+        /* 24px */
+        --spacing-lg: 2rem;
+        /* 32px */
+        --spacing-xl: 3rem;
+        /* 48px */
+        --spacing-2xl: 4rem;
+        /* 64px */
+        --spacing-3xl: 6rem;
+        /* 96px */
+
+
+        /* ==================== TYPOGRAPHY ==================== */
+
+        --font-size-xs: 0.875rem;
+        /* 14px */
+        --font-size-sm: 1rem;
+        /* 16px */
+        --font-size-base: 1.1rem;
+        /* 17.6px */
+        --font-size-md: 1.2rem;
+        /* 19.2px */
+        --font-size-lg: 1.5rem;
+        /* 24px */
+        --font-size-xl: 2rem;
+        /* 32px */
+        --font-size-2xl: 2.5rem;
+        /* 40px */
+        --font-size-3xl: 3rem;
+        /* 48px */
+
+        --font-weight-light: 300;
+        --font-weight-normal: 400;
+        --font-weight-medium: 500;
+        --font-weight-semibold: 600;
+        --font-weight-bold: 700;
+        --font-weight-extrabold: 800;
+
+        --line-height-tight: 1.2;
+        --line-height-normal: 1.6;
+        --line-height-relaxed: 1.8;
+
+
+        /* ==================== TRANSITIONS ==================== */
+
+        --transition-fast: 0.15s ease;
+        --transition-normal: 0.3s ease;
+        --transition-slow: 0.5s ease;
+        --transition-slower: 0.8s ease;
+
+        --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        --transition-smooth: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-spring: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+
+        /* ==================== BORDER RADIUS ==================== */
+
+        --radius-sm: 2px;
+        --radius-md: 15px;
+        --radius-lg: 25px;
+        --radius-xl: 30px;
+        --radius-full: 9999px;
+
+
+        /* ==================== SHADOWS ==================== */
+
+        /* Red shadows */
+        --shadow-red-sm: 0 15px 50px rgba(255, 68, 68, 0.4);
+        --shadow-red-md: 0 20px 40px rgba(255, 68, 68, 0.2);
+        --shadow-red-lg: 0 20px 60px rgba(255, 68, 68, 0.6);
+
+        /* Green shadows */
+        --shadow-green-sm: 0 8px 20px rgba(0, 255, 136, 0.3);
+        --shadow-green-md: 0 15px 40px rgba(0, 255, 136, 0.2);
+
+        /* Mode-specific shadows (for animation) */
+        --shadow-mode-normal: 0 0 15px rgba(0, 255, 136, 0.8);
+        --shadow-mode-wet: 0 0 15px rgba(0, 170, 255, 0.8);
+        --shadow-mode-sport: 0 0 15px rgba(255, 102, 0, 0.8);
+        --shadow-mode-sport-plus: 0 0 15px rgba(255, 68, 68, 0.8);
+
+        /* Text shadows */
+        --text-shadow-glow-green: 0 0 20px rgba(0, 255, 136, 0.6);
+        --text-shadow-glow-blue: 0 0 20px rgba(0, 170, 255, 0.6);
+        --text-shadow-glow-orange: 0 0 20px rgba(255, 102, 0, 0.6);
+        --text-shadow-glow-red: 0 0 20px rgba(255, 68, 68, 0.6);
+        --text-shadow-glow-dark-red: 0 0 8px rgba(204, 54, 54, 1),
+            0 0 24px rgba(204, 54, 54, 0.5);
+
+        /* ==================== Z-INDEX ==================== */
+
+        --z-base: 1;
+        --z-above: 2;
+        --z-dropdown: 10;
+        --z-sticky: 100;
+        --z-modal: 1000;
+
+
+        /* ==================== BREAKPOINTS (for reference) ==================== */
+
+        /* Use in media queries:
+       Mobile: 320px - 767px
+       Tablet: 768px - 1023px
+       Desktop: 1024px+
+    */
+    }
+
+    /* ========== UNIVERSAL COMPONENTS ========== */
+
+    /* Paste section-titles.css content here */
+    .universal-section-title {
+        font-size: clamp(2rem, 6vw, 3rem);
+        color: var(--color-text-secondary);
+        opacity: 1;
+        text-align: center;
+        margin-bottom: var(--spacing-lg);
+        font-weight: var(--font-weight-bold);
+    }
+
+    .universal-brighter-section-title {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: var(--spacing-md);
+        background: var(--gradient-text);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: var(--font-weight-bold);
+    }
+
+    /* Paste card-layout.css content here */
+    .universal-cards-row {
+        padding-top: 1%;
+        display: flex;
+        justify-content: center;
+        gap: var(--spacing-md);
+        max-width: 90vw;
+        margin: var(--spacing-xl) auto;
+        flex-wrap: wrap;
+    }
+
+    /* Paste red-card.css content here */
+    .universal-red-card {
+        flex: 1 1 30%;
+        min-width: 280px;
+        max-width: 350px;
+        background: var(--gradient-dark);
+        padding: var(--spacing-md);
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--color-border);
+        opacity: 0;
+        transition: var(--transition-bounce);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    /* Scroll animation - triggered by JS */
+    .universal-red-card.visible {
+        opacity: 1;
+    }
+
+    .universal-red-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        border-color: var(--color-accent-red);
+        box-shadow: var(--shadow-red-md);
+    }
+
+    /* Typography */
+    .universal-red-card h3 {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-primary);
+        text-wrap: wrap;
+        text-align: center;
+    }
+
+    .universal-red-card h4 {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text-primary);
+        margin-bottom: var(--spacing-sm);
+        text-wrap: wrap;
+        text-align: center;
+    }
+
+    .universal-red-card p {
+        color: var(--color-text-secondary);
+        text-align: center;
+    }
+
+    /* Image Container */
+    .universal-red-card .image-container {
+        width: 100%;
+        aspect-ratio: 4/3;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .universal-red-card .image-placeholder {
+        color: var(--color-text-muted);
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-bold);
+        text-align: center;
+        line-height: var(--line-height-tight);
+    }
+
+    .universal-red-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Icon styling (for problem cards) */
+    .universal-red-card .icon {
+        width: 60px;
+        height: 60px;
+        background: var(--gradient-red);
+        border-radius: var(--radius-md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-size-xl);
+        margin-bottom: 1.5rem;
+        flex-shrink: 0;
+    }
+
+    /* Paste green-card.css content here */
+    .universal-green-card {
+        flex: 1 1 30%;
+        min-width: 280px;
+        max-width: 350px;
+        background: var(--color-bg-tertiary);
+        padding: var(--spacing-md);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
+        text-align: center;
+        transition: var(--transition-normal);
+    }
+
+    .universal-green-card:hover {
+        border-color: var(--color-accent-green);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-green-md);
+        background: #1f1f1f;
+    }
+
+    /* Icon */
+    .universal-green-card .icon {
+        width: 60px;
+        height: 60px;
+        background: var(--gradient-green);
+        border-radius: var(--radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin: 0 auto 1.25rem;
+        box-shadow: var(--shadow-green-sm);
+        flex-shrink: 0;
+    }
+
+    /* Typography */
+    .universal-green-card h3 {
+        font-size: var(--font-size-2xl);
+        font-weight: var(--font-weight-extrabold);
+        background: var(--gradient-green);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .universal-green-card h5 {
+        font-weight: var(--font-weight-bold);
+        font-size: var(--font-size-md);
+        color: var(--color-text-primary);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .universal-green-card p {
+        color: var(--color-text-secondary);
+        font-size: var(--font-size-base);
+    }
+
+    /* Paste cta-button.css content here */
+    .universal-cta-button {
+        display: inline-block;
+        padding: 1.5rem 4rem;
+        background: var(--gradient-red);
+        color: var(--color-text-primary);
+        text-decoration: none;
+        border-radius: var(--radius-xl);
+        font-weight: var(--font-weight-extrabold);
+        font-size: var(--font-size-sm);
+        transition: var(--transition-bounce);
+        box-shadow: var(--shadow-red-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        position: relative;
+        overflow: hidden;
+        margin: var(--spacing-md) 0;
+        cursor: pointer;
+    }
+
+    /* Shine effect on hover */
+    .universal-cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .universal-cta-button:hover {
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: var(--shadow-red-lg);
+    }
+
+    .universal-cta-button:hover::before {
+        left: 100%;
+    }
+
+    /* Focus state for accessibility */
+    .universal-cta-button:focus-visible {
+        outline: 3px solid var(--color-accent-red);
+        outline-offset: 4px;
+    }
+
+    /* Active/pressed state */
+    .universal-cta-button:active {
+        transform: translateY(-2px) scale(1.02);
+    }
+
+    /* Paste trust-badge.css content here */
+    .cta-trust-badge {
+        color: var(--color-text-muted);
+        font-size: var(--font-size-sm);
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: var(--font-weight-medium);
+        /* padding: var(--spacing-sm); */
+        transition: var(--transition-normal);
+    }
+
+    .cta-trust-badge:hover {
+        color: var(--color-text-secondary);
+    }
+
+    .cta-trust-badge-icon {
+        font-size: 1.4rem;
+        flex-shrink: 0;
+    }
+
+    /* Paste social-media-icons.css content here */
+    .social-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-decoration: none;
+        border: 2px solid;
+        flex-shrink: 0;
+    }
+
+    .social-icon svg {
+        width: 22.4px;
+        height: 22.4px;
+    }
+
+    .social-icon:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .social-icon.facebook {
+        background-color: #1877f2;
+        border-color: #1877f2;
+        color: white;
+    }
+
+    .social-icon.youtube {
+        background-color: #ff0000;
+        border-color: #ff0000;
+        color: white;
+    }
+
+    .social-icon.instagram {
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        border-color: #d6249f;
+        color: white;
+    }
+
+    .social-icon.linkedin {
+        background-color: #0077b5;
+        border-color: #0077b5;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .social-icon {
+            width: 50px;
+            height: 50px;
+        }
+
+        .social-icon svg {
+            width: 19.2px;
+            height: 19.2px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .social-icon {
+            width: 45px;
+            height: 45px;
+        }
+
+        .social-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+</style>

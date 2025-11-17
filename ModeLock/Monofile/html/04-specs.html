@@ -1,0 +1,72 @@
+<!--
+==================================================
+WIDGET: SPECS SECTION
+==================================================
+
+JS Used:
+- None (parallax effect is CSS-only via background-attachment: fixed)
+
+For Odoo Deployment:
+- Replace "https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/ModeLock/css/" with GitHub URL
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<style>
+    .specs-section {
+        background-image: url('https://mid-city-engineering.odoo.com/web/image/product.product/10196/image_1024/%5BPLM1%5D%20ModeLock%20%20PLM1?unique=7667b25');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        /* Parallax effect */
+        min-height: 90vh;
+        position: relative;
+        padding: var(--spacing-3xl) var(--spacing-md);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Dark overlay for readability */
+    .specs-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: var(--z-base);
+    }
+
+    /* Ensure content appears above overlay */
+    .specs-section>* {
+        position: relative;
+        z-index: var(--z-above);
+    }
+</style>
+
+<!-- Specs Section HTML -->
+<section class="specs-section">
+    <h2 class="universal-section-title">By the Numbers</h2>
+    <div class="universal-cards-row">
+        <div class="universal-green-card">
+            <h3>100%</h3>
+            <p>Mode Retention</p>
+        </div>
+        <div class="universal-green-card">
+            <h3>&lt;15</h3>
+            <p>Minute Install</p>
+        </div>
+        <div class="universal-green-card">
+            <h3>∞</h3>
+            <p>Customization Saves</p>
+        </div>
+    </div>
+</section>
+
+<script>
+
+</script>

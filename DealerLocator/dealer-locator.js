@@ -1,3 +1,35 @@
+document.addEventListener('DOMContentLoaded', function () {
+    showLoading();
+});
+
+// Global variables for map management
+let dealerMap = null;
+let allDealersCache = []; // Cache all dealers to avoid repeated API calls
+let currentMarkers = [];
+let selectedMarker = null;
+let selectedListItem = null;
+const GOOGLE_MAPS_SERVER_API_KEY = 'AIzaSyBez7bMMNmEmyK8Om2hIeirvDl0WYcP0Wo';
+
+function showLoading() {
+    // Option 1: Use your existing loading div
+    const loadingEl = document.querySelector('.loading');
+    if (loadingEl) {
+        loadingEl.style.display = 'block';
+    }
+}
+
+function hideLoading() {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) {
+        overlay.remove();
+    }
+
+    const loadingEl = document.querySelector('.loading');
+    if (loadingEl) {
+        loadingEl.remove();
+    }
+}
+
 // Test search function that logs to console and updates the map
 async function filterAndShowDealers() {
     const addressInput = document.getElementById('address-input');
@@ -157,26 +189,44 @@ function getTargetDealers(dealers, userLat = null, userLon = null, radius = 'all
     return dealersWithDistance.sort((a, b) => a.distance - b.distance);
 }
 
+// geocodeAddress function
 async function geocodeAddress(address) {
-    try {
-        // Using OpenStreetMap's Nominatim service (free, no API key required)
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1&countrycodes=us`
-        );
-        const data = await response.json();
+    const geocoder = new google.maps.Geocoder();
 
-        if (data && data.length > 0) {
-            return {
-                lat: parseFloat(data[0].lat),
-                lon: parseFloat(data[0].lon),
-                display_name: data[0].display_name
-            };
-        } else {
-            throw new Error('Address not found');
-        }
+    return new Promise((resolve, reject) => {
+        geocoder.geocode({ address: address }, (results, status) => {
+            if (status === 'OK' && results.length > 0) {
+                const location = results[0].geometry.location;
+                resolve({
+                    lat: location.lat(),
+                    lon: location.lng(),
+                    display_name: results[0].formatted_address
+                });
+            } else {
+                reject(new Error('Address not found'));
+            }
+        });
+    });
+}
+
+// Reverse geocode coordinates to get address using Google Maps
+async function reverseGeocode(lat, lon) {
+    try {
+        const geocoder = new google.maps.Geocoder();
+        const latlng = { lat: lat, lng: lon };
+
+        return new Promise((resolve, reject) => {
+            geocoder.geocode({ location: latlng }, (results, status) => {
+                if (status === 'OK' && results.length > 0) {
+                    resolve(results[0].formatted_address);
+                } else {
+                    reject(new Error('Location not found'));
+                }
+            });
+        });
     } catch (error) {
-        console.error('Geocoding error:', error);
-        throw new Error('Unable to geocode address');
+        console.error('Reverse geocoding error:', error);
+        throw new Error('Unable to determine address from location');
     }
 }
 
@@ -269,53 +319,14 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     return R * c; // Distance in miles
 }
 
-// Reverse geocode coordinates to get address
-async function reverseGeocode(lat, lon) {
-    try {
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&zoom=18&addressdetails=1`
-        );
-        const data = await response.json();
-
-        if (data && data.display_name) {
-            // Try to create a clean address from components
-            const addr = data.address;
-            if (addr) {
-                const parts = [];
-                if (addr.house_number) parts.push(addr.house_number);
-                if (addr.road) parts.push(addr.road);
-                if (addr.city || addr.town || addr.village) {
-                    parts.push(addr.city || addr.town || addr.village);
-                }
-                if (addr.state) parts.push(addr.state);
-                if (addr.postcode) parts.push(addr.postcode);
-
-                return parts.length > 0 ? parts.join(', ') : data.display_name;
-            }
-            return data.display_name;
-        } else {
-            throw new Error('Location not found');
-        }
-    } catch (error) {
-        console.error('Reverse geocoding error:', error);
-        throw new Error('Unable to determine address from location');
-    }
-}
-
-// Global variables for map management
-let dealerMap = null;
-let currentMarkers = [];
-let selectedMarker = null;
-let selectedListItem = null;
-
 // Initialize the dealer map once (called on page load)
 async function initializeDealerMap() {
     try {
         console.log('Initializing dealer map...');
 
         // Clear loading message
-        const loadingEl = document.querySelector('.loading');
-        if (loadingEl) loadingEl.remove();
+        // const loadingEl = document.querySelector('.loading');
+        // if (loadingEl) loadingEl.remove();
 
         // Initialize Voyager map centered on Chicago
         dealerMap = L.map('dealer-map').setView([41.8781, -87.6298], 6);
@@ -346,8 +357,8 @@ async function initializeDealerMap() {
         console.log('Base map initialized successfully');
 
     } catch (error) {
-        console.error('Error initializing dealer map:', error);
-        const loadingEl = document.querySelector('.loading');
+        // console.error('Error initializing dealer map:', error);
+        // const loadingEl = document.querySelector('.loading');
         if (loadingEl) {
             loadingEl.innerHTML = 'Error loading dealer map';
             loadingEl.style.color = '#d32f2f';
@@ -616,39 +627,33 @@ function selectLocation(index) {
     }
 }
 
-// Data fetching and processing functions (kept separate for better organization)
-let allDealersCache = []; // Cache all dealers to avoid repeated API calls
-
-async function loadDealersAndInitializeMap() {
+// This is the callback when Google Maps JS is loaded
+async function initMap() {
     try {
-        console.log('Fetching dealer data and initializing map...');
+        // 3. Start fetching dealers BEFORE geocoding (parallel!)
+        const dealersPromise = getDealerContacts();
 
-        // Initialize the base map first
+        // 4. Initialize the base map (fast, doesn't need dealers yet)
         await initializeDealerMap();
         console.log(`<---- Returning from initializeDealerMap`);
 
-        // Fetch and cache all dealer data
-        allDealersCache = await getDealerContacts();
+        // 5. Wait for dealers to finish fetching
+        allDealersCache = await dealersPromise;
         console.log(`<-*-*- Returning from getDealerContacts`);
         console.log(`Fetched ${allDealersCache.length} dealers from Odoo`);
 
-        // Setup event listeners before triggering search
+        // 6. Setup event listeners
         setupEventListeners();
 
-        // Trigger initial search with default values (Chicago, 25 miles)
+        // 7. Do the initial search (geocode + filter + display)
         await filterAndShowDealers();
 
-    } catch (error) {
-        console.error('Error loading dealers:', error);
-        // Initialize empty map to show error state
-        try {
-            await initializeDealerMap();
-            await updateMapMarkers([]);
-        } catch (initError) {
-            console.error('Error initializing map:', initError);
-        }
+        // 8. Hide loading AFTER markers are displayed
+        hideLoading();
 
-        // Still setup event listeners
-        setupEventListeners();
+    } catch (error) {
+        console.error('Error during initialization:', error);
+        hideLoading();
+        showError('Failed to load dealer locator');
     }
 }

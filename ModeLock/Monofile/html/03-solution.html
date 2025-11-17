@@ -1,0 +1,593 @@
+<!--
+-->
+
+<!-- Section-specific CSS -->
+<style>
+    .solution-section {
+        padding: var(--spacing-3xl) var(--spacing-md);
+        background: var(--color-bg-primary);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Two-column grid layout */
+    .solution-grid {
+        max-width: 90vw;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: var(--spacing-lg);
+        align-items: center;
+    }
+
+    /* ==================== ANIMATION CONTAINER ==================== */
+
+    .animation-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    /* Engine status text */
+    .engine-status {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-bold);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--color-text-muted);
+        transition: var(--transition-slow);
+        margin-left: 15px;
+        /* Compensate for -15 viewBox offset */
+    }
+
+    .engine-status.active {
+        color: var(--color-accent-green);
+        text-shadow: var(--text-shadow-glow-green);
+    }
+
+    /* Mode visualizer container */
+    .mode-visualizer {
+        width: min(450px, 85vw);
+        height: min(450px, 85vw);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* ==================== CURRENT MODE (CENTER TEXT) ==================== */
+
+    .current-mode-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: var(--z-dropdown);
+        /* Compensate for -15 viewBox offset */
+        margin-top: 13px;
+        margin-left: 13px;
+    }
+
+    /* For Tablets & Desktops*/
+    @media (min-width: 480px) {
+        .current-mode-container {
+            margin-top: 15px;
+            margin-left: 15px;
+        }
+    }
+
+    .current-mode {
+        color: var(--color-text-bright);
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-extrabold);
+        transition: var(--transition-normal);
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    .current-mode.active {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Mode-specific colors */
+    .current-mode.normal {
+        color: var(--color-mode-normal);
+        text-shadow: var(--text-shadow-glow-green);
+    }
+
+    .current-mode.wet {
+        color: var(--color-mode-wet);
+        text-shadow: var(--text-shadow-glow-blue);
+    }
+
+    .current-mode.sport {
+        color: var(--color-mode-sport);
+        text-shadow: var(--text-shadow-glow-orange);
+    }
+
+    .current-mode.sport-plus {
+        color: var(--color-mode-sport-plus);
+        text-shadow: var(--text-shadow-glow-red);
+    }
+
+    /* ==================== SVG DIAL ELEMENTS ==================== */
+
+    .mode-svg-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    /* Outer dial ring */
+    .outer-dial {
+        fill: none;
+        stroke: var(--color-border-light);
+        stroke-width: 3;
+        stroke-linecap: round;
+    }
+
+    /* Inner dial slider */
+    .dial-slider {
+        fill: none;
+        stroke: #5c5e5d;
+        stroke-width: 5;
+        stroke-linecap: round;
+        transition: var(--transition-smooth);
+        transform-origin: center;
+    }
+
+    /* Slider mode states */
+    .dial-slider.normal {
+        stroke: var(--color-mode-normal);
+        filter: drop-shadow(var(--shadow-mode-normal));
+    }
+
+    .dial-slider.wet {
+        stroke: var(--color-mode-wet);
+        filter: drop-shadow(var(--shadow-mode-wet));
+    }
+
+    .dial-slider.sport {
+        stroke: var(--color-mode-sport);
+        filter: drop-shadow(var(--shadow-mode-sport));
+    }
+
+    .dial-slider.sport-plus {
+        stroke: var(--color-mode-sport-plus);
+        filter: drop-shadow(var(--shadow-mode-sport-plus));
+    }
+
+    /* Mode labels (outside dial) */
+    .mode-label {
+        fill: var(--color-text-muted);
+        font-size: 20px;
+        font-weight: var(--font-weight-bold);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: var(--transition-normal);
+    }
+
+    .mode-label.active {
+        fill: var(--color-text-primary);
+        font-size: 22px;
+    }
+
+    /* ==================== FEATURE LIST ==================== */
+
+    .feature-list-section {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .feature-list {
+        list-style: none;
+        margin-top: var(--spacing-md);
+    }
+
+    .feature-list li {
+        padding: var(--spacing-sm) 0;
+        border-bottom: 1px solid var(--color-border);
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: var(--transition-standard);
+        color: var(--color-text-secondary);
+    }
+
+    /* Scroll animation trigger */
+    .feature-list li.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* Checkmark icon */
+    .check-icon {
+        width: 30px;
+        height: 30px;
+        background: var(--gradient-green);
+        border-radius: var(--radius-full);
+        color: var(--color-text-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+</style>
+
+<!-- Solution Section HTML -->
+<section class="solution-section" id="solution">
+    <div class="solution-grid">
+
+        <!-- Animation Container -->
+        <div class="animation-container">
+            <div class="engine-status" id="engineStatus">ENGINE OFF</div>
+            <div class="mode-visualizer" id="modeVisualizer">
+                <div class="current-mode-container">
+                    <div class="current-mode" id="currentMode">---</div>
+                </div>
+                <div class="mode-svg-container">
+                    <svg viewBox="-15 -15 480 480" id="modeSvg">
+                        <circle class="outer-dial" cx="240" cy="240" r="140" stroke-dasharray="659.73 219.91"
+                            transform="rotate(135 240 240)" />
+                        <circle class="dial-slider" id="dialSlider" cx="240" cy="240" r="120" stroke-dasharray="80 673"
+                            transform="rotate(135 240 240)" />
+                        <text class="mode-label normal" id="labelNormal" text-anchor="middle" dy="0.3em">NORMAL</text>
+                        <text class="mode-label wet" id="labelWet" text-anchor="middle" dy="0.3em">WET</text>
+                        <text class="mode-label sport" id="labelSport" text-anchor="middle" dy="0.3em">SPORT</text>
+                        <text class="mode-label sport-plus" id="labelSportPlus" text-anchor="middle"
+                            dy="0.3em">SPORT+</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature List -->
+        <div class="feature-list-section">
+            <h2 class="universal-brighter-section-title">The Solution</h2>
+            <p>
+                Mid City's ModeLock™ Module remembers your last drive mode and ensures your Porsche starts exactly
+                how you left it.
+            </p>
+            <ul class="feature-list">
+                <li><span class="check-icon">✓</span> <span>Remember your last drive mode</span></li>
+                <li><span class="check-icon">✓</span> <span>Hear your exhaust from ignition</span></li>
+                <li><span class="check-icon">✓</span> <span>Lock in suspension settings</span></li>
+                <li><span class="check-icon">✓</span> <span>Preserve throttle & shift patterns</span></li>
+                <li><span class="check-icon">✓</span> <span>Disable auto start/stop persistently</span></li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<script>
+    // Wait for DOM to be fully loaded
+    (function () {
+
+        // Get DOM elements
+        const engineStatus = document.getElementById('engineStatus');
+        const modeVisualizer = document.getElementById('modeVisualizer');
+        const currentMode = document.getElementById('currentMode');
+        const dialSlider = document.getElementById('dialSlider');
+
+        // Exit early if elements don't exist (not on solution section)
+        if (!engineStatus || !currentMode || !dialSlider) {
+            return;
+        }
+
+        // ==================== HELPER FUNCTIONS ====================
+
+        /**
+         * Convert polar coordinates to cartesian
+         * Used for positioning mode labels around the dial
+         */
+        function polarToCartesian(centerX, centerY, radius, angleInDegrees, offsetX = 0, offsetY = 0) {
+            const angleInRadians = angleInDegrees * Math.PI / 180;
+            return {
+                x: centerX + radius * Math.cos(angleInRadians) + offsetX,
+                y: centerY + radius * Math.sin(angleInRadians) + offsetY
+            };
+        }
+
+        // ==================== LABEL POSITIONING ====================
+
+        // Configuration for label positions around the dial
+        const label_position_config = {
+            center: { x: 240, y: 240 },
+            labelRadius: 180,  // Distance from center
+            angles: {
+                normal: 165,       // Bottom-left
+                wet: 225,          // Top-Left
+                sport: 315,        // Top-Right
+                sportPlus: 15      // Bottom-right
+            },
+            offsets: {
+                normal: { x: -10, y: 0 },
+                wet: { x: 5, y: 0 },
+                sport: { x: 0, y: 0 },
+                sportPlus: { x: 10, y: 0 }
+            }
+        };
+
+        // Calculate positions for each mode label
+        const positions = {
+            wet: {
+                angle: label_position_config.angles.wet,
+                ...polarToCartesian(
+                    label_position_config.center.x,
+                    label_position_config.center.y,
+                    label_position_config.labelRadius,
+                    label_position_config.angles.wet,
+                    label_position_config.offsets.wet.x,
+                    label_position_config.offsets.wet.y
+                )
+            },
+            normal: {
+                angle: label_position_config.angles.normal,
+                ...polarToCartesian(
+                    label_position_config.center.x,
+                    label_position_config.center.y,
+                    label_position_config.labelRadius,
+                    label_position_config.angles.normal,
+                    label_position_config.offsets.normal.x,
+                    label_position_config.offsets.normal.y
+                )
+            },
+            sport: {
+                angle: label_position_config.angles.sport,
+                ...polarToCartesian(
+                    label_position_config.center.x,
+                    label_position_config.center.y,
+                    label_position_config.labelRadius,
+                    label_position_config.angles.sport,
+                    label_position_config.offsets.sport.x,
+                    label_position_config.offsets.sport.y
+                )
+            },
+            sportPlus: {
+                angle: label_position_config.angles.sportPlus,
+                ...polarToCartesian(
+                    label_position_config.center.x,
+                    label_position_config.center.y,
+                    label_position_config.labelRadius,
+                    label_position_config.angles.sportPlus,
+                    label_position_config.offsets.sportPlus.x,
+                    label_position_config.offsets.sportPlus.y
+                )
+            }
+        };
+
+        // Get SVG and set label positions
+        const svg = document.getElementById('modeSvg');
+        const labelData = [
+            { id: 'labelWet', class: 'wet', text: 'WET', pos: positions.wet },
+            { id: 'labelNormal', class: 'normal', text: 'NORMAL', pos: positions.normal },
+            { id: 'labelSport', class: 'sport', text: 'SPORT', pos: positions.sport },
+            { id: 'labelSportPlus', class: 'sport-plus', text: 'SPORT+', pos: positions.sportPlus }
+        ];
+
+        // Position each label
+        labelData.forEach(data => {
+            const label = document.getElementById(data.id);
+            if (label) {
+                label.setAttribute('x', data.pos.x);
+                label.setAttribute('y', data.pos.y);
+            }
+        });
+
+        // Get label elements for highlighting
+        const labels = {
+            wet: document.getElementById('labelWet'),
+            normal: document.getElementById('labelNormal'),
+            sport: document.getElementById('labelSport'),
+            'sport-plus': document.getElementById('labelSportPlus')
+        };
+
+        // ==================== MODE CONFIGURATION ====================
+
+        // Define all drive modes and their properties
+        const driveModes = [
+            { mode: 'NORMAL', class: 'normal', duration: 1750, rotation: 140 },
+            { mode: 'WET', class: 'wet', duration: 1750, rotation: 210 },
+            { mode: 'SPORT', class: 'sport', duration: 1750, rotation: 290 },
+            { mode: 'SPORT+', class: 'sport-plus', duration: 1750, rotation: 0 }
+        ];
+
+        let lastMode = null;
+
+        /**
+         * Get random mode excluding specified modes
+         * @param {Array|Object} excludeModes - Mode(s) to exclude
+         * @returns {Object} Random mode object
+         */
+        function getRandomMode(excludeModes) {
+            const excludeArray = Array.isArray(excludeModes) ? excludeModes : [excludeModes];
+            const availableModes = driveModes.filter(mode => !excludeArray.includes(mode));
+            const randomIndex = Math.floor(Math.random() * availableModes.length);
+            return availableModes[randomIndex];
+        }
+
+        // ==================== DISPLAY UPDATE ====================
+
+        /**
+         * Update the display with current mode
+         * @param {Object} mode - Mode object to display
+         * @param {String} status - Engine status text
+         */
+        function updateDisplay(mode, status) {
+            // Update engine status
+            engineStatus.textContent = status;
+            if (status === 'ENGINE ON') {
+                engineStatus.classList.add('active');
+            } else {
+                engineStatus.classList.remove('active');
+            }
+
+            // Reset center mode text
+            currentMode.classList.remove('active');
+
+            // Reset all label highlights
+            Object.values(labels).forEach(label => {
+                if (label) label.classList.remove('active');
+            });
+
+            // Update display after brief delay for smooth transition
+            setTimeout(() => {
+                if (mode) {
+                    // Rotate slider to mode position
+                    dialSlider.style.transform = `rotate(${mode.rotation}deg)`;
+                    dialSlider.className.baseVal = 'dial-slider ' + mode.class;
+
+                    // Update center text
+                    currentMode.className = 'current-mode active ' + mode.class;
+                    currentMode.textContent = mode.mode;
+
+                    // Highlight active label
+                    const labelKey = mode.class;
+                    if (labels[labelKey]) {
+                        labels[labelKey].classList.add('active');
+                    }
+                } else {
+                    // Reset to default state
+                    currentMode.className = 'current-mode active';
+                    currentMode.textContent = '---';
+                    dialSlider.style.transform = 'rotate(69deg)';
+                    dialSlider.className.baseVal = 'dial-slider';
+                }
+            }, 300);
+        }
+
+        // ==================== ANIMATION SEQUENCE ====================
+
+        /**
+         * Main sequence: Engine off -> Last mode (if exists) -> Random modes
+         */
+        function runSequence() {
+            // Start with engine off
+            updateDisplay(null, 'ENGINE OFF');
+
+            setTimeout(() => {
+                if (lastMode) {
+                    // If there was a previous mode, show it first
+                    updateDisplay(lastMode, 'ENGINE ON');
+                    setTimeout(() => {
+                        cycleRandomModes();
+                    }, lastMode.duration);
+                } else {
+                    // No previous mode, start cycling random modes
+                    cycleRandomModes();
+                }
+            }, 2000);
+        }
+
+        /**
+         * Cycle through random modes
+         * Shows 2 random modes, avoiding NORMAL on final mode
+         */
+        function cycleRandomModes() {
+            let currentIndex = 0;
+            const maxModes = 2;
+            let currentMode = lastMode;
+
+            function showNextMode() {
+                if (currentIndex < maxModes) {
+                    let mode;
+
+                    // Last mode: exclude both current mode and NORMAL
+                    if (currentIndex === maxModes - 1) {
+                        mode = getRandomMode([currentMode, driveModes.find(m => m.mode === 'NORMAL')]);
+                    } else {
+                        // Just exclude current mode
+                        mode = getRandomMode([currentMode]);
+                    }
+
+                    updateDisplay(mode, 'ENGINE ON');
+                    lastMode = mode;
+                    currentMode = mode;
+
+                    currentIndex++;
+
+                    if (currentIndex >= maxModes) {
+                        // Finished cycling, restart sequence
+                        setTimeout(() => {
+                            runSequence();
+                        }, mode.duration);
+                    } else {
+                        // Show next mode
+                        setTimeout(showNextMode, mode.duration);
+                    }
+                }
+            }
+
+            showNextMode();
+        }
+
+        // ==================== START ANIMATION ====================
+
+        // ==================== START ANIMATION ====================
+
+        /**
+         * Start animation when mode visualizer is visible
+         * Uses Intersection Observer to detect when user scrolls to section
+         */
+        const animationObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Start animation when visible
+                    setTimeout(runSequence, 200);
+                    // Stop observing after first trigger (animation loops itself)
+                    animationObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.3,  // Trigger when 30% of element is visible
+            rootMargin: '0px'
+        });
+
+        // Observe the mode visualizer
+        if (modeVisualizer) {
+            animationObserver.observe(modeVisualizer);
+        }
+    })();
+
+    (function () {
+
+        // Intersection Observer configuration
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        // Create observer instance
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Stagger animation with delay
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all red cards (problem section, CTA section)
+        document.querySelectorAll('.universal-red-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Observe all feature list items (solution section)
+        document.querySelectorAll('.feature-list li').forEach(item => {
+            observer.observe(item);
+        });
+
+    })();
+
+</script>

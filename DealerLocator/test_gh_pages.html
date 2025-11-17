@@ -8,27 +8,22 @@
         leafletScript.onload = async function () {
 
             // Now load your CSS
-            const cssResponse = await fetch('https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/DealerLocator/dealer-locator.css');
+            const cssResponse = await fetch('https://evaan2001.github.io/gh_pages_pilot/dealer-locator.css');
             const cssText = await cssResponse.text();
             const style = document.createElement('style');
             style.textContent = cssText;
             document.head.appendChild(style);
 
             // Load HTML
-            const htmlResponse = await fetch('https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/DealerLocator/dealer-locator.html');
+            const htmlResponse = await fetch('https://evaan2001.github.io/gh_pages_pilot/dealer-locator.html');
             const htmlText = await htmlResponse.text();
             document.getElementById('dealer-locator-container').innerHTML = htmlText;
 
             // Load JavaScript
             const script = document.createElement('script');
-            script.src = 'https://raw.githack.com/Mid-City-Engineering/Website_Helper_Code/main/DealerLocator/dealer-locator.js';
+            script.src = 'https://evaan2001.github.io/gh_pages_pilot/dealer-locator.js';
             script.onload = function () {
-                // NOW load Google Maps - initMap is guaranteed to exist
-                const googleMapsScript = document.createElement('script');
-                googleMapsScript.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBez7bMMNmEmyK8Om2hIeirvDl0WYcP0Wo&loading=async&libraries=places&callback=initMap';
-                googleMapsScript.async = true;
-                googleMapsScript.defer = true;
-                document.head.appendChild(googleMapsScript);
+                loadDealersAndInitializeMap();
             };
             document.head.appendChild(script);
         };
