@@ -1,0 +1,50 @@
+<!--
+==================================================
+WIDGET: SMARTKEY HERO SECTION
+==================================================
+Full-screen hero section with warm gradient background and CTA
+Theme: Luxury comfort + winter warmth
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- css/sections/hero.css
+
+JS Used:
+- js/parallax.js (hero parallax effect - uses data-parallax-speed)
+- js/fade-out-on-scroll.js (fade out on scroll - uses data-fade-scroll)
+- js/smooth-scroll.js (smooth anchor scrolling)
+
+For Odoo Deployment:
+- Update paths to your CDN/server URLs
+- Update image URLs to match your Odoo media library
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<link rel="stylesheet" href="../css/sections/hero.css">
+
+<!-- Hero Section HTML -->
+<section class="smartkey-hero-section" data-fade-container>
+
+    <div class="upper-half">
+        <h3 class="mid-city-heading" data-parallax-speed="0.3">MID CITY ENGINEERING PRESENTS</h3>
+        <h3 class="mid-city-subheading" data-parallax-speed="0.5">SmartKey Starter</h3>
+    </div>
+
+    <div class="middle-half">
+        <h3 class="tagline" data-parallax-speed="0.5" data-fade-scroll>Seamless Remote Start for Mercedes, Infiniti
+            &amp; Volvo</h3>
+    </div>
+
+    <div class="hero-footer">
+        <a href="#problem" class="scroll-indicator" aria-label="Scroll down to continue">↓</a>
+    </div>
+
+</section>
+
+<!-- Universal JavaScript (reusable across sections) -->
+<script src="../js/parallax.js"></script>
+<script src="../js/fade-out-on-scroll.js"></script>
+<script src="../js/smooth-scroll.js"></script>

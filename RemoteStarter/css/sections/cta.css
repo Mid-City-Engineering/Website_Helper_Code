@@ -1,0 +1,131 @@
+/*
+==================================================
+FINAL CTA SECTION
+==================================================
+Trust stats, pricing, guarantees, and social proof
+Dependencies: green-card.css, card-layout.css, section-titles.css, 
+              social-media-icons.css, trust-badge.css
+==================================================
+*/
+
+.cta-section {
+    padding: var(--spacing-3xl) var(--spacing-md);
+    background: var(--color-bg-secondary);
+    text-align: center;
+    border-top: 2px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2xl);
+}
+
+/* ==================== TRUST STATS ==================== */
+
+.trust-stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    flex-wrap: wrap;
+    margin: var(--spacing-lg) 0;
+}
+
+.trust-stat {
+    text-align: center;
+}
+
+.trust-stat-number {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-extrabold);
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.9) 0%, rgba(255, 102, 0, 0.9) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.trust-stat-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+}
+
+/* ==================== PRICING / CTA ==================== */
+
+.cta-price-container {
+    margin: var(--spacing-xl) auto;
+    padding: 2.5rem;
+    min-width: 30vw;
+    background: rgba(255, 140, 0, 0.05);
+    border: 2px solid rgba(255, 140, 0, 0.3);
+    border-radius: var(--radius-lg);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: var(--transition-normal);
+}
+
+.cta-price-container:hover {
+    border-color: rgba(255, 140, 0, 0.5);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(255, 140, 0, 0.2);
+}
+
+.cta-price-tag {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.9) 0%, rgba(255, 102, 0, 0.9) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: var(--line-height-tight);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.03em;
+}
+
+.cta-price-container p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+}
+
+/* ==================== GUARANTEE CARDS ==================== */
+
+.guarantee-row {
+    max-width: 90vw;
+    margin: var(--spacing-xl) auto;
+}
+
+/* ==================== SOCIAL PROOF SECTION ==================== */
+
+.social-proof-section {
+    margin: var(--spacing-2xl) 0;
+}
+
+.social-proof-section p {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+    .trust-stats {
+        gap: var(--spacing-md);
+    }
+
+    .trust-stat-number {
+        font-size: var(--font-size-2xl);
+    }
+
+    .cta-price-container {
+        min-width: 80vw;
+        padding: 2rem;
+    }
+}

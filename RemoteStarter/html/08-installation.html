@@ -1,0 +1,109 @@
+<!--
+==================================================
+WIDGET: INSTALLATION SECTION
+==================================================
+Two-column layout explaining professional installation
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- css/sections/installation.css
+- css/universal/section-titles.css (loaded via base-styles)
+- css/universal/cta-button.css (loaded via base-styles)
+
+JS Used:
+- js/fade-in-on-scroll.js (column fade-in animations)
+
+For Odoo Deployment:
+- Update paths to your CDN/server URLs
+- Update installer locator URL
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<link rel="stylesheet" href="../css/sections/installation.css">
+
+<!-- Installation Section HTML -->
+<section class="installation-section" id="installation">
+    <h2 class="universal-brighter-section-title">Professional Installation Matters</h2>
+
+    <p class="installation-intro">
+        SmartKey Starter requires precise integration with your vehicle's factory systems. Our certified technicians
+        ensure warranty-safe installation and optimal performance.
+    </p>
+
+    <div class="installation-grid">
+
+        <!-- Why Professional Installation Column -->
+        <div class="installation-column" data-fade-in>
+            <h3>Why Professional Installation?</h3>
+            <ul class="installation-list">
+                <li>
+                    <span><strong>Complex vehicle integration</strong> - Modern luxury vehicles have sophisticated
+                        electronics that require expert knowledge to integrate safely.</span>
+                </li>
+                <li>
+                    <span><strong>Warranty-safe techniques</strong> - Our installers use proper harnesses and
+                        connectors, never cutting factory wiring that could void your warranty.</span>
+                </li>
+                <li>
+                    <span><strong>Proper programming</strong> - Each vehicle requires specific configuration to work
+                        with your factory key fob and climate systems.</span>
+                </li>
+                <li>
+                    <span><strong>Testing and validation</strong> - We verify all functions work correctly before you
+                        drive away, including heated seats, defroster, and remote start.</span>
+                </li>
+                <li>
+                    <span><strong>Ongoing support</strong> - Your installer provides post-installation support if you
+                        have questions or need adjustments.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- What's Included Column -->
+        <div class="installation-column" data-fade-in>
+            <h3>What's Included</h3>
+            <ul class="installation-list">
+                <li>
+                    <span><strong>Expert technician</strong> - Certified installer with specialized training on
+                        Mercedes, Infiniti, and Volvo vehicles.</span>
+                </li>
+                <li>
+                    <span><strong>All necessary harnesses</strong> - Vehicle-specific connectors and adapters for clean,
+                        warranty-safe integration.</span>
+                </li>
+                <li>
+                    <span><strong>Factory key programming</strong> - Your existing key fob is programmed to activate the
+                        remote start system.</span>
+                </li>
+                <li>
+                    <span><strong>Climate control setup</strong> - Temperature-based automation configured for heated
+                        seats and rear defroster.</span>
+                </li>
+                <li>
+                    <span><strong>Complete testing</strong> - Full system test to ensure all features work as
+                        designed.</span>
+                </li>
+                <li>
+                    <span><strong>Customer walkthrough</strong> - In-person demonstration of how to use your new
+                        SmartKey Starter system.</span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="installation-cta">
+        <h3>Ready to Install?</h3>
+        <p>Find a certified SmartKey Starter installer near you</p>
+        <a href="https://mid-city-engineering.odoo.com/installer-locator" class="universal-cta-button" target="_blank"
+            rel="noopener noreferrer">Find Authorized Installer</a>
+    </div>
+
+</section>
+
+<!-- Universal JavaScript -->
+<script src="../js/fade-in-on-scroll.js"></script>

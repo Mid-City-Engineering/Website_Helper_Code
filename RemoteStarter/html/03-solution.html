@@ -1,0 +1,99 @@
+<!--
+==================================================
+WIDGET: SOLUTION SECTION
+==================================================
+Interactive key fob animation with feature list
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- css/sections/solution.css (includes animation styles)
+- css/universal/section-titles.css (loaded via base-styles)
+
+JS Used:
+- js/key-fob-animation.js (key fob animation)
+- js/fade-in-on-scroll.js (feature list fade-in)
+
+For Odoo Deployment:
+- Update paths to your CDN/server URLs
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<link rel="stylesheet" href="../css/sections/solution.css">
+
+<!-- Solution Section HTML -->
+<section class="solution-section" id="solution">
+    <div class="solution-grid">
+
+        <!-- Animation Container -->
+        <div class="animation-container">
+            <div class="key-status" id="keyStatus">PRESS PANIC BUTTON</div>
+            <div class="key-visualizer" id="keyVisualizer" data-key-animation>
+                <svg class="key-fob-svg" viewBox="0 0 400 400" id="keyFobSvg">
+
+                    <!-- Key Fob -->
+                    <g id="keyFob">
+                        <!-- Fob body -->
+                        <rect class="fob-body" x="150" y="80" width="100" height="160" rx="15"></rect>
+
+                        <!-- Mercedes logo -->
+                        <circle class="fob-logo" cx="200" cy="130" r="15"></circle>
+                        <path class="fob-logo"
+                            d="M 200 115 L 200 145 M 187 130 L 213 130 M 190 120 L 210 140 M 210 120 L 190 140"></path>
+
+                        <!-- Panic button (red) -->
+                        <circle class="panic-button" id="panicButton" cx="200" cy="190" r="25"></circle>
+
+                        <!-- Button icon (!) -->
+                        <text class="button-icon" x="200" y="200" text-anchor="middle">!</text>
+                    </g>
+
+                    <!-- Signal waves -->
+                    <circle class="signal-wave" id="wave1" cx="200" cy="190" r="40"></circle>
+                    <circle class="signal-wave" id="wave2" cx="200" cy="190" r="40"></circle>
+                    <circle class="signal-wave" id="wave3" cx="200" cy="190" r="40"></circle>
+
+                    <!-- Car silhouette -->
+                    <g id="car" transform="translate(0, 280)">
+                        <!-- Car body -->
+                        <rect class="car-silhouette" x="100" y="30" width="200" height="50" rx="5"></rect>
+                        <path class="car-silhouette" d="M 120 30 L 140 10 L 260 10 L 280 30"></path>
+
+                        <!-- Headlights -->
+                        <circle class="car-light" id="leftLight" cx="120" cy="55" r="8"></circle>
+                        <circle class="car-light" id="rightLight" cx="280" cy="55" r="8"></circle>
+
+                        <!-- Exhaust vapor -->
+                        <ellipse class="exhaust-vapor" id="vapor" cx="110" cy="85" rx="20" ry="10"></ellipse>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Feature List -->
+        <div class="feature-list-section">
+            <h2 class="universal-brighter-section-title">The SmartKey Starter® Difference</h2>
+            <p>
+                Mid City's SmartKey Starter® works seamlessly with your factory key fob. No extra remotes, no destroyed
+                wiring, no compromises.
+            </p>
+            <ul class="feature-list">
+                <li data-fade-in><span class="check-icon">✓</span> <span>Works with your factory key fob</span></li>
+                <li data-fade-in><span class="check-icon">✓</span> <span>Zero additional remotes needed</span></li>
+                <li data-fade-in><span class="check-icon">✓</span> <span>Smartphone control (optional Drone)</span></li>
+                <li data-fade-in><span class="check-icon">✓</span> <span>Auto heated seats at set temps</span></li>
+                <li data-fade-in><span class="check-icon">✓</span> <span>Auto rear defroster at 32°F</span></li>
+                <li data-fade-in><span class="check-icon">✓</span> <span>Maintains factory warranty</span></li>
+                <li data-fade-in><span class="check-icon">✓</span> <span>Near-zero failure rate</span></li>
+                <li data-fade-in><span class="check-icon">✓</span> <span>Professional installation included</span></li>
+            </ul>
+        </div>
+
+    </div>
+</section>
+
+<!-- JavaScript -->
+<script src="../js/key-fob-animation.js"></script>
+<script src="../js/fade-in-on-scroll.js"></script>
