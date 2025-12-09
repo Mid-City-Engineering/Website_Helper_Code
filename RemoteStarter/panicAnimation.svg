@@ -247,6 +247,30 @@
     </path>
   </g>
 
+  <!-- Engine status text -->
+  <g id="engine-status">
+    <!-- "Engine OFF" text (visible at start) -->
+    <text x="250" y="300" font-family="Arial, sans-serif" font-size="18" font-weight="bold" 
+          fill="#6b7280" text-anchor="middle" opacity="1">
+      Engine OFF
+      <animate attributeName="opacity" 
+              values="1; 1; 1; 0; 0; 0; 1" 
+              keyTimes="0; 0.42; 0.44; 0.5; 0.92; 0.95; 1"
+              dur="6s" 
+              repeatCount="indefinite"/>
+    </text>
+    
+    <!-- "Engine ON" text (appears with checkmark) -->
+    <text x="250" y="300" font-family="Arial, sans-serif" font-size="18" font-weight="bold" 
+          fill="#10b981" text-anchor="middle" opacity="0">
+      Engine ON
+      <animate attributeName="opacity" 
+              values="0; 0; 0; 1; 1; 1; 0" 
+              keyTimes="0; 0.42; 0.44; 0.5; 0.92; 0.95; 1"
+              dur="6s" 
+              repeatCount="indefinite"/>
+    </text>
+  </g>
   
   <!-- Fade out overlay for entire scene -->
   <rect x="0" y="0" width="500" height="600" fill="#000000" opacity="0" pointer-events="none">
