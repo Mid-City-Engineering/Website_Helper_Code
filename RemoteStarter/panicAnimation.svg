@@ -42,7 +42,7 @@
       <g transform="translate(40, 88)">
         <rect x="-5" y="-1" width="10" height="7" rx="1" 
               fill="none" stroke="#9ca3af" stroke-width="1.5"/>
-        <path d="M -3,-1 v-3 a3,3 0 0,1 6,0 v2" 
+        <path d="M -5,-2 v-4 a3,2 0 0,1 8,0 v1"
               fill="none" stroke="#9ca3af" stroke-width="1.5"/>
       </g>
     </g>
