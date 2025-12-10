@@ -1,0 +1,154 @@
+<script>
+    let vehicleData = [];
+
+    // Load JSON file
+    fetch("../data/vehicle_compatibility_list.json")
+        .then(response => response.json())
+        .then(data => {
+            vehicleData = data;
+            initializeVehicleSelector();
+        })
+        .catch(err => {
+            console.error("Error loading vehicle compatibility JSON:", err);
+        });
+
+
+    function initializeVehicleSelector() {
+        const makeSelect = document.getElementById("vs-make");
+        const modelSelect = document.getElementById("vs-model");
+        const yearSelect = document.getElementById("vs-year");
+        const resultBox = document.getElementById("vs-result");
+
+        /* ---------------------------------------------------------
+           Populate Makes
+        --------------------------------------------------------- */
+        const makes = [...new Set(vehicleData.map(v => v.make))].sort();
+        makes.forEach(make => {
+            const opt = document.createElement("option");
+            opt.value = make;
+            opt.textContent = make;
+            makeSelect.appendChild(opt);
+        });
+
+        /* ---------------------------------------------------------
+           On Make Change → Populate Models
+        --------------------------------------------------------- */
+        makeSelect.addEventListener("change", () => {
+            modelSelect.innerHTML = `<option value="">Select Model</option>`;
+            yearSelect.innerHTML = `<option value="">Select Year</option>`;
+            modelSelect.disabled = true;
+            yearSelect.disabled = true;
+            resultBox.innerHTML = "";
+
+            if (!makeSelect.value) return;
+
+            const models = [...new Set(
+                vehicleData
+                    .filter(v => v.make === makeSelect.value)
+                    .map(v => v.model)
+            )].sort();
+
+            models.forEach(model => {
+                const opt = document.createElement("option");
+                opt.value = model;
+                opt.textContent = model;
+                modelSelect.appendChild(opt);
+            });
+
+            modelSelect.disabled = false;
+        });
+
+        /* ---------------------------------------------------------
+           On Model Change → Populate Years
+        --------------------------------------------------------- */
+        modelSelect.addEventListener("change", () => {
+            yearSelect.innerHTML = `<option value="">Select Year</option>`;
+            yearSelect.disabled = true;
+            resultBox.innerHTML = "";
+
+            const filtered = vehicleData.filter(
+                v => v.make === makeSelect.value && v.model === modelSelect.value
+            );
+
+            if (!filtered.length) return;
+
+            // Expand year ranges like "2015-2019"
+            const years = new Set();
+            filtered.forEach(item => {
+                const [start, end] = item.years.split("-").map(Number);
+                for (let y = start; y <= end; y++) years.add(y);
+            });
+
+            [...years].sort().forEach(year => {
+                const opt = document.createElement("option");
+                opt.value = year;
+                opt.textContent = year;
+                yearSelect.appendChild(opt);
+            });
+
+            yearSelect.disabled = false;
+        });
+
+        /* ---------------------------------------------------------
+           On Year Change → Show Result Link
+        --------------------------------------------------------- */
+        yearSelect.addEventListener("change", () => {
+            resultBox.innerHTML = "";
+
+            const match = vehicleData.find(v => {
+                const [start, end] = v.years.split("-").map(Number);
+                return (
+                    v.make === makeSelect.value &&
+                    v.model === modelSelect.value &&
+                    +yearSelect.value >= start &&
+                    +yearSelect.value <= end
+                );
+            });
+
+            if (!match) {
+                resultBox.textContent = "No compatible product found.";
+                return;
+            }
+
+            resultBox.innerHTML = `
+                <div>Compatible Product Found:</div>
+                <a href="${match.productUrl}" target="_blank">
+                    View Product (${match.sku})
+                </a>
+            `;
+        });
+    }
+</script>
+
+
+<section class="vehicle-selector">
+    <h2>Find Your SmartKey Starter</h2>
+
+    <div class="vs-form">
+        <!-- Make -->
+        <div class="vs-field">
+            <label for="vs-make">Make</label>
+            <select id="vs-make">
+                <option value="">Select Make</option>
+            </select>
+        </div>
+
+        <!-- Model -->
+        <div class="vs-field">
+            <label for="vs-model">Model</label>
+            <select id="vs-model" disabled>
+                <option value="">Select Model</option>
+            </select>
+        </div>
+
+        <!-- Year -->
+        <div class="vs-field">
+            <label for="vs-year">Year</label>
+            <select id="vs-year" disabled>
+                <option value="">Select Year</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="vs-result" class="vs-result"></div>
+</section>
