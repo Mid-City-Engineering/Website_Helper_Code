@@ -1,0 +1,15 @@
+/*
+==================================================
+CONTENT SECTION - SMARTKEY STARTER
+==================================================
+Section-specific styles
+==================================================
+*/
+
+.content-section {
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: left; */
+    padding-top: 10%;
+    padding-bottom: 5%
+}
