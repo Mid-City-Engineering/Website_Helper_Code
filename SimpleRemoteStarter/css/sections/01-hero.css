@@ -10,7 +10,7 @@ Background video with fallback image - relative positioning
     position: relative;
     width: 100%;
     height: 70vh;
-    overflow: hidden;
+    overflow: visible;
 }
 
 /* Background video */
@@ -50,7 +50,7 @@ Background video with fallback image - relative positioning
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 85vw;
+    max-width: 75vw;
     margin: 0 auto;
     padding-top: 3%;
 }
@@ -103,12 +103,77 @@ Background video with fallback image - relative positioning
     height: 24px;
 }
 
+/* Navigation Menu */
+.hero-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    background: #810305;
+    margin-top: 2rem;
+    max-width: 75vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-button {
+    padding: 1.25rem 2rem;
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 700;
+    font-family: 'Goldman', Arial, Helvetica, sans-serif !important;
+    text-transform: capitalize;
+    transition: var(--transition-normal);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    flex: 1;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+.nav-button:last-child {
+    border-right: none;
+}
+
+.nav-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Bottom Banner */
+.hero-banner {
+    position: absolute;
+    bottom: -5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60vw;
+    height: 10vh;
+    background: #810305;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+}
+
+.hero-banner h2 {
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    font-family: 'Goldman', Arial, Helvetica, sans-serif;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .hero-top-bar {
         flex-direction: column;
         gap: 1rem;
         padding-top: 5%;
+    }
+
+    .spacer {
+        display: none;
     }
 
     .mid-city-heading {
@@ -123,5 +188,30 @@ Background video with fallback image - relative positioning
     .social-icon svg {
         width: 20px;
         height: 20px;
+    }
+
+    .hero-nav {
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .nav-button {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        width: 100%;
+    }
+
+    .nav-button:last-child {
+        border-bottom: none;
+    }
+
+    .hero-banner {
+        width: 80vw;
+        height: 8vh;
+    }
+
+    .hero-banner h2 {
+        font-size: 1.5rem;
     }
 }
