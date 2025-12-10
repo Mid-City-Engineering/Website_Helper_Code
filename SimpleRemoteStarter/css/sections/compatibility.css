@@ -1,0 +1,239 @@
+/*
+==================================================
+COMPATIBILITY SECTION
+==================================================
+Interactive vehicle selector with step-by-step navigation
+Dependencies: section-titles.css
+==================================================
+*/
+
+.compatibility-section {
+    padding: var(--spacing-3xl) var(--spacing-md);
+    background: var(--color-bg-primary);
+    text-align: center;
+    min-height: 70vh;
+}
+
+.compatibility-section .subtitle {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-2xl);
+}
+
+/* ==================== SELECTOR CONTAINER ==================== */
+
+.selector-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* ==================== BACK BUTTON ==================== */
+
+.selector-back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-lg);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+}
+
+.selector-back-button:hover {
+    color: var(--color-accent-green);
+    transform: translateX(-4px);
+}
+
+/* ==================== STEP TITLE ==================== */
+
+.selector-step-title {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xl);
+    font-weight: var(--font-weight-semibold);
+}
+
+/* ==================== SELECTION GRID ==================== */
+
+.selector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ==================== SELECTION CARD ==================== */
+
+.selector-card {
+    background: var(--color-bg-tertiary);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-xl) var(--spacing-lg);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    text-align: center;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.selector-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-accent-green);
+    box-shadow: var(--shadow-green-md);
+    background: rgba(0, 255, 136, 0.05);
+}
+
+.selector-card h3 {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-lg);
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-weight-semibold);
+}
+
+.selector-card p {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+/* ==================== RESULTS SECTION ==================== */
+
+.selector-results-container {
+    max-width: 600px;
+    margin: var(--spacing-2xl) auto;
+    background: var(--color-bg-tertiary);
+    border: 2px solid var(--color-accent-green);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-2xl);
+}
+
+.selector-results-container .checkmark {
+    font-size: 3rem;
+    color: var(--color-accent-green);
+    margin-bottom: var(--spacing-md);
+    text-shadow: var(--text-shadow-glow-green);
+}
+
+.selector-results-container h3 {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.selector-results-container .vehicle-name {
+    font-size: var(--font-size-2xl);
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-md);
+    line-height: var(--line-height-tight);
+}
+
+.selector-results-container .sku-info {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-xl);
+}
+
+.selector-results-container .sku-info strong {
+    color: var(--color-accent-green);
+}
+
+.selector-results-container .view-product-btn {
+    display: inline-block;
+    padding: 1.25rem 3rem;
+    background: var(--gradient-green);
+    color: var(--color-text-primary);
+    border-radius: var(--radius-xl);
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+    transition: var(--transition-normal);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-base);
+}
+
+.selector-results-container .view-product-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-green-md);
+}
+
+.selector-results-container .start-over {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    padding: 0.5rem;
+}
+
+.selector-results-container .start-over:hover {
+    color: var(--color-text-secondary);
+}
+
+/* ==================== HIDDEN STATE ==================== */
+
+.selector-hidden {
+    display: none;
+}
+
+/* ==================== HELP LINKS ==================== */
+
+.selector-help-links {
+    margin-top: var(--spacing-2xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.selector-help-links a {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    transition: var(--transition-fast);
+}
+
+.selector-help-links a:hover {
+    color: var(--color-accent-green);
+}
+
+/* ==================== LOADING STATE ==================== */
+
+.selector-loading {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-2xl);
+}
+
+/* ==================== MOBILE RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+    .selector-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: var(--spacing-sm);
+    }
+
+    .selector-card {
+        padding: var(--spacing-md);
+        min-height: 100px;
+    }
+
+    .selector-card h3 {
+        font-size: var(--font-size-base);
+    }
+
+    .selector-step-title {
+        font-size: var(--font-size-xl);
+    }
+}

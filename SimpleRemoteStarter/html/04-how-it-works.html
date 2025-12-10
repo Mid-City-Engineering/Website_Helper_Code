@@ -1,0 +1,66 @@
+<!--
+==================================================
+WIDGET: HOW IT WORKS SECTION
+==================================================
+3-step process cards with icons and staggered fade-in
+
+Dependencies:
+- 00-base-styles.html (MUST be loaded first)
+
+CSS Used:
+- css/sections/how-it-works.css
+- css/universal/section-titles.css (loaded via base-styles)
+
+JS Used:
+- js/fade-in-on-scroll.js (card fade-in animations)
+
+For Odoo Deployment:
+- Update paths to your CDN/server URLs
+==================================================
+-->
+
+<!-- Section-specific CSS -->
+<link rel="stylesheet" href="../css/sections/how-it-works.css">
+
+<!-- How It Works Section HTML -->
+<section class="how-it-works-section" id="how-it-works">
+    <h2 class="universal-section-title">Brilliant Simplicity</h2>
+
+    <div class="steps-container">
+
+        <!-- Step 1 -->
+        <div class="step-card" data-fade-in>
+            <div class="step-number">1</div>
+            <div class="step-icon">🔑</div>
+            <h3>Press Panic Once</h3>
+            <p>A single tap of your existing factory panic button remotely starts your car. No new remotes, no new
+                habits to learn.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card" data-fade-in>
+            <div class="step-number">2</div>
+            <div class="step-icon">🌡️</div>
+            <h3>Systems Activate</h3>
+            <p>Climate control adjusts intelligently based on outside temperature. Heated seats and rear defroster
+                activate automatically when needed.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card" data-fade-in>
+            <div class="step-number">3</div>
+            <div class="step-icon">🚗</div>
+            <h3>Enter Comfort</h3>
+            <p>Step into your perfectly warmed cabin. Seats heated, windows clear, engine ready. Your luxury experience
+                starts before you even get in.</p>
+        </div>
+
+    </div>
+
+    <p class="how-it-works-footnote">
+        * Emergency panic function still works normally (hold button down for alarm)
+    </p>
+</section>
+
+<!-- Universal JavaScript -->
+<script src="../js/fade-in-on-scroll.js"></script>

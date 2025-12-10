@@ -1,0 +1,74 @@
+/*
+==================================================
+ADD-ONS SECTION
+==================================================
+Product upgrade cards with images and CTAs
+Dependencies: red-card.css, card-layout.css, section-titles.css, cta-button.css
+==================================================
+*/
+
+h2 {
+    text-align: center;
+}
+
+.addons-section {
+    padding: var(--spacing-3xl) var(--spacing-md);
+    background: var(--color-bg-primary);
+    position: relative;
+}
+
+.addons-section .section-intro {
+    max-width: 800px;
+    margin: 0 auto var(--spacing-xl);
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+}
+
+/* Add-on specific card styling */
+.addons-section .universal-red-card {
+    min-height: 500px;
+    justify-content: space-between;
+}
+
+.addons-section .universal-red-card .image-container {
+    aspect-ratio: 16/9;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Price badge */
+.addon-price {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.2) 0%, rgba(255, 102, 0, 0.2) 100%);
+    border: 1px solid rgba(255, 140, 0, 0.4);
+    border-radius: var(--radius-md);
+    color: rgba(255, 140, 0, 0.95);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-xs);
+}
+
+/* Feature list in cards */
+.addon-features {
+    list-style: none;
+    margin: var(--spacing-sm) 0;
+    text-align: left;
+}
+
+.addon-features li {
+    padding: var(--spacing-xs) 0;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+}
+
+.addon-features li::before {
+    content: '→';
+    color: rgba(255, 140, 0, 0.8);
+    font-weight: bold;
+    flex-shrink: 0;
+}

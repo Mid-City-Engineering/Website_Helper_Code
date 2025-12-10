@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartKey Starter - Remote Start System | Mid City Engineering</title>
+    <meta name="description"
+        content="SmartKey Starter - Premium remote start system for Mercedes-Benz, Infiniti, and Volvo. Factory key integration, warranty-safe installation, zero extra remotes.">
+
+    <!-- Base Styles (Foundation) -->
+    <link rel="stylesheet" href="css/base/reset.css">
+    <link rel="stylesheet" href="css/base/variables.css">
+
+    <!-- Universal Components -->
+    <link rel="stylesheet" href="css/universal/section-titles.css">
+    <link rel="stylesheet" href="css/universal/card-layout.css">
+    <link rel="stylesheet" href="css/universal/red-card.css">
+    <link rel="stylesheet" href="css/universal/tan-card.css">
+    <link rel="stylesheet" href="css/universal/green-card.css">
+    <link rel="stylesheet" href="css/universal/cta-button.css">
+    <link rel="stylesheet" href="css/universal/trust-badge.css">
+    <link rel="stylesheet" href="css/universal/social-media-icons.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap">
+
+    <!-- Section-Specific Styles -->
+    <link rel="stylesheet" href="css/sections/hero.css">
+    <link rel="stylesheet" href="css/sections/mid-city-standard.css">
+    <link rel="stylesheet" href="css/sections/solution.css">
+    <!-- <link rel="stylesheet" href="css/sections/how-it-works.css"> -->
+    <link rel="stylesheet" href="css/sections/specs.css">
+    <link rel="stylesheet" href="css/sections/addons.css">
+    <link rel="stylesheet" href="css/sections/compatibility.css">
+    <link rel="stylesheet" href="css/sections/installation.css">
+    <link rel="stylesheet" href="css/sections/cta.css">
+</head>
+
+<body>
+
+    <!-- ==================== SECTION CONTAINERS ==================== -->
+    <!-- These containers will be populated by loading the HTML files -->
+
+    <div id="hero-container"></div>
+    <div id="mid-city-standard-container"></div>
+    <div id="solution-container"></div>
+    <div id="how-it-works-container"></div>
+    <div id="specs-container"></div>
+    <div id="addons-container"></div>
+    <div id="compatibility-container"></div>
+    <div id="installation-container"></div>
+    <div id="cta-container"></div>
+
+    <!-- ==================== DYNAMIC SECTION LOADER ==================== -->
+    <script>
+        /*
+        ==================================================
+        DYNAMIC SECTION LOADER
+        ==================================================
+        Fetches each section HTML file and injects it into the page.
+        This allows you to edit individual section files and see 
+        changes immediately on browser refresh.
+        ==================================================
+        */
+
+        (async function loadSections() {
+
+            // Define sections to load (in order)
+            const sections = [
+                { file: 'html/01-hero.html', container: 'hero-container' },
+                { file: 'html/02-mid-city-standard.html', container: 'mid-city-standard-container' },
+                { file: 'html/03-solution.html', container: 'solution-container' },
+                // { file: 'html/04-how-it-works.html', container: 'how-it-works-container' },
+                { file: 'html/05-specs.html', container: 'specs-container' },
+                { file: 'html/06-addons.html', container: 'addons-container' },
+                { file: 'html/07-compatibility.html', container: 'compatibility-container' },
+                { file: 'html/08-installation.html', container: 'installation-container' },
+                { file: 'html/09-cta.html', container: 'cta-container' }
+            ];
+
+            // Load each section
+            for (const section of sections) {
+                try {
+                    console.log(`📥 Loading ${section.file}...`);
+                    const response = await fetch(section.file);
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to load ${section.file}: ${response.status}`);
+                    }
+
+                    const html = await response.text();
+
+                    // Extract just the content (remove comment headers and script/link tags)
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+
+                    // Get the section element (or all body content if no section)
+                    const sectionElement = doc.querySelector('section') || doc.body;
+
+                    // Inject the content
+                    const container = document.getElementById(section.container);
+                    if (container) {
+                        container.innerHTML = sectionElement.innerHTML;
+
+                        // If it was a section element, copy its attributes
+                        if (doc.querySelector('section')) {
+                            const originalSection = doc.querySelector('section');
+                            const newSection = document.createElement('section');
+
+                            // Copy all attributes
+                            for (let attr of originalSection.attributes) {
+                                newSection.setAttribute(attr.name, attr.value);
+                            }
+
+                            // Move content into the section
+                            newSection.innerHTML = container.innerHTML;
+                            container.innerHTML = '';
+                            container.appendChild(newSection);
+                        }
+
+                        console.log(`✅ Loaded ${section.file}`);
+                    } else {
+                        console.error(`❌ Container not found: ${section.container}`);
+                    }
+
+                    // Execute any inline scripts from the loaded HTML
+                    const scripts = doc.querySelectorAll('script');
+                    scripts.forEach(script => {
+                        if (script.src) {
+                            // External script - create new script element
+                            const newScript = document.createElement('script');
+                            newScript.src = script.src;
+                            document.body.appendChild(newScript);
+                        } else if (script.textContent) {
+                            // Inline script - execute it
+                            const newScript = document.createElement('script');
+                            newScript.textContent = script.textContent;
+                            document.body.appendChild(newScript);
+                        }
+                    });
+
+                } catch (error) {
+                    console.error(`❌ Error loading ${section.file}:`, error);
+                }
+            }
+
+            console.log('🎉 All sections loaded successfully!');
+
+        })();
+    </script>
+
+</body>
+
+</html>

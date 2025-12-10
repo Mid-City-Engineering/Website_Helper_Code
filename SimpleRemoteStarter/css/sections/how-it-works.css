@@ -1,0 +1,128 @@
+/*
+==================================================
+HOW IT WORKS SECTION
+==================================================
+3-step process cards with icons
+Dependencies: section-titles.css
+==================================================
+*/
+
+.how-it-works-section {
+    padding: var(--spacing-3xl) var(--spacing-md);
+    background: var(--color-bg-secondary);
+    position: relative;
+}
+
+/* Step cards container */
+.steps-container {
+    max-width: 90vw;
+    margin: var(--spacing-xl) auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Individual step card */
+.step-card {
+    background: var(--color-bg-tertiary);
+    padding: var(--spacing-xl) var(--spacing-md);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-border);
+    text-align: center;
+    transition: var(--transition-normal);
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* Scroll animation trigger */
+.step-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.step-card:hover {
+    border-color: rgba(255, 140, 0, 0.5);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(255, 140, 0, 0.2);
+}
+
+/* Step number badge */
+.step-number {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, rgba(255, 140, 0, 0.9) 0%, rgba(255, 102, 0, 0.9) 100%);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-primary);
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.4);
+    border: 3px solid var(--color-bg-secondary);
+}
+
+/* Icon container */
+.step-icon {
+    width: 100px;
+    height: 100px;
+    margin: var(--spacing-md) auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    transition: var(--transition-normal);
+}
+
+.step-card:hover .step-icon {
+    transform: scale(1.15);
+}
+
+/* Step title */
+.step-card h3 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-sm);
+    line-height: var(--line-height-tight);
+}
+
+/* Step description */
+.step-card p {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+}
+
+/* Footnote below steps */
+.how-it-works-footnote {
+    max-width: 90vw;
+    margin: var(--spacing-lg) auto 0;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    font-style: italic;
+}
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+    .steps-container {
+        gap: var(--spacing-xl);
+    }
+
+    .step-card {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .step-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 3rem;
+    }
+}
