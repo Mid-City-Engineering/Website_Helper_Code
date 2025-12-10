@@ -1,6 +1,6 @@
 /*
 ==================================================
-RESET & BASE STYLES
+RESET & BASE STYLES - SMARTKEY STARTER
 ==================================================
 Provides consistent baseline across all browsers
 and sections. Load this FIRST in base widget.
@@ -19,13 +19,12 @@ and sections. Load this FIRST in base widget.
 /* Base document styles */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background: #0a0a0a;
-    color: #aaa;
-    font-size: 1.1rem;
+    background: #FaFaFa;
+    color: #333;
+    font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Remove default link styling */

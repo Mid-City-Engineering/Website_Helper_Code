@@ -14,13 +14,6 @@
 
     <!-- Universal Components -->
     <link rel="stylesheet" href="css/universal/section-titles.css">
-    <link rel="stylesheet" href="css/universal/card-layout.css">
-    <link rel="stylesheet" href="css/universal/red-card.css">
-    <link rel="stylesheet" href="css/universal/tan-card.css">
-    <link rel="stylesheet" href="css/universal/green-card.css">
-    <link rel="stylesheet" href="css/universal/cta-button.css">
-    <link rel="stylesheet" href="css/universal/trust-badge.css">
-    <link rel="stylesheet" href="css/universal/social-media-icons.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,15 +22,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jura:wght@300;400;500;600;700&display=swap">
 
     <!-- Section-Specific Styles -->
-    <link rel="stylesheet" href="css/sections/hero.css">
-    <link rel="stylesheet" href="css/sections/mid-city-standard.css">
-    <link rel="stylesheet" href="css/sections/solution.css">
-    <!-- <link rel="stylesheet" href="css/sections/how-it-works.css"> -->
-    <link rel="stylesheet" href="css/sections/specs.css">
-    <link rel="stylesheet" href="css/sections/addons.css">
-    <link rel="stylesheet" href="css/sections/compatibility.css">
-    <link rel="stylesheet" href="css/sections/installation.css">
-    <link rel="stylesheet" href="css/sections/cta.css">
+    <link rel="stylesheet" href="css/sections/01-hero.css">
 </head>
 
 <body>
@@ -46,14 +31,14 @@
     <!-- These containers will be populated by loading the HTML files -->
 
     <div id="hero-container"></div>
-    <div id="mid-city-standard-container"></div>
+    <!-- <div id="mid-city-standard-container"></div>
     <div id="solution-container"></div>
     <div id="how-it-works-container"></div>
     <div id="specs-container"></div>
     <div id="addons-container"></div>
     <div id="compatibility-container"></div>
     <div id="installation-container"></div>
-    <div id="cta-container"></div>
+    <div id="cta-container"></div> -->
 
     <!-- ==================== DYNAMIC SECTION LOADER ==================== -->
     <script>
@@ -72,14 +57,14 @@
             // Define sections to load (in order)
             const sections = [
                 { file: 'html/01-hero.html', container: 'hero-container' },
-                { file: 'html/02-mid-city-standard.html', container: 'mid-city-standard-container' },
-                { file: 'html/03-solution.html', container: 'solution-container' },
+                // { file: 'html/02-mid-city-standard.html', container: 'mid-city-standard-container' },
+                // { file: 'html/03-solution.html', container: 'solution-container' },
                 // { file: 'html/04-how-it-works.html', container: 'how-it-works-container' },
-                { file: 'html/05-specs.html', container: 'specs-container' },
-                { file: 'html/06-addons.html', container: 'addons-container' },
-                { file: 'html/07-compatibility.html', container: 'compatibility-container' },
-                { file: 'html/08-installation.html', container: 'installation-container' },
-                { file: 'html/09-cta.html', container: 'cta-container' }
+                // { file: 'html/05-specs.html', container: 'specs-container' },
+                // { file: 'html/06-addons.html', container: 'addons-container' },
+                // { file: 'html/07-compatibility.html', container: 'compatibility-container' },
+                // { file: 'html/08-installation.html', container: 'installation-container' },
+                // { file: 'html/09-cta.html', container: 'cta-container' }
             ];
 
             // Load each section

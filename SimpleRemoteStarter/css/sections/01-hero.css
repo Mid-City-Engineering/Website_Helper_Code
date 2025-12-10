@@ -1,0 +1,127 @@
+/*
+==================================================
+HERO SECTION - SMARTKEY STARTER
+==================================================
+Background video with fallback image - relative positioning
+==================================================
+*/
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    overflow: hidden;
+}
+
+/* Background video */
+.hero-background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 75%;
+    display: block;
+}
+
+/* Fallback background image - only shows if video fails to load */
+.hero-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 75%;
+    display: none;
+}
+
+/* Content overlay */
+.hero-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+/* Top bar container */
+.hero-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 85vw;
+    margin: 0 auto;
+    padding-top: 3%;
+}
+
+/* Spacer to balance layout - same width as social icons */
+.spacer {
+    width: 160px;
+    flex-shrink: 0;
+}
+
+/* Mid City Engineering heading */
+.mid-city-heading {
+    font-family: 'Michroma', sans-serif;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: white;
+    text-wrap: wrap;
+    text-align: center;
+    letter-spacing: 0.15em;
+    text-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
+    margin: 0;
+    flex: 1;
+}
+
+/* Social icons container */
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition-fast);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.social-icon:hover {
+    transform: translateY(-3px);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.social-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-top-bar {
+        flex-direction: column;
+        gap: 1rem;
+        padding-top: 5%;
+    }
+
+    .mid-city-heading {
+        font-size: 1.2em;
+    }
+
+    .social-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .social-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+}
