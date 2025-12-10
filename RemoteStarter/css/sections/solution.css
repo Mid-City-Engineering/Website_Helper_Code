@@ -1,236 +1,163 @@
 /*
 ==================================================
-SOLUTION SECTION
+HOW IT WORKS SECTION
 ==================================================
-Features key fob animation + feature list
-Dependencies: section-titles.css
+Timeline cards → SVG animations → Feature cards
+Simple, uses universal card-layout system
 ==================================================
 */
 
-.solution-section {
-    padding: var(--spacing-3xl) var(--spacing-md);
+.how-it-works-section {
+    padding: var(--spacing-xl) var(--spacing-md);
     background: var(--color-bg-primary);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Two-column grid layout */
-.solution-grid {
-    max-width: 90vw;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-xl);
-    align-items: center;
-}
-
-/* ==================== ANIMATION CONTAINER ==================== */
-
-.animation-container {
-    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
-    gap: var(--spacing-md);
-    min-height: 450px;
+    align-items: center;
+    gap: var(--spacing-2xl);
+    width: 100%;
 }
 
-/* Status text above animation */
-.key-status {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--color-text-muted);
-    transition: var(--transition-slow);
+/* ==================== TIMELINE CARDS ==================== */
+
+.timeline-card {
+    flex: 1 1 30%;
+    min-width: 280px;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--spacing-sm);
 }
 
-.key-status.active {
-    color: rgba(255, 140, 0, 0.9);
-    text-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
-}
+.timeline-step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #8B7355 0%, #D4C4B0 100%);
+    /* Or for a richer, darker version: */
+    /* background: linear-gradient(135deg, #6B5D4F 0%, #A89479 100%); */
+    box-shadow: 0 4px 12px rgba(107, 93, 79, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.2);
 
-/* Main animation visualizer */
-.key-visualizer {
-    width: min(400px, 80vw);
-    height: min(400px, 80vw);
-    position: relative;
+    border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-primary);
+    box-shadow: var(--shadow-tan-sm);
+    margin-bottom: var(--spacing-xs);
 }
 
-/* ==================== KEY FOB SVG ==================== */
+.timeline-card h4 {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-xs);
+}
 
-.key-fob-container {
-    position: relative;
+.timeline-details {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.timeline-details li {
+    margin-bottom: var(--spacing-xs);
+}
+
+.timeline-details li::before {
+    content: '- ';
+    color: var(--color-accent-tan);
+}
+
+/* ==================== SVG CONTAINER ==================== */
+
+.svg-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--spacing-xl);
     width: 100%;
-    height: 100%;
+    margin-top: var(--spacing-lg);
+}
+
+.svg-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
 .key-fob-svg {
-    width: 100%;
-    height: 100%;
+    width: 40vw;
+    max-width: 500px;
+    height: auto;
 }
 
-/* Key fob body */
-.fob-body {
-    fill: #1a1a1a;
-    stroke: #333;
-    stroke-width: 2;
+.svg-label {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-bold);
+    margin-top: var(--spacing-sm);
 }
 
-/* Mercedes logo on fob */
-.fob-logo {
-    fill: #aaa;
+.svg-footnote {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-xs);
+    font-style: italic;
+    text-align: center;
+    max-width: 250px;
 }
 
-/* Panic button */
-.panic-button {
-    fill: #ED1C24;
-    stroke: #cc3636;
-    stroke-width: 2;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.panic-button.pressed {
-    fill: #ff6b6b;
-    filter: drop-shadow(0 0 20px rgba(237, 28, 36, 0.8));
-}
-
-/* Button icon (!) */
-.button-icon {
-    fill: white;
-    font-size: 48px;
-    font-weight: bold;
-}
-
-/* Signal waves */
-.signal-wave {
-    fill: none;
-    stroke: rgba(255, 140, 0, 0.8);
-    stroke-width: 3;
-    stroke-linecap: round;
-    opacity: 0;
-}
-
-.signal-wave.active {
-    animation: signalPulse 1.5s ease-out;
-}
-
-@keyframes signalPulse {
-    0% {
-        opacity: 1;
-        stroke-width: 3;
-    }
-
-    100% {
-        opacity: 0;
-        stroke-width: 1;
-        transform: scale(2);
-    }
-}
-
-/* Car silhouette */
-.car-silhouette {
-    opacity: 0.3;
-    fill: #333;
-    transition: var(--transition-slow);
-}
-
-.car-silhouette.active {
-    opacity: 1;
-    fill: #666;
-}
-
-/* Car lights */
-.car-light {
-    fill: rgba(255, 140, 0, 0);
-    transition: all 0.5s ease;
-}
-
-.car-light.active {
-    fill: rgba(255, 140, 0, 0.9);
-    filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.8));
-}
-
-/* Exhaust vapor */
-.exhaust-vapor {
-    fill: rgba(255, 255, 255, 0);
-    transition: all 0.8s ease;
-}
-
-.exhaust-vapor.active {
-    fill: rgba(255, 255, 255, 0.3);
-    animation: vaporRise 2s ease-out infinite;
-}
-
-@keyframes vaporRise {
-    0% {
-        opacity: 0.5;
-        transform: translateY(0) scale(0.8);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-30px) scale(1.2);
-    }
-}
-
-/* ==================== FEATURE LIST ==================== */
-
-.feature-list-section {
+.svg-divider {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-sm);
-}
-
-.feature-list {
-    list-style: none;
-    margin-top: var(--spacing-md);
-}
-
-.feature-list li {
-    padding: var(--spacing-sm) 0;
-    border-bottom: 1px solid var(--color-border);
-    display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.5s ease;
-    color: var(--color-text-secondary);
+    justify-content: flex-start;
+    gap: var(--spacing-xs);
+    padding-top: 150px;
 }
 
-/* Scroll animation trigger */
-.feature-list li.visible {
-    opacity: 1;
-    transform: translateX(0);
+.svg-divider span {
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
-/* Checkmark icon */
-.check-icon {
-    width: 30px;
-    height: 30px;
-    background: var(--gradient-green);
-    border-radius: var(--radius-full);
-    color: var(--color-text-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+.svg-divider::before,
+.svg-divider::after {
+    content: '';
+    width: 1px;
+    height: 60px;
+    background: var(--color-border);
 }
 
-/* ==================== RESPONSIVE ==================== */
-
+/* Responsive: Stack on mobile */
 @media (max-width: 768px) {
-    .solution-grid {
-        gap: var(--spacing-lg);
+    .svg-container {
+        flex-direction: column;
+        align-items: center;
     }
 
-    .animation-container {
-        min-height: 350px;
+    .key-fob-svg {
+        width: 80vw;
+    }
+
+    .svg-divider {
+        padding-top: 0;
+        flex-direction: row;
+    }
+
+    .svg-divider::before,
+    .svg-divider::after {
+        width: 60px;
+        height: 1px;
     }
 }

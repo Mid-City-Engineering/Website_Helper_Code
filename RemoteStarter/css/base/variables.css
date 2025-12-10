@@ -36,6 +36,11 @@ Update here to change across all components.
     --color-accent-green-dark: #00cc6a;
     --color-accent-green-darker: #00aa55;
 
+    /* Accent Colors - Tan (SmartKey Starter) */
+    --color-accent-tan: #d4c7b8;
+    --color-accent-tan-light: #e8dcc8;
+    --color-accent-tan-dark: #b8a893;
+
     /* Accent Colors - Other */
     --color-accent-blue: #00aaff;
     --color-accent-orange: #ff6600;
@@ -52,6 +57,7 @@ Update here to change across all components.
 
     --gradient-red: linear-gradient(135deg, #ED1C24 0%, #ff6b6b 100%);
     --gradient-green: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+    --gradient-tan: linear-gradient(135deg, #d4c7b8 0%, #b8a893 100%);
     --gradient-text: linear-gradient(135deg, #fff 0%, #888 100%);
     --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
     --gradient-hero-bg: radial-gradient(circle at 20% 50%, #ff4444 0%, transparent 50%),
@@ -138,6 +144,10 @@ Update here to change across all components.
     /* Green shadows */
     --shadow-green-sm: 0 8px 20px rgba(0, 255, 136, 0.3);
     --shadow-green-md: 0 15px 40px rgba(0, 255, 136, 0.2);
+
+    /* Tan shadows (SmartKey Starter) */
+    --shadow-tan-sm: 0 8px 20px rgba(212, 199, 184, 0.3);
+    --shadow-tan-md: 0 15px 40px rgba(212, 199, 184, 0.2);
 
     /* Mode-specific shadows (for animation) */
     --shadow-mode-normal: 0 0 15px rgba(0, 255, 136, 0.8);
