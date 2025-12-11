@@ -138,6 +138,19 @@ Background video with fallback image - relative positioning
     background: rgba(255, 255, 255, 0.1);
 }
 
+
+.hero-subheading {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    font-family: 'Goldman', Arial, Helvetica, sans-serif;
+    /* font-style: italic; */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-top: 2%;
+}
+
 /* Bottom Banner */
 .hero-banner {
     position: absolute;
