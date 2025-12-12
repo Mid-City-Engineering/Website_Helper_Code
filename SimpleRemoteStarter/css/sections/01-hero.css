@@ -124,7 +124,7 @@ Background video with fallback image - relative positioning
     font-family: 'Goldman', Arial, Helvetica, sans-serif !important;
     text-transform: capitalize;
     transition: var(--transition-normal);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(0, 0, 0, 0.9);
     flex: 1;
     text-align: center;
     letter-spacing: 0.02em;
@@ -141,14 +141,15 @@ Background video with fallback image - relative positioning
 
 .hero-subheading {
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: 500;
-    text-align: center;
+    text-align: flex-end;
     font-family: 'Goldman', Arial, Helvetica, sans-serif;
     /* font-style: italic; */
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    padding-top: 2%;
+    padding-top: 3%;
+    text-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
 }
 
 /* Bottom Banner */
@@ -164,6 +165,9 @@ Background video with fallback image - relative positioning
     align-items: center;
     justify-content: center;
     z-index: 20;
+    border-color: #810305;
+    border-width: 3px;
+    border-radius: 7px;
 }
 
 .hero-banner h2 {

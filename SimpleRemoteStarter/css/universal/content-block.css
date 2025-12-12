@@ -88,8 +88,8 @@ Structure: content-block > content-block-main (image + text) + separator
 /* Tan separator - full width */
 .content-block-separator {
     width: 100%;
-    height: 2px;
-    background: #D4B896;
+    height: 1px;
+    background: rgb(0, 0, 0, 0.5);
 }
 
 /* Responsive */
