@@ -24,13 +24,13 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 </style>
 
 <style>
-    /* Top spacer section - same height as video */
+    /* Top video section - full width with auto height */
     .mce-top-spacer-section {
         margin-top: 0 !important;
         position: relative;
-        height: 25vh;
-        background: transparent;
-        overflow: visible;
+        width: 100%;
+        background: var(--mce-black);
+        overflow: hidden;
     }
 
     .mce-product-section * {
@@ -41,8 +41,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         font-family: 'Outfit', -apple-system, sans-serif;
         position: relative;
         background: var(--mce-black);
-        padding-top: 25vh;
-        /* Half video height (20vh) + 5vh spacing */
+        padding-top: 60px;
         padding-bottom: 60px;
     }
 
@@ -59,40 +58,33 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         border-width: 0;
     }
 
-    /* Video Overlap */
+    /* Full Width Video - No Overlay */
     .mce-video-wrapper {
-        position: absolute;
-        top: 5vh;
-        left: 50%;
-        transform: translateX(-50%);
-        width: calc(100% - 260px);
-        /* 100% - 80px padding - 120px arrows - 60px gaps */
-        max-width: 1140px;
-        /* 1400px - 80px - 180px */
+        position: relative;
+        width: 100%;
         height: 40vh;
-        z-index: 10;
+        /* Use vh (viewport height) instead of % */
+        overflow: hidden;
     }
 
     .mce-video-container {
         width: 100%;
         height: 100%;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(212, 175, 133, 0.3);
+        position: relative;
     }
 
     .mce-video-container video {
         width: 100%;
         height: 100%;
-        object-fit: cover;
         display: block;
+        object-fit: cover;
+        object-position: 10% 80%;
     }
 
     /* What's Included */
     .mce-whats-included {
         position: relative;
         padding-top: 60px;
-        /* Reduced from calc(20vh + 60px) */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -416,21 +408,26 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         text-align: left;
     }
 
+    .order-now-button {
+        background-color: var(--mce-dark-red, #810305);
+        color: var(--mce-white, #ffffff);
+        font-family: 'Michroma', sans-serif;
+        margin-top: 3%;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
     /* Responsive */
     @media (max-width: 1024px) {
-        .mce-top-spacer-section {
-            height: 25vh;
-        }
-
-        .mce-video-wrapper {
-            width: calc(100% - 80px);
-            max-width: 1320px;
-            height: 40vh;
-        }
-
         .mce-product-section {
-            padding-top: 22.5vh;
-            /* 17.5vh + 5vh */
+            padding-top: 50px;
         }
 
         .mce-whats-included {
@@ -456,20 +453,8 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     }
 
     @media (max-width: 768px) {
-        .mce-top-spacer-section {
-            height: 20vh;
-        }
-
-        .mce-video-wrapper {
-            width: calc(100% - 200px);
-            /* 40px padding + 100px arrows + 40px gaps */
-            max-width: none;
-            height: 30vh;
-        }
-
         .mce-product-section {
-            padding-top: 20vh;
-            /* 15vh + 5vh */
+            padding-top: 40px;
         }
 
         .mce-whats-included {
@@ -529,21 +514,8 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     }
 
     @media (max-width: 480px) {
-
-        .mce-top-spacer-section {
-            height: 15vh;
-        }
-
-        .mce-video-wrapper {
-            width: calc(100% - 160px);
-            /* 40px padding + 90px arrows + 30px gaps */
-            max-width: none;
-            height: 20vh;
-        }
-
         .mce-product-section {
-            padding-top: 17.5vh;
-            /* 12.5vh + 5vh */
+            padding-top: 30px;
         }
 
         .mce-section-title {
@@ -636,7 +608,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     href="https://fonts.googleapis.com/css2?family=Michroma&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap"
     rel="stylesheet">
 
-<!-- Top spacer section for video overlap -->
+<!-- Top video section - full width -->
 <div class="mce-top-spacer-section">
     <div class="mce-video-wrapper">
         <div class="mce-video-container">
@@ -707,7 +679,9 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                             alt="Factory key fob for Mercedes-Benz remote start" class="mce-item-image" loading="lazy">
                         <div class="mce-item-content">
                             <h3>Smartphone Ready</h3>
-                            <p>Compatible with Drone and Smart Start for control from your phone.</p>
+                            <p>Compatible with Drone and Smart Start for control from your phone. Available <a
+                                    href="https://mid-city-engineering.odoo.com/shop/cute-little-product-rob-s-playground-10493#">Here</a>
+                            </p>
                         </div>
                     </div>
 
@@ -717,7 +691,10 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                             alt="Smartphone showing remote start app interface" class="mce-item-image" loading="lazy">
                         <div class="mce-item-content">
                             <h3>Extended Range Remote Compatible</h3>
-                            <p>Compatible with Directed or Compustar FM Remote controls.</p>
+                            <p>Compatible with Directed or Compustar FM Remote controls.
+                                Available <a
+                                    href="https://mid-city-engineering.odoo.com/shop/cute-little-product-rob-s-playground-10493#">Here</a>
+                            </p>
                         </div>
                     </div>
 
@@ -812,18 +789,23 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                             <!-- <div class="mce-accordion-icon" aria-hidden="true">🔧</div> -->
                             <div class="mce-accordion-text">SmartKey Starter® FAQ</div>
                         </a>
-                        <a class="mce-accordion-item" href="/helpdesk/customer-care-1" target="_blank"
+                        <a class="mce-accordion-item" href="/installation-manuals" target="_blank"
                             rel="noopener noreferrer">
                             <!-- <div class="mce-accordion-icon" aria-hidden="true">⚡</div> -->
-                            <div class="mce-accordion-text">Dozuki Installation Manual</div>
+                            <div class="mce-accordion-text">Installation Manuals</div>
                         </a>
                         <a class="mce-accordion-item" href="/dealer-locator" target="_blank" rel="noopener noreferrer">
                             <!-- <div class="mce-accordion-icon" aria-hidden="true">🌡️</div> -->
                             <div class="mce-accordion-text">Find A Dealer</div>
                         </a>
-                        <a class="mce-accordion-item" href="/contactus" target="_blank" rel="noopener noreferrer">
+                        <a class="mce-accordion-item" href="/helpdesk/customer-care-1" target="_blank"
+                            rel="noopener noreferrer">
                             <!-- <div class="mce-accordion-icon" aria-hidden="true">📡</div> -->
                             <div class="mce-accordion-text">Get Support</div>
+                        </a>
+                        <a class="mce-accordion-item" href="/contactus" target="_blank" rel="noopener noreferrer">
+                            <!-- <div class="mce-accordion-icon" aria-hidden="true">📡</div> -->
+                            <div class="mce-accordion-text">Contact Us</div>
                         </a>
                     </div>
                 </div>
@@ -854,10 +836,19 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                             <!-- <div class="mce-accordion-icon" aria-hidden="true">🛡️</div> -->
                             <div class="mce-accordion-text">Safety Sticker</div>
                         </div>
+                        <div class="mce-accordion-item">
+                            <!-- <div class="mce-accordion-icon" aria-hidden="true">🛡️</div> -->
+                            <div class="mce-accordion-text">Information Card</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <a href="#add_to_cart" class="order-now-button">
+            Order Now
+        </a>
+
     </div>
 </div>
 
