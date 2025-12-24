@@ -408,20 +408,27 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         text-align: left;
     }
 
-    .order-now-button {
-        background-color: var(--mce-dark-red, #810305);
-        color: var(--mce-white, #ffffff);
+    a.mce-order-button,
+    a.mce-order-button:link,
+    a.mce-order-button:visited,
+    a.mce-order-button:hover,
+    a.mce-order-button:active {
+        background-color: var(--mce-dark-red, #810305) !important;
+        color: var(--mce-white, #ffffff) !important;
         font-family: 'Michroma', sans-serif;
         margin-top: 3%;
         padding: 12px 24px;
         border: none;
         border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 600;
-        text-decoration: none;
+        text-decoration: none !important;
         display: inline-block;
         transition: all 0.3s ease;
+    }
+
+    a.mce-order-button:hover {
+        background-color: #a00406 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(129, 3, 5, 0.4);
     }
 
     /* Responsive */
@@ -845,7 +852,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             </div>
         </div>
 
-        <a href="#add_to_cart" class="order-now-button">
+        <a href="#add_to_cart" class="mce-order-button">
             Order Now
         </a>
 
