@@ -98,3 +98,10 @@ Structure: content-block > content-block-main (image + text) + separator
         flex-direction: column;
     }
 }
+
+@media (max-width: 850px) {
+    .content-block-separator {
+        margin-top: 1.5%;
+        margin-bottom: 1.5%;
+    }
+}
