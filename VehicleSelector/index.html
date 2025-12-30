@@ -81,6 +81,8 @@
         })
         .catch(err => {
             console.error("Error loading vehicle compatibility JSON:", err);
+            document.getElementById("vs-result").innerHTML =
+                `<p style="color: #810305;">Unable to load vehicle data. Please refresh the page.</p>`;
         });
 
 
@@ -191,7 +193,7 @@
     }
 </script>
 
-
+<html>
 <section class="vehicle-selector">
     <h2>Find Your SmartKey Starter</h2>
 
@@ -199,7 +201,7 @@
 
         <div class="vs-field">
             <label for="vs-make">Make</label>
-            <select id="vs-make">
+            <select id="vs-make" aria-label="Select vehicle make">
                 <option value="">Select Make</option>
             </select>
         </div>
@@ -207,7 +209,7 @@
 
         <div class="vs-field">
             <label for="vs-model">Model</label>
-            <select id="vs-model" disabled="">
+            <select id="vs-model" disabled="" aria-label="Select vehicle model">
                 <option value="">Select Model</option>
             </select>
         </div>
@@ -215,7 +217,7 @@
 
         <div class="vs-field">
             <label for="vs-year">Year</label>
-            <select id="vs-year" disabled="">
+            <select id="vs-year" disabled="" aria-label="Select vehicle year">
                 <option value="">Select Year</option>
             </select>
         </div>
@@ -223,3 +225,5 @@
 
     <div id="vs-result" class="vs-result"></div>
 </section>
+
+</html>
