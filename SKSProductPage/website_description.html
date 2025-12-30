@@ -81,8 +81,8 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         object-position: 10% 80%;
     }
 
-    /* What's Included */
-    .mce-whats-included {
+    /* Product Info */
+    .mce-product-info-section {
         position: relative;
         padding-top: 60px;
         display: flex;
@@ -90,7 +90,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         align-items: center;
     }
 
-    .mce-whats-included .mce-section-title {
+    .mce-product-info-section .mce-section-title {
         font-family: 'Michroma', sans-serif;
         font-size: 2.5rem;
         color: #D4AF85;
@@ -100,7 +100,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         padding-top: 3%;
     }
 
-    .mce-included-content {
+    .mce-product-info-content {
         width: 100%;
         max-width: 1400px;
         padding: 0 40px;
@@ -116,14 +116,14 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         gap: 30px;
     }
 
-    .mce-included-grid {
+    .mce-product-info-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
         transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
-    .mce-included-grid.mce-transitioning {
+    .mce-product-info-grid.mce-transitioning {
         opacity: 0;
         transform: translateX(20px);
     }
@@ -346,7 +346,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         font-weight: 400;
     }
 
-    .mce-included-item {
+    .mce-product-info-item {
         display: flex;
         flex-direction: column;
         align-items: stretch;
@@ -361,12 +361,12 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         transform: translateY(20px);
     }
 
-    .mce-included-item.mce-visible {
+    .mce-product-info-item.mce-visible {
         opacity: 1;
         transform: translateY(0);
     }
 
-    .mce-included-item:hover {
+    .mce-product-info-item:hover {
         background: rgba(255, 255, 255, 0.08);
         border-left-color: #D4AF85;
         transform: translateY(-5px);
@@ -383,7 +383,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         align-self: center;
     }
 
-    .mce-included-item:hover .mce-item-image {
+    .mce-product-info-item:hover .mce-item-image {
         transform: scale(1.02);
         box-shadow: 0 8px 24px rgba(212, 175, 133, 0.3);
     }
@@ -414,7 +414,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             padding-top: 50px;
         }
 
-        .mce-whats-included {
+        .mce-product-info-section {
             padding-top: 50px;
         }
 
@@ -422,7 +422,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             font-size: 2rem;
         }
 
-        .mce-included-grid {
+        .mce-product-info-grid {
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
         }
@@ -441,7 +441,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             padding-top: 40px;
         }
 
-        .mce-whats-included {
+        .mce-product-info-section {
             padding-top: 40px;
         }
 
@@ -450,7 +450,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             margin-bottom: 40px;
         }
 
-        .mce-included-content {
+        .mce-product-info-content {
             padding: 0 20px;
         }
 
@@ -458,7 +458,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             gap: 20px;
         }
 
-        .mce-included-grid {
+        .mce-product-info-grid {
             grid-template-columns: 1fr;
             gap: 20px;
         }
@@ -491,7 +491,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             max-width: 160px;
         }
 
-        .mce-included-item {
+        .mce-product-info-item {
             padding: 18px;
             gap: 16px;
         }
@@ -548,7 +548,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             max-width: 140px;
         }
 
-        .mce-included-item {
+        .mce-product-info-item {
             padding: 16px;
             gap: 14px;
         }
@@ -573,8 +573,8 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     /* Reduced motion support */
     @media (prefers-reduced-motion: reduce) {
 
-        .mce-included-grid,
-        .mce-included-item,
+        .mce-product-info-grid,
+        .mce-product-info-item,
         .mce-accordion-content,
         .mce-accordion-toggle,
         .mce-nav-arrow,
@@ -590,8 +590,9 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
 <link
     href="https://fonts.googleapis.com/css2?family=Michroma&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap"
-    rel="stylesheet">
+    rel="stylesheet" />
 
+<html>
 <!-- Top video section - full width -->
 <div class="mce-top-spacer-section">
     <div class="mce-video-wrapper">
@@ -607,24 +608,25 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     </div>
 </div>
 
+<!-- Product Info Section With Carousel -->
 <div class="mce-product-section">
     <!-- Skip link for keyboard navigation -->
     <a href="#mce-main-content" class="sr-only mce-skip-link">Skip to main content</a>
 
-    <!-- What's Included Section -->
-    <section class="mce-whats-included" id="mce-main-content" aria-labelledby="mce-features-title">
+    <!-- Product Info Section Section -->
+    <section class="mce-product-info-section" id="mce-main-content" aria-labelledby="mce-features-title">
         <h2 id="mce-features-title" class="mce-section-title">Product Details</h2>
 
         <!-- Live region for screen reader announcements -->
         <div aria-live="polite" aria-atomic="true" class="sr-only" id="mceCarouselStatus"></div>
 
-        <div class="mce-included-content">
+        <div class="mce-product-info-content">
             <!-- Carousel Row 1: Chevrons & Content Blocks -->
             <div class="mce-carousel-wrapper" role="region" aria-labelledby="mce-features-title">
 
                 <!-- Navigation Arrow Previous -->
                 <button class="mce-nav-arrow mce-prev" onclick="mceNavigate(-1)" aria-label="Previous features"
-                    aria-controls="mceIncludedGrid">
+                    aria-controls="mceProductInfoGrid">
                     <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="15 18 9 12 15 6"></polyline>
@@ -633,13 +635,14 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                 </button>
 
                 <!-- Carousel Container -->
-                <div class="mce-included-grid" id="mceIncludedGrid" role="group" aria-label="Product features carousel">
+                <div class="mce-product-info-grid" id="mceProductInfoGrid" role="group"
+                    aria-label="Product features carousel">
                     <!-- Feature items -->
                     <!-- Item 1 -->
-                    <div class="mce-included-item">
+                    <div class="mce-product-info-item">
                         <img src="https://mid-city-engineering.odoo.com/web/image/13024-ece9ce97/harness.webp"
                             alt="SmartKey Control Module circuit board and electronics" class="mce-item-image"
-                            loading="lazy">
+                            loading="lazy" />
                         <div class="mce-item-content">
                             <h3>Plug-and-Play Install</h3>
                             <p>Simple, seamless installation designed specifically for Mercedes-Benz.</p>
@@ -647,10 +650,10 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                     </div>
 
                     <!-- Item 2 -->
-                    <div class="mce-included-item">
+                    <div class="mce-product-info-item">
                         <img src="https://mid-city-engineering.odoo.com/web/image/13022-cdfbed2c/FBS5_2.webp"
                             alt="Plug-and-play installation connector for Mercedes-Benz" class="mce-item-image"
-                            loading="lazy">
+                            loading="lazy" />
                         <div class="mce-item-content">
                             <h3>Factory Key Control</h3>
                             <p>Works with your existing key fob immediately—no extra remote needed.</p>
@@ -658,9 +661,10 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                     </div>
 
                     <!-- Item 3 -->
-                    <div class="mce-included-item">
+                    <div class="mce-product-info-item">
                         <img src="https://mid-city-engineering.odoo.com/web/image/13020-fcd8f21f/drone.webp"
-                            alt="Factory key fob for Mercedes-Benz remote start" class="mce-item-image" loading="lazy">
+                            alt="Factory key fob for Mercedes-Benz remote start" class="mce-item-image"
+                            loading="lazy" />
                         <div class="mce-item-content">
                             <h3>Smartphone Ready</h3>
                             <p>Compatible with Drone and Smart Start for control from your phone. Available for
@@ -670,9 +674,9 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                     </div>
 
                     <!-- Item 4 -->
-                    <div class="mce-included-item">
+                    <div class="mce-product-info-item">
                         <img src="https://mid-city-engineering.odoo.com/web/image/13028-2fb17197/T13_black2.webp"
-                            alt="Smartphone showing remote start app interface" class="mce-item-image" loading="lazy">
+                            alt="Smartphone showing remote start app interface" class="mce-item-image" loading="lazy" />
                         <div class="mce-item-content">
                             <h3>Extended Range Remote Compatible</h3>
                             <p>Compatible with Directed or Compustar FM Remote controls. Available at purchase.</p>
@@ -680,9 +684,9 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                     </div>
 
                     <!-- Item 5 -->
-                    <div class="mce-included-item">
+                    <div class="mce-product-info-item">
                         <img src="https://mid-city-engineering.odoo.com/web/image/13032-321b959d/seats2.webp"
-                            alt="Climate control system with heated seats" class="mce-item-image" loading="lazy">
+                            alt="Climate control system with heated seats" class="mce-item-image" loading="lazy" />
                         <div class="mce-item-content">
                             <h3>Auto Comfort Control</h3>
                             <p>Automatically activates heated/cooled seats and defrost based on temperature.</p>
@@ -690,9 +694,9 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                     </div>
 
                     <!-- Item 6 -->
-                    <div class="mce-included-item">
+                    <div class="mce-product-info-item">
                         <img src="https://mid-city-engineering.odoo.com/web/image/13088-a8ea6ab8/connector%20%28Medium%29.webp"
-                            alt="Factory warranty protection seal" class="mce-item-image" loading="lazy">
+                            alt="Factory warranty protection seal" class="mce-item-image" loading="lazy" />
                         <div class="mce-item-content">
                             <h3>Warranty Safe</h3>
                             <p>Non-invasive installation keeps your factory warranty fully intact.</p>
@@ -700,10 +704,10 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                     </div>
 
                     <!-- Item 7 -->
-                    <div class="mce-included-item">
+                    <div class="mce-product-info-item">
                         <img src="https://mid-city-engineering.odoo.com/web/image/13017-593c1571/steering2.jpg"
                             alt="Mercedes-Benz steering wheel with control buttons" class="mce-item-image"
-                            loading="lazy">
+                            loading="lazy" />
                         <div class="mce-item-content">
                             <h3>Steering Wheel Configuration</h3>
                             <p>Easily adjust settings and options right from your steering wheel or turn signal.</p>
@@ -711,9 +715,10 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                     </div>
 
                     <!-- Item 8 -->
-                    <div class="mce-included-item">
+                    <div class="mce-product-info-item">
                         <img src="https://mid-city-engineering.odoo.com/web/image/13092-23b03e05/circuit2.webp"
-                            alt="Premium electronic components and circuit board" class="mce-item-image" loading="lazy">
+                            alt="Premium electronic components and circuit board" class="mce-item-image"
+                            loading="lazy" />
                         <div class="mce-item-content">
                             <h3>Premium Hardware</h3>
                             <p>Industry-leading, automotive rated components for maximum reliability.</p>
@@ -721,19 +726,20 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                     </div>
 
                     <!-- Item 9 -->
-                    <div class="mce-included-item">
+                    <div class="mce-product-info-item">
                         <img src="https://mid-city-engineering.odoo.com/web/image/13030-da9a9e37/Warranty_silver.webp"
-                            alt="4-year warranty badge and certification" class="mce-item-image" loading="lazy">
+                            alt="4-year warranty badge and certification" class="mce-item-image" loading="lazy" />
                         <div class="mce-item-content">
                             <h3>4-Year Warranty</h3>
                             <p>Backed by our comprehensive warranty for total peace of mind.</p>
                         </div>
                     </div>
+
                 </div>
 
                 <!-- Navigation Arrow Next -->
                 <button class="mce-nav-arrow mce-next" onclick="mceNavigate(1)" aria-label="Next features"
-                    aria-controls="mceIncludedGrid">
+                    aria-controls="mceProductInfoGrid">
                     <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="9 18 15 12 9 6"></polyline>
@@ -828,6 +834,8 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     </div>
 </div>
 
+</html>
+
 <script>
     // Accordion toggle function
     window.mceToggleAccordion = function (element) {
@@ -848,10 +856,10 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         let mceTotalPages = 0;
 
         function mceInitCarousel() {
-            const grid = document.getElementById('mceIncludedGrid');
+            const grid = document.getElementById('mceProductInfoGrid');
             if (!grid) return;
 
-            const items = grid.querySelectorAll('.mce-included-item');
+            const items = grid.querySelectorAll('.mce-product-info-item');
             mceTotalItems = items.length;
 
             // Calculate items per page based on screen size
@@ -884,7 +892,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                 dot.className = 'mce-dot' + (i === 0 ? ' mce-active' : '');
                 dot.setAttribute('role', 'tab');
                 dot.setAttribute('aria-label', `Page ${i + 1} of ${mceTotalPages}`);
-                dot.setAttribute('aria-controls', 'mceIncludedGrid');
+                dot.setAttribute('aria-controls', 'mceProductInfoGrid');
 
                 if (i === 0) {
                     dot.setAttribute('aria-selected', 'true');
@@ -913,10 +921,10 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         }
 
         function mceUpdateCarousel() {
-            const grid = document.getElementById('mceIncludedGrid');
+            const grid = document.getElementById('mceProductInfoGrid');
             if (!grid) return;
 
-            const items = grid.querySelectorAll('.mce-included-item');
+            const items = grid.querySelectorAll('.mce-product-info-item');
 
             // Add transitioning class
             grid.classList.add('mce-transitioning');
