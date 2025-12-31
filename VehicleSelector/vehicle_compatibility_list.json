@@ -486,22 +486,52 @@
         "make": "Mercedes-Benz",
         "model": "Sprinter",
         "years": "2025-2026",
-        "sku": "SKSNG907G",
-        "productUrl": "/shop/sksng907g-smartkey-starter-r-remote-start-and-alarm-for-2025-2026-sprinter-907-9790"
+        "options": [
+            {
+                "name": "SmartKey Starter",
+                "sku": "SKSNG907G",
+                "productUrl": "/shop/sksng907g-smartkey-starter-r-remote-start-and-alarm-for-2025-2026-sprinter-907-9790"
+            },
+            {
+                "name": "SmartKey Starter with Smart High Idle Kit",
+                "sku": "SKSNG907RVG",
+                "productUrl": "/shop/sksng907rvg-smartkey-starter-r-remote-start-alarm-high-idle-for-2025-2026-sprinter-w907-9797"
+            }
+        ]
     },
     {
         "make": "Mercedes-Benz",
         "model": "Sprinter",
         "years": "2019-2024",
-        "sku": "SKSNG907",
-        "productUrl": "/shop/sksng907-smartkey-starter-r-remote-start-and-alarm-for-w907-sprinter-9788"
+        "options": [
+            {
+                "name": "SmartKey Starter",
+                "sku": "SKSNG907",
+                "productUrl": "/shop/sksng907-smartkey-starter-r-remote-start-and-alarm-for-w907-sprinter-9788"
+            },
+            {
+                "name": "SmartKey Starter with Smart High Idle Kit",
+                "sku": "SKSNG907RV",
+                "productUrl": "/shop/product-smartkey-starter-remote-start-alarm-for-mercedes-benz-freightliner-sprinter-sksng907rv-9791"
+            }
+        ]
     },
     {
         "make": "Mercedes-Benz",
         "model": "Sprinter",
         "years": "2007-2018",
-        "sku": "SKSNG906",
-        "productUrl": "/shop/sksng906-smartkey-starter-r-remote-start-and-alarm-for-w906-sprinter-9786"
+        "options": [
+            {
+                "name": "SmartKey Starter",
+                "sku": "SKSNG906",
+                "productUrl": "/shop/sksng906-smartkey-starter-r-remote-start-and-alarm-for-w906-sprinter-9786"
+            },
+            {
+                "name": "SmartKey Starter with Smart High Idle Kit",
+                "sku": "SKSNG906RV",
+                "productUrl": "/shop/sksng906rv-smartkey-starter-r-remote-start-and-high-idle-for-w906-sprinter-9787"
+            }
+        ]
     },
     {
         "make": "Volvo",
