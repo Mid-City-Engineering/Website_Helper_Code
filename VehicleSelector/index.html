@@ -90,6 +90,7 @@
         const makeSelect = document.getElementById("vs-make");
         const modelSelect = document.getElementById("vs-model");
         const yearSelect = document.getElementById("vs-year");
+        const optionSelect = document.getElementById("vs-option");
         const resultBox = document.getElementById("vs-result");
 
         /* ---------------------------------------------------------
@@ -145,7 +146,6 @@
 
             if (!filtered.length) return;
 
-            // Expand year ranges like "2015-2019"
             const years = new Set();
             filtered.forEach(item => {
                 const [start, end] = item.years.split("-").map(Number);
@@ -163,9 +163,10 @@
         });
 
         /* ---------------------------------------------------------
-           On Year Change → Show Result Link
+           On Year Change → Show Result Link or Options
         --------------------------------------------------------- */
         yearSelect.addEventListener("change", () => {
+            const optionField = document.getElementById("vs-option-field");
             resultBox.innerHTML = "";
 
             const match = vehicleData.find(v => {
@@ -180,15 +181,54 @@
 
             if (!match) {
                 resultBox.textContent = "No compatible product found.";
+                optionField.style.display = "none";
                 return;
             }
 
-            resultBox.innerHTML = `
+            if (match.options && match.options.length > 1) {
+                optionSelect.innerHTML = `<option value="">Select Configuration</option>`;
+                match.options.forEach((opt, idx) => {
+                    const option = document.createElement("option");
+                    option.value = idx;
+                    option.textContent = opt.name;
+                    optionSelect.appendChild(option);
+                });
+                optionField.style.display = "flex";
+                optionSelect.disabled = false;
+            } else {
+                optionField.style.display = "none";
+                resultBox.innerHTML = `
                 <div>Compatible Product Found:</div>
                 <a href="${match.productUrl}" target="_blank">
                     View Product (${match.sku})
                 </a>
             `;
+            }
+        });
+
+        /* ---------------------------------------------------------
+           On Option Change → Show Selected Product
+        --------------------------------------------------------- */
+        optionSelect.addEventListener("change", () => {
+            if (!optionSelect.value) return;
+
+            const match = vehicleData.find(v => {
+                const [start, end] = v.years.split("-").map(Number);
+                return (
+                    v.make === makeSelect.value &&
+                    v.model === modelSelect.value &&
+                    +yearSelect.value >= start &&
+                    +yearSelect.value <= end
+                );
+            });
+
+            const selectedOption = match.options[optionSelect.value];
+            resultBox.innerHTML = `
+            <div>Compatible Product Found:</div>
+            <a href="${selectedOption.productUrl}" target="_blank">
+                View Product (${selectedOption.sku})
+            </a>
+        `;
         });
     }
 </script>
@@ -219,6 +259,13 @@
             <label for="vs-year">Year</label>
             <select id="vs-year" disabled="" aria-label="Select vehicle year">
                 <option value="">Select Year</option>
+            </select>
+        </div>
+
+        <div class="vs-field" id="vs-option-field" style="display: none;">
+            <label for="vs-option">Configuration</label>
+            <select id="vs-option" disabled="" aria-label="Select product configuration">
+                <option value="">Select Configuration</option>
             </select>
         </div>
     </div>
