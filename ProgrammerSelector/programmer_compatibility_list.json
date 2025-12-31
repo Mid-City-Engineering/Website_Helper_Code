@@ -1,0 +1,233 @@
+[
+    {
+        "make": "Mercedes-Benz",
+        "model": "A Class",
+        "years": "2019-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "AMG GT S",
+        "years": "2019",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "C Class Coupe",
+        "years": "2019-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "C Class Coupe",
+        "years": "2013-2015",
+        "sku": "ECO212",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "C Class Sedan",
+        "years": "2019-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "C Class Sedan",
+        "years": "2012-2018",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "CL",
+        "years": "2012-2013",
+        "sku": "ECO221",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "CLA",
+        "years": "2019-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "CLA",
+        "years": "2014-2018",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "CLS",
+        "years": "2019-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "CLS",
+        "years": "2013-2018",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "E Class",
+        "years": "2017-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "E Class",
+        "years": "2012-2016",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "G Wagon",
+        "years": "2019-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "G Wagon",
+        "years": "2015-2018",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GL",
+        "years": "2013-2016",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLA",
+        "years": "2020-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLA",
+        "years": "2015-2019",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLB",
+        "years": "2019-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLC",
+        "years": "2020-2022",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLC",
+        "years": "2015-2019",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLE",
+        "years": "2020-2023",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLE",
+        "years": "2016-2019",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLK",
+        "years": "2012-2015",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLS",
+        "years": "2020-2021",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "GLS",
+        "years": "2016-2019",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "Metris",
+        "years": "2016-2020",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "ML",
+        "years": "2012-2015",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "S Class",
+        "years": "2018-2020",
+        "sku": "ECO-PCM",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "S Class",
+        "years": "2014-2017",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "SL",
+        "years": "2013-2019",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "SLC",
+        "years": "2017-2019",
+        "sku": "ECO-V2",
+        "productUrl": ""
+    },
+    {
+        "make": "Mercedes-Benz",
+        "model": "SLK",
+        "years": "2012-2016",
+        "sku": "ECO212",
+        "productUrl": ""
+    }
+]
