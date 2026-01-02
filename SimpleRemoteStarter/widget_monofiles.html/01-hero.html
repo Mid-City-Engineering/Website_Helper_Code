@@ -195,6 +195,14 @@ Background video with fallback image - relative positioning
         border-bottom: none;
     }
 
+
+    .hero-section .hero-subheading-container {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        padding-top: 0%;
+    }
+
     .hero-subheading {
         color: white;
         font-size: 1.7rem;
@@ -244,6 +252,11 @@ Background video with fallback image - relative positioning
         .nav-button {
             padding: 0.75rem 1rem;
             font-size: 1rem;
+        }
+
+        /* For the left edged subheading */
+        .hero-subheading {
+            font-size: 1.4rem;
         }
 
         /* For the banner - reduced font size and more vertical padding */
@@ -379,7 +392,7 @@ Background video with fallback image - relative positioning
             </div>
         </nav>
 
-        <div style="display: flex; justify-content: flex-start; width: 100%; padding-top: 0%;">
+        <div class="hero-subheading-container">
             <h3 class="hero-subheading">SmartKey Starter</h3>
         </div>
 
