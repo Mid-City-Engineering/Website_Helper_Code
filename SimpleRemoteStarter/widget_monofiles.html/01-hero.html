@@ -106,15 +106,20 @@ Background video with fallback image - relative positioning
 
     /* Navigation Menu */
     .hero-nav {
+        position: relative;
+        background: #810305;
+        margin-top: 2rem;
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Desktop Navigation (>1024px) */
+    .nav-desktop {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 0;
-        background: #810305;
-        margin-top: 2rem;
-        max-width: 75vw;
-        margin-left: auto;
-        margin-right: auto;
     }
 
     .nav-button {
@@ -129,6 +134,8 @@ Background video with fallback image - relative positioning
         flex: 1;
         text-align: center;
         letter-spacing: 0.02em;
+        text-decoration: none;
+        display: block;
     }
 
     .nav-button:last-child {
@@ -139,6 +146,54 @@ Background video with fallback image - relative positioning
         background: rgba(255, 255, 255, 0.1);
     }
 
+    /* Mobile Navigation (<1024px) */
+    .nav-mobile {
+        display: none;
+    }
+
+    .nav-toggle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1.25rem 2rem;
+        color: white;
+        font-size: 1.125rem;
+        font-weight: 700;
+        font-family: 'Goldman', Arial, Helvetica, sans-serif !important;
+        text-transform: capitalize;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .nav-chevron {
+        width: 24px;
+        height: 24px;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-chevron.open {
+        transform: rotate(180deg);
+    }
+
+    .nav-dropdown {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-dropdown.open {
+        max-height: 500px;
+    }
+
+    .nav-dropdown .nav-button {
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.9);
+    }
+
+    .nav-dropdown .nav-button:last-child {
+        border-bottom: none;
+    }
 
     .hero-subheading {
         color: white;
@@ -146,7 +201,6 @@ Background video with fallback image - relative positioning
         font-weight: 500;
         text-align: flex-start;
         font-family: 'Goldman', Arial, Helvetica, sans-serif;
-        /* font-style: italic; */
         text-transform: uppercase;
         letter-spacing: 0.05em;
         padding-top: 3%;
@@ -183,6 +237,28 @@ Background video with fallback image - relative positioning
     }
 
     /* Responsive */
+    @media (max-width: 1024px) {
+        .nav-desktop {
+            display: none;
+        }
+
+        .nav-mobile {
+            display: block;
+        }
+
+        .hero-nav {
+            width: 60vw;
+        }
+
+        /* Add this */
+        .nav-button,
+        .nav-toggle {
+            font-size: 1.35rem;
+            /* Increased from 1.125rem */
+            padding: 1.5rem 2rem;
+        }
+    }
+
     @media (max-width: 768px) {
         .hero-top-bar {
             flex-direction: column;
@@ -209,19 +285,7 @@ Background video with fallback image - relative positioning
         }
 
         .hero-nav {
-            flex-direction: column;
-            width: 100%;
-            max-width: 100%;
-        }
-
-        .nav-button {
-            border-right: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            width: 100%;
-        }
-
-        .nav-button:last-child {
-            border-bottom: none;
+            width: 90vw;
         }
 
         .hero-banner {
@@ -235,18 +299,14 @@ Background video with fallback image - relative positioning
     }
 </style>
 
-
-
 <section class="hero-section">
     <video class="hero-background-video" autoplay="" muted="" loop="" playsinline="">
         <source src="https://github.com/user-attachments/assets/5b601269-975a-4b91-ba5c-215df286b8c0" type="video/mp4">
-
     </video>
 
     <img class="hero-background-image"
         src="https://github.com/user-attachments/assets/9fe62461-09fd-4ab0-b7d9-72345a27ac7d" alt="SmartKey Starter"
         loading="lazy">
-
 
     <div class="hero-content">
         <div class="hero-top-bar">
@@ -279,23 +339,60 @@ Background video with fallback image - relative positioning
             </div>
         </div>
 
-
         <nav class="hero-nav">
-            <a href="#home" class="nav-button">Home</a>
-            <a href="#products" class="nav-button">Products</a>
-            <a href="#support" class="nav-button">Support</a>
-            <a href="#find-dealer" class="nav-button">Find A Dealer</a>
-            <a href="#dealer-login" class="nav-button">Login</a>
+            <!-- Desktop Navigation -->
+            <div class="nav-desktop">
+                <a href="#home" class="nav-button">Home</a>
+                <a href="#products" class="nav-button">Products</a>
+                <a href="#support" class="nav-button">Support</a>
+                <a href="#find-dealer" class="nav-button">Find A Dealer</a>
+                <a href="#dealer-login" class="nav-button">Login</a>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="nav-mobile">
+                <div class="nav-toggle" onclick="toggleNav()">
+                    <span>Menu</span>
+                    <svg class="nav-chevron" viewBox="0 0 24 24" fill="white">
+                        <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+                    </svg>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="#home" class="nav-button">Home</a>
+                    <a href="#products" class="nav-button">Products</a>
+                    <a href="#support" class="nav-button">Support</a>
+                    <a href="#find-dealer" class="nav-button">Find A Dealer</a>
+                    <a href="#dealer-login" class="nav-button">Login</a>
+                </div>
+            </div>
         </nav>
 
         <div style="display: flex; justify-content: flex-start; width: 100%; padding-top: 0%;">
             <h3 class="hero-subheading">SmartKey Starter</h3>
         </div>
 
-
         <div class="hero-banner">
             <h2>The Best Made Better</h2>
         </div>
     </div>
-
 </section>
+
+<script>
+    function toggleNav() {
+        const dropdown = document.querySelector('.nav-dropdown');
+        const chevron = document.querySelector('.nav-chevron');
+
+        dropdown.classList.toggle('open');
+        chevron.classList.toggle('open');
+    }
+
+    // Close dropdown when clicking on a nav link
+    document.querySelectorAll('.nav-dropdown .nav-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const dropdown = document.querySelector('.nav-dropdown');
+            const chevron = document.querySelector('.nav-chevron');
+            dropdown.classList.remove('open');
+            chevron.classList.remove('open');
+        });
+    });
+</script>
