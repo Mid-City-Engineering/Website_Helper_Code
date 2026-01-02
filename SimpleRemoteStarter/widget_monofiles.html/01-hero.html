@@ -77,7 +77,7 @@ Background video with fallback image - relative positioning
     }
 
     /* Social icons container */
-    .social-icons {
+    .social-icons-container {
         display: flex;
         gap: 1rem;
         flex-shrink: 0;
@@ -237,28 +237,24 @@ Background video with fallback image - relative positioning
     }
 
     /* Responsive */
-    @media (max-width: 1024px) {
-        .nav-desktop {
-            display: none;
+    /* ---- Tablet ---- */
+    @media (max-width: 1024px) and (min-width: 769px) {
+
+        /* For the red navigation menu - reduced padding and font-size */
+        .nav-button {
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
         }
 
-        .nav-mobile {
-            display: block;
-        }
-
-        .hero-nav {
-            width: 60vw;
-        }
-
-        /* Add this */
-        .nav-button,
-        .nav-toggle {
-            font-size: 1.35rem;
-            /* Increased from 1.125rem */
-            padding: 1.5rem 2rem;
+        /* For the banner - reduced font size and more vertical padding */
+        .hero-banner h2 {
+            font-size: 1.5rem;
+            padding: 1rem 0rem;
         }
     }
 
+    /* Responsive */
+    /* ---- Mobile ---- */
     @media (max-width: 768px) {
         .hero-top-bar {
             flex-direction: column;
@@ -285,7 +281,23 @@ Background video with fallback image - relative positioning
         }
 
         .hero-nav {
-            width: 90vw;
+            width: 60vw;
+        }
+
+        .nav-desktop {
+            display: none;
+        }
+
+        .nav-mobile {
+            display: block;
+        }
+
+        /* Add this */
+        .nav-button,
+        .nav-toggle {
+            font-size: 1.25rem;
+            /* Increased from 1.125rem */
+            padding: 1.2rem 2rem;
         }
 
         .hero-banner {
@@ -294,7 +306,7 @@ Background video with fallback image - relative positioning
         }
 
         .hero-banner h2 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
         }
     }
 </style>
@@ -312,7 +324,7 @@ Background video with fallback image - relative positioning
         <div class="hero-top-bar">
             <div class="spacer"></div>
             <h3 class="mid-city-heading">MID CITY ENGINEERING</h3>
-            <div class="social-icons">
+            <div class="social-icons-container">
                 <a href="https://www.facebook.com/midcityengineering/" class="social-icon" target="_blank"
                     aria-label="Facebook">
                     <svg viewBox="0 0 24 24" fill="currentColor">
