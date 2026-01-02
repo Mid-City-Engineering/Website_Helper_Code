@@ -1,0 +1,252 @@
+<style>
+    /* Box model normalization */
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Base document styles */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: #FFFFFF;
+        color: #333;
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Remove default link styling */
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Remove list styling */
+    ul,
+    ol {
+        list-style: none;
+    }
+
+    /* Make images responsive by default */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Remove button styling */
+    button {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    /* 
+==================================================
+ODOO OVERRIDE
+==================================================
+Remove Odoo's default container constraints
+*/
+
+    /* Remove max-width constraints from Odoo containers */
+    .o_container,
+    .o_container_small,
+    .container,
+    .container-fluid {
+        max-width: none !important;
+        padding: 0 !important;
+    }
+
+    /* Ensure sections can be full-width */
+    section {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    /* Remove any row constraints */
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Remove gaps between Odoo blocks/widgets */
+    .o_colored_level,
+    .s_allow_columns,
+    [data-snippet] {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    a:hover {
+        /* remove auto highlighting links */
+        text-decoration: none !important;
+    }
+</style>
+
+<style>
+    :root {
+        /* Brand Colors */
+        --color-primary-blue: #0072BC;
+        --color-primary-blue-dark: #005A94;
+        --color-text-dark: #333;
+        --color-text-light: #fff;
+        --color-text-muted: #666;
+
+        /* Backgrounds */
+        --color-bg-white: #fff;
+        --color-bg-light: #f5f5f5;
+        --color-bg-dark: #0a0a0a;
+
+        /* Accent Colors */
+        --color-accent-tan: #D4B896;
+        --color-accent-red: #ED1C24;
+
+        /* Spacing */
+        --spacing-xs: 0.5rem;
+        --spacing-sm: 1rem;
+        --spacing-md: 1.5rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 3rem;
+        --spacing-2xl: 4rem;
+
+        /* Typography */
+        --font-size-sm: 0.875rem;
+        --font-size-base: 1rem;
+        --font-size-lg: 1.125rem;
+        --font-size-xl: 1.5rem;
+        --font-size-2xl: 2rem;
+        --font-size-3xl: 3rem;
+
+        /* Transitions */
+        --transition-fast: 0.15s ease;
+        --transition-normal: 0.3s ease;
+
+        /* Border Radius */
+        --radius-sm: 4px;
+        --radius-md: 8px;
+
+        /* Shadows */
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+</style>
+
+<!-- ========== UNIVERSAL STYLES ========== -->
+<style>
+    /*
+==================================================
+CONTENT BLOCK UNIVERSAL COMPONENT
+==================================================
+Reusable full-width block with centered content
+Structure: content-block &gt; content-block-main (image + text) + separator
+==================================================
+*/
+
+    .content-block {
+        width: 100%;
+        background: white;
+    }
+
+    /* Main content area - centers image and text */
+    .content-block-main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 4%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        gap: 3rem;
+    }
+
+    /* Reverse version of content-block */
+    .content-block.reverse .content-block-main {
+        padding-top: 0%;
+        padding-bottom: 4%;
+    }
+
+    /* Image container */
+    .content-block-image {
+        flex: 1;
+        max-width: 500px;
+        display: flex;
+        align-items: center;
+        align-self: flex-start;
+        justify-content: center;
+    }
+
+    .content-block-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    /* Text container */
+    .content-block-text {
+        flex: 1;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .content-block-text h2 {
+        font-family: 'Goldman', Arial, Helvetica, sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        font-style: italic;
+        text-transform: uppercase;
+        color: #333;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .content-block-text p {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #666;
+        margin: 0;
+    }
+
+    .content-block-text a {
+        color: #810305;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: 0.15s ease;
+        text-transform: uppercase;
+    }
+
+    .content-block-text a:hover {
+        text-decoration: underline;
+    }
+
+    /* Tan separator - full width */
+    .content-block-separator {
+        width: 100%;
+        height: 2px;
+        background: #D4B896;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+        .content-block-main {
+            flex-direction: column;
+        }
+    }
+</style>
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&amp;display=swap" rel="stylesheet">
