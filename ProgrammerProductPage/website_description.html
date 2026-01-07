@@ -86,7 +86,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
     .mce-product-info-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 30px;
         transition: opacity 0.4s ease, transform 0.4s ease;
     }
@@ -332,6 +332,8 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         backdrop-filter: blur(10px);
         opacity: 0;
         transform: translateY(20px);
+        max-height: 50vh;
+        /* Add this line */
     }
 
     .mce-product-info-item.mce-visible {
@@ -559,9 +561,9 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
 <link
     href="https://fonts.googleapis.com/css2?family=Michroma&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap"
-    rel="stylesheet" />
+    rel="stylesheet">
 
-<html>
+
 
 <!-- Product Info Section With Carousel -->
 <div class="mce-product-section">
@@ -570,7 +572,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
     <!-- Product Info Section Section -->
     <section class="mce-product-info-section" id="mce-main-content" aria-labelledby="mce-features-title">
-        <h2 id="mce-features-title" class="mce-section-title">Product Details</h2>
+        <h2 id="mce-features-title" class="mce-section-title">How it works</h2>
 
         <!-- Live region for screen reader announcements -->
         <div aria-live="polite" aria-atomic="true" class="sr-only" id="mceCarouselStatus"></div>
@@ -595,46 +597,44 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                     <!-- Feature items -->
                     <!-- Item 1 -->
                     <div class="mce-product-info-item">
-                        <img src="https://mid-city-engineering.odoo.com/web/image/13024-ece9ce97/harness.webp"
+                        <img src="https://mid-city-engineering.odoo.com/web/image/13831-5faac410/eco_step1.webp"
                             alt="SmartKey Control Module circuit board and electronics" class="mce-item-image"
-                            loading="lazy" />
+                            loading="lazy">
                         <div class="mce-item-content">
-                            <h3>Plug-and-Play Install</h3>
-                            <p>Simple, seamless installation designed specifically for Mercedes-Benz.</p>
+                            <h3>Step 1</h3>
+                            <p>Plug the programmer into your vehicle's On-Board Diagnostics port.</p>
                         </div>
                     </div>
 
                     <!-- Item 2 -->
                     <div class="mce-product-info-item">
-                        <img src="https://mid-city-engineering.odoo.com/web/image/13022-cdfbed2c/FBS5_2.webp"
+                        <img src="https://mid-city-engineering.odoo.com/web/image/13833-d45560a9/eco_step2.webp"
                             alt="Plug-and-play installation connector for Mercedes-Benz" class="mce-item-image"
-                            loading="lazy" />
+                            loading="lazy">
                         <div class="mce-item-content">
-                            <h3>Factory Key Control</h3>
-                            <p>Works with your existing key fob immediately—no extra remote needed.</p>
+                            <h3>Step 2</h3>
+                            <p>Adjust your programming settings using the turn signal stalk.</p>
                         </div>
                     </div>
 
                     <!-- Item 3 -->
                     <div class="mce-product-info-item">
-                        <img src="https://mid-city-engineering.odoo.com/web/image/13020-fcd8f21f/drone.webp"
-                            alt="Factory key fob for Mercedes-Benz remote start" class="mce-item-image"
-                            loading="lazy" />
+                        <img src="https://mid-city-engineering.odoo.com/web/image/13835-89e1afd3/eco_step3.webp"
+                            alt="Factory key fob for Mercedes-Benz remote start" class="mce-item-image" loading="lazy">
                         <div class="mce-item-content">
-                            <h3>Smartphone Ready</h3>
-                            <p>Compatible with Drone and Smart Start for control from your phone. Available for
-                                purchase.
+                            <h3>Step 3</h3>
+                            <p>Turn the vehicle ignition on.
                             </p>
                         </div>
                     </div>
 
                     <!-- Item 4 -->
                     <div class="mce-product-info-item">
-                        <img src="https://mid-city-engineering.odoo.com/web/image/13028-2fb17197/T13_black2.webp"
-                            alt="Smartphone showing remote start app interface" class="mce-item-image" loading="lazy" />
+                        <img src="https://mid-city-engineering.odoo.com/web/image/13837-073da579/eco_step4.webp"
+                            alt="Smartphone showing remote start app interface" class="mce-item-image" loading="lazy">
                         <div class="mce-item-content">
-                            <h3>Extended Range Remote Compatible</h3>
-                            <p>Compatible with Directed or Compustar FM Remote controls. Available at purchase.</p>
+                            <h3>Step 4</h3>
+                            <p>When the red light turns off you're done!</p>
                         </div>
                     </div>
                 </div>
@@ -698,7 +698,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     </div>
 </div>
 
-</html>
+
 
 <script>
     // Accordion toggle function
@@ -715,7 +715,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
     (function () {
         let mceCurrentPage = 0;
-        let mceItemsPerPage = 3;
+        let mceItemsPerPage = 2;
         let mceTotalItems = 0;
         let mceTotalPages = 0;
 
@@ -734,7 +734,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                 } else if (width <= 1024) {
                     mceItemsPerPage = 2;
                 } else {
-                    mceItemsPerPage = 3;
+                    mceItemsPerPage = 2;
                 }
                 mceTotalPages = Math.ceil(mceTotalItems / mceItemsPerPage);
                 mceCreatePaginationDots();
