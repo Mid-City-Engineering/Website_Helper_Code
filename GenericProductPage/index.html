@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Container for description_ecommerce.html (loads first - styling/rounding) -->
+    <div id="ecommerce-container"></div>
+
+    <!-- Container for website_description.html (the main content) -->
+    <div id="description-container"></div>
+
+    <script>
+        // Load and insert HTML files
+        async function loadHTML(url, containerId) {
+            try {
+                const response = await fetch(url);
+                const html = await response.text();
+                document.getElementById(containerId).innerHTML = html;
+
+                // Execute any scripts in the loaded HTML
+                executeScripts(containerId);
+            } catch (error) {
+                console.error(`Error loading ${url}:`, error);
+            }
+        }
+
+        // Execute scripts from loaded HTML
+        function executeScripts(containerId) {
+            const container = document.getElementById(containerId);
+            const scripts = container.querySelectorAll('script');
+
+            scripts.forEach(script => {
+                const newScript = document.createElement('script');
+                if (script.src) {
+                    newScript.src = script.src;
+                } else {
+                    newScript.textContent = script.textContent;
+                }
+                document.body.appendChild(newScript);
+            });
+        }
+
+        // Load both files when page loads
+        // Load ecommerce first (has the image rounding script)
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadHTML('description_ecommerce.html', 'ecommerce-container');
+            await loadHTML('website_description.html', 'description-container');
+        });
+    </script>
+</body>
+
+</html>

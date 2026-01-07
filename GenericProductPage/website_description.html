@@ -1,0 +1,884 @@
+<!-- BEGINNING OF PRODUCT PAGE CUSTOM CONTENT - ADA COMPLIANT
+PASTE THIS INTO ODOO HTML EMBED WIDGET -->
+
+<style>
+    /* Base/Foundational Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap');
+
+    /* Mid City Engineering Design System Variables */
+    :root {
+        --red-glow: 359 97% 26%;
+        --mce-dark-red: #810305;
+        --mce-sepia-tan: #D4AF85;
+        --mce-black: #0a0a0a;
+        --mce-white: #ffffff;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: 'Michroma', sans-serif;
+        font-weight: 900;
+    }
+</style>
+
+<style>
+    .mce-product-section * {
+        box-sizing: border-box;
+    }
+
+    .mce-product-section {
+        font-family: 'Outfit', -apple-system, sans-serif;
+        position: relative;
+        background: var(--mce-black);
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    /* Screen reader only utility class */
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+
+    /* Product Info */
+    .mce-product-info-section {
+        position: relative;
+        padding-top: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mce-product-info-section .mce-section-title {
+        font-family: 'Michroma', sans-serif;
+        font-size: 2.5rem;
+        color: #D4AF85;
+        text-align: center;
+        margin-bottom: 60px;
+        letter-spacing: 1px;
+        padding-top: 3%;
+    }
+
+    .mce-product-info-content {
+        width: 100%;
+        max-width: 1400px;
+        padding: 0 40px;
+        position: relative;
+    }
+
+    .mce-carousel-wrapper {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .mce-product-info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .mce-product-info-grid.mce-transitioning {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    /* Navigation Arrows */
+    .mce-nav-arrow {
+        position: relative;
+        flex-shrink: 0;
+        width: 60px;
+        height: 60px;
+        background: rgba(129, 3, 5, 0.8);
+        border: 2px solid #888888;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10;
+        color: var(--mce-white);
+        font-size: 2.5rem;
+        line-height: 1;
+        user-select: none;
+        font-weight: 300;
+    }
+
+    .mce-nav-arrow:hover {
+        background: var(--mce-dark-red);
+        transform: scale(1.1);
+        border-color: #aaaaaa;
+    }
+
+    .mce-nav-arrow.mce-disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        pointer-events: none;
+        background: rgba(129, 3, 5, 0.4);
+    }
+
+    /* Pagination Dots */
+    .mce-pagination-dots {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .mce-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        padding: 0;
+        position: relative;
+    }
+
+    .mce-dot::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    .mce-dot.mce-active {
+        background: #D4AF85;
+        width: 32px;
+        border-radius: 5px;
+    }
+
+    .mce-dot:hover {
+        background: rgba(212, 175, 133, 0.7);
+        border-color: rgba(212, 175, 133, 0.3);
+    }
+
+    /* Accordion Section - Separate from black section */
+    .mce-accordion-section-wrapper {
+        background: linear-gradient(#e8dcc8 5%, #F8F9FA 15%);
+        padding: 80px 40px 100px;
+        position: relative;
+    }
+
+    .mce-accordion-section-wrapper::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent 0%, #D4AF85 50%, transparent 100%);
+    }
+
+    .mce-accordion-section {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .mce-accordion-section .mce-accordion-section-title {
+        font-family: 'Michroma', sans-serif;
+        font-size: 2.2rem;
+        color: var(--mce-dark-red);
+        text-align: center;
+        margin-bottom: 60px;
+        letter-spacing: 1px;
+    }
+
+    .mce-accordions-container {
+        display: flex;
+        justify-content: center;
+        /* Centers horizontally */
+        gap: 50px;
+    }
+
+    .mce-accordion {
+        background: var(--mce-white);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(129, 3, 5, 0.12);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        max-width: 600px;
+        /* Or 50% */
+        width: 100%;
+        /* Will respect max-width */
+    }
+
+    .mce-accordion-header {
+        font-family: 'Michroma', sans-serif;
+        font-size: 1.1rem;
+        color: var(--mce-white);
+        padding: 20px 25px;
+        background: linear-gradient(135deg, var(--mce-dark-red) 0%, #a30406 100%);
+        border-bottom: none;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s ease;
+        user-select: none;
+        width: 100%;
+        border: none;
+        text-align: left;
+    }
+
+    .mce-accordion-header:hover {
+        background: linear-gradient(135deg, #a30406 0%, var(--mce-dark-red) 100%);
+    }
+
+    .mce-accordion-toggle {
+        font-size: 1.3rem;
+        color: var(--mce-white);
+        transition: transform 0.3s ease;
+    }
+
+    .mce-accordion.mce-active .mce-accordion-toggle {
+        transform: rotate(180deg);
+    }
+
+    .mce-accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+    }
+
+    .mce-accordion.mce-active .mce-accordion-content {
+        max-height: 800px;
+    }
+
+    .mce-accordion-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 16px 18px;
+        background: linear-gradient(135deg, #fafaf8 0%, #f5f0e8 100%);
+        border-radius: 8px;
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
+        border-left: 2px solid transparent;
+    }
+
+    a.mce-accordion-item {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a.mce-accordion-item:hover {
+        text-decoration: none;
+    }
+
+    .mce-accordion-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .mce-accordion-item:hover {
+        background: linear-gradient(135deg, #fafaf8 0%, #f5f0e8 100%);
+        border-left-color: var(--mce-dark-red);
+        transform: translateX(3px) translateY(-2px);
+        box-shadow:
+            0 6px 20px rgba(129, 3, 5, 0.1),
+            0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .mce-accordion-icon {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, rgba(129, 3, 5, 0.08), rgba(212, 175, 133, 0.15));
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+    }
+
+    .mce-accordion-text {
+        color: #1a1a1a;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        font-weight: 400;
+    }
+
+    .mce-product-info-item {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+        padding: 15px 15px;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 12px;
+        border-left: 3px solid var(--mce-dark-red);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        transform: translateY(20px);
+        max-height: 50vh;
+        /* Add this line */
+    }
+
+    .mce-product-info-item.mce-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mce-product-info-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-left-color: #D4AF85;
+        transform: translateY(-5px);
+    }
+
+    .mce-item-image {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 2px solid rgba(212, 175, 133, 0.3);
+        transition: all 0.3s ease;
+        align-self: center;
+    }
+
+    .mce-product-info-item:hover .mce-item-image {
+        transform: scale(1.02);
+        box-shadow: 0 8px 24px rgba(212, 175, 133, 0.3);
+    }
+
+    .mce-item-content {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .mce-item-content h3 {
+        font-size: 1.15rem;
+        color: var(--mce-white);
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .mce-item-content p {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+        text-align: left;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .mce-product-section {
+            padding-top: 50px;
+        }
+
+        .mce-product-info-section {
+            padding-top: 50px;
+        }
+
+        .mce-section-title {
+            font-size: 2rem;
+        }
+
+        .mce-product-info-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .mce-accordions-container {
+            grid-template-columns: 1fr;
+        }
+
+        .mce-accordion-section-title {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .mce-product-section {
+            padding-top: 40px;
+        }
+
+        .mce-product-info-section {
+            padding-top: 40px;
+        }
+
+        .mce-section-title {
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+        }
+
+        .mce-product-info-content {
+            padding: 0 20px;
+        }
+
+        .mce-carousel-wrapper {
+            gap: 20px;
+        }
+
+        .mce-product-info-grid {
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .mce-nav-arrow {
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+        }
+
+        .mce-accordion-section-wrapper {
+            padding: 60px 20px 80px;
+        }
+
+        .mce-accordions-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .mce-accordion-header {
+            font-size: 1rem;
+            padding: 18px 22px;
+        }
+
+        .mce-accordion-section-title {
+            font-size: 1.6rem;
+        }
+
+        .mce-item-image {
+            max-width: 160px;
+        }
+
+        .mce-product-info-item {
+            padding: 18px;
+            gap: 16px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .mce-product-section {
+            padding-top: 30px;
+        }
+
+        .mce-section-title {
+            font-size: 1.4rem;
+        }
+
+        .mce-carousel-wrapper {
+            gap: 15px;
+        }
+
+        .mce-nav-arrow {
+            width: 45px;
+            height: 45px;
+            font-size: 1.8rem;
+        }
+
+        .mce-accordion-header {
+            font-size: 0.95rem;
+            padding: 16px 20px;
+        }
+
+        .mce-accordion-item {
+            padding: 14px 16px;
+            gap: 12px;
+        }
+
+        .mce-accordion-icon {
+            width: 32px;
+            height: 32px;
+            font-size: 1.05rem;
+        }
+
+        .mce-accordion-text {
+            font-size: 0.85rem;
+        }
+
+        .mce-accordion-section-title {
+            font-size: 1.4rem;
+        }
+
+        .mce-accordions-container {
+            gap: 25px;
+        }
+
+        .mce-item-image {
+            max-width: 140px;
+        }
+
+        .mce-product-info-item {
+            padding: 16px;
+            gap: 14px;
+        }
+
+        .mce-item-content h3 {
+            font-size: 1rem;
+        }
+
+        .mce-item-content p {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Enhanced focus indicators for accessibility */
+    .mce-nav-arrow:focus-visible,
+    .mce-accordion-header:focus-visible,
+    .mce-dot:focus-visible {
+        outline: 3px solid #D4AF85;
+        outline-offset: 3px;
+    }
+
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+
+        .mce-product-info-grid,
+        .mce-product-info-item,
+        .mce-accordion-content,
+        .mce-accordion-toggle,
+        .mce-nav-arrow,
+        .mce-dot {
+            transition: none;
+        }
+    }
+</style>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Michroma&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+
+
+
+<!-- Product Info Section With Carousel -->
+<div class="mce-product-section">
+    <!-- Skip link for keyboard navigation -->
+    <a href="#mce-main-content" class="sr-only mce-skip-link">Skip to main content</a>
+
+    <!-- Product Info Section Section -->
+    <section class="mce-product-info-section" id="mce-main-content" aria-labelledby="mce-features-title">
+        <h2 id="mce-features-title" class="mce-section-title">How it works</h2>
+
+        <!-- Live region for screen reader announcements -->
+        <div aria-live="polite" aria-atomic="true" class="sr-only" id="mceCarouselStatus"></div>
+
+        <div class="mce-product-info-content">
+            <!-- Carousel Row 1: Chevrons & Content Blocks -->
+            <div class="mce-carousel-wrapper" role="region" aria-labelledby="mce-features-title">
+
+                <!-- Navigation Arrow Previous -->
+                <button class="mce-nav-arrow mce-prev" onclick="mceNavigate(-1)" aria-label="Previous features"
+                    aria-controls="mceProductInfoGrid">
+                    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <span class="sr-only">Previous</span>
+                </button>
+
+                <!-- Carousel Container -->
+                <div class="mce-product-info-grid" id="mceProductInfoGrid" role="group"
+                    aria-label="Product features carousel">
+                    <!-- Feature items -->
+                    <!-- Item 1 -->
+                    <div class="mce-product-info-item">
+                        <img src="https://mid-city-engineering.odoo.com/web/image/13831-5faac410/eco_step1.webp"
+                            alt="SmartKey Control Module circuit board and electronics" class="mce-item-image"
+                            loading="lazy">
+                        <div class="mce-item-content">
+                            <h3>Step 1</h3>
+                            <p>Plug the programmer into your vehicle's On-Board Diagnostics port.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="mce-product-info-item">
+                        <img src="https://mid-city-engineering.odoo.com/web/image/13833-d45560a9/eco_step2.webp"
+                            alt="Plug-and-play installation connector for Mercedes-Benz" class="mce-item-image"
+                            loading="lazy">
+                        <div class="mce-item-content">
+                            <h3>Step 2</h3>
+                            <p>Adjust your programming settings using the turn signal stalk.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="mce-product-info-item">
+                        <img src="https://mid-city-engineering.odoo.com/web/image/13835-89e1afd3/eco_step3.webp"
+                            alt="Factory key fob for Mercedes-Benz remote start" class="mce-item-image" loading="lazy">
+                        <div class="mce-item-content">
+                            <h3>Step 3</h3>
+                            <p>Turn the vehicle ignition on.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="mce-product-info-item">
+                        <img src="https://mid-city-engineering.odoo.com/web/image/13837-073da579/eco_step4.webp"
+                            alt="Smartphone showing remote start app interface" class="mce-item-image" loading="lazy">
+                        <div class="mce-item-content">
+                            <h3>Step 4</h3>
+                            <p>When the red light turns off you're done!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Arrow Next -->
+                <button class="mce-nav-arrow mce-next" onclick="mceNavigate(1)" aria-label="Next features"
+                    aria-controls="mceProductInfoGrid">
+                    <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                    <span class="sr-only">Next</span>
+                </button>
+
+            </div>
+
+            <!-- Carousel Row 2: Pagination Dots -->
+            <div class="mce-pagination-dots" id="mcePaginationDots" role="tablist" aria-label="Feature pages"></div>
+        </div>
+    </section>
+
+</div>
+
+<!-- Accordion Section - Outside Black Background -->
+<div class="mce-accordion-section-wrapper">
+    <div class="mce-accordion-section">
+        <h2 class="mce-accordion-section-title" id="mce-additional-info-title">Additional Information</h2>
+
+        <div class="mce-accordions-container" role="region" aria-labelledby="mce-additional-info-title">
+            <!-- Accordion 1 -->
+            <div class="mce-accordion mce-active">
+                <button class="mce-accordion-header" aria-expanded="true" aria-controls="accordion-content-1"
+                    onclick="mceToggleAccordion(this.parentElement)">
+                    <span>Helpful Links</span>
+                    <span class="mce-accordion-toggle" aria-hidden="true">▼</span>
+                </button>
+                <div id="accordion-content-1" class="mce-accordion-content" role="region">
+                    <div class="mce-accordion-items">
+                        <a class="mce-accordion-item" href="/installation-manuals" target="_blank"
+                            rel="noopener noreferrer">
+                            <!-- <div class="mce-accordion-icon" aria-hidden="true">⚡</div> -->
+                            <div class="mce-accordion-text">Installation Manuals</div>
+                        </a>
+                        <a class="mce-accordion-item" href="/dealer-locator" target="_blank" rel="noopener noreferrer">
+                            <!-- <div class="mce-accordion-icon" aria-hidden="true">🌡️</div> -->
+                            <div class="mce-accordion-text">Find A Dealer</div>
+                        </a>
+                        <a class="mce-accordion-item" href="/helpdesk/customer-care-1" target="_blank"
+                            rel="noopener noreferrer">
+                            <!-- <div class="mce-accordion-icon" aria-hidden="true">📡</div> -->
+                            <div class="mce-accordion-text">Get Support</div>
+                        </a>
+                        <a class="mce-accordion-item" href="/contactus" target="_blank" rel="noopener noreferrer">
+                            <!-- <div class="mce-accordion-icon" aria-hidden="true">📡</div> -->
+                            <div class="mce-accordion-text">Contact Us</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    // Accordion toggle function
+    window.mceToggleAccordion = function (element) {
+        const isExpanded = element.classList.contains('mce-active');
+        const button = element.querySelector('.mce-accordion-header');
+
+        element.classList.toggle('mce-active');
+
+        if (button) {
+            button.setAttribute('aria-expanded', !isExpanded);
+        }
+    };
+
+    (function () {
+        let mceCurrentPage = 0;
+        let mceItemsPerPage = 2;
+        let mceTotalItems = 0;
+        let mceTotalPages = 0;
+
+        function mceInitCarousel() {
+            const grid = document.getElementById('mceProductInfoGrid');
+            if (!grid) return;
+
+            const items = grid.querySelectorAll('.mce-product-info-item');
+            mceTotalItems = items.length;
+
+            // Calculate items per page based on screen size
+            const updateItemsPerPage = () => {
+                const width = window.innerWidth;
+                if (width <= 768) {
+                    mceItemsPerPage = 1;
+                } else if (width <= 1024) {
+                    mceItemsPerPage = 2;
+                } else {
+                    mceItemsPerPage = 2;
+                }
+                mceTotalPages = Math.ceil(mceTotalItems / mceItemsPerPage);
+                mceCreatePaginationDots();
+                mceUpdateCarousel();
+            };
+
+            updateItemsPerPage();
+            window.addEventListener('resize', updateItemsPerPage);
+        }
+
+        function mceCreatePaginationDots() {
+            const dotsContainer = document.getElementById('mcePaginationDots');
+            if (!dotsContainer) return;
+
+            dotsContainer.innerHTML = '';
+
+            for (let i = 0; i < mceTotalPages; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'mce-dot' + (i === 0 ? ' mce-active' : '');
+                dot.setAttribute('role', 'tab');
+                dot.setAttribute('aria-label', `Page ${i + 1} of ${mceTotalPages}`);
+                dot.setAttribute('aria-controls', 'mceProductInfoGrid');
+
+                if (i === 0) {
+                    dot.setAttribute('aria-selected', 'true');
+                } else {
+                    dot.setAttribute('aria-selected', 'false');
+                }
+
+                // Add visible text for screen readers
+                const label = document.createElement('span');
+                label.className = 'sr-only';
+                label.textContent = `Page ${i + 1}`;
+                dot.appendChild(label);
+
+                // Keyboard Support to Pagination Dots
+                dot.setAttribute('tabindex', '0');
+                dot.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        mceGoToPage(i);
+                    }
+                });
+
+                dot.onclick = () => mceGoToPage(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function mceUpdateCarousel() {
+            const grid = document.getElementById('mceProductInfoGrid');
+            if (!grid) return;
+
+            const items = grid.querySelectorAll('.mce-product-info-item');
+
+            // Add transitioning class
+            grid.classList.add('mce-transitioning');
+
+            setTimeout(() => {
+                // Hide all items first
+                items.forEach((item, index) => {
+                    const pageIndex = Math.floor(index / mceItemsPerPage);
+                    item.classList.remove('mce-visible');
+
+                    if (pageIndex === mceCurrentPage) {
+                        item.style.display = 'flex';
+                        item.removeAttribute('tabindex');
+                        item.setAttribute('aria-hidden', 'false');
+                    } else {
+                        item.style.display = 'none';
+                        item.setAttribute('tabindex', '-1');
+                        item.setAttribute('aria-hidden', 'true');
+                    }
+                });
+
+                // Remove transitioning class and trigger fade-in
+                grid.classList.remove('mce-transitioning');
+
+                // Stagger the appearance of visible items
+                setTimeout(() => {
+                    items.forEach((item, index) => {
+                        const pageIndex = Math.floor(index / mceItemsPerPage);
+                        if (pageIndex === mceCurrentPage) {
+                            const itemIndexInPage = index % mceItemsPerPage;
+                            setTimeout(() => {
+                                item.classList.add('mce-visible');
+                            }, itemIndexInPage * 100);
+                        }
+                    });
+                }, 50);
+            }, 400);
+
+            // Update navigation arrows
+            const prevBtn = document.querySelector('.mce-nav-arrow.mce-prev');
+            const nextBtn = document.querySelector('.mce-nav-arrow.mce-next');
+
+            if (prevBtn) {
+                const isDisabled = mceCurrentPage === 0;
+                prevBtn.classList.toggle('mce-disabled', isDisabled);
+                prevBtn.setAttribute('aria-disabled', isDisabled);
+            }
+            if (nextBtn) {
+                const isDisabled = mceCurrentPage === mceTotalPages - 1;
+                nextBtn.classList.toggle('mce-disabled', isDisabled);
+                nextBtn.setAttribute('aria-disabled', isDisabled);
+            }
+
+            // Update pagination dots
+            const dots = document.querySelectorAll('.mce-dot');
+            dots.forEach((dot, index) => {
+                const isActive = index === mceCurrentPage;
+                dot.classList.toggle('mce-active', isActive);
+                dot.setAttribute('aria-selected', isActive);
+            });
+
+            // Announce page change to screen readers
+            const status = document.getElementById('mceCarouselStatus');
+            if (status) {
+                const startItem = (mceCurrentPage * mceItemsPerPage) + 1;
+                const endItem = Math.min((mceCurrentPage + 1) * mceItemsPerPage, mceTotalItems);
+                status.textContent = `Showing features ${startItem} to ${endItem} of ${mceTotalItems}`;
+            }
+        }
+
+        window.mceNavigate = function (direction) {
+            const newPage = mceCurrentPage + direction;
+            if (newPage >= 0 && newPage < mceTotalPages) {
+                mceCurrentPage = newPage;
+                mceUpdateCarousel();
+            }
+        };
+
+        window.mceGoToPage = function (pageIndex) {
+            if (pageIndex >= 0 && pageIndex < mceTotalPages) {
+                mceCurrentPage = pageIndex;
+                mceUpdateCarousel();
+            }
+        };
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', mceInitCarousel);
+        } else {
+            mceInitCarousel();
+        }
+    })();
+</script>

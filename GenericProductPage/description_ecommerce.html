@@ -1,0 +1,65 @@
+<style>
+    /* Optional: centralize style here instead of inline */
+    .rounded-all-images {
+        border-radius: 12px;
+        overflow: hidden;
+        /* helps when images are inside containers */
+    }
+</style>
+
+<script>
+
+    (function () {
+        function roundAllImages() {
+            var imgs = document.querySelectorAll('img');
+            imgs.forEach(function (img) {
+                img.classList.add('rounded-all-images');
+                // or do it inline:
+                // img.style.borderRadius = '12px';
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', roundAllImages);
+        } else {
+            roundAllImages();
+        }
+
+        // Also catch images loaded later (lazy load, ajax)
+        var observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (m) {
+                m.addedNodes.forEach(function (node) {
+                    if (node.tagName === 'IMG') {
+                        node.classList.add('rounded-all-images');
+                    } else if (node.querySelectorAll) {
+                        node.querySelectorAll('img').forEach(function (img) {
+                            img.classList.add('rounded-all-images');
+                        });
+                    }
+                });
+            });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    })();
+</script>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap');
+
+    /* Mid City Engineering Design System Variables */
+    :root {
+        --red-glow: 359 97% 26%;
+        --mce-dark-red: #810305;
+        --mce-sepia-tan: #D4AF85;
+        --mce-black: #0a0a0a;
+        --mce-white: #ffffff;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: 'Michroma', sans-serif;
+        font-weight: 900;
+    }
+</style>
