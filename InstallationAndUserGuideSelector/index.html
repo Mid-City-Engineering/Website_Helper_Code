@@ -1,0 +1,259 @@
+<!-- ==================================================
+DOCUMENTATION SELECTOR SECTION
+==================================================
+Interactive documentation finder with step-by-step navigation
+Dependencies: section-titles.css
+================================================== -->
+
+<style>
+    .doc-selector {
+        /* max-width: 850px; */
+        margin: 4rem auto;
+        padding: 2rem;
+    }
+
+    .doc-selector h2 {
+        text-align: center;
+        font-family: 'Goldman', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: #333;
+    }
+
+    .ds-form {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .ds-field {
+        display: flex;
+        flex-direction: column;
+        min-width: 200px;
+    }
+
+    .ds-field label {
+        font-size: .9rem;
+        font-weight: 600;
+        margin-bottom: .4rem;
+        color: #333;
+    }
+
+    .ds-field select {
+        padding: .7rem;
+        border: 2px solid #D4B896;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: 0.2s ease;
+    }
+
+    .ds-field select:focus {
+        border-color: #810305;
+        outline: none;
+    }
+
+    .ds-result {
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .ds-result a {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: .75rem 1.2rem;
+        background: #810305;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+    .ds-result a:hover {
+        background: #a50507;
+    }
+
+    .ds-unavailable {
+        margin-top: 1rem;
+        padding: .75rem 1.2rem;
+        background: #ccc;
+        color: #666;
+        border-radius: 8px;
+        font-weight: 600;
+        display: inline-block;
+    }
+</style>
+
+<script>
+    let docData = [];
+
+    // Load JSON file
+    fetch("./doc_matcher.json")
+        .then(response => response.json())
+        .then(data => {
+            docData = data;
+            initializeDocSelector();
+        })
+        .catch(err => {
+            console.error("Error loading documentation JSON:", err);
+            document.getElementById("ds-result").innerHTML =
+                `<p style="color: #810305;">Unable to load documentation data. Please refresh the page.</p>`;
+        });
+
+
+    function initializeDocSelector() {
+        const typeSelect = document.getElementById("ds-type");
+        const skuSelect = document.getElementById("ds-sku");
+        const docTypeSelect = document.getElementById("ds-doctype");
+        const resultBox = document.getElementById("ds-result");
+
+        /* ---------------------------------------------------------
+           Populate Product Types
+        --------------------------------------------------------- */
+        const types = [...new Set(docData.map(d => d.product_type))].sort();
+        types.forEach(type => {
+            const opt = document.createElement("option");
+            opt.value = type;
+            opt.textContent = type;
+            typeSelect.appendChild(opt);
+        });
+
+        /* ---------------------------------------------------------
+           On Product Type Change → Populate SKUs
+        --------------------------------------------------------- */
+        typeSelect.addEventListener("change", () => {
+            skuSelect.innerHTML = `<option value="">Select SKU</option>`;
+            docTypeSelect.innerHTML = `<option value="">Select Document Type</option>`;
+            skuSelect.disabled = true;
+            docTypeSelect.disabled = true;
+            resultBox.innerHTML = "";
+
+            if (!typeSelect.value) return;
+
+            const skus = docData
+                .filter(d => d.product_type === typeSelect.value)
+                .map(d => d.SKU)
+                .sort();
+
+            skus.forEach(sku => {
+                const opt = document.createElement("option");
+                opt.value = sku;
+                opt.textContent = sku;
+                skuSelect.appendChild(opt);
+            });
+
+            skuSelect.disabled = false;
+        });
+
+        /* ---------------------------------------------------------
+           On SKU Change → Populate Document Types
+        --------------------------------------------------------- */
+        skuSelect.addEventListener("change", () => {
+            docTypeSelect.innerHTML = `<option value="">Select Document Type</option>`;
+            docTypeSelect.disabled = true;
+            resultBox.innerHTML = "";
+
+            if (!skuSelect.value) return;
+
+            const match = docData.find(
+                d => d.product_type === typeSelect.value && d.SKU === skuSelect.value
+            );
+
+            if (!match || !match.relevant_docs) return;
+
+            // Extract all document type keys from the relevant_docs array
+            const docTypes = match.relevant_docs.map(doc => Object.keys(doc)[0]);
+
+            docTypes.forEach(docType => {
+                const opt = document.createElement("option");
+                opt.value = docType;
+                opt.textContent = docType;
+                docTypeSelect.appendChild(opt);
+            });
+
+            docTypeSelect.disabled = false;
+        });
+
+        /* ---------------------------------------------------------
+           On Document Type Change → Show Result Link
+        --------------------------------------------------------- */
+        docTypeSelect.addEventListener("change", () => {
+            resultBox.innerHTML = "";
+
+            if (!docTypeSelect.value) return;
+
+            const match = docData.find(
+                d => d.product_type === typeSelect.value && d.SKU === skuSelect.value
+            );
+
+            if (!match) {
+                resultBox.textContent = "Document not found.";
+                return;
+            }
+
+            // Find the specific document
+            const doc = match.relevant_docs.find(d => Object.keys(d)[0] === docTypeSelect.value);
+
+            if (!doc) {
+                resultBox.textContent = "Document not found.";
+                return;
+            }
+
+            const docUrl = doc[docTypeSelect.value];
+
+            if (!docUrl || docUrl === "") {
+                resultBox.innerHTML = `
+                    <div>Document Currently Unavailable</div>
+                    <div class="ds-unavailable">
+                        ${docTypeSelect.value} not available for ${skuSelect.value}
+                    </div>
+                `;
+                return;
+            }
+
+            resultBox.innerHTML = `
+                <div>Document Found:</div>
+                <a href="${docUrl}" target="_blank">
+                    View ${docTypeSelect.value}
+                </a>
+            `;
+        });
+    }
+</script>
+
+<html>
+<section class="doc-selector">
+    <h2>Find Installation & User Manuals</h2>
+
+    <div class="ds-form">
+
+        <div class="ds-field">
+            <label for="ds-type">Product Type</label>
+            <select id="ds-type" aria-label="Select product type">
+                <option value="">Select Product Type</option>
+            </select>
+        </div>
+
+
+        <div class="ds-field">
+            <label for="ds-sku">SKU</label>
+            <select id="ds-sku" disabled aria-label="Select SKU">
+                <option value="">Select SKU</option>
+            </select>
+        </div>
+
+
+        <div class="ds-field">
+            <label for="ds-doctype">Document Type</label>
+            <select id="ds-doctype" disabled aria-label="Select document type">
+                <option value="">Select Document Type</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="ds-result" class="ds-result"></div>
+</section>
+
+</html>
