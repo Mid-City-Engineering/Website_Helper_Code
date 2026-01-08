@@ -82,9 +82,10 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     /* Feature Cards */
     .mce-features-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 40px;
         margin-bottom: 80px;
+        justify-items: center;
     }
 
     .mce-feature-card {
@@ -95,6 +96,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         border-radius: 16px;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         overflow: hidden;
+        width: 100%;
     }
 
     .mce-feature-card::before {
@@ -191,46 +193,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         font-size: 1.1rem;
         line-height: 1.8;
         margin: 0;
-    }
-
-    /* Stats Section */
-    .mce-stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 30px;
-        margin: 80px 0;
-    }
-
-    .mce-stat-card {
-        text-align: center;
-        padding: 30px 20px;
-        background: linear-gradient(135deg, rgba(129, 3, 5, 0.1) 0%, rgba(212, 175, 133, 0.05) 100%);
-        border-radius: 12px;
-        border: 1px solid rgba(212, 175, 133, 0.15);
-        transition: all 0.3s ease;
-    }
-
-    .mce-stat-card:hover {
-        transform: scale(1.05);
-        border-color: var(--mce-sepia-tan);
-    }
-
-    .mce-stat-value {
-        font-family: 'Michroma', sans-serif;
-        font-size: 2.5rem;
-        background: linear-gradient(135deg, var(--mce-sepia-tan) 0%, #f0d9b5 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 10px;
-        line-height: 1;
-    }
-
-    .mce-stat-label {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.95rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
     }
 
     /* Accordion Section - Separate from black section */
@@ -384,11 +346,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             padding: 50px 40px;
             margin: 60px 0;
         }
-
-        .mce-stats-grid {
-            gap: 25px;
-            margin: 60px 0;
-        }
     }
 
     @media (max-width: 768px) {
@@ -408,6 +365,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         }
 
         .mce-feature-card {
+            width: 70%;
             padding: 30px 25px;
         }
 
@@ -430,16 +388,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
         .mce-highlight-content p {
             font-size: 1rem;
-        }
-
-        .mce-stats-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin: 50px 0;
-        }
-
-        .mce-stat-value {
-            font-size: 2rem;
         }
 
         .mce-accordion-section-wrapper {
@@ -500,24 +448,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             font-size: 0.95rem;
         }
 
-        .mce-stats-grid {
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin: 40px 0;
-        }
-
-        .mce-stat-card {
-            padding: 25px 15px;
-        }
-
-        .mce-stat-value {
-            font-size: 1.8rem;
-        }
-
-        .mce-stat-label {
-            font-size: 0.85rem;
-        }
-
         .mce-accordion-section-wrapper {
             padding: 50px 15px 70px;
         }
@@ -551,7 +481,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     @media (prefers-reduced-motion: reduce) {
 
         .mce-feature-card,
-        .mce-stat-card,
         .mce-accordion-content,
         .mce-accordion-toggle {
             transition: none;
@@ -575,22 +504,16 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         <!-- Feature Cards Grid -->
         <div class="mce-features-grid">
             <div class="mce-feature-card">
-                <div class="mce-feature-number">01</div>
-                <h3>Premium Quality</h3>
+                <div class="mce-feature-number">20+</div>
+                <h3>Years Of Premium Quality</h3>
                 <p>Engineered with precision and built to last, delivering exceptional performance you can rely on.</p>
             </div>
 
             <div class="mce-feature-card">
-                <div class="mce-feature-number">02</div>
-                <h3>Easy Installation</h3>
+                <div class="mce-feature-number">100%</div>
+                <h3>Quality Tested</h3>
                 <p>Simple plug-and-play setup gets you up and running quickly with minimal technical expertise required.
                 </p>
-            </div>
-
-            <div class="mce-feature-card">
-                <div class="mce-feature-number">03</div>
-                <h3>Reliable Performance</h3>
-                <p>Tested and proven in demanding conditions to ensure consistent operation when you need it most.</p>
             </div>
         </div>
 
@@ -600,24 +523,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                 <h3>Built for Excellence</h3>
                 <p>Every component is carefully selected and rigorously tested to meet our exacting standards. We stand
                     behind our products with comprehensive support and a commitment to your satisfaction.</p>
-            </div>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="mce-stats-grid">
-            <div class="mce-stat-card">
-                <div class="mce-stat-value">100%</div>
-                <div class="mce-stat-label">Quality Tested</div>
-            </div>
-
-            <div class="mce-stat-card">
-                <div class="mce-stat-value">24/7</div>
-                <div class="mce-stat-label">Support Available</div>
-            </div>
-
-            <div class="mce-stat-card">
-                <div class="mce-stat-value">5★</div>
-                <div class="mce-stat-label">Customer Rated</div>
             </div>
         </div>
     </section>
