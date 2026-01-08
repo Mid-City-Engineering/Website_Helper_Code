@@ -63,3 +63,132 @@
         font-weight: 900;
     }
 </style>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+    :root {
+        --mce-dark-red: #810305;
+        --mce-sepia-tan: #D4AF85;
+    }
+
+    .mce-product-intro {
+        font-family: 'Outfit', -apple-system, sans-serif;
+        padding: 25px 0;
+        margin: 0;
+        position: relative;
+    }
+
+    .mce-headline {
+        font-family: 'Michroma', sans-serif;
+        font-size: 1.4rem;
+        color: #1a1a1a;
+        line-height: 1.4;
+        margin: 0 0 15px 0;
+        font-weight: 700;
+        letter-spacing: 0.3px;
+    }
+
+    .mce-headline .mce-highlight {
+        background: linear-gradient(135deg, var(--mce-dark-red) 0%, var(--mce-sepia-tan) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .mce-description {
+        font-size: 1rem;
+        color: #4a4a4a;
+        line-height: 1.7;
+        margin: 0 0 20px 0;
+    }
+
+    .mce-features-inline {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mce-feature-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: white;
+        border: 2px solid rgba(212, 175, 133, 0.4);
+        border-radius: 25px;
+        font-size: 0.9rem;
+        color: #2c2c2c;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .mce-feature-pill:hover {
+        border-color: var(--mce-sepia-tan);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 133, 0.2);
+    }
+
+    .mce-feature-icon {
+        font-size: 1.1rem;
+        filter: grayscale(30%);
+    }
+
+    @media (max-width: 768px) {
+        .mce-product-intro {
+            padding: 20px 0;
+        }
+
+        .mce-headline {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+        }
+
+        .mce-description {
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .mce-features-inline {
+            gap: 12px;
+        }
+
+        .mce-feature-pill {
+            padding: 6px 14px;
+            font-size: 0.85rem;
+        }
+
+        .mce-feature-icon {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="mce-product-intro">
+    <h2 class="mce-headline">
+        <span class="mce-highlight">Designed for Luxury.</span> Trusted by professionals.
+    </h2>
+
+    <p class="mce-description">
+        Experience superior craftsmanship and dependable operation. Our products deliver consistent results in demanding
+        applications, backed by decades of automotive expertise.
+    </p>
+
+    <div class="mce-features-inline">
+        <div class="mce-feature-pill">
+            <span class="mce-feature-icon">🚗</span>
+            <span>OEM Compatible</span>
+        </div>
+        <div class="mce-feature-pill">
+            <span class="mce-feature-icon">🔧</span>
+            <span>Professional Grade</span>
+        </div>
+        <div class="mce-feature-pill">
+            <span class="mce-feature-icon">🛡️</span>
+            <span>Warranty Included</span>
+        </div>
+    </div>
+</div>
