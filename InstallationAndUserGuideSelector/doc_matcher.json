@@ -1,294 +1,294 @@
 [
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG164",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG164+SmartKey+Starter%C2%AE+Installation+Manual/89"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_FT_SmartKey_Starter_User%27s_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG166D3",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG166D3+Installation+Manual/28"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG166D4",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG166D4+SmartKey+Starter%C2%AE+Installation+Manual/90"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG166D4T",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG166D4T+SmartKey+Starter%C2%AE+Installation+Manual/91"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG167",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG213+and+SKSNG167+SmartKey+Starter+Installation+Manual/79"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG213_and_SKSNG167_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG213_and_SKSNG167_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG190D4",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG190D4+SmartKey+Starter%C2%AE+Installation+Manual/92"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG197D4",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "/installation-manuals#Click-below-SKU-for-Installation-or-Users-Manual"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG204D3",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG204D3+SmartKey+Starter%C2%AE+Installation+Instructions/56"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG204D4",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG204D4+SmartKey+Starter%C2%AE+Installation+Manual/94"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG204D4T",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG204D4T+SmartKey+Starter%C2%AE+Installation+Manual/95"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG205D4",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG205D4+Remote+Start+Installation+Manual+for+2015+2016+2017+2018+C+Class+&+2015+2016+2017+2018+GLC/35"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG211",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG211+Installation+Manual/76"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_FT_SmartKey_Starter_User%27s_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG213",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG213+and+SKSNG167+SmartKey+Starter+Installation+Manual/79"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG213_and_SKSNG167_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG213_and_SKSNG167_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG220",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG220+SmartKey+Starter%C2%AE+Installation+Manual/97"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_FT_SmartKey_Starter_User%27s_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG221D3",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG221D3+SmartKey+Starter%C2%AE+Installation+Manual/96"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG222D4",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG222D4+SmartKey+Starter%C2%AE+Installation+Manual/98"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG231D4",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG231D4+Installation+Guide/84"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG447D4T",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG447D4T+Metris+Remote+Start+&+Alarm+Installation/24"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG906",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/Installation+Manual+for+SKSNG906+&+SKSNG906RV+-+SmartKey+Starter%C2%AE+Remote+Start+&+Alarm+for+2007+2008+2009+2010+2011+2012+2013+2014+2015+2016+2017+2018+Sprinter+(906)/72"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG906_Users_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG906_Users_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG906RV",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/Installation+Manual+for+SKSNG906+&+SKSNG906RV+-+SmartKey+Starter%C2%AE+Remote+Start+&+Alarm+for+2007+2008+2009+2010+2011+2012+2013+2014+2015+2016+2017+2018+Sprinter+(906)/72"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG906_Users_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG906_Users_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG907",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG907+SKSNG907G+SKSNG907RV+&+SKSNG907RVG+Installation+Manual/29"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG907_and_SKSNG907_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG907_and_SKSNG907_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG907RV",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG907+SKSNG907G+SKSNG907RV+&+SKSNG907RVG+Installation+Manual/29"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG907_and_SKSNG907_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG907_and_SKSNG907_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG907G",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG907+SKSNG907G+SKSNG907RV+&+SKSNG907RVG+Installation+Manual/29"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG907_and_SKSNG907_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG907_and_SKSNG907_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSNG907RVG",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG907+SKSNG907G+SKSNG907RV+&+SKSNG907RVG+Installation+Manual/29"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG907_and_SKSNG907_Owners_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG907_and_SKSNG907_Owners_Manual"
             }
         ]
     },
     {
-        "product_type": "Smartkey Starter",
+        "product_type": "SmartKey Starter",
         "SKU": "SKSXC",
         "relevant_docs": [
             {
@@ -297,50 +297,50 @@
         ]
     },
     {
-        "product_type": "SmartIdle High Idle",
-        "SKU": "SMARTIDLE (906)",
+        "product_type": "SmarIdle High Idle",
+        "SKU": "SMARTIDLE (W906)",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SMRTIDLE+Smart+Idle+Stand+Alone+High+Idle+Installation+for+W906+Sprinter/99"
             },
             {
-                "Owners Manual": ""
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/W906_SmartIdle_Users_Manual"
             }
         ]
     },
     {
-        "product_type": "SmartIdle High Idle",
-        "SKU": "907SMRT-V4",
+        "product_type": "SmarIdle High Idle",
+        "SKU": "907SMRTV4",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907SMRT-V4+Installation+Instructions+-+2019+2020+2021+2022+2023+2024+Sprinter+(907)/75"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/907SMRT-V4_Users_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/907SMRT-V4_Users_Manual"
             }
         ]
     },
     {
-        "product_type": "SmartIdle High Idle",
+        "product_type": "SmarIdle High Idle",
         "SKU": "907SMRTPSM",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907SMRT-PSM/74"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/907SMRT-V4_Users_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/907SMRT-V4_Users_Manual"
             }
         ]
     },
     {
-        "product_type": "SmartIdle High Idle",
+        "product_type": "SmarIdle High Idle",
         "SKU": "907SMRTG4I",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907SMRTG4I+Stand-Alone+Smart+Idle+for+2025+2026+Mercedes+Sprinter/88"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/907SMRT-V4_Users_Manual"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/907SMRT-V4_Users_Manual"
             }
         ]
     },
@@ -368,6 +368,123 @@
         "relevant_docs": [
             {
                 "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/907OBD-RPS+Installation+Manual/78"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "906CAM",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/906CAM+OBD+Programmer+for+W906+Sprinter+Reverse+Camera/110"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "9064CLOBD",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/906-SMRT-OBD+&+906SMRT-OBD-B+Installation+and+Programming+Instructions/60"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "907OBDMIR",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "http://907OBDMIR  Installation and Operation"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "907REARSPKR",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Wiki/907REAR-SPKR_Instructions"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "907OBDJ51",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/907OBDJ51+Programmer+Instructions/65"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "907OBDLED",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/907OBDLED+Programming/104"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "907ALARMDIS",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/907ALARMDIS+OBD+Programming+Instructions+for+OEM+Alarm+Disable/106"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "907VMAX",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/907VMAX+OBD+Programming+for+Sprinter+Governor+Adjustment/107"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "907OBDDIST",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/907OBDDIST+Distronic+Plus+Correction+Programmer+for+Sprinter/108"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "907OBDCWD",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/907OBDCWD+Crosswind+Delete+Programmer+for+Sprinter/109"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "907OBDSMRT",
+        "relevant_docs": [
+            {
+                "Installation and User Manual": "https://midcityengineering.dozuki.com/Guide/907OBDSMRT+High+Idle+Programmer/105"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "ECOV2",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/EcoOff+OBD+Programmer+Instructions.+ECO-PCM+&+ECO-V2/55"
+            }
+        ]
+    },
+    {
+        "product_type": "OBD Feature Programmers",
+        "SKU": "ECOPCM",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/EcoOff+OBD+Programmer+Instructions.+ECO-PCM+&+ECO-V2/55"
             }
         ]
     },
@@ -403,7 +520,16 @@
         "SKU": "HSINTC",
         "relevant_docs": [
             {
-                "Installation & User Manual": ""
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/HSINTC+Alarm+Interface+Installation+Manual/102"
+            }
+        ]
+    },
+    {
+        "product_type": "Plug & Play Alarm Kits",
+        "SKU": "HSINTK",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/HSINTC+Alarm+Interface+Installation+Manual/102"
             }
         ]
     },
@@ -412,7 +538,16 @@
         "SKU": "205INTC",
         "relevant_docs": [
             {
-                "Installation & User Manual": ""
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/205INTC+Alarm+Interface+Installation+Manual/101"
+            }
+        ]
+    },
+    {
+        "product_type": "Plug & Play Alarm Kits",
+        "SKU": "205INTK",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/205INTC+Alarm+Interface+Installation+Manual/101"
             }
         ]
     },
@@ -421,7 +556,16 @@
         "SKU": "METRISINTC",
         "relevant_docs": [
             {
-                "Installation & User Manual": ""
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/METRISINTC+and+METRISINTD+Alarm+Interface+Installation+Manual/100"
+            }
+        ]
+    },
+    {
+        "product_type": "Plug & Play Alarm Kits",
+        "SKU": "METRISINTK",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/METRISINTC+and+METRISINTD+Alarm+Interface+Installation+Manual/100"
             }
         ]
     },
@@ -430,31 +574,31 @@
         "SKU": "907RADREP",
         "relevant_docs": [
             {
-                "Installation Guide": ""
+                "Installation Guide": "http://Plug & Play Alarm Kits: 907INTC and 907INTD"
             }
         ]
     },
     {
-        "product_type": "Sprinter Steering Wheel Controls",
-        "SKU": "907SWCJ",
+        "product_type": "Sprinter Radio Integration",
+        "SKU": "907RADON",
         "relevant_docs": [
             {
-                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907SWC+Installation+Manual/45"
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907RAD-ON+Installation+Manual/42"
             }
         ]
     },
     {
-        "product_type": "Sprinter Steering Wheel Controls",
-        "SKU": "907SWCK",
+        "product_type": "Sprinter Radio Integration",
+        "SKU": "907GRADON",
         "relevant_docs": [
             {
-                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907SWC+Installation+Manual/45"
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907GRADON+Installation+Manual/111"
             }
         ]
     },
     {
         "product_type": "Sprinter Steering Wheel Controls",
-        "SKU": "907SWCA",
+        "SKU": "907SWCJ, 907SWCK, 907SWCA",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907SWC+Installation+Manual/45"
@@ -463,19 +607,19 @@
     },
     {
         "product_type": "Escort Radar Integration",
-        "SKU": "MAXINT (All SKUs)",
+        "SKU": "MAXINT (All SKUS)",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/MAX-INT+Escort+Radar+Integration+Installation+Manual/64"
             },
             {
-                "Owners Manual": "https://midcityengineering.dozuki.com/Wiki/MAXINTP29V2-V5_User_Guide"
+                "User Manual": "https://midcityengineering.dozuki.com/Wiki/MAXINTP29V2-V5_User_Guide"
             }
         ]
     },
     {
         "product_type": "Motorized Front License Plate Integration",
-        "SKU": "MOTOPLATE (All SKUs)",
+        "SKU": "MOTOPLATE (All SKUS)",
         "relevant_docs": [
             {
                 "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/MOTO-PLATE+Motorized+Plate+Interface+Installation+Guide/82"
@@ -484,25 +628,7 @@
     },
     {
         "product_type": "ModeLock Porsche Last Mode",
-        "SKU": "PLM1",
-        "relevant_docs": [
-            {
-                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/ModeLock+PLM1+PLM2+PLM3+Installation+Manual/87"
-            }
-        ]
-    },
-    {
-        "product_type": "ModeLock Porsche Last Mode",
-        "SKU": "PLM2",
-        "relevant_docs": [
-            {
-                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/ModeLock+PLM1+PLM2+PLM3+Installation+Manual/87"
-            }
-        ]
-    },
-    {
-        "product_type": "ModeLock Porsche Last Mode",
-        "SKU": "PLM3",
+        "SKU": "PLM1, PLM2, and PLM3",
         "relevant_docs": [
             {
                 "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/ModeLock+PLM1+PLM2+PLM3+Installation+Manual/87"
@@ -511,7 +637,7 @@
     },
     {
         "product_type": "ModeLock EcoOff",
-        "SKU": "ECOPCM",
+        "SKU": "ECOPCM and ECOV2",
         "relevant_docs": [
             {
                 "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/EcoOff+OBD+Programmer+Instructions.+ECO-PCM+&+ECO-V2/55"
@@ -519,11 +645,65 @@
         ]
     },
     {
-        "product_type": "ModeLock EcoOff",
-        "SKU": "ECOV2",
+        "product_type": "Sprinter WigWag Module For LED Lights",
+        "SKU": "WIGWAG",
         "relevant_docs": [
             {
                 "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/EcoOff+OBD+Programmer+Instructions.+ECO-PCM+&+ECO-V2/55"
+            }
+        ]
+    },
+    {
+        "product_type": "PSMJR CAN IO Breakout and Stop/Start & High Idle",
+        "SKU": "PSMJR",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/PSMJR+Installation+Manual:+Stop-Start+Idle+Control+and+I-O+Interface+for+2019+2020+2021+2022+2023+2024+(907)+Sprinter/71"
+            }
+        ]
+    },
+    {
+        "product_type": "PSMJR CAN IO Breakout and Stop/Start & High Idle",
+        "SKU": "PSMJRG",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/PSMJR+Installation+Manual:+Stop-Start+Idle+Control+and+I-O+Interface+for+2019+2020+2021+2022+2023+2024+(907)+Sprinter/71"
+            }
+        ]
+    },
+    {
+        "product_type": "Miles To Empty Recalibration",
+        "SKU": "907MTE",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/907-MTE+Installation+Instructions/83"
+            }
+        ]
+    },
+    {
+        "product_type": "Parking Sensor Integration",
+        "SKU": "CANIOPARK205",
+        "relevant_docs": [
+            {
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/Installation+Instructions+for+CAN-IO-PARK-205+Front+Parking+Sensor+Interface/51"
+            }
+        ]
+    },
+    {
+        "product_type": "Parking Sensor Integration",
+        "SKU": "CANIOPARK213",
+        "relevant_docs": [
+            {
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/Installation+Instructions+for+CAN-IO-PARK-205+Front+Parking+Sensor+Interface/51"
+            }
+        ]
+    },
+    {
+        "product_type": "Parking Sensor Integration",
+        "SKU": "CANIOPARKHS",
+        "relevant_docs": [
+            {
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/Installation+Instructions+for+CAN-IO-PARK-205+Front+Parking+Sensor+Interface/51"
             }
         ]
     }
