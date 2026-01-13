@@ -8,7 +8,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     /* Mid City Engineering Design System Variables */
     :root {
         --red-glow: 359 97% 26%;
-        --mce-dark-red: #810305;
         --mce-sepia-tan: #D4AF85;
         --mce-black: #0a0a0a;
         --mce-white: #ffffff;
@@ -143,13 +142,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         color: var(--mce-sepia-tan);
         margin-bottom: 15px;
         letter-spacing: 0.5px;
-    }
-
-    .mce-feature-card p {
-        color: rgba(255, 255, 255, 0.85);
-        font-size: 1rem;
-        line-height: 1.7;
-        margin: 0;
     }
 
     /* Highlight Section */
@@ -431,10 +423,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             font-size: 1.05rem;
         }
 
-        .mce-feature-card p {
-            font-size: 0.95rem;
-        }
-
         .mce-highlight-section {
             padding: 30px 20px;
             margin: 40px 0;
@@ -488,10 +476,6 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
     }
 </style>
 
-<link
-    href="https://fonts.googleapis.com/css2?family=Michroma&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap"
-    rel="stylesheet">
-
 <!-- Product Content Section -->
 <div class="mce-product-section">
     <!-- Skip link for keyboard navigation -->
@@ -499,30 +483,26 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
     <!-- Content Grid Section -->
     <section class="mce-content-grid-section" id="mce-main-content" aria-labelledby="mce-features-title">
-        <h2 id="mce-features-title" class="mce-section-title">Key Features</h2>
+        <h2 id="mce-features-title" class="mce-section-title">Description</h2>
+
+        <!-- Highlight Section -->
+        <div class="mce-highlight-section">
+            <div class="mce-highlight-content">
+                <p>Every component is carefully selected and rigorously tested to meet our exacting standards. We stand
+                    behind our products with comprehensive support and a commitment to your satisfaction.</p>
+            </div>
+        </div>
 
         <!-- Feature Cards Grid -->
         <div class="mce-features-grid">
             <div class="mce-feature-card">
                 <div class="mce-feature-number">20+</div>
                 <h3>Years Of Premium Quality</h3>
-                <p>Engineered with precision and built to last, delivering exceptional performance you can rely on.</p>
             </div>
 
             <div class="mce-feature-card">
                 <div class="mce-feature-number">100%</div>
                 <h3>Quality Tested</h3>
-                <p>Simple plug-and-play setup gets you up and running quickly with minimal technical expertise required.
-                </p>
-            </div>
-        </div>
-
-        <!-- Highlight Section -->
-        <div class="mce-highlight-section">
-            <div class="mce-highlight-content">
-                <h3>Built for Excellence</h3>
-                <p>Every component is carefully selected and rigorously tested to meet our exacting standards. We stand
-                    behind our products with comprehensive support and a commitment to your satisfaction.</p>
             </div>
         </div>
     </section>
