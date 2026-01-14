@@ -1,3 +1,128 @@
+<script>
+    async function get_current_sku() {
+        console.log('get_current_sku: Fetching SKU...');
+        // TODO: Implement get_current_sku
+        return '';
+    }
+
+    async function set_product_data(sku) {
+        console.log('set_product_data: Creating ProductData with SKU:', sku);
+        // TODO: Implement set_product_data
+        window.ProductData = Object.freeze({
+            SKU: ``,
+            adCopy: ``,
+            compatibilityList: ``,
+            compatibilityNotes: ``
+        });
+
+        console.log('set_product_data: ProductData created:', window.ProductData);
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+        console.log('Data Provider: DOMContentLoaded fired');
+
+        const sku = await get_current_sku();
+        await set_product_data(sku);
+
+        console.log('Data Provider: Firing productDataLoaded event');
+        window.dispatchEvent(new CustomEvent('productDataLoaded'));
+    });
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSV Data Loader</title>
+<style>
+    body {
+        text-align: left;
+    }
+
+    #status {
+        text-align: left;
+    }
+
+    #results {
+        display: none;
+        text-align: left;
+    }
+
+    #compatibility,
+    #compatibilityNotesSection {
+        text-align: left;
+    }
+
+    #compatibilityNotesSection {
+        margin-top: 20px;
+        white-space: pre-wrap;
+    }
+</style>
+
+<div id="status">Loading compatibility data...</div>
+
+<div id="results">
+    <div id="compatibility"></div>
+    <div id="compatibilityNotesSection"></div>
+</div>
+
+<script>
+    function makeLinksOpenInNewTab(htmlString) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+
+        const links = tempDiv.querySelectorAll('a');
+        links.forEach(link => {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener');
+        });
+
+        return tempDiv.innerHTML;
+    }
+
+    function displayCompatibilityData() {
+        console.log('displayCompatibilityData: Starting with ProductData:', window.ProductData);
+
+        // Hide status message
+        document.getElementById('status').style.display = 'none';
+
+        const compatibilityList = window.ProductData.compatibilityList;
+        const compatibilityNotes = window.ProductData.compatibilityNotes;
+
+        // Display compatibility list if not null and not blank
+        if (compatibilityList && compatibilityList.trim() !== '') {
+            console.log('displayCompatibilityData: Processing compatibility list');
+
+            const listItems = compatibilityList
+                .split(' | ')
+                .map(item => item.trim())
+                .filter(item => item !== '');
+
+            const compatibilityDiv = document.getElementById('compatibility');
+            compatibilityDiv.innerHTML = '<strong>Compatible Models:</strong> ' + listItems.join(' • ');
+
+            document.getElementById('results').style.display = 'block';
+        }
+
+        // Display compatibility notes if not null and not blank
+        if (compatibilityNotes && compatibilityNotes.trim() !== '') {
+            console.log('displayCompatibilityData: Processing compatibility notes');
+
+            const processedNotes = makeLinksOpenInNewTab(compatibilityNotes);
+            const notesSection = document.getElementById('compatibilityNotesSection');
+            notesSection.innerHTML = '<strong>Notes on Compatibility:</strong><br>' + processedNotes;
+
+            document.getElementById('results').style.display = 'block';
+        }
+
+        console.log('displayCompatibilityData: Complete');
+    }
+
+    // Listen for productDataLoaded event
+    window.addEventListener('productDataLoaded', function () {
+        console.log('Compatibility Widget: Received productDataLoaded event');
+        displayCompatibilityData();
+    });
+</script>
+
 <style>
     /* Optional: centralize style here instead of inline */
     .rounded-all-images {

@@ -487,9 +487,8 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
         <!-- Highlight Section -->
         <div class="mce-highlight-section">
-            <div class="mce-highlight-content">
-                <p>Every component is carefully selected and rigorously tested to meet our exacting standards. We stand
-                    behind our products with comprehensive support and a commitment to your satisfaction.</p>
+            <div class="mce-highlight-content" id="mce-adcopy-container">
+                <!-- AdCopy will be inserted here via JavaScript -->
             </div>
         </div>
 
@@ -545,6 +544,20 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 </div>
 
 <script>
+
+    function makeLinksOpenInNewTab(htmlString) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+
+        const links = tempDiv.querySelectorAll('a');
+        links.forEach(link => {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener');
+        });
+
+        return tempDiv.innerHTML;
+    }
+
     // Accordion toggle function
     window.mceToggleAccordion = function (element) {
         const isExpanded = element.classList.contains('mce-active');
@@ -556,4 +569,28 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             button.setAttribute('aria-expanded', !isExpanded);
         }
     };
+
+    // Set up event listener immediately (script runs during page parse)
+    window.addEventListener('productDataLoaded', function () {
+        console.log('AdCopy Widget: Received productDataLoaded event');
+
+        const adCopy = window.ProductData.adCopy;
+        const container = document.getElementById('mce-adcopy-container');
+
+        if (!container) {
+            console.error('AdCopy Widget: Container element not found');
+            return;
+        }
+
+        if (adCopy && adCopy.trim() !== '') {
+            console.log('AdCopy Widget: Displaying adCopy');
+            const formattedAdCopy = adCopy.replace(/\n/g, '<br>');
+            const processedAdCopy = makeLinksOpenInNewTab('<p>' + formattedAdCopy + '</p>');
+            container.innerHTML = processedAdCopy;
+        } else {
+            console.log('AdCopy Widget: No adCopy to display');
+            container.innerHTML = '';
+        }
+    });
+
 </script>
