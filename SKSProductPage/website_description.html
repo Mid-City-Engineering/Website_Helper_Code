@@ -408,6 +408,18 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         text-align: left;
     }
 
+    .mce-ad-copy-container {
+        margin-top: 5%;
+        padding: 1% 5%;
+    }
+
+    .mce-ad-copy-container p {
+        font-size: 1.0rem;
+        color: rgba(255, 255, 255, 0.9);
+        line-height: 1.6;
+        text-align: left;
+    }
+
     /* Responsive */
     @media (max-width: 1024px) {
         .mce-product-section {
@@ -559,6 +571,11 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
         .mce-item-content p {
             font-size: 0.85rem;
+        }
+
+        .mce-ad-copy-container {
+            margin-top: 7.5%;
+            padding: 3% 5%;
         }
     }
 
@@ -751,6 +768,11 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
             <!-- Carousel Row 2: Pagination Dots -->
             <div class="mce-pagination-dots" id="mcePaginationDots" role="tablist" aria-label="Feature pages"></div>
+            
+            <!-- Ad Copy Container -->
+            <div class="mce-ad-copy-container" id="mce-ad-copy-container" aria-labelledby="mce-ad-copy-title">
+                <!-- Content will be populated by JavaScript -->
+            </div>
         </div>
     </section>
 
@@ -848,6 +870,54 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             button.setAttribute('aria-expanded', !isExpanded);
         }
     };
+
+    // Function to make all HTML links open in a new tab
+    function makeLinksOpenInNewTab(htmlString) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlString;
+
+        const links = tempDiv.querySelectorAll('a');
+        links.forEach(link => {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener');
+        });
+
+        return tempDiv.innerHTML;
+    }
+
+    // Function to convert markdown links to HTML links
+    function convertMarkdownLinks(text) {
+        // Regex to match [text](url) pattern
+        const markdownLinkRegex = /\[([^\]]+)\]\(([^\)]+)\)/g;
+        return text.replace(markdownLinkRegex, '<a href="$2">$1</a>');
+    }
+
+    // Set up event listener immediately (script runs during page parse)
+    window.addEventListener('productDataLoaded', function () {
+        console.log('AdCopy Widget: Received productDataLoaded event');
+
+        const adCopy = window.ProductData.adCopy;
+        const container = document.getElementById('mce-ad-copy-container');
+
+        if (!container) {
+            console.error('AdCopy Widget: Container element not found');
+            return;
+        }
+
+        if (adCopy && adCopy.trim() !== '') {
+            console.log('AdCopy Widget: Displaying adCopy');
+            // Convert markdown links first, then format newlines
+            const adCopyWithMarkdownLinks = convertMarkdownLinks(adCopy);
+            // Substitute "\n" with <br> tags for HTML line breaks
+            const formattedAdCopy = adCopyWithMarkdownLinks.replace(/\n/g, '<br>');
+            // Enclose the formatted ad copy in a paragraph tag
+            const processedAdCopy = makeLinksOpenInNewTab('<p>' + formattedAdCopy + '</p>');
+            container.innerHTML = processedAdCopy;
+        } else {
+            console.log('AdCopy Widget: No adCopy to display');
+            container.innerHTML = '';
+        }
+    });
 
     (function () {
         let mceCurrentPage = 0;
@@ -1009,6 +1079,8 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                 mceUpdateCarousel();
             }
         };
+
+
 
         // Initialize when DOM is ready
         if (document.readyState === 'loading') {
