@@ -29,9 +29,6 @@
     });
 </script>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CSV Data Loader</title>
 <style>
     body {
         text-align: left;
@@ -65,6 +62,8 @@
 </div>
 
 <script>
+
+    // Function to make all links in a given HTML string open in a new tab
     function makeLinksOpenInNewTab(htmlString) {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlString;
@@ -76,6 +75,13 @@
         });
 
         return tempDiv.innerHTML;
+    }
+
+    // Function to convert markdown links to HTML links
+    function convertMarkdownLinks(text) {
+        // Regex to match [text](url) pattern
+        const markdownLinkRegex = /\[([^\]]+)\]\(([^\)]+)\)/g;
+        return text.replace(markdownLinkRegex, '<a href="$2">$1</a>');
     }
 
     function displayCompatibilityData() {
@@ -105,8 +111,9 @@
         // Display compatibility notes if not null and not blank
         if (compatibilityNotes && compatibilityNotes.trim() !== '') {
             console.log('displayCompatibilityData: Processing compatibility notes');
-
-            const processedNotes = makeLinksOpenInNewTab(compatibilityNotes);
+            // Convert markdown links first
+            const compatibilityNotesyWithMarkdownLinks = convertMarkdownLinks(compatibilityNotes);
+            const processedNotes = makeLinksOpenInNewTab(compatibilityNotesyWithMarkdownLinks);
             const notesSection = document.getElementById('compatibilityNotesSection');
             notesSection.innerHTML = '<strong>Notes on Compatibility:</strong><br>' + processedNotes;
 

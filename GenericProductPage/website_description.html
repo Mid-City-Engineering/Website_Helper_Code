@@ -545,6 +545,19 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
 <script>
 
+    // Accordion toggle function
+    window.mceToggleAccordion = function (element) {
+        const isExpanded = element.classList.contains('mce-active');
+        const button = element.querySelector('.mce-accordion-header');
+
+        element.classList.toggle('mce-active');
+
+        if (button) {
+            button.setAttribute('aria-expanded', !isExpanded);
+        }
+    };
+
+    // Function to make all HTML links open in a new tab
     function makeLinksOpenInNewTab(htmlString) {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlString;
@@ -558,17 +571,12 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         return tempDiv.innerHTML;
     }
 
-    // Accordion toggle function
-    window.mceToggleAccordion = function (element) {
-        const isExpanded = element.classList.contains('mce-active');
-        const button = element.querySelector('.mce-accordion-header');
-
-        element.classList.toggle('mce-active');
-
-        if (button) {
-            button.setAttribute('aria-expanded', !isExpanded);
-        }
-    };
+    // Function to convert markdown links to HTML links
+    function convertMarkdownLinks(text) {
+        // Regex to match [text](url) pattern
+        const markdownLinkRegex = /\[([^\]]+)\]\(([^\)]+)\)/g;
+        return text.replace(markdownLinkRegex, '<a href="$2">$1</a>');
+    }
 
     // Set up event listener immediately (script runs during page parse)
     window.addEventListener('productDataLoaded', function () {
@@ -584,7 +592,11 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
 
         if (adCopy && adCopy.trim() !== '') {
             console.log('AdCopy Widget: Displaying adCopy');
-            const formattedAdCopy = adCopy.replace(/\n/g, '<br>');
+            // Convert markdown links first, then format newlines
+            const adCopyWithMarkdownLinks = convertMarkdownLinks(adCopy);
+            // Substitute "\n" wuth <br> tags for HTML line breaks
+            const formattedAdCopy = adCopyWithMarkdownLinks.replace(/\n/g, '<br>');
+            // Enclose the formatted ad copy in a paragraph tag
             const processedAdCopy = makeLinksOpenInNewTab('<p>' + formattedAdCopy + '</p>');
             container.innerHTML = processedAdCopy;
         } else {
