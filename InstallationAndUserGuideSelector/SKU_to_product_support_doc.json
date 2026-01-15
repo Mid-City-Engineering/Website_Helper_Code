@@ -76,7 +76,7 @@
         "SKU": "SKSNG197D4",
         "relevant_docs": [
             {
-                "Installation Guide": "/installation-manuals#Click-below-SKU-for-Installation-or-Users-Manual"
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG197D4+SmartKey+Starter%C2%AE+Installation+Manual/93"
             },
             {
                 "User Manual": "https://midcityengineering.dozuki.com/Wiki/SKSNG_Owners_Manual"
@@ -298,7 +298,7 @@
     },
     {
         "product_type": "SmarIdle High Idle",
-        "SKU": "SMARTIDLE (W906)",
+        "SKU": "SMRTIDLE",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SMRTIDLE+Smart+Idle+Stand+Alone+High+Idle+Installation+for+W906+Sprinter/99"
@@ -394,7 +394,7 @@
         "SKU": "907OBDMIR",
         "relevant_docs": [
             {
-                "Installation & User Manual": "http://907OBDMIR  Installation and Operation"
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/907-OBD-MIR/67"
             }
         ]
     },
@@ -574,7 +574,7 @@
         "SKU": "907RADREP",
         "relevant_docs": [
             {
-                "Installation Guide": "http://Plug & Play Alarm Kits: 907INTC and 907INTD"
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907RAD-REP+Radio+Replacement+Kit+Installation+Instructions/44"
             }
         ]
     },
@@ -598,7 +598,25 @@
     },
     {
         "product_type": "Sprinter Steering Wheel Controls",
-        "SKU": "907SWCJ, 907SWCK, 907SWCA",
+        "SKU": "907SWCJ",
+        "relevant_docs": [
+            {
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907SWC+Installation+Manual/45"
+            }
+        ]
+    },
+    {
+        "product_type": "Sprinter Steering Wheel Controls",
+        "SKU": "907SWCK",
+        "relevant_docs": [
+            {
+                "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907SWC+Installation+Manual/45"
+            }
+        ]
+    },
+    {
+        "product_type": "Sprinter Steering Wheel Controls",
+        "SKU": "907SWCA",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/907SWC+Installation+Manual/45"
@@ -628,7 +646,25 @@
     },
     {
         "product_type": "ModeLock Porsche Last Mode",
-        "SKU": "PLM1, PLM2, and PLM3",
+        "SKU": "PLM1",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/ModeLock+PLM1+PLM2+PLM3+Installation+Manual/87"
+            }
+        ]
+    },
+    {
+        "product_type": "ModeLock Porsche Last Mode",
+        "SKU": "PLM2",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/ModeLock+PLM1+PLM2+PLM3+Installation+Manual/87"
+            }
+        ]
+    },
+    {
+        "product_type": "ModeLock Porsche Last Mode",
+        "SKU": "PLM3",
         "relevant_docs": [
             {
                 "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/ModeLock+PLM1+PLM2+PLM3+Installation+Manual/87"
@@ -637,7 +673,16 @@
     },
     {
         "product_type": "ModeLock EcoOff",
-        "SKU": "ECOPCM and ECOV2",
+        "SKU": "ECOPCM",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/EcoOff+OBD+Programmer+Instructions.+ECO-PCM+&+ECO-V2/55"
+            }
+        ]
+    },
+    {
+        "product_type": "ModeLock EcoOff",
+        "SKU": "ECOV2",
         "relevant_docs": [
             {
                 "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/EcoOff+OBD+Programmer+Instructions.+ECO-PCM+&+ECO-V2/55"
