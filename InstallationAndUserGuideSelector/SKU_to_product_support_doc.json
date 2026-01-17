@@ -73,7 +73,7 @@
     },
     {
         "product_type": "SmartKey Starter",
-        "SKU": "SKSNG197D4",
+        "SKU": "SKSNG197D3",
         "relevant_docs": [
             {
                 "Installation Guide": "https://midcityengineering.dozuki.com/Guide/SKSNG197D4+SmartKey+Starter%C2%AE+Installation+Manual/93"
@@ -691,7 +691,16 @@
     },
     {
         "product_type": "Sprinter WigWag Module For LED Lights",
-        "SKU": "WIGWAG",
+        "SKU": "WIGWAGLED",
+        "relevant_docs": [
+            {
+                "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/EcoOff+OBD+Programmer+Instructions.+ECO-PCM+&+ECO-V2/55"
+            }
+        ]
+    },
+    {
+        "product_type": "Sprinter WigWag Module For LED Lights",
+        "SKU": "WIGWAGHAL",
         "relevant_docs": [
             {
                 "Installation & User Manual": "https://midcityengineering.dozuki.com/Guide/EcoOff+OBD+Programmer+Instructions.+ECO-PCM+&+ECO-V2/55"
