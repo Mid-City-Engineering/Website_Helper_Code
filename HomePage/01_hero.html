@@ -38,7 +38,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 3rem 4rem;
-        z-index: 2;
+        z-index: 1002;
         border-bottom: 2px solid var(--mce-dark-red);
     }
 
@@ -67,6 +67,73 @@
         opacity: 0.7;
     }
 
+    /* Hamburger menu - hidden on desktop */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        cursor: pointer;
+        z-index: 1003;
+        position: relative;
+    }
+
+    .hamburger span {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger.active span {
+        background-color: var(--mce-sepia-tan);
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    /* Hamburger drawer menu */
+    .hamburger-drawer {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 1001;
+        transition: right 0.3s ease;
+        padding-top: 6rem;
+    }
+
+    .hamburger-drawer.active {
+        right: 0;
+    }
+
+    .hamburger-drawer a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.2);
+        transition: background 0.3s ease;
+    }
+
+    .hamburger-drawer a:hover {
+        background: rgba(129, 3, 5, 0.3);
+    }
+
     .hero-content {
         position: relative;
         z-index: 1;
@@ -74,7 +141,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        /* Changed from center */
         color: white;
         height: 100%;
         width: 75%;
@@ -99,10 +165,27 @@
         padding-bottom: 0.1rem;
         border-bottom: 2px solid var(--mce-dark-red);
         transition: opacity 0.3s ease;
+        cursor: pointer;
     }
 
     .hero-content h4:hover {
         opacity: 0.8;
+    }
+
+    /* Below 1000px: Show hamburger menu */
+    @media (max-width: 999px) {
+        .hero-nav {
+            display: none;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+
+        .hamburger-drawer {
+            display: block;
+            padding-top: 8rem;
+        }
     }
 
     /* Tablet: 481px to 768px */
@@ -111,20 +194,14 @@
             padding: 2rem 3rem;
         }
 
-        .hero-nav {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 1rem 2rem;
-        }
-
-        .hero-nav a {
-            font-size: 0.9rem;
+        .hero-logo h2 {
+            font-size: 1.3rem;
         }
 
         .hero-content {
             padding-left: 10%;
             padding-right: 10%;
+            width: 80%;
         }
 
         .hero-content h1 {
@@ -139,32 +216,26 @@
     /* Mobile: 480px and below */
     @media (max-width: 480px) {
         .hero-header {
-            flex-direction: column;
             padding: 1.5rem 2rem;
-            gap: 1.5rem;
-            align-items: flex-start;
         }
 
-        .hero-nav {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 1rem;
+        .hero-logo h2 {
+            font-size: 1.1rem;
+        }
+
+        .hamburger-drawer {
             width: 100%;
         }
 
-        .hero-nav a {
-            font-size: 0.8rem;
-            text-align: center;
-        }
-
         .hero-content {
-            padding-left: 5%;
-            padding-right: 5%;
+            padding-left: 8%;
+            padding-right: 8%;
+            width: 84%;
         }
 
         .hero-content h1 {
             font-size: 2.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .hero-content h4 {
@@ -194,10 +265,47 @@
             <a href="#support">Support</a>
             <a href="#contact">Contact</a>
         </nav>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
+
+    <!-- Hamburger drawer menu -->
+    <div class="hamburger-drawer" id="hamburgerDrawer">
+        <a href="#products" onclick="toggleMenu()">Products</a>
+        <a href="#dealer-locator" onclick="toggleMenu()">Dealer Locator</a>
+        <a href="#become-dealer" onclick="toggleMenu()">Become a Dealer</a>
+        <a href="#manuals" onclick="toggleMenu()">Installation Manuals</a>
+        <a href="#support" onclick="toggleMenu()">Support</a>
+        <a href="#contact" onclick="toggleMenu()">Contact</a>
+    </div>
 
     <div class="hero-content">
         <h1>The Best Made Better</h1>
         <h4>Discover how we can elevate your car or fleet</h4>
     </div>
 </section>
+
+<script>
+    function toggleMenu() {
+        const hamburger = document.querySelector('.hamburger');
+        const drawer = document.getElementById('hamburgerDrawer');
+
+        hamburger.classList.toggle('active');
+        drawer.classList.toggle('active');
+    }
+
+    // Close drawer when clicking outside
+    document.addEventListener('click', function (event) {
+        const drawer = document.getElementById('hamburgerDrawer');
+        const hamburger = document.querySelector('.hamburger');
+
+        if (drawer.classList.contains('active') &&
+            !drawer.contains(event.target) &&
+            !hamburger.contains(event.target)) {
+            toggleMenu();
+        }
+    });
+</script>
