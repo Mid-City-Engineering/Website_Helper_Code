@@ -13,7 +13,10 @@
     <script>
         const htmlFiles = [
             '00_base_reset.html',
-            '01_hero.html'
+            '01_hero.html',
+            '02_spacer.html',
+            '03_landing_cards.html',
+            '04_global.html',
         ];
 
         async function loadHTMLFiles() {
@@ -26,6 +29,23 @@
 
                     const tempSection = document.createElement('section');
                     tempSection.innerHTML = html;
+
+                    // Extract and execute scripts
+                    const scripts = tempSection.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+
+                        // Copy attributes
+                        Array.from(oldScript.attributes).forEach(attr => {
+                            newScript.setAttribute(attr.name, attr.value);
+                        });
+
+                        // Copy inline code
+                        newScript.textContent = oldScript.textContent;
+
+                        // Replace old script with new one
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
 
                     contentDiv.appendChild(tempSection);
                 } catch (error) {
