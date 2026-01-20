@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mid City Engineering</title>
+</head>
+
+<body>
+    <div id="content"></div>
+
+    <script>
+        const htmlFiles = [
+            '00_base_reset.html',
+            '01_hero.html'
+        ];
+
+        async function loadHTMLFiles() {
+            const contentDiv = document.getElementById('content');
+
+            for (const file of htmlFiles) {
+                try {
+                    const response = await fetch(file);
+                    const html = await response.text();
+
+                    const tempSection = document.createElement('section');
+                    tempSection.innerHTML = html;
+
+                    contentDiv.appendChild(tempSection);
+                } catch (error) {
+                    console.error(`Error loading ${file}:`, error);
+                }
+            }
+        }
+
+        loadHTMLFiles();
+    </script>
+</body>
+
+</html>

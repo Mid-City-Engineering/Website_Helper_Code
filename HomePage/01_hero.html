@@ -1,0 +1,203 @@
+<style>
+    .hero-section {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .hero-video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        z-index: -1;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 0;
+    }
+
+    .hero-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3rem 4rem;
+        z-index: 2;
+        border-bottom: 2px solid var(--mce-dark-red);
+    }
+
+    .hero-logo h2 {
+        color: white;
+        font-size: 1.5rem;
+        letter-spacing: 0.1em;
+        font-weight: 400;
+    }
+
+    .hero-nav {
+        display: flex;
+        gap: 3rem;
+    }
+
+    .hero-nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        transition: opacity 0.3s ease;
+    }
+
+    .hero-nav a:hover {
+        opacity: 0.7;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        /* Changed from center */
+        color: white;
+        height: 100%;
+        width: 75%;
+        padding-left: 12.5%;
+    }
+
+    .hero-content h1 {
+        font-size: 4.5rem;
+        margin-bottom: 2rem;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        line-height: 1.2;
+        text-align: left;
+    }
+
+    .hero-content h4 {
+        font-size: 1.5rem;
+        font-weight: 300;
+        letter-spacing: 0.08em;
+        text-align: left;
+        padding-left: 0.5%;
+        padding-bottom: 0.1rem;
+        border-bottom: 2px solid var(--mce-dark-red);
+        transition: opacity 0.3s ease;
+    }
+
+    .hero-content h4:hover {
+        opacity: 0.8;
+    }
+
+    /* Tablet: 481px to 768px */
+    @media (max-width: 768px) and (min-width: 481px) {
+        .hero-header {
+            padding: 2rem 3rem;
+        }
+
+        .hero-nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1rem 2rem;
+        }
+
+        .hero-nav a {
+            font-size: 0.9rem;
+        }
+
+        .hero-content {
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+        }
+
+        .hero-content h4 {
+            font-size: 1.3rem;
+        }
+    }
+
+    /* Mobile: 480px and below */
+    @media (max-width: 480px) {
+        .hero-header {
+            flex-direction: column;
+            padding: 1.5rem 2rem;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .hero-nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1rem;
+            width: 100%;
+        }
+
+        .hero-nav a {
+            font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-content h4 {
+            font-size: 1.1rem;
+        }
+    }
+</style>
+
+<section class="hero-section">
+    <video class="hero-video" autoplay muted loop playsinline>
+        <source src="https://mid-city-engineering.odoo.com/documents/content/VQWv3tSOQlyJZCE1nn7-Fgo16?download=0"
+            type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="hero-overlay"></div>
+
+    <header class="hero-header">
+        <div class="hero-logo">
+            <h2>MID CITY ENGINEERING</h2>
+        </div>
+        <nav class="hero-nav">
+            <a href="#products">Products</a>
+            <a href="#dealer-locator">Dealer Locator</a>
+            <a href="#become-dealer">Become a Dealer</a>
+            <a href="#manuals">Installation Manuals</a>
+            <a href="#support">Support</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="hero-content">
+        <h1>The Best Made Better</h1>
+        <h4>Discover how we can elevate your car or fleet</h4>
+    </div>
+</section>
