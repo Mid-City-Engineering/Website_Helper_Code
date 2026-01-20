@@ -1,37 +1,139 @@
 <style>
-    .hero-section {
+    /* Wrapper for utility bar + hero */
+    .hero-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+    }
+
+    /* Utility Bar */
+    .utility-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6vh;
+        background: #000;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 4rem;
+        gap: 2rem;
+        z-index: 2000;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.3);
+    }
+
+    .utility-bar form {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .utility-bar input[type="search"] {
+        padding: 0.3rem 0.8rem;
+        border: none;
+        border-bottom: 1px solid var(--mce-sepia-tan);
+        background: transparent;
+        color: var(--mce-sepia-tan);
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.85rem;
+        width: 180px;
+        transition: all 0.3s ease;
+    }
+
+    .utility-bar input[type="search"]::placeholder {
+        color: var(--mce-sepia-tan);
+        opacity: 0.7;
+    }
+
+    .utility-bar input[type="search"]:focus {
+        outline: none;
+        border-bottom-color: white;
+        width: 220px;
+    }
+
+    .utility-bar button,
+    .utility-bar a {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .utility-bar button:hover,
+    .utility-bar a:hover {
+        color: var(--mce-sepia-tan);
+    }
+
+    #accountMenu {
+        position: absolute;
+        top: 100%;
+        right: 4rem;
+        background: rgba(0, 0, 0, 0.95);
+        border: 1px solid var(--mce-sepia-tan);
+        border-top: none;
+        min-width: 150px;
+        margin-top: 0;
+    }
+
+    #accountMenu a {
+        display: block;
+        padding: 0.8rem 1.2rem;
+        color: white;
+        text-decoration: none;
+        font-size: 0.85rem;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.2);
+        transition: background 0.3s ease;
+    }
+
+    #accountMenu a:last-child {
+        border-bottom: none;
+    }
+
+    #accountMenu a:hover {
+        background: rgba(129, 3, 5, 0.3);
+    }
+
+    /* Hero Video Section */
+    .hero-video-section {
         position: relative;
         width: 100%;
         height: 100vh;
         overflow: hidden;
+        padding-top: 5vh;
     }
 
     .hero-video {
         position: absolute;
-        top: 50%;
+        top: 5vh;
         left: 50%;
         min-width: 100%;
-        min-height: 100%;
+        min-height: calc(100vh - 5vh);
         width: auto;
         height: auto;
-        transform: translate(-50%, -50%);
+        transform: translateX(-50%);
         object-fit: cover;
         z-index: -1;
     }
 
     .hero-overlay {
         position: absolute;
-        top: 0;
+        top: 5vh;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: calc(100vh - 5vh);
         background: rgba(0, 0, 0, 0.4);
         z-index: 0;
     }
 
     .hero-header {
         position: absolute;
-        top: 0;
+        top: 5vh;
         left: 0;
         right: 0;
         display: flex;
@@ -104,10 +206,10 @@
     .hamburger-drawer {
         display: none;
         position: fixed;
-        top: 0;
+        top: 5vh;
         right: -100%;
         width: 280px;
-        height: 100vh;
+        height: calc(100vh - 5vh);
         background: rgba(0, 0, 0, 0.95);
         z-index: 1001;
         transition: right 0.3s ease;
@@ -142,9 +244,10 @@
         justify-content: center;
         align-items: flex-start;
         color: white;
-        height: 100%;
+        height: calc(100vh - 5vh);
         width: 75%;
         padding-left: 12.5%;
+        padding-top: 5vh;
     }
 
     .hero-content h1 {
@@ -190,6 +293,25 @@
 
     /* Tablet: 481px to 768px */
     @media (max-width: 768px) and (min-width: 481px) {
+        .utility-bar {
+            padding: 0 2rem;
+            gap: 1.5rem;
+        }
+
+        .utility-bar input[type="search"] {
+            width: 140px;
+            font-size: 0.8rem;
+        }
+
+        .utility-bar input[type="search"]:focus {
+            width: 170px;
+        }
+
+        .utility-bar button,
+        .utility-bar a {
+            font-size: 0.95rem;
+        }
+
         .hero-header {
             padding: 2rem 3rem;
         }
@@ -215,6 +337,30 @@
 
     /* Mobile: 480px and below */
     @media (max-width: 480px) {
+        .utility-bar {
+            padding: 0 1.5rem;
+            gap: 1rem;
+        }
+
+        .utility-bar input[type="search"] {
+            width: 100px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+        }
+
+        .utility-bar input[type="search"]:focus {
+            width: 120px;
+        }
+
+        .utility-bar button,
+        .utility-bar a {
+            font-size: 0.9rem;
+        }
+
+        #accountMenu {
+            right: 1.5rem;
+        }
+
         .hero-header {
             padding: 1.5rem 2rem;
         }
@@ -244,49 +390,78 @@
     }
 </style>
 
-<section class="hero-section">
-    <video class="hero-video" autoplay muted loop playsinline>
-        <source src="https://mid-city-engineering.odoo.com/documents/content/VQWv3tSOQlyJZCE1nn7-Fgo16?download=0"
-            type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+<div class="hero-wrapper">
+    <!-- Utility Bar -->
+    <div class="utility-bar">
+        <form method="get" action="/website/search" id="customSearchForm">
+            <input type="search" name="search" id="customSearchInput" placeholder="Search...">
+            <input name="order" type="hidden" value="name asc">
+            <button type="submit" id="customSearchBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+            </button>
+        </form>
 
-    <div class="hero-overlay"></div>
+        <a href="/shop/cart">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="21" r="1"></circle>
+                <circle cx="19" cy="21" r="1"></circle>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+            </svg>
+        </a>
 
-    <header class="hero-header">
-        <div class="hero-logo">
-            <h2>MID CITY ENGINEERING</h2>
-        </div>
-        <nav class="hero-nav">
-            <a href="#products">Products</a>
-            <a href="#dealer-locator">Dealer Locator</a>
-            <a href="#become-dealer">Become a Dealer</a>
-            <a href="#manuals">Installation Manuals</a>
-            <a href="#support">Support</a>
-            <a href="#contact">Contact</a>
-        </nav>
-        <div class="hamburger" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </header>
-
-    <!-- Hamburger drawer menu -->
-    <div class="hamburger-drawer" id="hamburgerDrawer">
-        <a href="#products" onclick="toggleMenu()">Products</a>
-        <a href="#dealer-locator" onclick="toggleMenu()">Dealer Locator</a>
-        <a href="#become-dealer" onclick="toggleMenu()">Become a Dealer</a>
-        <a href="#manuals" onclick="toggleMenu()">Installation Manuals</a>
-        <a href="#support" onclick="toggleMenu()">Support</a>
-        <a href="#contact" onclick="toggleMenu()">Contact</a>
+        <div id="customAccount"></div>
     </div>
 
-    <div class="hero-content">
-        <h1>The Best Made Better</h1>
-        <h4>Discover how we can elevate your car or fleet</h4>
-    </div>
-</section>
+    <!-- Hero Video Section -->
+    <section class="hero-video-section">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://mid-city-engineering.odoo.com/documents/content/VQWv3tSOQlyJZCE1nn7-Fgo16?download=0"
+                type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-overlay"></div>
+
+        <header class="hero-header">
+            <div class="hero-logo">
+                <h2>MID CITY ENGINEERING</h2>
+            </div>
+            <nav class="hero-nav">
+                <a href="#products">Products</a>
+                <a href="#dealer-locator">Dealer Locator</a>
+                <a href="#become-dealer">Become a Dealer</a>
+                <a href="#manuals">Installation Manuals</a>
+                <a href="#support">Support</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </header>
+
+        <!-- Hamburger drawer menu -->
+        <div class="hamburger-drawer" id="hamburgerDrawer">
+            <a href="#products" onclick="toggleMenu()">Products</a>
+            <a href="#dealer-locator" onclick="toggleMenu()">Dealer Locator</a>
+            <a href="#become-dealer" onclick="toggleMenu()">Become a Dealer</a>
+            <a href="#manuals" onclick="toggleMenu()">Installation Manuals</a>
+            <a href="#support" onclick="toggleMenu()">Support</a>
+            <a href="#contact" onclick="toggleMenu()">Contact</a>
+        </div>
+
+        <div class="hero-content">
+            <h1>The Best Made Better</h1>
+            <h4>Discover how we can elevate your car or fleet</h4>
+        </div>
+    </section>
+</div>
 
 <script>
     function toggleMenu() {
@@ -308,4 +483,33 @@
             toggleMenu();
         }
     });
+
+    // Account dropdown
+    (function () {
+        const container = document.getElementById('customAccount');
+
+        if (document.querySelector('[data-bs-toggle="dropdown"]')) {
+            // Signed in - show dropdown
+            container.innerHTML = `
+            <a href="#" id="accountToggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <div id="accountMenu" style="display:none;">
+                <a href="/my/home">My Account</a>
+                <a href="/web/session/logout?redirect=/">Logout</a>
+            </div>
+        `;
+            document.getElementById('accountToggle').onclick = function (e) {
+                e.preventDefault();
+                const menu = document.getElementById('accountMenu');
+                menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+            };
+        } else {
+            // Signed out - show sign in
+            container.innerHTML = '<a href="/web/login">Sign In</a>';
+        }
+    })();
 </script>
