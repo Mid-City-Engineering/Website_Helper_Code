@@ -1,0 +1,248 @@
+<style>
+    .spacer-section {
+        background: #ffffff;
+        padding: 10% 5% 7%;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 60px;
+    }
+
+    /* Animated background accent */
+    .spacer-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--mce-dark-red), var(--mce-sepia-tan));
+        animation: slideAccent 2s ease-out forwards;
+    }
+
+    @keyframes slideAccent {
+        to {
+            left: 0;
+        }
+    }
+
+    .spacer-left {
+        max-width: 600px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 0;
+        transform: translateX(-40px);
+        animation: slideInLeft 0.8s ease-out 0.3s forwards;
+    }
+
+    @keyframes slideInLeft {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .spacer-left h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
+        color: var(--mce-dark-red);
+        margin-bottom: 28px;
+        line-height: 1.5;
+        position: relative;
+        width: 100%;
+    }
+
+    .spacer-left h2 .tan-text {
+        color: var(--mce-sepia-tan);
+    }
+
+    /* Animated underline on h2 */
+    .spacer-left h2::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        animation: expandUnderline 1s ease-out 0.8s forwards;
+    }
+
+    @keyframes expandUnderline {
+        to {
+            width: 120px;
+        }
+    }
+
+    .spacer-left h6 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: #444444;
+        line-height: 1.7;
+        opacity: 0;
+        width: 100%;
+        animation: fadeInText 0.8s ease-out 1s forwards;
+    }
+
+    @keyframes fadeInText {
+        to {
+            opacity: 1;
+        }
+    }
+
+    .spacer-right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transform: translateX(40px);
+        animation: slideInRight 0.8s ease-out 0.5s forwards;
+    }
+
+    @keyframes slideInRight {
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .dealer-button {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 22px 48px;
+        background: linear-gradient(135deg, var(--mce-dark-red) 0%, #a00406 100%);
+        color: #ffffff;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 50px;
+        border: none;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(129, 3, 5, 0.25);
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        cursor: pointer;
+    }
+
+    /* Animated gradient overlay */
+    .dealer-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.7s ease;
+        border-radius: 50px;
+    }
+
+    /* Glow effect that slides off to the right */
+    .dealer-button::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: -20%;
+        transform: translateY(-50%);
+        width: 80%;
+        height: 160%;
+        border-radius: 50px;
+        background: radial-gradient(ellipse, var(--mce-sepia-tan), transparent 70%);
+        z-index: -1;
+        opacity: 0.8;
+        transition: left 0.7s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.7s ease;
+        filter: blur(20px);
+    }
+
+    .dealer-button:hover::before {
+        left: 100%;
+    }
+
+    .dealer-button:hover::after {
+        left: 120%;
+        opacity: 0;
+    }
+
+    .dealer-button:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 15px 40px rgba(129, 3, 5, 0.4);
+    }
+
+    .dealer-button:active {
+        transform: translateY(-2px) scale(1);
+        box-shadow: 0 8px 25px rgba(129, 3, 5, 0.3);
+    }
+
+    /* Arrow icon */
+    .dealer-button-arrow {
+        display: inline-block;
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        font-size: 1.2em;
+    }
+
+    .dealer-button:hover .dealer-button-arrow {
+        transform: translateX(5px);
+    }
+
+    @media (max-width: 968px) {
+        .spacer-section {
+            flex-direction: column;
+            gap: 50px;
+            padding: 15% 5% 12%;
+        }
+
+        .spacer-left {
+            text-align: center;
+        }
+
+        .spacer-left h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .spacer-left,
+        .spacer-right {
+            transform: none;
+            animation: fadeInMobile 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInMobile {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dealer-button {
+            padding: 20px 40px;
+            font-size: 1rem;
+        }
+    }
+</style>
+
+<div class="spacer-section">
+    <div class="spacer-left">
+        <h2>Engineered in Chicago, <span class="tan-text">Trusted Worldwide</span></h2>
+        <h6>Scroll below to see our products, backed by 20+ Years of Engineering Excellence</h6>
+    </div>
+    <div class="spacer-right">
+        <a href="/dealer-locator" class="dealer-button">
+            Or find affiliated dealers near you
+            <span class="dealer-button-arrow">→</span>
+        </a>
+    </div>
+</div>
