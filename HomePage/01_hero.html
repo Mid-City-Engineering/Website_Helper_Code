@@ -463,6 +463,7 @@
 </div>
 
 <script>
+    // To open hamburger menu
     function toggleMenu() {
         const hamburger = document.querySelector('.hamburger');
         const drawer = document.getElementById('hamburgerDrawer');
@@ -511,4 +512,29 @@
             container.innerHTML = '<a href="/web/login">Sign In</a>';
         }
     })();
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('.hero-nav a[href^="#"], .hamburger-drawer a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                // Close hamburger menu if open
+                const drawer = document.getElementById('hamburgerDrawer');
+                const hamburger = document.querySelector('.hamburger');
+                if (drawer.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    drawer.classList.remove('active');
+                }
+
+                // Smooth scroll to target
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
 </script>
