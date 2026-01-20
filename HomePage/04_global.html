@@ -1,0 +1,152 @@
+<style>
+    .global-section {
+        background: #262626;
+        padding: 80px 0;
+        position: relative;
+    }
+
+    .global-header {
+        text-align: center;
+        margin-bottom: 60px;
+        padding: 0 5%;
+    }
+
+    .global-header h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        color: var(--mce-sepia-tan);
+        margin-bottom: 20px;
+        letter-spacing: 0.05em;
+        position: relative;
+        display: inline-block;
+    }
+
+    .global-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 2px;
+        background: var(--mce-dark-red);
+    }
+
+    .global-header h6 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 2vw, 1.2rem);
+        color: #cccccc;
+        line-height: 1.6;
+    }
+
+    .map-container {
+        width: 100%;
+        height: 600px;
+        position: relative;
+        border-bottom: 2px solid var(--mce-sepia-tan);
+    }
+
+    #globalMap {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Leaflet attribution styling */
+    .leaflet-control-attribution {
+        background: rgba(0, 0, 0, 0.7) !important;
+        color: #999 !important;
+        font-size: 10px !important;
+    }
+
+    .leaflet-control-attribution a {
+        color: var(--mce-sepia-tan) !important;
+    }
+
+    @media (max-width: 768px) {
+        .global-section {
+            padding: 60px 0;
+        }
+
+        .global-header {
+            margin-bottom: 40px;
+        }
+
+        .map-container {
+            height: 400px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .map-container {
+            height: 300px;
+        }
+    }
+</style>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+<div class="global-section">
+    <div class="global-header">
+        <h2>Worldwide Presence</h2>
+        <h6>Our products and services reach customers across the globe</h6>
+    </div>
+
+    <div class="map-container">
+        <div id="globalMap"></div>
+    </div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<script>
+    // Wait for Leaflet to be fully loaded
+    function initializeGlobalMap() {
+        // Check if Leaflet is loaded
+        if (typeof L === 'undefined') {
+            console.log('Waiting for Leaflet to load...');
+            setTimeout(initializeGlobalMap, 100);
+            return;
+        }
+
+        // Initialize the map
+        const map = L.map('globalMap', {
+            center: [20, 0], // Center of the world
+            zoom: 2,
+            minZoom: 2,
+            maxZoom: 10,
+            zoomControl: true,
+            scrollWheelZoom: true
+        });
+
+        // Add CartoDB Dark Matter tile layer
+        const CartoDB_DarkMatterNoLabels = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        });
+
+        // Add the tile layer to the map
+        CartoDB_DarkMatterNoLabels.addTo(map);
+
+        // Placeholder for future coordinates
+        const locations = [
+            // Example format:
+            // { lat: 41.8781, lng: -87.6298, name: "Chicago, USA" }
+            // Add your coordinates here later
+        ];
+
+        console.log('Map initialized successfully');
+    }
+
+    // Start initialization when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeGlobalMap);
+    } else {
+        initializeGlobalMap();
+    }
+</script>
