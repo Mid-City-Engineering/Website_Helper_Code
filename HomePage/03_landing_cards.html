@@ -1,0 +1,287 @@
+<style>
+    .landing-cards-section {
+        background: #f8f8f8;
+        padding: 80px 0;
+    }
+
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        max-width: 1600px;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .product-card {
+        flex: 1 1 calc(25% - 0px);
+        min-width: 300px;
+        max-width: 400px;
+        background: white;
+        border: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .product-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: left 0.5s ease;
+        z-index: 2;
+    }
+
+    .product-card:hover::before {
+        left: 0;
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(129, 3, 5, 0.15);
+        border-color: var(--mce-sepia-tan);
+    }
+
+    .card-image-wrapper {
+        width: 100%;
+        height: 240px;
+        overflow: hidden;
+        position: relative;
+        background: #f0f0f0;
+    }
+
+    .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .product-card:hover .card-image {
+        transform: scale(1.08);
+    }
+
+    .card-content {
+        padding: 32px 28px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .card-title {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1.35rem;
+        color: #1a1a1a;
+        margin-bottom: 16px;
+        line-height: 1.4;
+        min-height: 76px;
+    }
+
+    .card-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #e8e8e8;
+    }
+
+    .card-category {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 0.85rem;
+        color: var(--mce-dark-red);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .card-date {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.85rem;
+        color: #888;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1400px) {
+        .product-card {
+            flex: 1 1 calc(33.333% - 0px);
+        }
+    }
+
+    @media (max-width: 1024px) {
+        .product-card {
+            flex: 1 1 calc(50% - 0px);
+        }
+
+        .card-image-wrapper {
+            height: 220px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .landing-cards-section {
+            padding: 60px 0;
+        }
+
+        .product-card {
+            flex: 1 1 100%;
+            max-width: 100%;
+        }
+
+        .card-image-wrapper {
+            height: 280px;
+        }
+
+        .card-content {
+            padding: 28px 24px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            min-height: auto;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .card-content {
+            padding: 24px 20px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+        }
+    }
+</style>
+
+<div class="landing-cards-section">
+    <div class="cards-container">
+        <!-- Card 1 -->
+        <div class="product-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop"
+                    alt="Performance Exhaust System" class="card-image">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Premium Performance Exhaust Systems</h3>
+                <div class="card-meta">
+                    <span class="card-category">Products</span>
+                    <span class="card-date">January 15, 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="product-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=800&h=600&fit=crop"
+                    alt="Custom Intake Systems" class="card-image">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">High-Flow Cold Air Intake Systems</h3>
+                <div class="card-meta">
+                    <span class="card-category">Products</span>
+                    <span class="card-date">January 10, 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="product-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=800&h=600&fit=crop"
+                    alt="Suspension Upgrades" class="card-image">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Advanced Suspension and Handling Solutions</h3>
+                <div class="card-meta">
+                    <span class="card-category">Products</span>
+                    <span class="card-date">December 28, 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="product-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&h=600&fit=crop"
+                    alt="Performance Tuning" class="card-image">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">ECU Tuning and Performance Chips</h3>
+                <div class="card-meta">
+                    <span class="card-category">Products</span>
+                    <span class="card-date">December 20, 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="product-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=800&h=600&fit=crop"
+                    alt="Brake Systems" class="card-image">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">High-Performance Brake Upgrade Kits</h3>
+                <div class="card-meta">
+                    <span class="card-category">Products</span>
+                    <span class="card-date">December 15, 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="product-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=600&fit=crop"
+                    alt="Fleet Solutions" class="card-image">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Commercial Fleet Performance Packages</h3>
+                <div class="card-meta">
+                    <span class="card-category">Solutions</span>
+                    <span class="card-date">December 8, 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="product-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=800&h=600&fit=crop"
+                    alt="Engineering Excellence" class="card-image">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">20+ Years of Engineering Excellence</h3>
+                <div class="card-meta">
+                    <span class="card-category">Article</span>
+                    <span class="card-date">December 1, 2025</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="product-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop"
+                    alt="Custom Fabrication" class="card-image">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Custom Fabrication and Design Services</h3>
+                <div class="card-meta">
+                    <span class="card-category">Services</span>
+                    <span class="card-date">November 25, 2025</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
