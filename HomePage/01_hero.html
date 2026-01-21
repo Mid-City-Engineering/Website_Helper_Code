@@ -487,7 +487,19 @@
     (function () {
         const container = document.getElementById('customAccount');
 
-        if (document.querySelector('[data-bs-toggle="dropdown"]')) {
+        let isAuthenticated = false;
+
+        try {
+            // Check parent window for Odoo's user menu
+            if (window.parent && window.parent.document) {
+                isAuthenticated = !!window.parent.document.querySelector('.o_user_menu');
+            }
+        } catch (e) {
+            // Cross-origin restriction - fallback to checking for Odoo session cookie
+            isAuthenticated = document.cookie.includes('session_id');
+        }
+
+        if (isAuthenticated) {
             // Signed in - show dropdown
             container.innerHTML = `
             <a href="#" id="accountToggle">
