@@ -513,11 +513,22 @@
                 <a href="/web/session/logout?redirect=/">Logout</a>
             </div>
         `;
-            document.getElementById('accountToggle').onclick = function (e) {
+
+            const accountToggle = document.getElementById('accountToggle');
+            const accountMenu = document.getElementById('accountMenu');
+
+            accountToggle.onclick = function (e) {
                 e.preventDefault();
-                const menu = document.getElementById('accountMenu');
-                menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+                e.stopPropagation();
+                accountMenu.style.display = accountMenu.style.display === 'none' ? 'block' : 'none';
             };
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function (event) {
+                if (!container.contains(event.target)) {
+                    accountMenu.style.display = 'none';
+                }
+            });
         } else {
             // Signed out - show sign in
             container.innerHTML = '<a href="/web/login">Sign In</a>';
