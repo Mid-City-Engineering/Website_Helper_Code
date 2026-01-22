@@ -259,27 +259,50 @@
     .star {
         color: var(--mce-sepia-tan);
         font-size: 1.2rem;
-        animation: starPop 0.3s ease-out backwards;
+        opacity: 0;
+        animation: starPop 0.4s ease-out forwards;
     }
 
-    .star:nth-child(1) {
+    /* First testimonial card stars */
+    .testimonial-card:nth-child(1) .star:nth-child(1) {
+        animation-delay: 0.8s;
+    }
+
+    .testimonial-card:nth-child(1) .star:nth-child(2) {
+        animation-delay: 1s;
+    }
+
+    .testimonial-card:nth-child(1) .star:nth-child(3) {
         animation-delay: 1.2s;
     }
 
-    .star:nth-child(2) {
-        animation-delay: 1.3s;
-    }
-
-    .star:nth-child(3) {
+    .testimonial-card:nth-child(1) .star:nth-child(4) {
         animation-delay: 1.4s;
     }
 
-    .star:nth-child(4) {
+    .testimonial-card:nth-child(1) .star:nth-child(5) {
+        animation-delay: 1.6s;
+    }
+
+    /* Second testimonial card stars */
+    .testimonial-card:nth-child(2) .star:nth-child(1) {
+        animation-delay: 1.1s;
+    }
+
+    .testimonial-card:nth-child(2) .star:nth-child(2) {
+        animation-delay: 1.3s;
+    }
+
+    .testimonial-card:nth-child(2) .star:nth-child(3) {
         animation-delay: 1.5s;
     }
 
-    .star:nth-child(5) {
-        animation-delay: 1.6s;
+    .testimonial-card:nth-child(2) .star:nth-child(4) {
+        animation-delay: 1.7s;
+    }
+
+    .testimonial-card:nth-child(2) .star:nth-child(5) {
+        animation-delay: 1.9s;
     }
 
     @keyframes starPop {
@@ -434,7 +457,7 @@
                     the car manufacturers to be able to start their cars remotely.
                 </div>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar">JM</div>
+                    <div class="testimonial-avatar">DD</div>
                     <div class="testimonial-info">
                         <h4>Dryden Downey</h4>
                         <p>Optional Title</p>
@@ -463,7 +486,7 @@
                     into limp mode. The fact they have a security system as well is even better.
                 </div>
                 <div class="testimonial-author">
-                    <div class="testimonial-avatar">SK</div>
+                    <div class="testimonial-avatar">ME</div>
                     <div class="testimonial-info">
                         <h4>Mac Electric</h4>
                         <p>Optional Title</p>
@@ -473,3 +496,58 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Trigger animations when section comes into view
+    const storySection = document.querySelector('.story-section');
+
+    if (storySection) {
+        // Initially pause all animations
+        const stars = storySection.querySelectorAll('.star');
+        const storyLeft = storySection.querySelector('.story-left');
+        const storyLeftH6 = storySection.querySelector('.story-left h6');
+
+        stars.forEach(star => {
+            star.style.animationPlayState = 'paused';
+        });
+
+        if (storyLeft) {
+            storyLeft.style.animationPlayState = 'paused';
+        }
+
+        if (storyLeftH6) {
+            storyLeftH6.style.animationPlayState = 'paused';
+        }
+
+        // Create intersection observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Section is visible - start all animations
+                    const stars = entry.target.querySelectorAll('.star');
+                    const storyLeft = entry.target.querySelector('.story-left');
+                    const storyLeftH6 = entry.target.querySelector('.story-left h6');
+
+                    stars.forEach(star => {
+                        star.style.animationPlayState = 'running';
+                    });
+
+                    if (storyLeft) {
+                        storyLeft.style.animationPlayState = 'running';
+                    }
+
+                    if (storyLeftH6) {
+                        storyLeftH6.style.animationPlayState = 'running';
+                    }
+
+                    // Optional: stop observing after first trigger
+                    // observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.3 // Trigger when 30% of section is visible
+        });
+
+        observer.observe(storySection);
+    }
+</script>
