@@ -483,56 +483,95 @@
         }
     });
 
-    // Account dropdown
+    // Account dropdown with working session check
     (function () {
         const container = document.getElementById('customAccount');
 
-        let isAuthenticated = false;
+        console.log('[Auth Check] Starting authentication check...');
 
-        try {
-            // Check parent window for Odoo's user menu
-            if (window.parent && window.parent.document) {
-                isAuthenticated = !!window.parent.document.querySelector('.o_user_menu');
-            }
-        } catch (e) {
-            // Cross-origin restriction - fallback to checking for Odoo session cookie
-            isAuthenticated = document.cookie.includes('session_id');
-        }
+        // Check Odoo session via JSON-RPC POST with empty body
+        fetch('/web/session/get_session_info', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: '{}'  // Empty JSON object is the key!
+        })
+            .then(response => {
+                console.log('[Auth Check] Response status:', response.status);
 
-        if (isAuthenticated) {
-            // Signed in - show dropdown
-            container.innerHTML = `
-            <a href="#" id="accountToggle">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </a>
-            <div id="accountMenu" style="display:none;">
-                <a href="/my/home">My Account</a>
-                <a href="/web/session/logout?redirect=/">Logout</a>
-            </div>
-        `;
-
-            const accountToggle = document.getElementById('accountToggle');
-            const accountMenu = document.getElementById('accountMenu');
-
-            accountToggle.onclick = function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-                accountMenu.style.display = accountMenu.style.display === 'none' ? 'block' : 'none';
-            };
-
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function (event) {
-                if (!container.contains(event.target)) {
-                    accountMenu.style.display = 'none';
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        console.error('[Auth Check] Error response:', text);
+                        throw new Error(`HTTP ${response.status}`);
+                    });
                 }
+
+                return response.json();
+            })
+            .then(data => {
+                console.log('[Auth Check] Full response:', data);
+
+                // Odoo returns data in result.uid
+                const uid = data.result?.uid;
+                const isAuthenticated = uid && uid !== false;
+
+                console.log('[Auth Check] Authentication result:', {
+                    isAuthenticated: isAuthenticated,
+                    uid: uid,
+                    username: data.result?.username || 'N/A',
+                    name: data.result?.partner_display_name || 'N/A'
+                });
+
+                if (isAuthenticated) {
+                    console.log('[Auth Check] ✓ User is authenticated - rendering account dropdown');
+
+                    // Signed in - show dropdown
+                    container.innerHTML = `
+                <a href="#" id="accountToggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <div id="accountMenu" style="display:none;">
+                    <a href="/my/home">My Account</a>
+                    <a href="/web/session/logout?redirect=/">Logout</a>
+                </div>
+            `;
+
+                    const accountToggle = document.getElementById('accountToggle');
+                    const accountMenu = document.getElementById('accountMenu');
+
+                    accountToggle.onclick = function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const isVisible = accountMenu.style.display !== 'none';
+                        accountMenu.style.display = isVisible ? 'none' : 'block';
+                        console.log('[Auth Check] Account menu toggled:', !isVisible ? 'opened' : 'closed');
+                    };
+
+                    document.addEventListener('click', function (event) {
+                        if (!container.contains(event.target) && accountMenu.style.display !== 'none') {
+                            accountMenu.style.display = 'none';
+                            console.log('[Auth Check] Account menu closed (clicked outside)');
+                        }
+                    });
+                } else {
+                    console.log('[Auth Check] ✗ User is NOT authenticated - rendering sign in link');
+
+                    // Signed out - show sign in
+                    container.innerHTML = '<a href="/web/login">Sign In</a>';
+                }
+            })
+            .catch(error => {
+                console.error('[Auth Check] ✗ Session check FAILED:', error);
+                console.log('[Auth Check] Falling back to "Sign In" link due to error');
+
+                // Fallback to sign in
+                container.innerHTML = '<a href="/web/login">Sign In</a>';
             });
-        } else {
-            // Signed out - show sign in
-            container.innerHTML = '<a href="/web/login">Sign In</a>';
-        }
+
+        console.log('[Auth Check] Fetch request sent...');
     })();
 
     // Smooth scrolling for ALL anchor links site-wide
@@ -544,7 +583,26 @@
                 // Skip if it's just "#" or empty
                 if (!targetId || targetId === '#') return;
 
-                const targetElement = document.querySelector(targetId);
+                // ADDED: Skip if it's a full URL (contains ://)
+                if (targetId.includes('://')) {
+                    console.log('[Smooth Scroll] Skipping full URL:', targetId);
+                    return;
+                }
+
+                // ADDED: Validate it's a proper hash selector
+                if (!targetId.startsWith('#')) {
+                    console.log('[Smooth Scroll] Skipping non-hash link:', targetId);
+                    return;
+                }
+
+                // ADDED: Try-catch around querySelector in case of invalid selector
+                let targetElement;
+                try {
+                    targetElement = document.querySelector(targetId);
+                } catch (error) {
+                    console.log('[Smooth Scroll] Invalid selector:', targetId, error);
+                    return;
+                }
 
                 if (targetElement) {
                     e.preventDefault();
