@@ -78,15 +78,20 @@
         }
     }
 
-    .spacer-left h6 {
+    .spacer-left p {
         font-family: 'Outfit', sans-serif;
-        font-weight: 400;
-        font-size: clamp(1rem, 2vw, 1.2rem);
+        font-weight: 300;
+        font-size: clamp(1rem, 1.8vw, 1.15rem);
         color: #444444;
-        line-height: 1.7;
+        line-height: 1.8;
+        margin-bottom: 25px;
         opacity: 0;
         width: 100%;
         animation: fadeInText 0.8s ease-out 1s forwards;
+    }
+
+    .spacer-left p:last-of-type {
+        margin-bottom: 0;
     }
 
     @keyframes fadeInText {
@@ -236,12 +241,23 @@
 
 <div class="spacer-section">
     <div class="spacer-left">
-        <h2>Engineered in Chicago, <span class="tan-text">Trusted Worldwide</span></h2>
-        <h6>Scroll below to see our products, backed by 20+ Years of Engineering Excellence</h6>
+        <h2>Manufactured in Chicago, <span class="tan-text">Trusted Worldwide</span></h2>
+        <p>
+            For over 20 years, Mid City Engineering has been at the forefront of automotive innovation,
+            engineering premium solutions that enhance vehicle performance, security, and convenience.
+        </p>
+        <p>
+            From our Chicago headquarters, we design and manufacture cutting-edge technology trusted by
+            customers worldwideâ€"from individual car enthusiasts to large fleet operators.
+        </p>
+        <p>
+            Every product we create reflects our commitment to precision engineering, uncompromising quality,
+            and the belief that the best can always be made better.
+        </p>
     </div>
     <div class="spacer-right">
         <a href="/dealer-locator" class="dealer-button">
-            Or find affiliated dealers near you
+            Find affiliated dealers near you
             <span class="dealer-button-arrow">→</span>
         </a>
     </div>
