@@ -15,6 +15,7 @@
 
     .product-card {
         flex: 1 1 calc(25% - 0px);
+        /* 4 cards per row by default (>1024px) */
         min-width: 300px;
         max-width: 400px;
         background: white;
@@ -113,15 +114,12 @@
     }
 
     /* Responsive adjustments */
-    @media (max-width: 1400px) {
-        .product-card {
-            flex: 1 1 calc(33.333% - 0px);
-        }
-    }
-
+    /* 3 cards per row for 769px - 1024px */
     @media (max-width: 1024px) {
         .product-card {
-            flex: 1 1 calc(50% - 0px);
+            flex: 1 1 calc(33.333% - 0px);
+            max-width: none;
+            /* Remove max-width constraint */
         }
 
         .card-image-wrapper {
@@ -129,14 +127,16 @@
         }
     }
 
+    /* 2 cards per row for 481px - 768px */
     @media (max-width: 768px) {
         .landing-cards-section {
             padding: 60px 0;
         }
 
         .product-card {
-            flex: 1 1 100%;
-            max-width: 100%;
+            flex: 1 1 calc(50% - 0px);
+            max-width: none;
+            /* Remove max-width constraint */
         }
 
         .card-image-wrapper {
@@ -153,7 +153,14 @@
         }
     }
 
+    /* 1 card per row for ≤480px */
     @media (max-width: 480px) {
+        .product-card {
+            flex: 1 1 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
         .card-content {
             padding: 24px 20px;
         }
@@ -326,6 +333,21 @@
                 <h3 class="card-title">Eco Off</h3>
                 <div class="card-meta">
                     <span class="card-category">Product</span>
+                    <span class="card-date">Featured</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Card 12: Engineering Consulting -->
+        <a href="/device/eco-off/" class="product-card" target="_blank" rel="noopener noreferrer">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&h=600&fit=crop"
+                    alt="Eco Off" class="card-image">
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">Design & Manufacturing</h3>
+                <div class="card-meta">
+                    <span class="card-category">Custom product design services</span>
                     <span class="card-date">Featured</span>
                 </div>
             </div>
