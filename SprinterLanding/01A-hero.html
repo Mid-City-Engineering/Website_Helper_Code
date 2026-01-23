@@ -1,0 +1,619 @@
+<style>
+    /* Wrapper for utility bar + hero */
+    .hero-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+    }
+
+    /* Utility Bar */
+    .utility-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6vh;
+        background: #000;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 4rem;
+        gap: 2rem;
+        z-index: 2000;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.3);
+    }
+
+    .utility-bar form {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .utility-bar input[type="search"] {
+        padding: 0.3rem 0.8rem;
+        border: none;
+        border-bottom: 1px solid var(--mce-sepia-tan);
+        background: transparent;
+        color: var(--mce-sepia-tan);
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.85rem;
+        width: 180px;
+        transition: all 0.3s ease;
+    }
+
+    .utility-bar input[type="search"]::placeholder {
+        color: var(--mce-sepia-tan);
+        opacity: 0.7;
+    }
+
+    .utility-bar input[type="search"]:focus {
+        outline: none;
+        border-bottom-color: white;
+        width: 220px;
+    }
+
+    .utility-bar button,
+    .utility-bar a {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .utility-bar button:hover,
+    .utility-bar a:hover {
+        color: var(--mce-sepia-tan);
+    }
+
+    #accountMenu {
+        position: absolute;
+        top: 100%;
+        right: 4rem;
+        background: rgba(0, 0, 0, 0.95);
+        border: 1px solid var(--mce-sepia-tan);
+        border-top: none;
+        min-width: 150px;
+        margin-top: 0;
+    }
+
+    #accountMenu a {
+        display: block;
+        padding: 0.8rem 1.2rem;
+        color: white;
+        text-decoration: none;
+        font-size: 0.85rem;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.2);
+        transition: background 0.3s ease;
+    }
+
+    #accountMenu a:last-child {
+        border-bottom: none;
+    }
+
+    #accountMenu a:hover {
+        background: rgba(129, 3, 5, 0.3);
+    }
+
+    /* Hero Video Section */
+    .hero-video-section {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .hero-video {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100vh;
+        width: auto;
+        height: auto;
+        transform: translateX(-50%);
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 2;
+    }
+
+    .hero-header {
+        position: absolute;
+        top: 6vh;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3rem 4rem;
+        z-index: 1002;
+        border-bottom: 2px solid var(--mce-dark-red);
+    }
+
+    .hero-logo h2 {
+        color: white;
+        font-size: 1.5rem;
+        letter-spacing: 0.1em;
+        font-weight: 400;
+    }
+
+    .hero-nav {
+        display: flex;
+        gap: 3rem;
+    }
+
+    .hero-nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        transition: opacity 0.3s ease;
+    }
+
+    .hero-nav a:hover {
+        opacity: 0.7;
+    }
+
+    /* Hamburger menu - hidden on desktop */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        cursor: pointer;
+        z-index: 1003;
+        position: relative;
+    }
+
+    .hamburger span {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger.active span {
+        background-color: var(--mce-sepia-tan);
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    /* Hamburger drawer menu */
+    .hamburger-drawer {
+        display: none;
+        position: fixed;
+        top: 5vh;
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 5vh);
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 1001;
+        transition: right 0.3s ease;
+        padding-top: 11rem;
+    }
+
+    .hamburger-drawer.active {
+        right: 0;
+    }
+
+    .hamburger-drawer a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.2);
+        transition: background 0.3s ease;
+    }
+
+    .hamburger-drawer a:hover {
+        background: rgba(129, 3, 5, 0.3);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        /* Changed from center to flex-start */
+        color: white;
+        height: 100vh;
+        width: 100%;
+        padding-left: 4rem;
+        /* Match the hero-header padding */
+        padding-top: calc(6vh + 10rem);
+        /* 6vh utility bar + approximate header height + some spacing */
+    }
+
+    .hero-content .video-subheading-container {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+        padding-top: 5%;
+    }
+
+    .hero-content .video-subheading {
+        color: white;
+        font-size: 1.05rem;
+        font-weight: 400;
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding-top: 0;
+
+        /* Gradient text - white for 60%, then fade to grey */
+        background: linear-gradient(to right, white 60%, #b0b0b0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Below 1000px: Show hamburger menu */
+    @media (max-width: 999px) {
+
+        .hero-nav {
+            display: none;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+
+        .hamburger-drawer {
+            display: block;
+        }
+    }
+
+    /* Tablet: 481px to 768px */
+    @media (max-width: 768px) and (min-width: 481px) {
+
+        .utility-bar {
+            padding: 0 2rem;
+            gap: 1.5rem;
+        }
+
+        .utility-bar input[type="search"] {
+            width: 140px;
+            font-size: 0.8rem;
+        }
+
+        .utility-bar input[type="search"]:focus {
+            width: 170px;
+        }
+
+        .utility-bar button,
+        .utility-bar a {
+            font-size: 0.95rem;
+        }
+
+        .hero-header {
+            padding: 2rem 3rem;
+        }
+
+        .hero-logo h2 {
+            font-size: 1.3rem;
+        }
+
+        .hero-content {
+            padding-left: 10%;
+            padding-right: 10%;
+            width: 80%;
+        }
+
+        .hero-content .video-subheading {
+            font-size: 1.0rem;
+        }
+    }
+
+    /* Mobile: 480px and below */
+    @media (max-width: 480px) {
+        .utility-bar {
+            padding: 0 1.5rem;
+            gap: 1rem;
+        }
+
+        .utility-bar input[type="search"] {
+            width: 100px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+        }
+
+        .utility-bar input[type="search"]:focus {
+            width: 120px;
+        }
+
+        .utility-bar button,
+        .utility-bar a {
+            font-size: 0.9rem;
+        }
+
+        #accountMenu {
+            right: 1.5rem;
+        }
+
+        .hero-header {
+            padding: 1.5rem 2rem;
+        }
+
+        .hero-logo h2 {
+            font-size: 1.1rem;
+        }
+
+        .hamburger-drawer {
+            width: 100%;
+        }
+
+        .hero-content {
+            padding-left: 8%;
+            padding-right: 8%;
+            width: 84%;
+        }
+
+        .hero-content .video-subheading {
+            font-size: 0.95rem;
+        }
+    }
+</style>
+
+<div class="hero-wrapper">
+    <!-- Utility Bar -->
+    <div class="utility-bar">
+        <form method="get" action="/website/search" id="customSearchForm"><input type="search" name="search"
+                id="customSearchInput" placeholder="Search..."><input name="order" type="hidden"
+                value="name asc"><button type="submit" id="customSearchBtn"><svg xmlns="http://www.w3.org/2000/svg"
+                    width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg></button></form><a href="/shop/cart"><svg xmlns="http://www.w3.org/2000/svg" width="15"
+                height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="8" cy="21" r="1"></circle>
+                <circle cx="19" cy="21" r="1"></circle>
+                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+            </svg></a>
+        <div id="customAccount"></div>
+    </div>
+    <!-- Hero Video Section -->
+    <section class="hero-video-section"><video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://mid-city-engineering.odoo.com/documents/content/oDcqGmgXRBWVFi6MZHvRHQo36?download=0">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay"></div>
+        <header class="hero-header">
+            <div class="hero-logo">
+                <h2>MID CITY ENGINEERING</h2>
+            </div>
+            <nav class="hero-nav"><a href="#products">Products</a><a href="/dealer-locator">Dealer Locator</a><a
+                    href="/become-dealer/">Become a Dealer</a><a href="/installation-manuals">Installation
+                    Manuals</a><a href="/helpdesk/customer-care-1">Support</a><a href="/contactus">Contact</a>
+            </nav>
+            <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+        </header>
+        <!-- Hamburger drawer menu -->
+        <div class="hamburger-drawer" id="hamburgerDrawer"><a href="#products" onclick="toggleMenu()">Products</a><a
+                href="/dealer-locator" onclick="toggleMenu()">Dealer
+                Locator</a><a href="/become-dealer/" onclick="toggleMenu()">Become a Dealer</a><a
+                href="/installation-manuals" onclick="toggleMenu()">Installation Manuals</a><a
+                href="/helpdesk/customer-care-1" onclick="toggleMenu()">Support</a><a href="/contactus"
+                onclick="toggleMenu()">Contact</a></div>
+        <div class="hero-content">
+            <div class="video-subheading-container">
+                <h2 class="video-subheading">Sprinter Integrations</h2>
+            </div>
+
+            <!-- Video Banner -->
+            <div class="video-banner">
+                <h2>The Best Made Better</h2>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script> // To open hamburger menu
+
+    function toggleMenu() {
+        const hamburger = document.querySelector('.hamburger');
+        const drawer = document.getElementById('hamburgerDrawer');
+
+        hamburger.classList.toggle('active');
+        drawer.classList.toggle('active');
+    }
+
+    // Close drawer when clicking outside
+    document.addEventListener('click', function (event) {
+        const drawer = document.getElementById('hamburgerDrawer');
+        const hamburger = document.querySelector('.hamburger');
+
+        if (drawer.classList.contains('active') && !drawer.contains(event.target) && !hamburger.contains(event.target)) {
+            toggleMenu();
+        }
+    });
+
+    // Account dropdown with working session check
+    (function () {
+        const container = document.getElementById('customAccount');
+
+        console.log('[Auth Check] Starting authentication check...');
+
+        // Check Odoo session via JSON-RPC POST with empty body
+        fetch('/web/session/get_session_info', {
+
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+
+            ,
+            credentials: 'include',
+            body: '{}' // Empty JSON object is the key!
+
+        }).then(response => {
+            console.log('[Auth Check] Response status:', response.status);
+
+            if (!response.ok) {
+                return response.text().then(text => {
+                    console.error('[Auth Check] Error response:', text);
+
+                    throw new Error(`HTTP $ {
+                                response.status
+                            }
+
+                            `);
+                });
+            }
+
+            return response.json();
+
+        }).then(data => {
+            console.log('[Auth Check] Full response:', data);
+
+            // Odoo returns data in result.uid
+            const uid = data.result?.uid;
+            const isAuthenticated = uid && uid !== false;
+
+            console.log('[Auth Check] Authentication result:', {
+                isAuthenticated: isAuthenticated,
+                uid: uid,
+                username: data.result?.username || 'N/A',
+                name: data.result?.partner_display_name || 'N/A'
+            });
+
+            if (isAuthenticated) {
+                console.log('[Auth Check] ✓ User is authenticated - rendering account dropdown');
+
+                // Signed in - show dropdown
+                container.innerHTML = ` <a href="#" id="accountToggle" > <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" ></path> <circle cx="12" cy="7" r="4" ></circle> </svg> </a> <div id="accountMenu" style="display:none;" > <a href="/my/home" >My Account</a> <a href="/web/session/logout?redirect=/" >Logout</a> </div> `;
+
+                const accountToggle = document.getElementById('accountToggle');
+                const accountMenu = document.getElementById('accountMenu');
+
+                accountToggle.onclick = function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const isVisible = accountMenu.style.display !== 'none';
+                    accountMenu.style.display = isVisible ? 'none' : 'block';
+                    console.log('[Auth Check] Account menu toggled:', !isVisible ? 'opened' : 'closed');
+                }
+
+                    ;
+
+                document.addEventListener('click', function (event) {
+                    if (!container.contains(event.target) && accountMenu.style.display !== 'none') {
+                        accountMenu.style.display = 'none';
+                        console.log('[Auth Check] Account menu closed (clicked outside)');
+                    }
+                });
+            }
+
+            else {
+                console.log('[Auth Check] ✗ User is NOT authenticated - rendering sign in link');
+
+                // Signed out - show sign in
+                container.innerHTML = '<a href="/web/login">Sign In</a>';
+            }
+
+        }).catch(error => {
+            console.error('[Auth Check] ✗ Session check FAILED:', error);
+            console.log('[Auth Check] Falling back to "Sign In" link due to error');
+
+            // Fallback to sign in
+            container.innerHTML = '<a href="/web/login">Sign In</a>';
+        });
+
+        console.log('[Auth Check] Fetch request sent...');
+    })();
+
+    // Smooth scrolling for ALL anchor links site-wide
+    function initSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+
+                // Skip if it's just "#" or empty
+                if (!targetId || targetId === '#') return;
+
+                // ADDED: Skip if it's a full URL (contains ://)
+                if (targetId.includes('://')) {
+                    console.log('[Smooth Scroll] Skipping full URL:', targetId);
+                    return;
+                }
+
+                // ADDED: Validate it's a proper hash selector
+                if (!targetId.startsWith('#')) {
+                    console.log('[Smooth Scroll] Skipping non-hash link:', targetId);
+                    return;
+                }
+
+                // ADDED: Try-catch around querySelector in case of invalid selector
+                let targetElement;
+
+                try {
+                    targetElement = document.querySelector(targetId);
+                }
+
+                catch (error) {
+                    console.log('[Smooth Scroll] Invalid selector:', targetId, error);
+                    return;
+                }
+
+                if (targetElement) {
+                    e.preventDefault();
+
+                    // Close hamburger menu if open
+                    const drawer = document.getElementById('hamburgerDrawer');
+                    const hamburger = document.querySelector('.hamburger');
+
+                    if (drawer && drawer.classList.contains('active')) {
+                        hamburger.classList.remove('active');
+                        drawer.classList.remove('active');
+                    }
+
+                    // Smooth scroll to target
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+
+    // Initialize smooth scroll when DOM is fully loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSmoothScroll);
+    }
+
+    else {
+        // DOM already loaded (script runs after page load)
+        initSmoothScroll();
+    }
+
+</script>
