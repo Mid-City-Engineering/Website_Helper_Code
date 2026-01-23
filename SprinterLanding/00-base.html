@@ -1,4 +1,9 @@
 <style>
+    :root {
+        --mce-dark-red: #810305;
+        --mce-sepia-tan: #D4AF85;
+    }
+
     /* Box model normalization */
     *,
     *::before,
@@ -10,13 +15,29 @@
 
     /* Base document styles */
     body {
-        font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
-        background: #FFFFFF;
-        color: #333;
-        font-size: 16px;
-        line-height: 1.6;
-        overflow-x: hidden;
-        -webkit-font-smoothing: antialiased;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+    }
+
+    h1 {
+        font-family: 'Michroma', sans-serif;
+    }
+
+    h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: 2.0rem;
+    }
+
+    h3,
+    h4 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+    }
+
+    h5,
+    h6 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
     }
 
     /* Remove default link styling */
@@ -154,54 +175,26 @@ Structure: content-block &gt; content-block-main (image + text) + separator
     .content-block {
         width: 100%;
         background: white;
-    }
-
-    /* Main content area - centers image and text */
-    .content-block-main {
         display: flex;
         justify-content: center;
-        align-items: center;
-        padding-top: 4%;
+        gap: 3rem;
         padding-left: 1rem;
         padding-right: 1rem;
-        gap: 3rem;
-    }
-
-    /* Reverse version of content-block */
-    .content-block.reverse .content-block-main {
-        padding-top: 0%;
-        padding-bottom: 4%;
-    }
-
-    /* Image container */
-    .content-block-image {
-        flex: 1;
-        max-width: 500px;
-        display: flex;
-        align-items: center;
-        align-self: flex-start;
-        justify-content: center;
-    }
-
-    .content-block-image img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
     }
 
     /* Text container */
-    .content-block-text {
-        flex: 1;
-        max-width: 600px;
+    .content-block-text-container {
+        width: 45%;
+        min-height: 50vh;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
         gap: 1.5rem;
+        padding: 5% 0%;
     }
 
-    .content-block-text h2 {
-        font-family: 'Goldman', Arial, Helvetica, sans-serif;
-        font-size: 2.5rem;
-        font-weight: 700;
+    .content-block-text-container h2 {
         font-style: italic;
         text-transform: uppercase;
         color: #333;
@@ -209,14 +202,14 @@ Structure: content-block &gt; content-block-main (image + text) + separator
         line-height: 1.2;
     }
 
-    .content-block-text p {
+    .content-block-text-container p {
         font-size: 1rem;
         line-height: 1.8;
         color: #666;
         margin: 0;
     }
 
-    .content-block-text a {
+    .content-block-text-container a {
         color: #810305;
         font-weight: 600;
         font-size: 1rem;
@@ -225,8 +218,28 @@ Structure: content-block &gt; content-block-main (image + text) + separator
         text-transform: uppercase;
     }
 
-    .content-block-text a:hover {
+    .content-block-text-container a:hover {
         text-decoration: underline;
+    }
+
+    /* Image container */
+    .content-block-image-container {
+        width: 45%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    /* Reverse: image aligns to bottom */
+    .content-block.reverse .content-block-image-container {
+        justify-content: flex-start;
+    }
+
+    .content-block-image-container img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
     }
 
     /* Tan separator - full width */
@@ -238,15 +251,40 @@ Structure: content-block &gt; content-block-main (image + text) + separator
 
     /* Responsive */
     @media (max-width: 968px) {
-        .content-block-main {
+        .content-block {
             flex-direction: column;
         }
+
+        .content-block-text-container,
+        .content-block-image-container {
+            width: 90%;
+        }
+
+        .content-block-text-container {
+            padding: 2% 0%;
+            min-height: 15vh;
+            align-items: center;
+        }
+
+        .content-block-text-container h2,
+        .content-block-text-container p,
+        .content-block-text-container a {
+            text-align: center;
+            /* Centers the text inside each element */
+        }
+
+        .content-block-separator {
+            margin-top: 3%;
+            margin-bottom: 3%;
+        }
     }
+
+    /* @media (max-width: 480px) {} */
 </style>
 
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Michroma&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@300;400;600;700&display=swap"
+    rel="stylesheet" />
