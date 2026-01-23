@@ -460,4 +460,44 @@ Background video with fallback image - relative positioning
             chevron.classList.remove('open');
         });
     });
+
+    // Add this script after your existing toggleNav function
+    (function () {
+        console.log('[Nav Auth] Starting navigation authentication check...');
+
+        // Check Odoo session
+        fetch('/web/session/get_session_info', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: '{}'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const uid = data.result?.uid;
+                const isAuthenticated = uid && uid !== false;
+
+                console.log('[Nav Auth] Authentication result:', isAuthenticated);
+
+                if (isAuthenticated) {
+                    // User is signed in - update all Login links to Account
+                    document.querySelectorAll('a[href="/web/login"]').forEach(link => {
+                        link.textContent = 'Account';
+                        link.href = '/my/home';
+                    });
+                    console.log('[Nav Auth] ✓ Updated navigation to show Account');
+                } else {
+                    console.log('[Nav Auth] ✗ User not authenticated - keeping Login links');
+                }
+            })
+            .catch(error => {
+                console.error('[Nav Auth] ✗ Session check failed:', error);
+                // Keep default "Login" links on error
+            });
+    })();
 </script>
