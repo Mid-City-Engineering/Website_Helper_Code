@@ -1,12 +1,12 @@
 <style>
-    .story-section {
+    .collab-section {
         background: #ffffff;
         padding: 100px 0;
         position: relative;
         overflow: hidden;
     }
 
-    .story-container {
+    .collab-container {
         max-width: 1600px;
         margin: 0 auto;
         display: flex;
@@ -16,22 +16,22 @@
     }
 
     /* Left side - Company collaboration text */
-    .story-left {
+    .collab-left {
         flex: 1;
         max-width: 500px;
         opacity: 0;
         transform: translateX(-60px);
-        animation: slideInStory 1s ease-out 0.3s forwards;
+        animation: slideInCollaboration 1s ease-out 0.3s forwards;
     }
 
-    @keyframes slideInStory {
+    @keyframes slideInCollaboration {
         to {
             opacity: 1;
             transform: translateX(0);
         }
     }
 
-    .story-left::before {
+    .collab-left::before {
         content: '';
         display: block;
         width: 80px;
@@ -47,7 +47,7 @@
         }
     }
 
-    .story-left h2 {
+    .collab-left h2 {
         font-family: 'Michroma', sans-serif;
         font-size: clamp(2rem, 3.5vw, 3rem);
         color: var(--mce-dark-red);
@@ -56,11 +56,11 @@
         letter-spacing: 0.02em;
     }
 
-    .story-left h2 .tan-text {
+    .collab-left h2 .tan-text {
         color: var(--mce-sepia-tan);
     }
 
-    .story-left p {
+    .collab-left p {
         font-family: 'Outfit', sans-serif;
         font-weight: 300;
         font-size: clamp(1rem, 1.8vw, 1.15rem);
@@ -69,14 +69,14 @@
         margin-bottom: 25px;
     }
 
-    .story-links {
+    .collab-links {
         display: flex;
         flex-direction: column;
         gap: 18px;
         margin-top: 40px;
     }
 
-    .story-link {
+    .collab-link {
         display: inline-flex;
         align-items: center;
         gap: 12px;
@@ -90,7 +90,7 @@
         padding-left: 0;
     }
 
-    .story-link::before {
+    .collab-link::before {
         content: '';
         position: absolute;
         left: 0;
@@ -101,17 +101,17 @@
         transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    .story-link:hover {
+    .collab-link:hover {
         transform: translateX(8px);
         color: #a00406;
     }
 
-    .story-link:hover::before {
+    .collab-link:hover::before {
         width: 100%;
     }
 
-    .story-link-down-arrow,
-    .story-link-up-arrow {
+    .collab-link-down-arrow,
+    .collab-link-up-arrow {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -123,13 +123,13 @@
         font-size: 0.8rem;
     }
 
-    .story-link:hover .story-link-down-arrow {
+    .collab-link:hover .collab-link-down-arrow {
         background: var(--mce-dark-red);
         color: white;
         transform: translateY(3px) rotate(45deg);
     }
 
-    .story-link:hover .story-link-up-arrow {
+    .collab-link:hover .collab-link-up-arrow {
         background: var(--mce-dark-red);
         color: white;
         transform: translateY(-3px) rotate(-45deg);
@@ -137,7 +137,7 @@
 
 
     /* Right side - Company logos grid */
-    .story-right {
+    .collab-right {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -189,17 +189,17 @@
 
     /* Responsive design */
     @media (max-width: 1024px) {
-        .story-container {
+        .collab-container {
             flex-direction: column;
             gap: 60px;
             padding: 0 8%;
         }
 
-        .story-left {
+        .collab-left {
             max-width: 100%;
         }
 
-        .story-right {
+        .collab-right {
             width: 100%;
         }
 
@@ -210,11 +210,11 @@
     }
 
     @media (max-width: 768px) {
-        .story-section {
+        .collab-section {
             padding: 80px 0;
         }
 
-        .story-container {
+        .collab-container {
             gap: 50px;
         }
 
@@ -235,15 +235,15 @@
     }
 
     @media (max-width: 480px) {
-        .story-section {
+        .collab-section {
             padding: 60px 0;
         }
 
-        .story-left h2 {
+        .collab-left h2 {
             font-size: 1.75rem;
         }
 
-        .story-left p {
+        .collab-left p {
             font-size: 0.95rem;
         }
 
@@ -253,10 +253,10 @@
     }
 </style>
 
-<div class="story-section" id="companies">
-    <div class="story-container">
+<div class="collab-section" id="companies">
+    <div class="collab-container">
         <!-- Left Side: Collaboration Story -->
-        <div class="story-left">
+        <div class="collab-left">
             <h2><span class="tan-text">COMPANIES</span> WE WORK WITH</h2>
             <p>
                 Over two decades of innovation, we've partnered with industry-leading brands and manufacturers
@@ -271,20 +271,20 @@
                 with the world's most respected automotive brands.
             </p>
 
-            <div class="story-links">
-                <a href="#globalMap" class="story-link">
+            <div class="collab-links">
+                <a href="#globalMap" class="collab-link">
                     See our worldwide presence
-                    <span class="story-link-down-arrow">→</span>
+                    <span class="collab-link-down-arrow">→</span>
                 </a>
-                <a href="#products" class="story-link">
+                <a href="#products" class="collab-link">
                     Explore our product range
-                    <span class="story-link-up-arrow">→</span>
+                    <span class="collab-link-up-arrow">→</span>
                 </a>
             </div>
         </div>
 
         <!-- Right Side: Company Logos -->
-        <div class="story-right">
+        <div class="collab-right">
             <div class="companies-grid">
                 <!-- Logo Slot 1 -->
                 <div class="company-logo-wrapper">
@@ -322,15 +322,15 @@
 
 <script>
     // Trigger animations when section comes into view
-    const storySection = document.querySelector('.story-section');
+    const collabSection = document.querySelector('.collab-section');
 
-    if (storySection) {
+    if (collabSection) {
         // Initially pause all animations
-        const storyLeft = storySection.querySelector('.story-left');
-        const companiesGrid = storySection.querySelector('.companies-grid');
+        const collabLeft = collabSection.querySelector('.collab-left');
+        const companiesGrid = collabSection.querySelector('.companies-grid');
 
-        if (storyLeft) {
-            storyLeft.style.animationPlayState = 'paused';
+        if (collabLeft) {
+            collabLeft.style.animationPlayState = 'paused';
         }
 
         if (companiesGrid) {
@@ -342,11 +342,11 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     // Section is visible - start all animations
-                    const storyLeft = entry.target.querySelector('.story-left');
+                    const collabLeft = entry.target.querySelector('.collab-left');
                     const companiesGrid = entry.target.querySelector('.companies-grid');
 
-                    if (storyLeft) {
-                        storyLeft.style.animationPlayState = 'running';
+                    if (collabLeft) {
+                        collabLeft.style.animationPlayState = 'running';
                     }
 
                     if (companiesGrid) {
@@ -361,7 +361,7 @@
             threshold: 0.3 // Trigger when 30% of section is visible
         });
 
-        observer.observe(storySection);
+        observer.observe(collabSection);
     }
 
     // Dynamic logo width calculation
