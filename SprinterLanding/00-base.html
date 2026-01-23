@@ -200,6 +200,10 @@ Structure: content-block &gt; content-block-main (image + text) + separator
         color: #333;
         margin: 0;
         line-height: 1.2;
+
+        /* Add bold effect with text-stroke */
+        -webkit-text-stroke: 1.5px currentColor;
+        letter-spacing: 0.6px;
     }
 
     .content-block-text-container p {
