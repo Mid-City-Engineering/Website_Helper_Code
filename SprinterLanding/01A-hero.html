@@ -141,13 +141,33 @@
         padding: 3rem 4rem;
         z-index: 1002;
         border-bottom: 2px solid var(--mce-dark-red);
+        background: linear-gradient(to bottom,
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(0, 0, 0, 0.5) 50%,
+                rgba(0, 0, 0, 0) 70%);
     }
 
-    .hero-logo h2 {
+    .hero-logo .main-product-or-series {
+        font-size: 1.05rem;
+        font-weight: 400;
+        text-align: left;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding-top: 0;
+
+        /* Gradient text - white for 60%, then fade to grey */
+        background: linear-gradient(to right, white 60%, #b0b0b0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .hero-logo .signature {
         color: white;
-        font-size: 1.5rem;
+        font-size: .75rem;
         letter-spacing: 0.1em;
         font-weight: 400;
+        text-align: left;
     }
 
     .hero-nav {
@@ -413,7 +433,8 @@
         <div class="hero-overlay"></div>
         <header class="hero-header">
             <div class="hero-logo">
-                <h2>MID CITY ENGINEERING</h2>
+                <h2 class="main-product-or-series">Sprinter Fleet Integrations</h2>
+                <h2 class="signature">By MID CITY ENGINEERING</h2>
             </div>
             <nav class="hero-nav"><a href="#products">Products</a><a href="/dealer-locator">Dealer Locator</a><a
                     href="/become-dealer/">Become a Dealer</a><a href="/installation-manuals">Installation
@@ -430,11 +451,11 @@
                 onclick="toggleMenu()">Contact</a></div>
         <div class="hero-content">
             <div class="video-subheading-container">
-                <h2 class="video-subheading">Sprinter Integrations</h2>
+                <h2 class="video-subheading"></h2>
             </div>
 
             <div class="slogan">
-                <h2>The Best Made Better</h2>
+                <h2></h2>
             </div>
         </div>
     </section>
