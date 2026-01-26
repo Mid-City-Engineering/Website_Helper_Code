@@ -1,9 +1,14 @@
 <style>
+    /* Default - desktop */
+    :root {
+        --hero-overall-height: 100vh;
+    }
+
     /* Wrapper for utility bar + hero */
     .hero-wrapper {
         position: relative;
         width: 100%;
-        height: 100vh;
+        height: var(--hero-overall-height);
     }
 
     /* Utility Bar */
@@ -103,19 +108,21 @@
     .hero-video-section {
         position: relative;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         overflow: hidden;
     }
 
     .hero-video {
         position: absolute;
-        top: 0;
+        top: 50%;
+        /* changed from top: 0 */
         left: 50%;
         min-width: 100%;
-        min-height: 100vh;
+        min-height: 100%;
         width: auto;
         height: auto;
-        transform: translateX(-50%);
+        transform: translate(-50%, -50%);
+        /* changed from translateX(-50%) */
         object-fit: cover;
         z-index: 1;
     }
@@ -125,7 +132,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         background: rgba(0, 0, 0, 0.4);
         z-index: 2;
     }
@@ -264,7 +271,7 @@
         align-items: flex-start;
         /* Changed from center to flex-start */
         color: white;
-        height: 100vh;
+        height: var(--hero-overall-height);
         width: 100%;
         padding-left: 4rem;
         /* Match the hero-header padding */
@@ -318,6 +325,10 @@
     /* Tablet: 481px to 768px */
     @media (max-width: 768px) and (min-width: 481px) {
 
+        :root {
+            --hero-overall-height: 85vh;
+        }
+
         .utility-bar {
             padding: 0 2rem;
             gap: 1.5rem;
@@ -358,6 +369,10 @@
 
     /* Mobile: 480px and below */
     @media (max-width: 480px) {
+        :root {
+            --hero-overall-height: 70vh;
+        }
+
         .utility-bar {
             padding: 0 1.5rem;
             gap: 1rem;
