@@ -232,6 +232,16 @@ Structure: content-block &gt; content-block-main (image + text) + separator
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+        /* Initial State - Hidden */
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    /* Animated state - visible */
+    .content-block-image-container.is-visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 
     /* Reverse: image aligns to bottom */
@@ -285,6 +295,45 @@ Structure: content-block &gt; content-block-main (image + text) + separator
     /* @media (max-width: 480px) {} */
 </style>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOM Content Loaded | Triggering image fade-in animation script');
+        const imageContainers = document.querySelectorAll('.content-block-image-container');
+
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // REMOVED: observer.unobserve(entry.target);
+                    // Now it will retrigger if you scroll away and back
+                }
+            });
+        }, observerOptions);
+
+        // Process each container
+        imageContainers.forEach(container => {
+            // Remove is-visible class on page load to reset animation
+            container.classList.remove('is-visible');
+
+            const rect = container.getBoundingClientRect();
+            // If element is in viewport (top 80% of screen)
+            if (rect.top < window.innerHeight * 0.8) {
+                // Add small delay so animation is visible even for above-fold content
+                setTimeout(() => {
+                    container.classList.add('is-visible');
+                }, 150);
+            } else {
+                // Animate when scrolled into view
+                observer.observe(container);
+            }
+        });
+    });
+</script>
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
