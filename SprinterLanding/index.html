@@ -52,6 +52,16 @@
                     console.error(`Error loading ${file}:`, error);
                 }
             }
+
+            // Simulate Odoo behavior: dispatch DOMContentLoaded after all HTML is loaded
+            console.log('All HTML files loaded - dispatching DOMContentLoaded event');
+            setTimeout(() => {
+                const event = new Event('DOMContentLoaded', {
+                    bubbles: true,
+                    cancelable: false
+                });
+                document.dispatchEvent(event);
+            }, 50);
         }
 
         loadHTMLFiles();
