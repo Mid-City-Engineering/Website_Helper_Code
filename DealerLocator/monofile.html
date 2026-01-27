@@ -1,10 +1,3 @@
-<!-- Leaflet CSS -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <!-- Your custom CSS -->
 <style>
     body {
@@ -310,6 +303,26 @@
     }
 </style>
 
+<!-- Beginning of HTML File Content -->
+
+<!-- HTML Part 1 - Load Leaflet in HTML -->
+<!-- Load Leaflet CSS (in HTML) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<!-- Load Leaflet JS (in HTML) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- HTML Part 2 - Load Google Maps Places API -->
+<!-- Load the Google Maps JavaScript API in HTML -->
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBez7bMMNmEmyK8Om2hIeirvDl0WYcP0Wo&loading=async&libraries=places&callback=initMap">
+</script>
+
+<!-- HTML Part 3 - Load Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- HTML Part 4 - The actual map HTML structure -->
 <div class="map-container">
     <div id="dealer-map">
         <div class="loading">Loading dealer locations...</div>
@@ -331,7 +344,7 @@
                     <option value="1">Within 1 mile</option>
                     <option value="5">Within 5 miles</option>
                     <option value="10">Within 10 miles</option>
-                    <option value="25" selected>Within 25 miles</option>
+                    <option value="25" selected="">Within 25 miles</option>
                     <option value="50">Within 50 miles</option>
                     <option value="100">Within 100 miles</option>
                     <option value="250">Within 250 miles</option>
@@ -353,13 +366,7 @@
     </div>
 </div>
 
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- Load the Google Maps JavaScript API in your HTML -->
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBez7bMMNmEmyK8Om2hIeirvDl0WYcP0Wo&amp;loading=async&amp;libraries=places&amp;callback=initMap">
-</script>
+<!-- End of HTML File Content -->
 
 <!-- Your custom JavaScript -->
 <script>
@@ -507,14 +514,14 @@
             const address = [dealer.street, `${dealer.city || ''}, ${dealer.state_id ? dealer.state_id[1] : ''} ${dealer.zip || ''}`].filter(Boolean).join('<br>');
             const contact = [];
             if (dealer.phone) contact.push(`📞 ${dealer.phone}`);
-            if (dealer.email) contact.push(`✉️ ${dealer.email}`);
+            // if (dealer.email) contact.push(`✉️ ${dealer.email}`);
 
             return {
                 lat: dealer.partner_latitude || dealer.x_latitude,
                 lng: dealer.partner_longitude || dealer.x_longitude,
                 name: dealer.name,
                 phone: dealer.phone,
-                email: dealer.email,
+                // email: dealer.email,
                 address: dealer.street,
                 city: dealer.city,
                 state: dealer.state_id ? dealer.state_id[1] : '',
@@ -874,7 +881,7 @@
 
                 const contactParts = [];
                 if (dealer.phone) contactParts.push(`📞 ${dealer.phone}`);
-                if (dealer.email) contactParts.push(`✉️ ${dealer.email}`);
+                // if (dealer.email) contactParts.push(`✉️ ${dealer.email}`);
 
                 // Show distance if available
                 let distanceText = '';
