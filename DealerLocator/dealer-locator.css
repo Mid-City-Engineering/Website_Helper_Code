@@ -35,7 +35,7 @@ body {
     border-bottom: 1px solid #e2e8f0;
     background: linear-gradient(135deg, #000000 0%, #374151 100%);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .panel-header::before {
