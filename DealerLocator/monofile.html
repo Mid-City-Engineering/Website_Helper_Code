@@ -290,19 +290,19 @@
     @media (max-width: 768px) {
         .map-container {
             flex-direction: column;
-            height: 100vh;
-            overflow: visible;
+            height: 130vh;
+            /* taller than viewport */
         }
 
         #dealer-map {
-            height: 35vh;
+            height: 50vh;
             flex-shrink: 0;
         }
 
         .locations-panel {
             width: 100%;
             max-width: none;
-            height: 65vh;
+            height: 80vh;
             /* panel gets 65% of screen */
             border-left: none;
             border-top: 1px solid #e2e8f0;
@@ -324,9 +324,8 @@
 
         .locations-list {
             flex: 1 1 auto;
-            /* fills remaining panel height */
             min-height: 0;
-            /* avoid flex overflow bug in some browsers */
+            overflow-y: auto;
         }
     }
 </style>
