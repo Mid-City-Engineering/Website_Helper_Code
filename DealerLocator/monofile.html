@@ -370,6 +370,7 @@
     let dealerMap = null;
     let allDealersCache = []; // Cache all dealers to avoid repeated API calls
     let currentMarkers = [];
+    let userLocationMarker = null; // Marker for user's searched location
     let selectedMarker = null;
     let selectedListItem = null;
     const GOOGLE_MAPS_SERVER_API_KEY = 'AIzaSyBez7bMMNmEmyK8Om2hIeirvDl0WYcP0Wo';
@@ -394,6 +395,86 @@
         }
     }
 
+    // Add user location marker to the map
+    // Add user location marker to the map
+    function addUserLocationMarker(lat, lon, address) {
+        // Remove existing user location marker if it exists
+        if (userLocationMarker) {
+            dealerMap.removeLayer(userLocationMarker);
+        }
+
+        // Create a distinct icon for user location (same shape as dealer markers)
+        const userIcon = L.divIcon({
+            className: 'user-location-marker',
+            html: `
+            <style>
+                @keyframes user-pulse {
+                    0% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: scale(2);
+                        opacity: 0;
+                    }
+                }
+            </style>
+            <div style="
+                background-color: #810305;
+                border: 1px solid #810305;
+                border-radius: 12px;
+                padding: 16px 12px;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                color: #D4AF85;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                white-space: nowrap;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 20px;
+                height: 40px;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            ">
+                M
+                <div style="
+                    position: absolute;
+                    bottom: -6px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 0;
+                    height: 0;
+                    border-left: 6px solid transparent;
+                    border-right: 6px solid transparent;
+                    border-top: 6px solid #810305;
+                "></div>
+                <div style="
+                    position: absolute;
+                    transform: translateX(-25%);
+                    width: 60px;
+                    height: 60px;
+                    background-color: rgba(212, 175, 133, 0.4);
+                    border-radius: 50%;
+                    animation: user-pulse 2s infinite;
+                    pointer-events: none;
+                "></div>
+            </div>
+        `,
+            iconSize: [0, 0],
+            iconAnchor: [0, -6]
+        });
+
+        // Create the marker
+        userLocationMarker = L.marker([lat, lon], { icon: userIcon })
+            .addTo(dealerMap)
+            .bindPopup(`<strong>Your Location</strong><br>${address || 'Selected location'}`);
+
+        console.log(`Added user location marker at ${lat}, ${lon}`);
+    }
+
     // Test search function that logs to console and updates the map
     async function filterAndShowDealers() {
         const addressInput = document.getElementById('address-input');
@@ -407,10 +488,16 @@
         try {
             let userLat = null;
             let userLon = null;
+            let geocodedAddress = null;
 
             // Skip geocoding if address is empty
             if (address === '') {
                 console.log('Address is empty - skipping geocoding');
+                // Remove user location marker if address is cleared
+                if (userLocationMarker) {
+                    dealerMap.removeLayer(userLocationMarker);
+                    userLocationMarker = null;
+                }
             } else {
                 // Geocode the address
                 console.log(`Geocoding address: ${address}`);
@@ -418,11 +505,17 @@
                 console.log(`Geocoded result: ${geocoded.display_name} (${geocoded.lat}, ${geocoded.lon})`);
                 userLat = geocoded.lat;
                 userLon = geocoded.lon;
+                geocodedAddress = geocoded.display_name;
             }
 
             // Get filtered dealers using the new getTargetDealers function
             console.log('Filtering dealers...');
             const targetDealers = getTargetDealers(allDealersCache, userLat, userLon, radius);
+
+            // Add user location marker if we have coordinates
+            if (userLat && userLon) {
+                addUserLocationMarker(userLat, userLon, geocodedAddress);
+            }
 
             // Update the map with filtered results
             await updateMapMarkers(targetDealers);
@@ -434,7 +527,6 @@
             await updateMapMarkers(fallbackDealers);
         }
     }
-
     // Setup event listeners
     function setupEventListeners() {
         const addressInput = document.getElementById('address-input');
