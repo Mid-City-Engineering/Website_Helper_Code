@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dealer Locator Test</title>
+</head>
+
+<body>
+    <!-- Script tags in document.body.innerHTML are ignored, so load all script tags in 
+    dealer-locator.html here (We only have 1) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        (async function () {
+            // 1. Load CSS
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = 'dealer-locator.css';
+            document.head.appendChild(cssLink);
+
+            // 2. Load HTML content
+            const htmlResponse = await fetch('dealer-locator.html');
+            const htmlContent = await htmlResponse.text();
+            document.body.innerHTML = htmlContent;
+
+            // 3. Load JS
+            const jsScript = document.createElement('script');
+            jsScript.src = 'dealer-locator.js';
+            document.body.appendChild(jsScript);
+        })();
+    </script>
+</body>
+
+</html>
