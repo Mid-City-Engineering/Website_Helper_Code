@@ -141,14 +141,14 @@ function getTargetDealers(dealers, userLat = null, userLon = null, radius = 'all
         const address = [dealer.street, `${dealer.city || ''}, ${dealer.state_id ? dealer.state_id[1] : ''} ${dealer.zip || ''}`].filter(Boolean).join('<br>');
         const contact = [];
         if (dealer.phone) contact.push(`📞 ${dealer.phone}`);
-        if (dealer.email) contact.push(`✉️ ${dealer.email}`);
+        // if (dealer.email) contact.push(`✉️ ${dealer.email}`);
 
         return {
             lat: dealer.partner_latitude || dealer.x_latitude,
             lng: dealer.partner_longitude || dealer.x_longitude,
             name: dealer.name,
             phone: dealer.phone,
-            email: dealer.email,
+            // email: dealer.email,
             address: dealer.street,
             city: dealer.city,
             state: dealer.state_id ? dealer.state_id[1] : '',
@@ -508,7 +508,7 @@ async function updateMapMarkers(locations = []) {
 
             const contactParts = [];
             if (dealer.phone) contactParts.push(`📞 ${dealer.phone}`);
-            if (dealer.email) contactParts.push(`✉️ ${dealer.email}`);
+            // if (dealer.email) contactParts.push(`✉️ ${dealer.email}`);
 
             // Show distance if available
             let distanceText = '';
