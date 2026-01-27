@@ -1,8 +1,19 @@
+<!-- Beginning of HTML File Content -->
+
+<!-- HTML Part 1 - Load Leaflet in HTML -->
+<!-- Load Leaflet CSS (in HTML) -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<!-- Load Leaflet JS (in HTML) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Note Previous HTML Part 2 of Loading Google Maps Places API is moved to JS -->
+
+<!-- HTML Part 2 - Load Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<!-- HTML Part 3 - The actual map HTML structure -->
 <div class="map-container">
     <div id="dealer-map">
         <div class="loading">Loading dealer locations...</div>
@@ -24,7 +35,7 @@
                     <option value="1">Within 1 mile</option>
                     <option value="5">Within 5 miles</option>
                     <option value="10">Within 10 miles</option>
-                    <option value="25" selected>Within 25 miles</option>
+                    <option value="25" selected="">Within 25 miles</option>
                     <option value="50">Within 50 miles</option>
                     <option value="100">Within 100 miles</option>
                     <option value="250">Within 250 miles</option>
@@ -46,4 +57,4 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- End of HTML File Content -->

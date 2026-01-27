@@ -1,7 +1,3 @@
-document.addEventListener('DOMContentLoaded', function () {
-    showLoading();
-});
-
 // Global variables for map management
 let dealerMap = null;
 let allDealersCache = []; // Cache all dealers to avoid repeated API calls
@@ -357,12 +353,7 @@ async function initializeDealerMap() {
         console.log('Base map initialized successfully');
 
     } catch (error) {
-        // console.error('Error initializing dealer map:', error);
-        // const loadingEl = document.querySelector('.loading');
-        if (loadingEl) {
-            loadingEl.innerHTML = 'Error loading dealer map';
-            loadingEl.style.color = '#d32f2f';
-        }
+        console.error('Erorr in initializeDealerMap -> Error initializing dealer map:', error);
     }
 }
 
@@ -627,9 +618,29 @@ function selectLocation(index) {
     }
 }
 
-// This is the callback when Google Maps JS is loaded
+function loadGooglePlacesAPIForGeocoding() {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_SERVER_API_KEY}&loading=async&libraries=places`;
+        script.async = true;
+        script.defer = true;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+// Main initializingfunction, previously the callback when Google Maps JS got loaded
 async function initMap() {
+    console.log('DOM fully loaded and parsed');
     try {
+        // 1. Show a loading overlay
+        showLoading();
+        console.log('\nReturned from showLoading | Loading Google Maps API...');
+
+        // 2. Load Google Maps API for geocoding
+        const googleMapsPlacesPromise = loadGooglePlacesAPIForGeocoding();
+
         // 3. Start fetching dealers BEFORE geocoding (parallel!)
         const dealersPromise = getDealerContacts();
 
@@ -645,6 +656,10 @@ async function initMap() {
         // 6. Setup event listeners
         setupEventListeners();
 
+        // Wait for Google Maps Places API to load
+        await googleMapsPlacesPromise;
+        console.log(`<-*-*- Returning from loadGooglePlacesAPIForGeocoding`);
+
         // 7. Do the initial search (geocode + filter + display)
         await filterAndShowDealers();
 
@@ -654,6 +669,14 @@ async function initMap() {
     } catch (error) {
         console.error('Error during initialization:', error);
         hideLoading();
-        showError('Failed to load dealer locator');
     }
+}
+
+// Self-executing code, kinda the main() of this file
+if (document.readyState === 'loading') {
+    // Document still loading, wait for DOMContentLoaded then call initMap
+    document.addEventListener('DOMContentLoaded', initMap);
+} else {
+    // Document already loaded, call initMap directly
+    initMap();
 }
