@@ -112,19 +112,41 @@
             return;
         }
 
+        // Determine zoom level based on screen width
+        function getResponsiveZoom() {
+            const width = window.innerWidth;
+            if (width < 768) return 0.8;    // Mobile: zoom level 0.8
+            if (width < 1024) return 1.5;   // Tablet: zoom level 1.5
+            return 2.0;                     // Desktop: zoom level 2.0
+        }
+
+        const initialZoom = getResponsiveZoom();
+
         // Initialize the map
         const map = L.map('globalMap', {
-            center: [20, 0], // Center of the world
-            zoom: 2,
-            minZoom: 2,
-            maxZoom: 2,
+            center: [20, 0],
+            zoom: initialZoom,
+            minZoom: initialZoom,
+            maxZoom: initialZoom,  // Lock at responsive zoom
             zoomControl: false,
-            scrollWheelZoom: false, // Disable scroll wheel zoom
-            doubleClickZoom: false, // Disable double-click zoom
-            touchZoom: false, // Disable touch zoom
-            dragging: false, // Disable map dragging/panning
-            boxZoom: false, // Disable box zoom
-            keyboard: false, // Disable keyboard navigation
+            scrollWheelZoom: false,
+            doubleClickZoom: false,
+            touchZoom: false,
+            dragging: false,
+            boxZoom: false,
+            keyboard: false,
+        });
+
+        // Handle window resize to adjust zoom
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const newZoom = getResponsiveZoom();
+                map.setZoom(newZoom);
+                map.options.minZoom = newZoom;
+                map.options.maxZoom = newZoom;
+            }, 250);
         });
 
         // Add CartoDB Dark Matter tile layer
