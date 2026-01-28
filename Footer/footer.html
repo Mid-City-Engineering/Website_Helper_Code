@@ -36,65 +36,13 @@
         font-family: 'Outfit', sans-serif;
         font-weight: 600;
     }
-
-    /* 
-    ==================================================
-    ODOO OVERRIDE
-    ==================================================
-    Remove Odoo's default container constraints
-    */
-
-    /* Remove max-width constraints from Odoo containers */
-    .o_container,
-    .o_container_small,
-    .container,
-    .container-fluid {
-        max-width: none !important;
-        padding: 0 !important;
-    }
-
-    /* Ensure sections can be full-width */
-    section {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 !important;
-    }
-
-    .footer-section {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    /* Remove any row constraints */
-    .row {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
-
-    /* Remove gaps between Odoo blocks/widgets */
-    .o_colored_level,
-    .s_allow_columns,
-    [data-snippet] {
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-    }
-
-    a:hover {
-        /* remove auto highlighting links */
-        text-decoration: none !important;
-    }
 </style>
 
 <style>
+    /* Footer Section */
     .footer-section {
         background: #000000;
-        padding: 60px 0;
         position: relative;
-        border-top: 1px solid var(--mce-sepia-tan);
         margin: 0 auto;
     }
 
@@ -105,7 +53,6 @@
         align-items: stretch;
         padding: 5% 5%;
         gap: 4%;
-        border-top: 2px solid var(--mce-sepia-tan);
     }
 
     /* Left container - Company info */
@@ -376,7 +323,7 @@
             <!-- Links Container -->
             <div class="footer-links-container">
                 <nav class="footer-links">
-                    <a href="#products">Products</a>
+                    <a href="/#products">Products</a>
                     <a href="/dealer-locator">Dealer Locator</a>
                     <a href="/become-dealer/">Become a Dealer</a>
                     <a href="/installation-manuals">Installation Manuals</a>
