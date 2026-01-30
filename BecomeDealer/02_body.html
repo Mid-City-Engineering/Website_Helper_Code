@@ -1,6 +1,6 @@
 <style>
     .dealer-cta-section {
-        padding: 120px 0;
+        padding: 90px 0;
         position: relative;
         overflow: hidden;
     }
@@ -96,8 +96,43 @@
     /* CTA Button Container */
     .dealer-cta-button-wrapper {
         display: flex;
-        justify-content: flex-start;
-        padding-top: 10px;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        /* Using rem instead of px */
+        padding-top: 0.625rem;
+    }
+
+    /* Already a dealer text */
+    .dealer-signin-text {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
+        color: #666666;
+        opacity: 0;
+        animation: fadeInDealer 0.8s ease-out 0.8s forwards;
+        margin: 0;
+        /* Remove default paragraph margin - this is the key! */
+        padding-top: 1rem;
+        /* Add space here instead */
+    }
+
+    @keyframes fadeInDealer {
+        to {
+            opacity: 1;
+        }
+    }
+
+    .dealer-signin-text a {
+        color: var(--mce-dark-red);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .dealer-signin-text a:hover {
+        color: var(--mce-sepia-tan);
+        text-decoration: underline;
     }
 
     .dealer-apply-button {
@@ -199,7 +234,7 @@
         }
 
         .dealer-cta-button-wrapper {
-            justify-content: center;
+            align-items: center;
         }
     }
 
@@ -239,6 +274,11 @@
 
         .dealer-cta-button-wrapper {
             width: 100%;
+            align-items: center;
+        }
+
+        .dealer-signin-text {
+            text-align: center;
         }
     }
 </style>
@@ -269,6 +309,9 @@
                     Apply to be a dealer now
                     <span class="dealer-button-arrow">↓</span>
                 </a>
+                <p class="dealer-signin-text" id="dealerSigninText">
+
+                </p>
             </div>
         </div>
     </div>
@@ -308,5 +351,40 @@
 
             observer.observe(dealerSection);
         }
+    })();
+
+    // Check authentication and update dealer signin text
+    (function () {
+        const signinText = document.getElementById('dealerSigninText');
+
+        if (!signinText) return;
+
+        // Check Odoo session
+        fetch('/web/session/get_session_info', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: '{}'
+        })
+            .then(response => response.json())
+            .then(data => {
+                const uid = data.result?.uid;
+                const isAuthenticated = uid && uid !== false;
+
+                if (isAuthenticated) {
+                    // User is signed in - show "View your account"
+                    signinText.innerHTML = 'Already a dealer? <a href="/my/home">View your account</a>';
+                } else {
+                    // User is not signed in - show "Sign in to your account"
+                    signinText.innerHTML = 'Already a dealer? <a href="/web/login">Sign in to your account</a>';
+                }
+            })
+            .catch(error => {
+                console.error('[Dealer CTA] Auth check failed:', error);
+                // Fallback to sign in link
+                signinText.innerHTML = 'Already a dealer? <a href="/web/login">Sign in to your account</a>';
+            });
     })();
 </script>
