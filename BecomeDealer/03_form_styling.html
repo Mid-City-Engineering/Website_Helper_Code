@@ -1,0 +1,132 @@
+<style>
+    /* ========================================
+   CONTAINER & RESPONSIVE WIDTH
+   ======================================== */
+
+    .s_website_form {
+        margin: 5% auto !important;
+    }
+
+    .s_website_form {
+        max-width: 50%;
+        margin: 0 auto;
+    }
+
+    /* Tablet */
+    @media (max-width: 850px) {
+        .s_website_form {
+            max-width: 70%;
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+        .s_website_form {
+            max-width: 90%;
+        }
+    }
+
+
+    /* ========================================
+   BRAND COLORS & FORM ELEMENTS
+   ======================================== */
+
+    /* Input focus - subtle tan accent */
+    .s_website_form_input:focus {
+        border-color: #D4AF85;
+        box-shadow: 0 0 0 3px rgba(212, 175, 133, 0.2);
+    }
+
+    /* Required field marker - deep red */
+    .s_website_form_mark {
+        color: #810305;
+    }
+
+    /* ========================================
+   SUBMIT BUTTON - LUXURY MINIMALIST DESIGN
+   ======================================== */
+
+    .s_website_form_send {
+        background: transparent;
+        color: #810305;
+        border: 2px solid #810305;
+        padding: 16px 50px;
+        border-radius: 0;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 1;
+    }
+
+    /* Sliding fill effect from left */
+    .s_website_form_send::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #810305 0%, #a01507 100%);
+        transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: -1;
+    }
+
+    .s_website_form_send:hover::before {
+        left: 0;
+    }
+
+    .s_website_form_send:hover {
+        color: #ffffff;
+        border-color: #810305;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(129, 3, 5, 0.25);
+    }
+
+    .s_website_form_send:active {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(129, 3, 5, 0.2);
+    }
+
+    /* Subtle corner accent lines */
+    .s_website_form_send::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        width: 20px;
+        height: 20px;
+        border-top: 2px solid #D4AF85;
+        border-right: 2px solid #D4AF85;
+        opacity: 0;
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .s_website_form_send:hover::after {
+        opacity: 1;
+        transform: translate(3px, -3px);
+    }
+
+    /* Responsive button sizing */
+    @media (max-width: 850px) {
+        .s_website_form_send {
+            padding: 14px 40px;
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .s_website_form_send {
+            padding: 12px 35px;
+            font-size: 0.85rem;
+            letter-spacing: 0.06em;
+        }
+    }
+</style>
+
+<div id="dealer-application"></div>
