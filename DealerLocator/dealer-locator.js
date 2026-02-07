@@ -147,16 +147,17 @@ async function filterAndShowDealers() {
         // Add user location marker if we have coordinates
         if (userLat && userLon) {
             addUserLocationMarker(userLat, userLon, geocodedAddress);
+            dealerMap.setView([userLat, userLon], 10);
         }
 
         // Update the map with filtered results
-        await updateMapMarkers(targetDealers);
+        await updateDealerMarkers(targetDealers);
 
     } catch (error) {
         console.log(`Error in filterAndShowDealers: ${error.message}`);
         // On error, still show all dealers as fallback
         const fallbackDealers = getTargetDealers(allDealersCache);
-        await updateMapMarkers(fallbackDealers);
+        await updateDealerMarkers(fallbackDealers);
     }
 }
 // Setup event listeners
@@ -417,7 +418,9 @@ async function initializeDealerMap() {
         // if (loadingEl) loadingEl.remove();
 
         // Initialize Voyager map centered on Chicago
-        dealerMap = L.map('dealer-map').setView([41.8781, -87.6298], 6);
+        chicagoLat = 41.8781;
+        chicagoLon = -87.6298;
+        dealerMap = L.map('dealer-map').setView([chicagoLat, chicagoLon], 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             attribution: '© OpenStreetMap contributors © CARTO',
             subdomains: 'abcd'
@@ -450,7 +453,7 @@ async function initializeDealerMap() {
 }
 
 // Update map markers and sidebar list (called when dealer set changes)
-async function updateMapMarkers(locations = []) {
+async function updateDealerMarkers(locations = []) {
     try {
         console.log(`Updating map with ${locations.length} locations`);
 
@@ -630,8 +633,7 @@ async function updateMapMarkers(locations = []) {
 
                 if (validMarkers.length === 0) {
                     console.warn('No valid markers found for bounds calculation');
-                    dealerMap.setView([41.8781, -87.6298], 6);
-                    return;
+                    return; // Just stay at current view (user location or previous view)
                 }
 
                 if (validMarkers.length === 1) {
@@ -656,8 +658,7 @@ async function updateMapMarkers(locations = []) {
                 }
             } catch (boundsError) {
                 console.warn('Error calculating bounds, using default view:', boundsError.message);
-                // Fall back to a reasonable default view for the area
-                dealerMap.setView([41.8781, -87.6298], 6);
+                // Just stay at current view (user location or previous view)
             }
         }
 
