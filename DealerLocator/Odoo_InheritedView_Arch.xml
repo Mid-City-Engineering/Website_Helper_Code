@@ -1,0 +1,11 @@
+<data>
+    <xpath expr="//div[@id='wrap']" position="before">
+        <t t-set="dealerTagID" t-value="1"/>
+        <t t-set="locatorOkTagID" t-value="29"/>
+        <t t-set="dealer_locator_fields" t-value="['name', 'partner_latitude', 'partner_longitude', 'x_latitude', 'x_longitude', 'street', 'street2', 'city', 'state_id', 'zip', 'country_id', 'phone', 'email']"/>
+        <t t-set="dealers" t-value="request.env['res.partner'].sudo().search_read([('category_id', 'in', [dealerTagID]), ('category_id', 'in', [locatorOkTagID])], dealer_locator_fields)"/>
+        <script type="text/javascript">
+            var OdooSuppliedContactInfo = <t t-raw="json.dumps(dealers)"/>;
+        </script>
+    </xpath>
+</data>
