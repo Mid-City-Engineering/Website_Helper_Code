@@ -1,0 +1,63 @@
+<div id="custom-header-hero"></div>
+
+<script>
+
+    heroReplacementTitle = null; // change from null to actual string for replacement
+    heroReplacementText = null;; // change from null to actual string for replacement
+
+    (function () {
+        fetch('/documents/content/fmoUcH3xRAKDCNWx_NMhNgo42?download=0')
+            .then(r => r.text())
+            .then(html => {
+                const container = document.getElementById('custom-header-hero');
+
+                // Parse the fetched HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Inject styles
+                doc.querySelectorAll('style').forEach(style => {
+                    container.appendChild(document.adoptNode(style));
+                });
+
+                // Inject HTML body content
+                const body = doc.querySelector('body');
+                if (body) {
+                    Array.from(body.children).forEach(el => {
+                        if (el.tagName !== 'SCRIPT') {
+                            container.appendChild(document.adoptNode(el));
+                        }
+                    });
+                } else {
+                    // If no <body>, grab non-script/style elements from <html>
+                    doc.querySelectorAll('html > *:not(script):not(style), html *:not(head):not(script):not(style)').forEach(el => {
+                        container.appendChild(document.adoptNode(el));
+                    });
+                }
+
+                // Code to override the hero h2 title
+                const heroTitle = container.querySelector('.hero-title');
+                if (heroTitle && heroReplacementTitle != null) {
+                    heroTitle.innerHTML = heroReplacementTitle;
+                }
+
+                // Code to override the hero p text
+                const heroText = container.querySelector('.hero-text');
+                if (heroText && heroReplacementText != null) {
+                    heroText.innerHTML = heroReplacementText;
+                }
+
+                // Execute scripts (they won't run via innerHTML/adoptNode)
+                doc.querySelectorAll('script').forEach(origScript => {
+                    const newScript = document.createElement('script');
+                    if (origScript.src) {
+                        newScript.src = origScript.src;
+                    } else {
+                        newScript.textContent = origScript.textContent;
+                    }
+                    container.appendChild(newScript);
+                });
+            })
+            .catch(err => console.error('Failed to load header/hero:', err));
+    })();
+</script>
