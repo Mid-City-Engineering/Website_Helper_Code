@@ -1,7 +1,7 @@
 <style>
     /* Default - desktop */
     :root {
-        --hero-overall-height: 80vh;
+        --hero-overall-height: 100vh;
     }
 
     /* Wrapper for utility bar + hero */
@@ -104,33 +104,37 @@
         background: rgba(129, 3, 5, 0.3);
     }
 
-    /* Hero Black Gradient BG Section */
-    .hero-black-bg-section {
+    /* Hero Video Section */
+    .hero-video-section {
         position: relative;
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: black;
     }
 
-    .hero-black-bg-section::before {
-        content: '';
+    .hero-video {
+        position: absolute;
+        top: 50%;
+        /* changed from top: 0 */
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        transform: translate(-50%, -50%);
+        /* changed from translateX(-50%) */
+        object-fit: cover;
+        z-index: 1;
+    }
+
+    .hero-overlay {
         position: absolute;
         top: 0;
         left: 0;
-        right: 0;
-        bottom: 0;
         width: 100%;
-        background: radial-gradient(circle at top right, rgba(129, 3, 5, 0.15), transparent 60%),
-            radial-gradient(circle at bottom left, rgba(212, 175, 133, 0.08), transparent 60%);
-        animation: slideAccentIn 1.5s ease-out forwards;
-        pointer-events: none;
-    }
-
-    @keyframes slideAccentIn {
-        to {
-            left: 0;
-        }
+        height: 100%;
+        /* background: rgba(0, 0, 0, 0.15); */
+        z-index: 2;
     }
 
     .hero-header {
@@ -144,9 +148,14 @@
         padding: 3rem 4rem;
         z-index: 1002;
         border-bottom: 2px solid var(--mce-dark-red);
+        background: linear-gradient(to bottom,
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(0, 0, 0, 0.7) 10%,
+                rgba(0, 0, 0, 0.5) 60%,
+                rgba(0, 0, 0, 0) 80%);
     }
 
-    .hero-logo .mce-name {
+    .hero-logo .main-product-or-series {
         font-size: 1.05rem;
         font-weight: 400;
         text-align: left;
@@ -159,6 +168,14 @@
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
+    }
+
+    .hero-logo .signature {
+        color: white;
+        font-size: .75rem;
+        letter-spacing: 0.1em;
+        font-weight: 400;
+        text-align: left;
     }
 
     .hero-nav {
@@ -247,84 +264,47 @@
     }
 
     .hero-content {
-        min-height: var(--hero-overall-height);
+        position: relative;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        /* Changed from center to flex-start */
+        color: white;
+        height: var(--hero-overall-height);
         width: 100%;
         padding-left: 4rem;
         /* Match the hero-header padding */
         padding-top: calc(6vh + 10rem);
         /* 6vh utility bar + approximate header height + some spacing */
-
-        /* Justification & Alignment */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: left;
-        text-align: left;
-
-        gap: 1.5rem;
-        position: relative;
-        z-index: 3;
-        display: flex;
-
-        /* Initial state for animation */
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInContent 1s ease-out 0.3s forwards;
     }
 
-    @keyframes fadeInContent {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .hero-content .hero-title-container {
+    .hero-content .video-subheading-container {
         display: flex;
         justify-content: flex-start;
         width: 100%;
         padding-top: 5%;
     }
 
-    .hero-content .hero-title {
-        font-family: 'Michroma', sans-serif;
-        font-size: 5vw;
-        color: var(--mce-sepia-tan);
-        margin-bottom: 1.5rem;
+    .hero-content .video-subheading {
+        color: white;
+        font-size: 1.05rem;
+        font-weight: 400;
+        text-align: left;
+        text-transform: uppercase;
         letter-spacing: 0.05em;
-        line-height: 1.2;
+        padding-top: 0;
+
+        /* Gradient text - white for 60%, then fade to grey */
+        background: linear-gradient(to right, white 60%, #b0b0b0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
-    .hero-content .hero-text {
-        font-family: 'Outfit', sans-serif;
-        font-weight: 300;
-        font-size: 1.2rem;
-        max-width: 60%;
-        color: #cccccc;
-        line-height: 1.7;
-        margin-bottom: 2rem;
-    }
-
-    .hero-content .hero-separator {
-        /* margin-top: 3%;
-        margin-bottom: 1%; */
-        width: 120px;
-        height: 2px;
-        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
-        opacity: 0;
-        animation: expandLine 1s ease-out 0.8s forwards;
-    }
-
-    @keyframes expandLine {
-        from {
-            width: 0;
-            opacity: 0;
-        }
-
-        to {
-            width: 120px;
-            opacity: 1;
-        }
+    .hero-content .slogan {
+        text-align: left;
     }
 
     /* Below 1000px: Show hamburger menu */
@@ -341,15 +321,14 @@
         .hamburger-drawer {
             display: block;
         }
-
-        .hero-content .hero-title {
-            font-family: 'Michroma', sans-serif;
-            font-size: 7.5vw;
-        }
     }
 
     /* Tablet: 481px to 768px */
     @media (max-width: 768px) and (min-width: 481px) {
+
+        :root {
+            --hero-overall-height: 85vh;
+        }
 
         .utility-bar {
             padding: 0 2rem;
@@ -374,7 +353,7 @@
             padding: 2rem 3rem;
         }
 
-        .hero-logo .mce-name {
+        .hero-logo h2 {
             font-size: 1.3rem;
         }
 
@@ -384,13 +363,16 @@
             width: 80%;
         }
 
-        .hero-content .hero-title {
-            font-size: 7.5vw;
+        .hero-content .video-subheading {
+            font-size: 1.0rem;
         }
     }
 
     /* Mobile: 480px and below */
     @media (max-width: 480px) {
+        :root {
+            --hero-overall-height: 70vh;
+        }
 
         .utility-bar {
             padding: 0 1.5rem;
@@ -420,7 +402,7 @@
             padding: 1.5rem 2rem;
         }
 
-        .hero-logo .mce-name {
+        .hero-logo h2 {
             font-size: 1.1rem;
         }
 
@@ -434,18 +416,14 @@
             width: 84%;
         }
 
-        .hero-content .hero-title {
-            font-size: 10vw;
-        }
-
-        .hero-content .hero-text {
-            max-width: 90%;
+        .hero-content .video-subheading {
+            font-size: 0.95rem;
         }
     }
 </style>
 
 <div class="hero-wrapper">
-    <!-- Utility Bar -->
+
     <div class="utility-bar">
         <form method="get" action="/website/search" id="customSearchForm"><input type="search" name="search"
                 id="customSearchInput" placeholder="Search..."><input name="order" type="hidden"
@@ -464,12 +442,15 @@
         <div id="customAccount"></div>
     </div>
 
-    <!-- Main black gradient bg section -->
-    <section class="hero-black-bg-section">
-        <!-- Header -->
+    <section class="hero-video-section"><video class="hero-video" autoplay="" muted="" loop="" playsinline="">
+            <source src="/documents/content/VQWv3tSOQlyJZCE1nn7-Fgo16?download=0">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay"></div>
         <header class="hero-header">
             <div class="hero-logo">
-                <h2 class="mce-name">MID CITY ENGINEERING</h2>
+                <h2 class="main-product-or-series">Product Name/Series</h2>
+                <h2 class="signature">By MID CITY ENGINEERING</h2>
             </div>
             <nav class="hero-nav"><a href="/#products">Products</a><a href="/dealer-locator">Dealer Locator</a><a
                     href="/become-dealer/">Become a Dealer</a><a href="/installation-manuals">Installation
@@ -478,43 +459,30 @@
             <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
         </header>
 
-        <!-- Hamburger Icon (for tablet/mobile) -->
-        <div class="hamburger-drawer" id="hamburgerDrawer">
-            <a href="/#products" onclick="toggleMenu()">Products</a>
-            <a href="/dealer-locator" onclick="toggleMenu()">Dealer Locator</a>
-            <a href="/become-dealer/" onclick="toggleMenu()">Become a Dealer</a>
-            <a href="/installation-manuals" onclick="toggleMenu()">Installation Manuals</a>
-            <a href="/support" onclick="toggleMenu()">Support</a>
-            <a href="/contactus" onclick="toggleMenu()">Contact</a>
-        </div>
-
-        <!-- Actual content -->
+        <div class="hamburger-drawer" id="hamburgerDrawer"><a href="/#products" onclick="toggleMenu()">Products</a><a
+                href="/dealer-locator" onclick="toggleMenu()">Dealer
+                Locator</a><a href="/become-dealer/" onclick="toggleMenu()">Become a Dealer</a><a
+                href="/installation-manuals" onclick="toggleMenu()">Installation Manuals</a><a href="/support"
+                onclick="toggleMenu()">Support</a><a href="/contactus" onclick="toggleMenu()">Contact</a></div>
         <div class="hero-content">
-            <!-- Main Title -->
-            <div class="hero-title-container">
-                <h2 class="hero-title">Let's Connect</h2>
+            <div class="video-subheading-container">
+                <h2 class="video-subheading"></h2>
             </div>
 
-            <!-- Red to tan separator -->
-            <div class="hero-separator">
-            </div>
-
-            <!-- Descriptive text -->
-            <div class="hero-text-container">
-                <p class="hero-text">
-                    Whether you're looking for general Q/A, technical specifications, dealer partnerships,
-                    or custom engineering solutions — we're here to help.
-                </p>
+            <div class="slogan">
+                <h2></h2>
             </div>
         </div>
     </section>
 </div>
 
-<script>
-    // To open hamburger menu
+<script> // To open hamburger menu
+
     function toggleMenu() {
         const hamburger = document.querySelector('.hamburger');
         const drawer = document.getElementById('hamburgerDrawer');
+
+        if (!drawer || !hamburger) return;
 
         hamburger.classList.toggle('active');
         drawer.classList.toggle('active');
@@ -524,6 +492,9 @@
     document.addEventListener('click', function (event) {
         const drawer = document.getElementById('hamburgerDrawer');
         const hamburger = document.querySelector('.hamburger');
+
+        // Guard against null elements (e.g., in Odoo editor context)
+        if (!drawer || !hamburger) return;
 
         if (drawer.classList.contains('active') && !drawer.contains(event.target) && !hamburger.contains(event.target)) {
             toggleMenu();
@@ -688,4 +659,5 @@
         // DOM already loaded (script runs after page load)
         initSmoothScroll();
     }
+
 </script>
