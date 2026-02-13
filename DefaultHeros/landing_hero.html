@@ -114,16 +114,12 @@
 
     .hero-video {
         position: absolute;
-        top: 50%;
-        /* changed from top: 0 */
-        left: 50%;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        transform: translate(-50%, -50%);
-        /* changed from translateX(-50%) */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
+        object-position: center center;
         z-index: 1;
     }
 
@@ -442,7 +438,8 @@
         <div id="customAccount"></div>
     </div>
 
-    <section class="hero-video-section"><video class="hero-video" autoplay="" muted="" loop="" playsinline="">
+    <section class="hero-video-section">
+        <video class="hero-video" autoplay="" muted="" loop="" playsinline="">
             <source src="/documents/content/VQWv3tSOQlyJZCE1nn7-Fgo16?download=0">
             Your browser does not support the video tag.
         </video>

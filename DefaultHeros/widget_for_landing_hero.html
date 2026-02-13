@@ -1,3 +1,12 @@
+<script>
+    // change from null to actual string for replacement
+    productName = null; 
+    backgroundVideoLink = null;
+    videoObjectPosition = null;
+    videoObjectPositionMobile = null;
+    videoObjectPositionTablet = null;
+</script>
+
 <style>
     /* We need to set a height for the hero placeholder to not trigger content block 
        fade in animation before applicable. If not done, the first few content blocks appear
@@ -30,9 +39,6 @@
 <div class="hero-placeholder" id="custom-header-hero"></div>
 
 <script>
-
-    productName = null; // change from null to actual string for replacement
-    backgroundVideoLink = null; // change from null to actual string for replacement
 
     (function () {
         fetch('/documents/content/gyEq9xruTVyrodnhyJDfGgo43?download=0')
@@ -75,6 +81,22 @@
                 if (video && backgroundVideoLink != null) {
                     video.src = backgroundVideoLink;
                     video.parentElement.load(); // reload video with new source
+                }
+                
+                // Set video focus point
+                const heroVideo = container.querySelector('.hero-video');
+                if (heroVideo && videoObjectPosition != null) {
+                    function applyVideoPosition() {
+                        if (window.matchMedia('(max-width: 480px)').matches) {
+                            heroVideo.style.objectPosition = videoObjectPositionMobile ?? videoObjectPosition;
+                        } else if (window.matchMedia('(max-width: 768px)').matches) {
+                            heroVideo.style.objectPosition = videoObjectPositionTablet ?? videoObjectPosition;
+                        } else {
+                            heroVideo.style.objectPosition = videoObjectPosition;
+                        }
+                    }
+                    applyVideoPosition();
+                    window.addEventListener('resize', applyVideoPosition);
                 }
 
                 // Execute scripts (they won't run via innerHTML/adoptNode)
