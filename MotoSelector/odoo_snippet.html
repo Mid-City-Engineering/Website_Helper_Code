@@ -1,0 +1,242 @@
+<style>
+    .moto-selector {
+        /* max-width: 850px; */
+        margin: 4rem auto;
+        padding: 2rem;
+    }
+
+    .moto-selector h2 {
+        text-align: center;
+        font-family: 'Goldman', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        color: #333;
+    }
+
+    .vs-form {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .vs-field {
+        display: flex;
+        flex-direction: column;
+        min-width: 200px;
+    }
+
+    .vs-field label {
+        font-size: .9rem;
+        font-weight: 600;
+        margin-bottom: .4rem;
+        color: #333;
+    }
+
+    .vs-field select {
+        padding: .7rem;
+        border: 2px solid #D4B896;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: 0.2s ease;
+    }
+
+    .vs-field select:focus {
+        border-color: #810305;
+        outline: none;
+    }
+
+    .vs-result {
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .vs-result a {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: .75rem 1.2rem;
+        background: #810305;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+    .vs-result a:hover {
+        background: #a50507;
+    }
+</style>
+
+<script>
+    let motoData = [];
+
+    // Load JSON file
+    fetch("/documents/content/LfnD2ICbQnKKYC246BrQdQo4a?download=0")
+        .then(response => response.json())
+        .then(data => {
+            motoData = data;
+            initializeMotoSelector();
+        })
+        .catch(err => {
+            console.error("Error loading moto compatibility JSON:", err);
+            document.getElementById("vs-result").innerHTML =
+                `<p style="color: #810305;">Unable to load moto data. Please refresh the page.</p>`;
+        });
+
+
+    function initializeMotoSelector() {
+        const makeSelect = document.getElementById("vs-make");
+        const modelSelect = document.getElementById("vs-model");
+        const yearSelect = document.getElementById("vs-year");
+        const resultBox = document.getElementById("vs-result");
+
+        /* ---------------------------------------------------------
+           Populate Makes
+        --------------------------------------------------------- */
+        const makes = [...new Set(motoData.map(v => v.make))].sort();
+        makes.forEach(make => {
+            const opt = document.createElement("option");
+            opt.value = make;
+            opt.textContent = make;
+            makeSelect.appendChild(opt);
+        });
+
+        /* ---------------------------------------------------------
+           On Make Change → Populate Models
+        --------------------------------------------------------- */
+        makeSelect.addEventListener("change", () => {
+            modelSelect.innerHTML = `<option value="">Select Model</option>`;
+            yearSelect.innerHTML = `<option value="">Select Year</option>`;
+            modelSelect.disabled = true;
+            yearSelect.disabled = true;
+            resultBox.innerHTML = "";
+
+            if (!makeSelect.value) return;
+
+            const models = [...new Set(
+                motoData
+                    .filter(v => v.make === makeSelect.value)
+                    .map(v => v.model)
+            )].sort();
+
+            models.forEach(model => {
+                const opt = document.createElement("option");
+                opt.value = model;
+                opt.textContent = model;
+                modelSelect.appendChild(opt);
+            });
+
+            modelSelect.disabled = false;
+        });
+
+        /* ---------------------------------------------------------
+           On Model Change → Populate Years
+        --------------------------------------------------------- */
+        modelSelect.addEventListener("change", () => {
+            yearSelect.innerHTML = `<option value="">Select Year</option>`;
+            yearSelect.disabled = true;
+            resultBox.innerHTML = "";
+
+            const filtered = motoData.filter(
+                v => v.make === makeSelect.value && v.model === modelSelect.value
+            );
+
+            if (!filtered.length) return;
+
+            // Expand year ranges like "2015-2019"
+            const years = new Set();
+            filtered.forEach(item => {
+                const [start, end] = item.years.split("-").map(Number);
+                for (let y = start; y <= end; y++) years.add(y);
+            });
+
+            [...years].sort().forEach(year => {
+                const opt = document.createElement("option");
+                opt.value = year;
+                opt.textContent = year;
+                yearSelect.appendChild(opt);
+            });
+
+            yearSelect.disabled = false;
+        });
+
+        /* ---------------------------------------------------------
+           On Year Change → Show Result Link(s)
+        --------------------------------------------------------- */
+        yearSelect.addEventListener("change", () => {
+            resultBox.innerHTML = "";
+
+            const match = motoData.find(v => {
+                const [start, end] = v.years.split("-").map(Number);
+                return (
+                    v.make === makeSelect.value &&
+                    v.model === modelSelect.value &&
+                    +yearSelect.value >= start &&
+                    +yearSelect.value <= end
+                );
+            });
+
+            if (!match) {
+                resultBox.textContent = "No compatible product found.";
+                return;
+            }
+
+            // If options array exists, show all options
+            if (match.options && match.options.length > 0) {
+                let html = '<div>Compatible Products Found:</div>';
+                match.options.forEach(opt => {
+                    html += `
+                    <a href="${opt.productUrl}" target="_blank">
+                        ${opt.name} - View Product (${opt.sku})
+                    </a>
+                    <br/>
+                `;
+                });
+                resultBox.innerHTML = html;
+            } else {
+                // Single product
+                resultBox.innerHTML = `
+                <div>Compatible Product Found:</div>
+                <a href="${match.productUrl}" target="_blank">
+                    View Product (${match.sku})
+                </a>
+            `;
+            }
+        });
+    }
+</script>
+
+
+<section class="moto-selector">
+    <h2>Find Your Vehicle's Motorized Plate</h2>
+
+    <div class="vs-form">
+
+        <div class="vs-field">
+            <label for="vs-make">Make</label>
+            <select id="vs-make" aria-label="Select vehicle make">
+                <option value="">Select Make</option>
+            </select>
+        </div>
+
+
+        <div class="vs-field">
+            <label for="vs-model">Model</label>
+            <select id="vs-model" disabled="" aria-label="Select vehicle model">
+                <option value="">Select Model</option>
+            </select>
+        </div>
+
+
+        <div class="vs-field">
+            <label for="vs-year">Year</label>
+            <select id="vs-year" disabled="" aria-label="Select vehicle year">
+                <option value="">Select Year</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="vs-result" class="vs-result"></div>
+</section>
