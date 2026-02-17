@@ -5,7 +5,7 @@
         position: relative;
         overflow: hidden;
         display: flex;
-        justify-content: space-evenly;
+        flex-direction: column;
         align-items: center;
         gap: 60px;
     }
@@ -28,12 +28,36 @@
         }
     }
 
+    /* Top row: text left, image right */
+    .spacer-top {
+        display: flex;
+        align-items: flex-start;
+        gap: 60px;
+        width: 100%;
+        position: relative;
+    }
+
+    /* Red corner bracket: top-left of the section */
+    .spacer-top::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 48px;
+        height: 48px;
+        border-top: 3px solid var(--mce-dark-red);
+        border-left: 3px solid var(--mce-dark-red);
+        pointer-events: none;
+    }
+
+    /* ── LEFT COLUMN ── */
     .spacer-left {
-        max-width: 600px;
+        flex: 1;
         text-align: left;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
+        padding-left: 2%;
         opacity: 0;
         transform: translateX(-40px);
         animation: slideInLeft 0.8s ease-out 0.3s forwards;
@@ -100,10 +124,11 @@
         }
     }
 
+    /* ── RIGHT COLUMN ── */
     .spacer-right {
+        flex: 1;
         display: flex;
-        align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
         opacity: 0;
         transform: translateX(40px);
         animation: slideInRight 0.8s ease-out 0.5s forwards;
@@ -114,6 +139,47 @@
             opacity: 1;
             transform: translateX(0);
         }
+    }
+
+    .story-image-frame {
+        position: relative;
+        width: 95%;
+        height: 440px;
+        flex-shrink: 0;
+    }
+
+    /* Tan corner accent — bottom-right of image */
+    .story-image-frame::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        right: -12px;
+        width: 60px;
+        height: 60px;
+        border-bottom: 3px solid var(--mce-sepia-tan);
+        border-right: 3px solid var(--mce-sepia-tan);
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .story-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        filter: grayscale(20%) contrast(1.05);
+        transition: filter 0.6s ease;
+    }
+
+    .story-image-frame:hover .story-image {
+        filter: grayscale(0%) contrast(1.05);
+    }
+
+    /* ── BUTTON ROW ── */
+    .spacer-bottom {
+        display: flex;
+        justify-content: center;
+        width: 100%;
     }
 
     .dealer-button {
@@ -187,7 +253,6 @@
         box-shadow: 0 8px 25px rgba(129, 3, 5, 0.3);
     }
 
-    /* Arrow icon */
     .dealer-button-arrow {
         display: inline-block;
         transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
@@ -198,15 +263,23 @@
         transform: translateX(5px);
     }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 968px) {
         .spacer-section {
-            flex-direction: column;
-            gap: 50px;
+            gap: 40px;
             padding: 15% 5% 12%;
+        }
+
+        .spacer-top {
+            flex-direction: column;
+            gap: 40px;
         }
 
         .spacer-left {
             text-align: center;
+            align-items: center;
+            transform: none;
+            animation: fadeInMobile 0.8s ease-out forwards;
         }
 
         .spacer-left h2::after {
@@ -214,10 +287,22 @@
             transform: translateX(-50%);
         }
 
-        .spacer-left,
         .spacer-right {
+            width: 100%;
+            justify-content: center;
             transform: none;
             animation: fadeInMobile 0.8s ease-out forwards;
+        }
+
+        .story-image-frame {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+        }
+
+        .dealer-button {
+            padding: 20px 40px;
+            font-size: 1rem;
         }
 
         @keyframes fadeInMobile {
@@ -231,34 +316,53 @@
                 transform: translateY(0);
             }
         }
+    }
 
-        .dealer-button {
-            padding: 20px 40px;
-            font-size: 1rem;
+    @media (max-width: 480px) {
+        .story-image-frame {
+            height: 240px;
         }
     }
 </style>
 
 <div class="spacer-section">
-    <div class="spacer-left">
-        <h2>Manufactured in Chicago, <span class="tan-text">Trusted Worldwide</span></h2>
-        <p>
-            For over 20 years, Mid City Engineering has been at the forefront of automotive innovation,
-            engineering premium solutions that enhance vehicle performance, security, and convenience.
-        </p>
-        <p>
-            From our Chicago headquarters, we design and manufacture cutting-edge technology trusted by
-            customers worldwideâ€"from individual car enthusiasts to large fleet operators.
-        </p>
-        <p>
-            Every product we create reflects our commitment to precision engineering, uncompromising quality,
-            and the belief that the best can always be made better.
-        </p>
+
+    <div class="spacer-top">
+        <!-- Left: heading + body copy -->
+        <div class="spacer-left">
+            <h2>Manufactured in Chicago, <span class="tan-text">Trusted Worldwide</span></h2>
+            <p>
+                For over 20 years, Mid City Engineering has been at the forefront of automotive innovation,
+                engineering premium solutions that enhance vehicle performance, security, and convenience.
+            </p>
+            <p>
+                From our Chicago headquarters, we design and manufacture cutting-edge technology trusted by
+                customers worldwide — from individual car enthusiasts to large fleet operators.
+            </p>
+            <p>
+                Every product we create reflects our commitment to precision engineering, uncompromising quality,
+                and the belief that the best can always be made better.
+            </p>
+        </div>
+
+        <!-- Right: image -->
+        <div class="spacer-right">
+            <div class="story-image-frame">
+                <img
+                    src="/documents/content/WfMbfuQ9TuOpt7KWJNkNZQo5d?download=0"
+                    alt="Premium automotive engineering"
+                    class="story-image"
+                >
+            </div>
+        </div>
     </div>
-    <div class="spacer-right">
+
+    <!-- Button: centered below both columns -->
+    <div class="spacer-bottom">
         <a href="/dealer-locator" class="dealer-button">
             Find affiliated dealers near you
             <span class="dealer-button-arrow">→</span>
         </a>
     </div>
+
 </div>
