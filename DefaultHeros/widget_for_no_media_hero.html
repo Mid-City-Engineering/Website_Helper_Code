@@ -1,15 +1,43 @@
-<div id="custom-header-hero"></div>
+<script>
+    heroReplacementTitle = null; // change from null to actual string for replacement
+    heroReplacementText = null; // change from null to actual string for replacement
+</script>
+
+<style>
+    /* We need to set a height for the hero placeholder to not make it suddenly
+    appear and push content down (it looks glitchy).
+    */
+
+    /* Match placeholder-height to the fetched hero's overall height */
+    :root {
+        --placeholder-height: 80vh;
+    }
+
+    .no-media-header-hero {
+        height: var(--placeholder-height);
+    }
+
+    @media (max-width: 768px) and (min-width: 481px) {
+        :root {
+            --placeholder-height: 80vh;
+        }
+    }
+
+    @media (max-width: 480px) {
+        :root {
+            --placeholder-height: 80vh;
+        }
+    }
+</style>
+
+<div class="no-media-header-hero" id="no-media-header-hero"></div>
 
 <script>
-
-    heroReplacementTitle = null; // change from null to actual string for replacement
-    heroReplacementText = null;; // change from null to actual string for replacement
-
     (function () {
         fetch('/documents/content/fmoUcH3xRAKDCNWx_NMhNgo42?download=0')
             .then(r => r.text())
             .then(html => {
-                const container = document.getElementById('custom-header-hero');
+                const container = document.getElementById('no-media-header-hero');
 
                 // Parse the fetched HTML
                 const parser = new DOMParser();
