@@ -1,0 +1,791 @@
+<!-- ============================================================
+     BLOCK 1: PARSER CONFIG
+     Everything a developer needs to touch lives here.
+     ============================================================ -->
+<script>
+    // UI copy — override per page if desired
+    const SELECTOR_CONFIG = {
+        heading: "Find Your SmartKey Starter",
+        subheading: "Select your vehicle below to find the right product.",
+    };
+
+    const DEFAULT_MAKE = "Mercedes-Benz";
+
+    // Parenthetical text that should be kept as a qualifier (shown as a selector step)
+    // e.g. "CLA (Push to Start) 2015-2019" → model: "CLA", qualifier: "Push to Start"
+    const MODEL_QUALIFIERS = ["Not 48V", "push to start", "key", "push start"];
+
+    const PLURAL_MAP = {
+        "sprinters": "Sprinter",
+    };
+
+    const FILLER_WORDS = ["all", "and", "&", ","];
+
+    const SKU_MAKE_OVERRIDES = {
+        "SKSXC": "Volvo",
+        "MOTOAUDI": "Audi",
+        "MOTOBMW": "BMW",
+        "MOTOLEXUS": "Lexus",
+        "MOTOMGT": "Maserati",
+        "MOTOP29": "Porsche",
+        "MOTOSTING": "Chevrolet",
+        "MOTOTSX": "Acura",
+        "MOTOVOLVO": "Volvo",
+        "MOTOTS3": "Tesla",
+        "MOTOTSS": "Tesla",
+        "MOTOBNTSPUR": "Bentley",
+    };
+
+    const KNOWN_MAKES = [
+        "Mercedes-Benz", "Freightliner", "Dodge", "Tesla", "Audi",
+        "BMW", "Infiniti", "Porsche", "Chevrolet", "Lexus", "Maserati",
+        "Acura", "Volvo", "Bentley", "Range Rover", "Lamborghini", "Rolls-Royce",
+        "Jaguar", "Land Rover", "Mini", "Mitsubishi", "Nissan", "Subaru", "Toyota",
+        "Volkswagen", "GMC",
+    ];
+
+    // Maps make names (including common typos and shorthands) to their canonical form —
+    // auto-generated from KNOWN_MAKES, with manual additions below
+    const MAKE_LOOKUP = {};
+    for (const make of KNOWN_MAKES) {
+        MAKE_LOOKUP[make.toLowerCase()] = make;
+    }
+    // Add manual aliases for misspellings/shorthands
+    MAKE_LOOKUP["mercedes"] = "Mercedes-Benz";
+    MAKE_LOOKUP["chevrolette"] = "Chevrolet";
+    MAKE_LOOKUP["masarati"] = "Maserati";
+    MAKE_LOOKUP["rolls royce"] = "Rolls-Royce";
+
+    // Assumes OdooProductData is injected into the page by the backend with the necessary fields:
+    function getSelectorData() {
+        if (typeof OdooProductData === 'undefined' || OdooProductData === null) {
+            return null;
+        } else {
+            return OdooProductData;
+        }
+    }
+</script>
+
+
+<!-- ============================================================
+     BLOCK 2: PARSER LOGIC — do not edit
+     ============================================================ -->
+<script>
+    function getDefaultMake(sku) {
+        for (const [prefix, make] of Object.entries(SKU_MAKE_OVERRIDES)) {
+            if (sku.toUpperCase().startsWith(prefix.toUpperCase())) {
+                return make;
+            }
+        }
+        return DEFAULT_MAKE;
+    }
+
+    function normalizeYears(yearStr) {
+        yearStr = yearStr.replace(/\s+/g, "");
+        const match = yearStr.match(/^(\d{4})[-–](\d{2,4})(\+?)$/);
+        if (match) {
+            const start = match[1];
+            let end = match[2];
+            const plus = match[3];
+            if (end.length === 2) {
+                end = start.substring(0, 2) + end;
+            }
+            return start + "-" + end + plus;
+        }
+        return yearStr;
+    }
+
+    function normalizePlurals(model) {
+        const words = model.split(/\s+/);
+        return words.map(w => {
+            const lower = w.toLowerCase();
+            return PLURAL_MAP[lower] || w;
+        }).join(" ");
+    }
+
+    function parseCompatEntry(entry, sku) {
+        let text = entry.trim();
+        if (!text) return [];
+
+        // 1. Extract parentheticals — qualifiers become a selector step, rest become notes
+        let notes = [];
+        let qualifier = null;
+        const parenMatches = text.match(/\(([^)]+)\)/g);
+        if (parenMatches) {
+            for (const p of parenMatches) {
+                const inner = p.replace(/[()]/g, "").trim();
+                if (MODEL_QUALIFIERS.some(q => inner.toLowerCase() === q.toLowerCase())) {
+                    qualifier = inner;
+                } else {
+                    notes.push(p.trim());
+                }
+                text = text.replace(p, "").trim();
+            }
+        }
+        let note = notes.length > 0 ? notes.join(" ") : null;
+
+        // 2. Extract year range from end
+        let years = "";
+        const yearPattern = /(\d{4}\s*[-–]\s*\d{2,4}\+?|\d{4}\+?)\s*$/;
+        const yearMatch = text.match(yearPattern);
+        if (yearMatch) {
+            years = normalizeYears(yearMatch[1]);
+            text = text.substring(0, yearMatch.index).trim();
+        }
+
+        // 3. Detect makes in remaining text
+        const detectedMakes = [];
+        let remaining = text;
+
+        const sortedMakes = Object.keys(MAKE_LOOKUP).sort((a, b) => b.length - a.length);
+
+        for (const make of sortedMakes) {
+            const escaped = make.replace(/[-]/g, "[-]?");
+            const regex = new RegExp("\\b" + escaped + "\\b", "gi");
+            if (regex.test(remaining)) {
+                detectedMakes.push(MAKE_LOOKUP[make.toLowerCase()]);
+                remaining = remaining.replace(regex, "").trim();
+            }
+        }
+
+        // 4. Strip filler words
+        for (const filler of FILLER_WORDS) {
+            const fillerRegex = new RegExp(
+                filler === "&" || filler === ","
+                    ? "\\" + filler
+                    : "\\b" + filler + "\\b",
+                "gi"
+            );
+            remaining = remaining.replace(fillerRegex, "").trim();
+        }
+
+        // 5. Clean up whitespace
+        remaining = remaining.replace(/\s{2,}/g, " ").trim();
+
+        // 6. Normalize plurals
+        remaining = normalizePlurals(remaining);
+
+        const model = remaining;
+
+        // 7. Determine makes
+        let makes = detectedMakes.length > 0
+            ? [...new Set(detectedMakes)]
+            : [getDefaultMake(sku)];
+
+        return makes.map(make => ({ make, model, years, qualifier, note }));
+    }
+
+    function parseSelectorData(selectorData) {
+        const grouped = {};
+
+        for (const item of selectorData) {
+            const sku = item.default_code;
+            const productUrl = item.website_url;
+            const name = item.name;
+            const compat = item.x_studio_compatibility_list || "";
+
+            const entries = compat.split("|");
+
+            for (const entry of entries) {
+                const parsed = parseCompatEntry(entry, sku);
+
+                for (const p of parsed) {
+                    const key = [p.make, p.model, p.years, p.qualifier || "", p.note || ""].join("|");
+
+                    if (!grouped[key]) {
+                        grouped[key] = {
+                            make: p.make, model: p.model, years: p.years,
+                            qualifier: p.qualifier, note: p.note,
+                            products: []
+                        };
+                    }
+
+                    grouped[key].products.push({ sku, name, productUrl });
+                }
+            }
+        }
+
+        return Object.values(grouped);
+    }
+</script>
+
+
+<!-- ============================================================
+     BLOCK 3: STYLES
+     ============================================================ -->
+<style>
+    .mce-sel-section {
+        background: #f5f3f0;
+        padding: 80px 0 100px;
+        position: relative;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .mce-sel-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+    }
+
+    .mce-sel-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 5%;
+    }
+
+    /* Header */
+    .mce-sel-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .mce-sel-header h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+        color: #1a1a1a;
+        letter-spacing: 0.04em;
+        position: relative;
+        display: inline-block;
+    }
+
+    .mce-sel-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 48px;
+        height: 2px;
+        background: var(--mce-dark-red);
+    }
+
+    .mce-sel-header p {
+        margin-top: 32px;
+        font-size: 1.05rem;
+        font-weight: 300;
+        color: #777;
+        letter-spacing: 0.02em;
+    }
+
+    /* Step tabs */
+    .mce-sel-steps {
+        display: flex;
+        border-bottom: 2px solid #dedad4;
+        margin-bottom: 36px;
+    }
+
+    .mce-sel-tab {
+        flex: 1;
+        padding: 12px 8px 15px;
+        text-align: center;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #bbb;
+        position: relative;
+        cursor: default;
+        user-select: none;
+        transition: color 0.25s ease;
+    }
+
+    .mce-sel-tab-num {
+        display: block;
+        font-size: 0.6rem;
+        font-weight: 400;
+        color: #ccc;
+        letter-spacing: 0.1em;
+        margin-bottom: 3px;
+    }
+
+    .mce-sel-tab.is-active {
+        color: var(--mce-dark-red);
+    }
+
+    .mce-sel-tab.is-active .mce-sel-tab-num {
+        color: var(--mce-sepia-tan);
+    }
+
+    .mce-sel-tab.is-active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--mce-dark-red);
+    }
+
+    .mce-sel-tab.is-done {
+        color: #888;
+        cursor: pointer;
+    }
+
+    .mce-sel-tab.is-done:hover {
+        color: #333;
+    }
+
+    /* Breadcrumb */
+    .mce-sel-crumb {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        min-height: 24px;
+        margin-bottom: 30px;
+    }
+
+    .mce-crumb-piece {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.88rem;
+        font-weight: 300;
+        color: #999;
+    }
+
+    .mce-crumb-val {
+        font-weight: 500;
+        color: #555;
+        cursor: pointer;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 1px;
+        transition: all 0.2s ease;
+    }
+
+    .mce-crumb-val:hover {
+        color: var(--mce-dark-red);
+        border-bottom-color: var(--mce-sepia-tan);
+    }
+
+    .mce-crumb-sep {
+        color: #ccc;
+        font-size: 0.75rem;
+    }
+
+    /* Step label */
+    .mce-sel-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #aaa;
+        margin-bottom: 18px;
+    }
+
+    /* Option buttons */
+    .mce-sel-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .mce-sel-btn {
+        padding: 15px 28px;
+        background: #fff;
+        border: 1.5px solid #dedad4;
+        color: #333;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        cursor: pointer;
+        transition: all 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+        min-width: 110px;
+        text-align: center;
+        outline: none;
+        -webkit-appearance: none;
+    }
+
+    .mce-sel-btn:hover {
+        border-color: var(--mce-sepia-tan);
+        color: #111;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.07);
+    }
+
+    .mce-sel-btn.is-selected {
+        background: var(--mce-dark-red);
+        border-color: var(--mce-dark-red);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(129, 3, 5, 0.22);
+    }
+
+    /* Result cards */
+    .mce-sel-results-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #aaa;
+        margin-bottom: 20px;
+    }
+
+    .mce-sel-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        background: #fff;
+        border: 1.5px solid #dedad4;
+        padding: 26px 30px;
+        margin-bottom: 12px;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.22s ease;
+    }
+
+    .mce-sel-card:last-child {
+        margin-bottom: 0;
+    }
+
+    .mce-sel-card:hover {
+        border-color: var(--mce-sepia-tan);
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.07);
+        transform: translateY(-2px);
+    }
+
+    .mce-sel-card-body {
+        flex: 1;
+    }
+
+    .mce-sel-card-sku {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--mce-sepia-tan);
+        margin-bottom: 6px;
+    }
+
+    .mce-sel-card-name {
+        font-size: 1.05rem;
+        font-weight: 400;
+        color: #1a1a1a;
+        line-height: 1.45;
+    }
+
+    .mce-sel-card-note {
+        margin-top: 5px;
+        font-size: 0.85rem;
+        font-weight: 300;
+        color: #999;
+        font-style: italic;
+    }
+
+    .mce-sel-card-arrow {
+        flex-shrink: 0;
+        width: 42px;
+        height: 42px;
+        border: 1.5px solid #ddd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        color: var(--mce-dark-red);
+        transition: all 0.25s ease;
+    }
+
+    .mce-sel-card:hover .mce-sel-card-arrow {
+        background: var(--mce-dark-red);
+        border-color: var(--mce-dark-red);
+        color: #fff;
+        transform: translateX(3px);
+    }
+
+    /* Empty state */
+    .mce-sel-empty {
+        text-align: center;
+        padding: 48px 20px;
+        color: #999;
+    }
+
+    .mce-sel-empty p {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.7;
+    }
+
+    .mce-sel-empty a {
+        color: var(--mce-dark-red);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    /* Step animation */
+    .mce-sel-anim {
+        animation: mceSelIn 0.28s ease-out both;
+    }
+
+    @keyframes mceSelIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+        .mce-sel-section {
+            padding: 60px 0 80px;
+        }
+
+        .mce-sel-btn {
+            width: 100%;
+            text-align: left;
+            padding: 16px 20px;
+        }
+
+        .mce-sel-card {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .mce-sel-card-arrow {
+            align-self: flex-end;
+        }
+
+        .mce-sel-tab {
+            padding: 10px 4px 13px;
+            font-size: 0.65rem;
+        }
+    }
+</style>
+
+
+<!-- ============================================================
+     BLOCK 4: HTML
+     ============================================================ -->
+<div class="mce-sel-section" id="mce-selector">
+    <div class="mce-sel-inner">
+
+        <div class="mce-sel-header">
+            <h2 id="mce-sel-heading">Find Your Kit</h2>
+            <p id="mce-sel-subheading">Select your vehicle below to find the right product.</p>
+        </div>
+
+        <div class="mce-sel-steps" id="mce-sel-steps" role="tablist"></div>
+
+        <div class="mce-sel-crumb" id="mce-sel-crumb" aria-label="Current selection"></div>
+
+        <div id="mce-sel-content"></div>
+
+    </div>
+</div>
+
+
+<!-- ============================================================
+     BLOCK 5: SELECTOR UI
+     ============================================================ -->
+<script>
+    (function () {
+
+        // Apply config copy
+        document.getElementById('mce-sel-heading').textContent = SELECTOR_CONFIG.heading;
+        document.getElementById('mce-sel-subheading').textContent = SELECTOR_CONFIG.subheading;
+
+        const STEP_NAMES = ["Make", "Model", "Year", "Variant"];
+
+        const sel = { make: null, model: null, years: null, qualifier: null };
+        let parsed = [];
+        let currentStep = 0;
+        let qualifierNeeded = false;
+
+        function init() {
+            const data = getSelectorData();
+            if (!data || !data.length) {
+                document.getElementById('mce-sel-content').innerHTML =
+                    '<div class="mce-sel-empty"><p>No product data loaded.</p></div>';
+                return;
+            }
+            parsed = parseSelectorData(data);
+            goStep(0);
+        }
+
+        function renderTabs() {
+            const totalSteps = qualifierNeeded ? 4 : 3;
+            document.getElementById('mce-sel-steps').innerHTML =
+                Array.from({ length: totalSteps }, (_, i) => {
+                    let cls = 'mce-sel-tab';
+                    if (i === currentStep) cls += ' is-active';
+                    else if (i < currentStep) cls += ' is-done';
+                    return `<div class="${cls}" role="tab" onclick="mceGoStep(${i})">
+                        <span class="mce-sel-tab-num">STEP ${i + 1}</span>
+                        ${STEP_NAMES[i]}
+                    </div>`;
+                }).join('');
+        }
+
+        window.mceGoStep = function (step) {
+            if (step >= currentStep) return;
+            if (step <= 0) sel.make = null;
+            if (step <= 1) sel.model = null;
+            if (step <= 2) { sel.years = null; qualifierNeeded = false; }
+            if (step <= 3) sel.qualifier = null;
+            goStep(step);
+        };
+
+        function renderCrumb() {
+            const parts = [];
+            if (sel.make) parts.push({ v: sel.make, s: 0 });
+            if (sel.model) parts.push({ v: sel.model, s: 1 });
+            if (sel.years) parts.push({ v: sel.years, s: 2 });
+            if (sel.qualifier) parts.push({ v: sel.qualifier, s: 3 });
+
+            document.getElementById('mce-sel-crumb').innerHTML = parts.map((p, i) => `
+                <span class="mce-crumb-piece">
+                    <span class="mce-crumb-val" onclick="mceGoStep(${p.s})">${p.v}</span>
+                    ${i < parts.length - 1 ? '<span class="mce-crumb-sep">›</span>' : ''}
+                </span>`
+            ).join('');
+        }
+
+        function goStep(step) {
+            currentStep = step;
+            renderTabs();
+            renderCrumb();
+
+            const el = document.getElementById('mce-sel-content');
+            el.classList.remove('mce-sel-anim');
+            void el.offsetWidth;
+            el.classList.add('mce-sel-anim');
+            el.innerHTML = '';
+
+            if (step === 0) renderMakeStep();
+            else if (step === 1) renderModelStep();
+            else if (step === 2) renderYearsStep();
+            else if (step === 3) renderQualifierStep();
+            else renderResults();
+        }
+
+        function renderMakeStep() {
+            const makes = [...new Set(parsed.map(e => e.make))].sort();
+            renderOptions("Select your vehicle make", makes, v => { sel.make = v; goStep(1); });
+        }
+
+        function renderModelStep() {
+            const models = [...new Set(
+                parsed.filter(e => e.make === sel.make).map(e => e.model)
+            )].sort();
+            renderOptions("Select your model", models, v => { sel.model = v; goStep(2); });
+        }
+
+        function renderYearsStep() {
+            const years = [...new Set(
+                parsed.filter(e => e.make === sel.make && e.model === sel.model).map(e => e.years)
+            )].sort();
+            renderOptions("Select your year range", years, v => {
+                sel.years = v;
+                qualifierNeeded = parsed.some(e =>
+                    e.make === sel.make && e.model === sel.model &&
+                    e.years === sel.years && e.qualifier !== null
+                );
+                goStep(qualifierNeeded ? 3 : 4);
+            });
+        }
+
+        function renderQualifierStep() {
+            const qualifiers = [...new Set(
+                parsed.filter(e =>
+                    e.make === sel.make && e.model === sel.model &&
+                    e.years === sel.years && e.qualifier !== null
+                ).map(e => e.qualifier)
+            )].sort();
+            renderOptions("Select your variant", qualifiers, v => {
+                sel.qualifier = v;
+                goStep(4);
+            });
+        }
+
+        function renderResults() {
+            const el = document.getElementById('mce-sel-content');
+
+            const matching = parsed.filter(e =>
+                e.make === sel.make &&
+                e.model === sel.model &&
+                e.years === sel.years &&
+                (qualifierNeeded ? e.qualifier === sel.qualifier : true)
+            );
+
+            const seen = new Set();
+            const products = [];
+            matching.forEach(entry => {
+                entry.products.forEach(p => {
+                    if (!seen.has(p.sku)) {
+                        seen.add(p.sku);
+                        products.push({ ...p, note: entry.note });
+                    }
+                });
+            });
+
+            if (!products.length) {
+                el.innerHTML = `<div class="mce-sel-empty">
+                    <p>No matching products found.<br>
+                    Please <a href="/contactus">contact us</a> and we'll help you find the right kit.</p>
+                </div>`;
+                return;
+            }
+
+            el.innerHTML = `
+                <div class="mce-sel-results-label">
+                    ${products.length === 1 ? '1 compatible product' : products.length + ' compatible products'}
+                </div>
+                ${products.map(p => `
+                    <a class="mce-sel-card" href="${p.productUrl}">
+                        <div class="mce-sel-card-body">
+                            <div class="mce-sel-card-sku">${p.sku}</div>
+                            <div class="mce-sel-card-name">${p.name}</div>
+                            ${p.note ? `<div class="mce-sel-card-note">${p.note}</div>` : ''}
+                        </div>
+                        <div class="mce-sel-card-arrow">&#8594;</div>
+                    </a>
+                `).join('')}`;
+        }
+
+        function renderOptions(labelText, options, onSelect) {
+            const el = document.getElementById('mce-sel-content');
+            el.innerHTML = `
+                <div class="mce-sel-label">${labelText}</div>
+                <div class="mce-sel-options">
+                    ${options.map(opt => `
+                        <button class="mce-sel-btn"
+                                onclick="mcePickOption(this, '${esc(opt)}')"
+                                aria-pressed="false">${opt}</button>
+                    `).join('')}
+                </div>`;
+            el._onSelect = onSelect;
+        }
+
+        window.mcePickOption = function (btn, value) {
+            const el = document.getElementById('mce-sel-content');
+            el.querySelectorAll('.mce-sel-btn').forEach(b => {
+                b.classList.remove('is-selected');
+                b.setAttribute('aria-pressed', 'false');
+            });
+            btn.classList.add('is-selected');
+            btn.setAttribute('aria-pressed', 'true');
+            setTimeout(() => { if (el._onSelect) el._onSelect(value); }, 180);
+        };
+
+        function esc(s) {
+            return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+    })();
+</script>
