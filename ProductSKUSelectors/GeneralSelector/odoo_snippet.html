@@ -329,14 +329,21 @@
         color: #333;
     }
 
-    /* Breadcrumb */
+    /* Breadcrumb row */
+    .mce-sel-crumb-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 24px;
+        margin-bottom: 30px;
+        gap: 16px;
+    }
+
     .mce-sel-crumb {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         gap: 6px;
-        min-height: 24px;
-        margin-bottom: 30px;
     }
 
     .mce-crumb-piece {
@@ -362,10 +369,29 @@
         border-bottom-color: var(--mce-sepia-tan);
     }
 
-    .mce-crumb-sep {
-        color: #ccc;
-        font-size: 0.75rem;
+    .mce-sel-restart {
+        flex-shrink: 0;
+        background: none;
+        border: 1px solid #ccc;
+        color: #888;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        outline: none;
+        -webkit-appearance: none;
     }
+
+    .mce-sel-restart:hover {
+        border-color: var(--mce-dark-red);
+        color: var(--mce-dark-red);
+    }
+
+
 
     /* Step label */
     .mce-sel-label {
@@ -576,7 +602,12 @@
 
         <div class="mce-sel-steps" id="mce-sel-steps" role="tablist"></div>
 
-        <div class="mce-sel-crumb" id="mce-sel-crumb" aria-label="Current selection"></div>
+        <div class="mce-sel-crumb-row">
+            <div class="mce-sel-crumb" id="mce-sel-crumb" aria-label="Current selection"></div>
+            <button class="mce-sel-restart" id="mce-sel-restart" onclick="mceGoStep(0)" style="display:none;">
+                Start Over
+            </button>
+        </div>
 
         <div id="mce-sel-content"></div>
 
@@ -648,6 +679,9 @@
                     ${i < parts.length - 1 ? '<span class="mce-crumb-sep">›</span>' : ''}
                 </span>`
             ).join('');
+
+            document.getElementById('mce-sel-restart').style.display =
+                currentStep > 0 ? 'block' : 'none';
         }
 
         function goStep(step) {
