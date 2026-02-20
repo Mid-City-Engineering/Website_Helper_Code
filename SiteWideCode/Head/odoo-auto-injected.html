@@ -43,6 +43,13 @@
                         return;
                     }
 
+                    // Handle #top as a special case
+                    if (targetId === '#top') {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        return;
+                    }
+
                     if (targetElement) {
                         e.preventDefault();
 
