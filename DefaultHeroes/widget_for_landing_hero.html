@@ -1,10 +1,11 @@
 <script>
     // change from null to actual string for replacement
-    productName = null; 
+    productName = null;
     backgroundVideoLink = null;
     videoObjectPosition = null;
     videoObjectPositionMobile = null;
     videoObjectPositionTablet = null;
+    headerBackground = null;
 </script>
 
 <style>
@@ -82,8 +83,8 @@
                     video.src = backgroundVideoLink;
                     video.parentElement.load(); // reload video with new source
                 }
-                
-                // Set video focus point
+
+                // Code to override video focus point
                 const heroVideo = container.querySelector('.hero-video');
                 if (heroVideo && videoObjectPosition != null) {
                     function applyVideoPosition() {
@@ -97,6 +98,12 @@
                     }
                     applyVideoPosition();
                     window.addEventListener('resize', applyVideoPosition);
+                }
+
+                // Code to override hero-header background
+                const heroHeader = container.querySelector('.hero-header');
+                if (heroHeader && headerBackground != null) {
+                    heroHeader.style.background = headerBackground;
                 }
 
                 // Execute scripts (they won't run via innerHTML/adoptNode)
