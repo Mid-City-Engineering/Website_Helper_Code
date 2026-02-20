@@ -1,5 +1,4 @@
 <!-- Google Tag Manager -->
-
 <script>(function (w, d, s, l, i) {
         w[l] = w[l] || []; w[l].push({
             'gtm.start':
@@ -8,10 +7,35 @@
             j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-NRV5LH9Z');</script>
-
 <!-- End Google Tag Manager -->
 
-<!-- Script to set up smooth scrolling-->
+<!-- When navigating to ids in another page, scroll to top before jumping to hash anchor -->
+<script>
+    (function () {
+        if (window.location.hash) {
+            var targetId = window.location.hash.substring(1);
+
+            // Temporarily remove the id so the browser can't auto-scroll to it
+            document.addEventListener('DOMContentLoaded', function () {
+                var target = document.getElementById(targetId);
+                if (target) {
+                    var originalId = target.id;
+                    target.id = '__temp_disabled__';
+
+                    window.scrollTo(0, 0);
+
+                    setTimeout(function () {
+                        target.id = originalId;
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 300);
+                }
+            });
+        }
+    })();
+</script>
+<!-- End of script for starting at top upon page change -->
+
+<!-- Script to set up smooth scrolling for on-page anchor clicks -->
 <script>
     (function () {
         function initSmoothScroll() {
@@ -80,3 +104,4 @@
         }
     })();
 </script>
+<!-- End smooth scrolling script -->
