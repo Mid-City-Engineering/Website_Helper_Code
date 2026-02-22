@@ -39,58 +39,35 @@
 <script>
     (function () {
         function initSmoothScroll() {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            document.querySelectorAll('a[href*="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    const targetId = this.getAttribute('href');
+                    const href = this.getAttribute('href');
+                    const [path, hash] = href.split('#');
 
-                    // Skip if it's just "#" or empty
-                    if (!targetId || targetId === '#') return;
-
-                    // ADDED: Skip if it's a full URL (contains ://)
-                    if (targetId.includes('://')) {
-                        console.log('[Smooth Scroll] Skipping full URL:', targetId);
-                        return;
-                    }
-
-                    // ADDED: Validate it's a proper hash selector
-                    if (!targetId.startsWith('#')) {
-                        console.log('[Smooth Scroll] Skipping non-hash link:', targetId);
-                        return;
-                    }
-
-                    // ADDED: Try-catch around querySelector in case of invalid selector
-                    let targetElement;
-                    try {
-                        targetElement = document.querySelector(targetId);
-                    } catch (error) {
-                        console.log('[Smooth Scroll] Invalid selector:', targetId, error);
-                        return;
-                    }
-
-                    // Handle #top as a special case
-                    if (targetId === '#top') {
-                        e.preventDefault();
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                        return;
-                    }
-
-                    if (targetElement) {
-                        e.preventDefault();
-
-                        // Close hamburger menu if open
-                        const drawer = document.getElementById('hamburgerDrawer');
-                        const hamburger = document.querySelector('.hamburger');
-                        if (drawer && drawer.classList.contains('active')) {
-                            if (hamburger) { hamburger.classList.remove('active'); }
-                            drawer.classList.remove('active');
+                    if (!hash || hash === 'top') {
+                        if (hash === 'top') {
+                            e.preventDefault();
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
                         }
-
-                        // Smooth scroll to target
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+                        return;
                     }
+
+                    const isSamePage = !path || path === window.location.pathname;
+                    if (!isSamePage) return;
+
+                    const targetElement = document.getElementById(hash);
+                    if (!targetElement) return;
+
+                    e.preventDefault();
+
+                    const drawer = document.getElementById('hamburgerDrawer');
+                    const hamburger = document.querySelector('.hamburger');
+                    if (drawer && drawer.classList.contains('active')) {
+                        if (hamburger) hamburger.classList.remove('active');
+                        drawer.classList.remove('active');
+                    }
+
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
             });
         }
