@@ -6,7 +6,7 @@
     // UI copy — override per page if desired
     const SELECTOR_CONFIG = {
         heading: "Find Your SmartKey Starter",
-        subheading: "Select your vehicle below to find the right product.",
+        subheading: "Select your vehicle below to find the right product. Need help? <a href='/contactus'>Contact us</a> or <a href='/support'>visit our Support Center</a>.",
     };
 
     const EXCLUSIVE_CAR_FOR_SELECTOR = { make: 'Mercedes-Benz', model: 'Sprinter' };
@@ -275,6 +275,10 @@
         font-weight: 300;
         color: #777;
         letter-spacing: 0.02em;
+    }
+
+    .mce-sel-header a {
+        color: var(--mce-dark-red);
     }
 
     /* Step tabs */
@@ -629,7 +633,7 @@
 
         // Apply config copy
         document.getElementById('mce-sel-heading').textContent = SELECTOR_CONFIG.heading;
-        document.getElementById('mce-sel-subheading').textContent = SELECTOR_CONFIG.subheading;
+        document.getElementById('mce-sel-subheading').innerHTML = SELECTOR_CONFIG.subheading;
 
         const STEP_NAMES = ["Make", "Model", "Year", "Variant"];
 
