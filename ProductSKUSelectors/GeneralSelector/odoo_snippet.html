@@ -683,8 +683,13 @@
 
         window.mceGoStep = function (step) {
             if (step >= currentStep) return;
-            if (step <= 0) EXCLUSIVE_CAR_FOR_SELECTOR != null ? sel.make = EXCLUSIVE_CAR_FOR_SELECTOR.make : sel.make = null;
-            if (step <= 1) EXCLUSIVE_CAR_FOR_SELECTOR != null ? sel.make = EXCLUSIVE_CAR_FOR_SELECTOR.model : sel.make = null;
+            if (EXCLUSIVE_CAR_FOR_SELECTOR != null) {
+                if (step <= 0) sel.make = EXCLUSIVE_CAR_FOR_SELECTOR.make;
+                if (step <= 1) sel.model = EXCLUSIVE_CAR_FOR_SELECTOR.model;
+            } else {
+                if (step <= 0) sel.make = null;
+                if (step <= 1) sel.model = null;
+            }
             if (step <= 2) { sel.years = null; qualifierNeeded = false; }
             if (step <= 3) sel.qualifier = null;
             goStep(step);
@@ -695,18 +700,20 @@
             const parts = [];
             if (EXCLUSIVE_CAR_FOR_SELECTOR != null) {
                 parts.push({ v: EXCLUSIVE_CAR_FOR_SELECTOR.model, s: null });
+                if (sel.years) parts.push({ v: sel.years, s: 2 });
+                if (sel.qualifier) parts.push({ v: sel.qualifier, s: 3 });
             } else {
                 if (sel.make) parts.push({ v: sel.make, s: 0 });
                 if (sel.model) parts.push({ v: sel.model, s: 1 });
+                if (sel.years) parts.push({ v: sel.years, s: 2 });
+                if (sel.qualifier) parts.push({ v: sel.qualifier, s: 3 });
             }
-            if (sel.years) parts.push({ v: sel.years, s: 2 });
-            if (sel.qualifier) parts.push({ v: sel.qualifier, s: 3 });
 
             document.getElementById('mce-sel-crumb').innerHTML = parts.map((p, i) => `
-        <span class="mce-crumb-piece">
-            <span class="mce-crumb-val" ${p.s === null ? '' : `onclick="mceGoStep(${p.s})"`}>${p.v}</span>
-            ${i < parts.length - 1 ? '<span class="mce-crumb-sep">›</span>' : ''}
-        </span>`
+    <span class="mce-crumb-piece">
+      <span class="mce-crumb-val" ${p.s === null ? '' : `onclick="mceGoStep(${p.s})"`}>${p.v}</span>
+      ${i < parts.length - 1 ? '<span class="mce-crumb-sep">›</span>' : ''}
+    </span>`
             ).join('');
 
             document.getElementById('mce-sel-restart').style.display =
@@ -735,9 +742,14 @@
             if (EXCLUSIVE_CAR_FOR_SELECTOR != null) {
                 mceGoStep(2);
             } else {
-                mceGoStep(0);
+                sel.make = null;
+                sel.model = null;
+                sel.years = null;
+                sel.qualifier = null;
+                goStep(0);
             }
         };
+
 
         function renderMakeStep() {
             const makes = [...new Set(parsed.map(e => e.make))].sort();
