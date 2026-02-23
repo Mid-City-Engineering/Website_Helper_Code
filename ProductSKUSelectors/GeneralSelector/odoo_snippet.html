@@ -9,6 +9,7 @@
         subheading: "Select your vehicle below to find the right product.",
     };
 
+    const EXCLUSIVE_CAR_FOR_SELECTOR = { make: 'Mercedes-Benz', model: 'Sprinter' };
     const DEFAULT_MAKE = "Mercedes-Benz";
 
     // Parenthetical text that should be kept as a qualifier (shown as a selector step)
@@ -60,6 +61,11 @@
     function getSelectorData() {
         if (typeof OdooProductData === 'undefined' || OdooProductData === null) {
             return null;
+        } else if (EXCLUSIVE_CAR_FOR_SELECTOR) {
+            return OdooProductData.filter(item =>
+                item.x_studio_compatibility_list &&
+                item.x_studio_compatibility_list.toLowerCase().includes(EXCLUSIVE_CAR_FOR_SELECTOR.model.toLowerCase())
+            );
         } else {
             return OdooProductData;
         }
@@ -604,7 +610,7 @@
 
         <div class="mce-sel-crumb-row">
             <div class="mce-sel-crumb" id="mce-sel-crumb" aria-label="Current selection"></div>
-            <button class="mce-sel-restart" id="mce-sel-restart" onclick="mceGoStep(0)" style="display:none;">
+            <button class="mce-sel-restart" id="mce-sel-restart" onclick="mceRestartSelector()" style="display:none;">
                 Start Over
             </button>
         </div>
@@ -640,48 +646,67 @@
                 return;
             }
             parsed = parseSelectorData(data);
-            goStep(0);
+            if (EXCLUSIVE_CAR_FOR_SELECTOR) {
+                sel.make = EXCLUSIVE_CAR_FOR_SELECTOR.make;
+                sel.model = EXCLUSIVE_CAR_FOR_SELECTOR.model;
+                qualifierNeeded = parsed.some(e =>
+                    e.make === sel.make && e.model === sel.model && e.qualifier !== null
+                );
+                goStep(2);
+            } else {
+                goStep(0);
+            }
         }
 
         function renderTabs() {
-            const totalSteps = qualifierNeeded ? 4 : 3;
+            const totalSteps = EXCLUSIVE_CAR_FOR_SELECTOR != null
+                ? (qualifierNeeded ? 2 : 1)
+                : (qualifierNeeded ? 4 : 3);
+
             document.getElementById('mce-sel-steps').innerHTML =
                 Array.from({ length: totalSteps }, (_, i) => {
+                    let stepIndex = EXCLUSIVE_CAR_FOR_SELECTOR != null ? i + 2 : i;
                     let cls = 'mce-sel-tab';
-                    if (i === currentStep) cls += ' is-active';
-                    else if (i < currentStep) cls += ' is-done';
-                    return `<div class="${cls}" role="tab" onclick="mceGoStep(${i})">
-                        <span class="mce-sel-tab-num">STEP ${i + 1}</span>
-                        ${STEP_NAMES[i]}
-                    </div>`;
+                    if (stepIndex === currentStep) cls += ' is-active';
+                    else if (stepIndex < currentStep) cls += ' is-done';
+                    return `<div class="${cls}" role="tab" onclick="mceGoStep(${stepIndex})">
+                <span class="mce-sel-tab-num">STEP ${i + 1}</span>
+                ${STEP_NAMES[stepIndex]}
+            </div>`;
                 }).join('');
         }
 
+
         window.mceGoStep = function (step) {
             if (step >= currentStep) return;
-            if (step <= 0) sel.make = null;
-            if (step <= 1) sel.model = null;
+            if (step <= 0) EXCLUSIVE_CAR_FOR_SELECTOR != null ? sel.make = EXCLUSIVE_CAR_FOR_SELECTOR.make : sel.make = null;
+            if (step <= 1) EXCLUSIVE_CAR_FOR_SELECTOR != null ? sel.make = EXCLUSIVE_CAR_FOR_SELECTOR.model : sel.make = null;
             if (step <= 2) { sel.years = null; qualifierNeeded = false; }
             if (step <= 3) sel.qualifier = null;
             goStep(step);
         };
 
+
         function renderCrumb() {
             const parts = [];
-            if (sel.make) parts.push({ v: sel.make, s: 0 });
-            if (sel.model) parts.push({ v: sel.model, s: 1 });
+            if (EXCLUSIVE_CAR_FOR_SELECTOR != null) {
+                parts.push({ v: EXCLUSIVE_CAR_FOR_SELECTOR.model, s: null });
+            } else {
+                if (sel.make) parts.push({ v: sel.make, s: 0 });
+                if (sel.model) parts.push({ v: sel.model, s: 1 });
+            }
             if (sel.years) parts.push({ v: sel.years, s: 2 });
             if (sel.qualifier) parts.push({ v: sel.qualifier, s: 3 });
 
             document.getElementById('mce-sel-crumb').innerHTML = parts.map((p, i) => `
-                <span class="mce-crumb-piece">
-                    <span class="mce-crumb-val" onclick="mceGoStep(${p.s})">${p.v}</span>
-                    ${i < parts.length - 1 ? '<span class="mce-crumb-sep">›</span>' : ''}
-                </span>`
+        <span class="mce-crumb-piece">
+            <span class="mce-crumb-val" ${p.s === null ? '' : `onclick="mceGoStep(${p.s})"`}>${p.v}</span>
+            ${i < parts.length - 1 ? '<span class="mce-crumb-sep">›</span>' : ''}
+        </span>`
             ).join('');
 
             document.getElementById('mce-sel-restart').style.display =
-                currentStep > 0 ? 'block' : 'none';
+                currentStep > (EXCLUSIVE_CAR_FOR_SELECTOR != null ? 2 : 0) ? 'block' : 'none';
         }
 
         function goStep(step) {
@@ -701,6 +726,14 @@
             else if (step === 3) renderQualifierStep();
             else renderResults();
         }
+
+        window.mceRestartSelector = function () {
+            if (EXCLUSIVE_CAR_FOR_SELECTOR != null) {
+                mceGoStep(2);
+            } else {
+                mceGoStep(0);
+            }
+        };
 
         function renderMakeStep() {
             const makes = [...new Set(parsed.map(e => e.make))].sort();
