@@ -7,6 +7,7 @@
     /* Default - desktop */
     :root {
         --hero-overall-height: 80vh;
+        --header-logo-nav-gap: 1.5rem;
         --mce-dark-red: #810305;
         --mce-sepia-tan: #D4AF85;
     }
@@ -223,16 +224,25 @@
 
     .hero-nav {
         display: flex;
-        gap: 3rem;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 1;
+        min-width: 0;
+        flex-wrap: nowrap;
+        /* explicit — no wrapping ever */
+        overflow: hidden;
+        /* safety net so it never bleeds */
+        margin-left: var(--header-logo-nav-gap);
     }
 
     .hero-nav a {
         color: white;
         text-decoration: none;
-        font-size: 1rem;
         font-weight: 300;
         letter-spacing: 0.05em;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease, font-size 0.15s ease;
+        white-space: nowrap;
+        padding: 0 0.75rem;
     }
 
     .hero-nav a:hover {
@@ -533,22 +543,12 @@
                     <h2 class="mce-name">MID CITY ENGINEERING</h2>
                 </a>
             </div>
-            <nav class="hero-nav"><a href="/#products">Products</a><a href="/dealer-locator">Dealer Locator</a><a
-                    href="/become-dealer/">Become a Dealer</a><a href="/installation-manuals">Installation
-                    Manuals</a><a href="/support">Support</a><a href="/contactus">Contact</a>
-            </nav>
+            <nav class="hero-nav"></nav>
             <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
         </header>
 
         <!-- Hamburger Icon (for tablet/mobile) -->
-        <div class="hamburger-drawer" id="hamburgerDrawer">
-            <a href="/#products" onclick="toggleMenu()">Products</a>
-            <a href="/dealer-locator" onclick="toggleMenu()">Dealer Locator</a>
-            <a href="/become-dealer/" onclick="toggleMenu()">Become a Dealer</a>
-            <a href="/installation-manuals" onclick="toggleMenu()">Installation Manuals</a>
-            <a href="/support" onclick="toggleMenu()">Support</a>
-            <a href="/contactus" onclick="toggleMenu()">Contact</a>
-        </div>
+        <div class="hamburger-drawer" id="hamburgerDrawer"></div>
 
         <!-- Actual content -->
         <div class="hero-content">
@@ -573,6 +573,104 @@
 </div>
 
 <script>
+
+    // Function to populate header's hero-nav and handle responsive behavior
+    (function () {
+        // ─── CONFIG ──────────────────────────────────────────────────────────────
+        const NAV_ITEMS = [
+            { label: 'About Us', href: '/about-us' },
+            { label: 'Products', href: '/#products' },
+            { label: 'Dealer Locator', href: '/dealer-locator' },
+            { label: 'Become a Dealer', href: '/become-dealer/' },
+            { label: 'Installation Manuals', href: '/installation-manuals' },
+            { label: 'Support', href: '/support' },
+            { label: 'Contact', href: '/contactus' },
+        ];
+
+        const MIN_FONT_REM = 0.90;   // below this → hamburger
+        const MAX_FONT_REM = 1.15;   // cap on large screens
+        const ITEM_PAD_REM = 0.75;   // horizontal padding each side per item
+
+        // ─── ELEMENT REFS ────────────────────────────────────────────────────────
+        const header = document.querySelector('.hero-header');
+        const logo = document.querySelector('.hero-logo');
+        const nav = document.querySelector('.hero-nav');
+        const hamburger = document.querySelector('.hamburger');
+        const drawer = document.getElementById('hamburgerDrawer');
+
+        if (!header || !logo || !nav || !hamburger || !drawer) return;
+
+        // ─── POPULATE NAV + DRAWER ───────────────────────────────────────────────
+        nav.innerHTML = NAV_ITEMS
+            .map(item => `<a href="${item.href}">${item.label}</a>`)
+            .join('');
+
+        drawer.innerHTML = NAV_ITEMS
+            .map(item => `<a href="${item.href}" onclick="toggleMenu()">${item.label}</a>`)
+            .join('');
+
+        // ─── MEASURE TEXT WIDTHS AT 1rem (after fonts ready) ─────────────────────
+        let textWidthsAt1rem = [];
+
+        function measureNavItems() {
+            const remPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
+
+            const clone = nav.cloneNode(true);
+            Object.assign(clone.style, {
+                position: 'absolute',
+                visibility: 'hidden',
+                fontSize: '1rem',
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                pointerEvents: 'none',
+            });
+            clone.querySelectorAll('a').forEach(a => a.style.padding = '0');
+            document.body.appendChild(clone);
+            textWidthsAt1rem = Array.from(clone.querySelectorAll('a'))
+                .map(a => a.getBoundingClientRect().width);
+            document.body.removeChild(clone);
+
+            return remPx;
+        }
+
+        // ─── LAYOUT UPDATE ───────────────────────────────────────────────────────
+        function update(remPx) {
+            const headerRect = header.getBoundingClientRect();
+            const logoRect = logo.getBoundingClientRect();
+            const headerStyle = getComputedStyle(header);
+            const headerPad = parseFloat(headerStyle.paddingLeft)
+                + parseFloat(headerStyle.paddingRight);
+
+            // Inside update() or at measure time:
+            const navGapPx = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-logo-nav-gap')) * remPx;
+            const available = headerRect.width - headerPad - logoRect.width - navGapPx - 32;
+            const totalTextAt1rem = textWidthsAt1rem.reduce((s, w) => s + w, 0);
+            const totalPaddingAt1rem = ITEM_PAD_REM * 2 * remPx * NAV_ITEMS.length;
+            const totalAt1rem = totalTextAt1rem + totalPaddingAt1rem;
+
+            const candidateFontRem = Math.min(available / totalAt1rem, MAX_FONT_REM);
+
+            if (candidateFontRem < MIN_FONT_REM) {
+                nav.style.display = 'none';
+                hamburger.style.display = 'flex';
+            } else {
+                nav.style.display = 'flex';
+                hamburger.style.display = 'none';
+                nav.style.fontSize = candidateFontRem + 'rem';
+            }
+        }
+
+        // ─── BOOT: wait for fonts, then measure + observe ────────────────────────
+        document.fonts.ready.then(() => {
+            const remPx = measureNavItems();
+            update(remPx);
+
+            const ro = new ResizeObserver(() => update(remPx));
+            ro.observe(header);
+        });
+
+    })();
+
     // To open hamburger menu
     function toggleMenu() {
         const hamburger = document.querySelector('.hamburger');
