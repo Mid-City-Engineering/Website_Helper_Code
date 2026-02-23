@@ -1,0 +1,288 @@
+<style>
+    /* ==========================================
+       MILESTONES SECTION
+       ========================================== */
+    .milestones-section {
+        background: #ffffff;
+        padding: 100px 5%;
+        position: relative;
+    }
+
+    .milestones-header {
+        max-width: 600px;
+        margin-bottom: 80px;
+    }
+
+    .milestones-label {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 0.85rem;
+        color: var(--mce-sepia-tan);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .milestones-header h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
+        color: var(--mce-dark-red);
+        line-height: 1.4;
+    }
+
+    .milestones-header h2 .tan-text {
+        color: var(--mce-sepia-tan);
+    }
+
+    /* Timeline layout */
+    .timeline {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        padding-left: 60px;
+    }
+
+    /* Vertical line */
+    .timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 20px;
+        width: 2px;
+        height: 0;
+        background: linear-gradient(180deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: height 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .milestones-section.visible .timeline::before {
+        height: 100%;
+    }
+
+    .timeline-item {
+        position: relative;
+        margin-bottom: 60px;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .timeline-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .milestones-section.visible .timeline-item:nth-child(1) {
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: 0.2s;
+    }
+
+    .milestones-section.visible .timeline-item:nth-child(2) {
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: 0.35s;
+    }
+
+    .milestones-section.visible .timeline-item:nth-child(3) {
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: 0.5s;
+    }
+
+    .milestones-section.visible .timeline-item:nth-child(4) {
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: 0.65s;
+    }
+
+    .milestones-section.visible .timeline-item:nth-child(5) {
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: 0.8s;
+    }
+
+    .milestones-section.visible .timeline-item:nth-child(6) {
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: 0.95s;
+    }
+
+    /* Dot on timeline */
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -49px;
+        top: 8px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--mce-dark-red);
+        border: 3px solid #ffffff;
+        box-shadow: 0 0 0 2px var(--mce-dark-red);
+        z-index: 1;
+    }
+
+    .timeline-year {
+        font-family: 'Michroma', sans-serif;
+        font-size: 1.1rem;
+        color: var(--mce-sepia-tan);
+        margin-bottom: 8px;
+        letter-spacing: 0.05em;
+    }
+
+    .timeline-title {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .timeline-desc {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1rem;
+        color: #666666;
+        line-height: 1.7;
+        max-width: 600px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .milestones-section {
+            padding: 80px 5%;
+        }
+
+        .milestones-header {
+            margin-bottom: 50px;
+        }
+
+        .timeline {
+            padding-left: 45px;
+        }
+
+        .timeline::before {
+            left: 12px;
+        }
+
+        .timeline-item::before {
+            left: -41px;
+            width: 12px;
+            height: 12px;
+        }
+
+        .timeline-item {
+            margin-bottom: 45px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .milestones-section {
+            padding: 60px 5%;
+        }
+
+        .timeline {
+            padding-left: 35px;
+        }
+
+        .timeline::before {
+            left: 8px;
+        }
+
+        .timeline-item::before {
+            left: -32px;
+            width: 10px;
+            height: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.1rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.95rem;
+        }
+    }
+</style>
+
+<div class="milestones-section" id="milestones">
+    <div class="milestones-header">
+        <span class="milestones-label">Our Journey</span>
+        <h2>Key <span class="tan-text">Milestones</span></h2>
+    </div>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-year">2000</div>
+            <div class="timeline-title">Founded in Chicago</div>
+            <div class="timeline-desc">
+                Mid City Engineering opens its doors on Chicago's West Side, beginning with custom
+                automotive electronics for luxury vehicle owners.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2004</div>
+            <div class="timeline-title">SmartKey Starter Launch</div>
+            <div class="timeline-desc">
+                Introduction of the first plug-and-play remote start for Mercedes-Benz — a product
+                that would define the company and set the standard for OEM integration.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2010</div>
+            <div class="timeline-title">Escort Radar Cluster Integration</div>
+            <div class="timeline-desc">
+                Pioneering the world's first seamless radar-to-instrument-cluster interface, displaying
+                alerts through factory screens with zero visible components.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2015</div>
+            <div class="timeline-title">Sprinter Fleet Solutions</div>
+            <div class="timeline-desc">
+                Expansion into the commercial vehicle market with a full suite of Sprinter products,
+                serving fleet operators, RV builders, and commercial customers.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">2018</div>
+            <div class="timeline-title">Global Expansion</div>
+            <div class="timeline-desc">
+                Products and partnerships now span North America, India, and China — with factory-trained
+                dealer networks providing expert installation worldwide.
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-year">Today</div>
+            <div class="timeline-title">Continuing Innovation</div>
+            <div class="timeline-desc">
+                From motorized license plates to 360° camera systems and alarm integration kits,
+                MCE continues to expand its product line while staying true to its founding
+                principle: the best, made better.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const section = document.querySelector('.milestones-section');
+        if (!section) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        observer.observe(section);
+    })();
+</script>

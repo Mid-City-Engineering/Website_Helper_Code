@@ -1,0 +1,259 @@
+<style>
+    /* ==========================================
+       PHILOSOPHY SECTION
+       ========================================== */
+    .philosophy-section {
+        background: #f8f8f8;
+        padding: 100px 5%;
+        position: relative;
+    }
+
+    .philosophy-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan), transparent);
+    }
+
+    .philosophy-header {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 80px;
+    }
+
+    .philosophy-label {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 0.85rem;
+        color: var(--mce-sepia-tan);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .philosophy-header h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
+        color: var(--mce-dark-red);
+        line-height: 1.4;
+        letter-spacing: 0.02em;
+    }
+
+    .philosophy-header h2 .tan-text {
+        color: var(--mce-sepia-tan);
+    }
+
+    /* Three-column pillars */
+    .philosophy-grid {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+    }
+
+    .philosophy-pillar {
+        padding: 50px 45px;
+        position: relative;
+        border-right: 1px solid #e0e0e0;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .philosophy-pillar:last-child {
+        border-right: none;
+    }
+
+    .philosophy-section.visible .philosophy-pillar:nth-child(1) {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.1s;
+    }
+
+    .philosophy-section.visible .philosophy-pillar:nth-child(2) {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.25s;
+    }
+
+    .philosophy-section.visible .philosophy-pillar:nth-child(3) {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.4s;
+    }
+
+    .pillar-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 30px;
+        color: var(--mce-dark-red);
+    }
+
+    .pillar-icon svg {
+        width: 100%;
+        height: 100%;
+        stroke: var(--mce-dark-red);
+        fill: none;
+        stroke-width: 1.5;
+    }
+
+    .philosophy-pillar h3 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1.35rem;
+        color: #1a1a1a;
+        margin-bottom: 18px;
+        line-height: 1.4;
+    }
+
+    .philosophy-pillar p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1.05rem;
+        color: #555555;
+        line-height: 1.8;
+    }
+
+    .pillar-accent {
+        width: 40px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        margin-bottom: 30px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .philosophy-grid {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        .philosophy-pillar {
+            border-right: none;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 45px 40px;
+        }
+
+        .philosophy-pillar:last-child {
+            border-bottom: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .philosophy-section {
+            padding: 80px 5%;
+        }
+
+        .philosophy-header {
+            margin-bottom: 50px;
+        }
+
+        .philosophy-pillar {
+            padding: 35px 20px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .philosophy-section {
+            padding: 60px 5%;
+        }
+
+        .philosophy-pillar h3 {
+            font-size: 1.2rem;
+        }
+
+        .philosophy-pillar p {
+            font-size: 0.95rem;
+        }
+    }
+</style>
+
+<div class="philosophy-section" id="philosophy">
+    <div class="philosophy-header">
+        <span class="philosophy-label">What Sets Us Apart</span>
+        <h2>The <span class="tan-text">MCE</span> Difference</h2>
+    </div>
+
+    <div class="philosophy-grid">
+        <!-- Pillar 1: OEM Integration -->
+        <div class="philosophy-pillar">
+            <div class="pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <path d="m9 12 2 2 4-4" />
+                </svg>
+            </div>
+            <div class="pillar-accent"></div>
+            <h3>True OEM Integration</h3>
+            <p>
+                Our products don't sit on top of your vehicle's systems — they integrate within them.
+                No cut wires, no visible modules, no voided warranties. The installation is so seamless,
+                it could be mistaken for factory. That's the standard we hold ourselves to on every product we make.
+            </p>
+        </div>
+
+        <!-- Pillar 2: In-House Everything -->
+        <div class="philosophy-pillar">
+            <div class="pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
+                    <path d="M17 18h1" />
+                    <path d="M12 18h1" />
+                    <path d="M7 18h1" />
+                </svg>
+            </div>
+            <div class="pillar-accent"></div>
+            <h3>Designed & Built In-House</h3>
+            <p>
+                From initial concept to final quality check, everything happens under one roof at our
+                Chicago headquarters. We design the circuits, write the firmware, engineer the housings,
+                and test every single unit before it ships. Complete vertical control means complete quality control.
+            </p>
+        </div>
+
+        <!-- Pillar 3: Customer Commitment -->
+        <div class="philosophy-pillar">
+            <div class="pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+            </div>
+            <div class="pillar-accent"></div>
+            <h3>Dealer & Customer First</h3>
+            <p>
+                We built our reputation on relationships, not just products. Our factory-trained
+                dealer network ensures expert installation, and our direct support team stands behind
+                every unit we sell. When you work with MCE, you're working with the people who designed
+                and built your product.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const section = document.querySelector('.philosophy-section');
+        if (!section) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(section);
+    })();
+</script>

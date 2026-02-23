@@ -1,0 +1,292 @@
+<style>
+    /* ==========================================
+       ORIGIN STORY SECTION
+       ========================================== */
+    .origin-section {
+        background: #ffffff;
+        padding: 10% 5% 7%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .origin-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: left 1.5s ease-out;
+    }
+
+    .origin-section.visible::before {
+        left: 0;
+    }
+
+    .origin-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        gap: 80px;
+        align-items: flex-start;
+    }
+
+    /* Left editorial column */
+    .origin-text {
+        flex: 1.2;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .origin-section.visible .origin-text {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .origin-label {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 0.85rem;
+        color: var(--mce-sepia-tan);
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .origin-text h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        color: var(--mce-dark-red);
+        margin-bottom: 40px;
+        line-height: 1.3;
+        letter-spacing: 0.02em;
+    }
+
+    .origin-text h2 .tan-text {
+        color: var(--mce-sepia-tan);
+    }
+
+    .origin-text p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.6vw, 1.15rem);
+        color: #444444;
+        line-height: 1.9;
+        margin-bottom: 28px;
+    }
+
+    .origin-text p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .origin-text p strong {
+        font-weight: 600;
+        color: #1a1a1a;
+    }
+
+    /* Right side - Highlight card */
+    .origin-highlight {
+        flex: 0.8;
+        position: sticky;
+        top: 15vh;
+        opacity: 0;
+        transform: translateY(60px);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.3s;
+    }
+
+    .origin-section.visible .origin-highlight {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .highlight-card {
+        background: #1a1a1a;
+        padding: 50px 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .highlight-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 3px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--mce-dark-red), var(--mce-sepia-tan));
+    }
+
+    .highlight-stat {
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.15);
+    }
+
+    .highlight-stat:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .highlight-number {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        color: var(--mce-sepia-tan);
+        line-height: 1;
+        margin-bottom: 10px;
+    }
+
+    .highlight-label {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1rem;
+        color: #999999;
+        line-height: 1.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .origin-container {
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .origin-highlight {
+            position: relative;
+            top: auto;
+            width: 100%;
+        }
+
+        .highlight-card {
+            display: flex;
+            gap: 0;
+            padding: 40px;
+        }
+
+        .highlight-stat {
+            flex: 1;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+            border-right: 1px solid rgba(212, 175, 133, 0.15);
+            padding-right: 30px;
+            margin-right: 30px;
+            text-align: center;
+        }
+
+        .highlight-stat:last-child {
+            border-right: none;
+            padding-right: 0;
+            margin-right: 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .origin-section {
+            padding: 15% 5% 12%;
+        }
+
+        .origin-container {
+            gap: 40px;
+        }
+
+        .highlight-card {
+            flex-direction: column;
+            gap: 0;
+            padding: 35px 30px;
+        }
+
+        .highlight-stat {
+            border-right: none;
+            padding-right: 0;
+            margin-right: 0;
+            border-bottom: 1px solid rgba(212, 175, 133, 0.15);
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .highlight-stat:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .origin-text h2 {
+            font-size: 1.75rem;
+        }
+    }
+</style>
+
+<div class="origin-section" id="origin">
+    <div class="origin-container">
+        <!-- Left: Editorial Story -->
+        <div class="origin-text">
+            <span class="origin-label">Our Beginning</span>
+            <h2>Built in Chicago, <span class="tan-text">Driven by Innovation</span></h2>
+            <p>
+                Mid City Engineering was founded in 2000 with a clear vision: to create automotive
+                electronics that integrate so seamlessly, they could be mistaken for factory-installed.
+                From a small workshop on Chicago's West Side, we set out to solve a problem no one
+                else was addressing — bringing truly premium, OEM-quality accessories to luxury vehicles.
+            </p>
+            <p>
+                Our breakthrough came with the <strong>SmartKey Starter for Mercedes-Benz</strong>,
+                the first plug-and-play remote start solution engineered specifically for luxury vehicles.
+                Unlike aftermarket products that required cutting wires and voiding warranties, our approach
+                preserved the vehicle's factory integrity while adding capabilities the manufacturer never offered.
+            </p>
+            <p>
+                That philosophy — <strong>engineering products that belong</strong> — has guided every
+                decision since. Whether it's our Escort Radar cluster integration that displays alerts
+                through your factory instrument panel, or our motorized license plate systems, every product
+                is designed to feel like it came with the car.
+            </p>
+            <p>
+                Today, all design, prototyping, and manufacturing still happens at our Chicago headquarters.
+                Every unit is individually tested before it leaves our facility, because our reputation
+                depends on the same precision our customers expect from their vehicles.
+            </p>
+        </div>
+
+        <!-- Right: Stats Highlight Card -->
+        <div class="origin-highlight">
+            <div class="highlight-card">
+                <div class="highlight-stat">
+                    <div class="highlight-number">25+</div>
+                    <div class="highlight-label">Years of automotive engineering excellence</div>
+                </div>
+                <div class="highlight-stat">
+                    <div class="highlight-number">6</div>
+                    <div class="highlight-label">Countries served across three continents</div>
+                </div>
+                <div class="highlight-stat">
+                    <div class="highlight-number">100%</div>
+                    <div class="highlight-label">Designed & manufactured in Chicago, USA</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const originSection = document.querySelector('.origin-section');
+        if (!originSection) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(originSection);
+    })();
+</script>
