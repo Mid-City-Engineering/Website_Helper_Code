@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mid City Engineering</title>
+</head>
+
+<body>
+    <div id="content"></div>
+
+    <script>
+        const htmlFiles = [
+            '00-base.html',
+            '01-hero.html',
+            '02-intro.html',
+            '03-content-section.html',
+            '04-sks-selector.html',
+            '05-dealer-locator.html',
+        ];
+
+        async function loadHTMLFiles() {
+            const contentDiv = document.getElementById('content');
+
+            for (const file of htmlFiles) {
+                try {
+                    const response = await fetch(file);
+                    const html = await response.text();
+
+                    const tempSection = document.createElement('section');
+                    tempSection.innerHTML = html;
+
+                    // Extract and execute scripts
+                    const scripts = tempSection.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
+
+                        // Copy attributes
+                        Array.from(oldScript.attributes).forEach(attr => {
+                            newScript.setAttribute(attr.name, attr.value);
+                        });
+
+                        // Copy inline code
+                        newScript.textContent = oldScript.textContent;
+
+                        // Replace old script with new one
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+
+                    contentDiv.appendChild(tempSection);
+                } catch (error) {
+                    console.error(`Error loading ${file}:`, error);
+                }
+            }
+
+            // Simulate Odoo behavior: dispatch DOMContentLoaded after all HTML is loaded
+            console.log('All HTML files loaded - dispatching DOMContentLoaded event');
+            setTimeout(() => {
+                const event = new Event('DOMContentLoaded', {
+                    bubbles: true,
+                    cancelable: false
+                });
+                document.dispatchEvent(event);
+            }, 50);
+        }
+
+        loadHTMLFiles();
+    </script>
+</body>
+
+</html>

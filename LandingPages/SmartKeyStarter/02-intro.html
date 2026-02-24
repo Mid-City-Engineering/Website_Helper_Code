@@ -1,0 +1,280 @@
+<!-- ========== SECTION SUMMARY COMPONENT ========== -->
+<style>
+    /*
+    ==================================================
+    SECTION SUMMARY — EDITORIAL INTRO
+    ==================================================
+    Sits above .content-section. Introduces the page
+    with headline, paragraph, and anchor links to
+    feature blocks below.
+    ==================================================
+    */
+
+    .section-summary {
+        background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%);
+        padding: 10% 5% 8%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Top accent line */
+    .section-summary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: left 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .section-summary.is-visible::before {
+        left: 0;
+    }
+
+    .section-summary-inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8%;
+        align-items: start;
+    }
+
+    /* ── Left: Headline ── */
+    .section-summary-headline {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
+    }
+
+    .section-summary.is-visible .section-summary-headline {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .section-summary-headline h2 {
+        text-align: left;
+    }
+
+    .section-summary-headline .summary-label {
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--mce-sepia-tan);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 2rem;
+    }
+
+    .section-summary-headline .summary-label::before {
+        content: '';
+        width: 40px;
+        height: 1px;
+        background: var(--mce-sepia-tan);
+        flex-shrink: 0;
+    }
+
+    .section-summary-headline h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(2rem, 3.5vw, 3rem);
+        font-weight: 400;
+        color: #1a1a1a;
+        line-height: 1.3;
+        letter-spacing: 0.01em;
+    }
+
+    .section-summary-headline h2 .text-accent {
+        color: var(--mce-dark-red);
+    }
+
+    /* Underline on heading */
+    .section-summary-headline h2::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        margin-top: 1.5rem;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: width 1s cubic-bezier(0.23, 1, 0.32, 1) 0.6s;
+    }
+
+    .section-summary.is-visible .section-summary-headline h2::after {
+        width: 80px;
+    }
+
+    /* ── Right: Description + Anchor Links ── */
+    .section-summary-body {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.4s;
+    }
+
+    .section-summary.is-visible .section-summary-body {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .section-summary-body p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.4vw, 1.15rem);
+        line-height: 1.9;
+        color: #555;
+        margin-bottom: 2.5rem;
+    }
+
+    /* Anchor links list */
+    .summary-anchors {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .summary-anchor {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.2);
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 1rem;
+        color: #333;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        cursor: pointer;
+    }
+
+    .summary-anchor:first-child {
+        border-top: 1px solid rgba(212, 175, 133, 0.2);
+    }
+
+    .summary-anchor-number {
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        color: var(--mce-sepia-tan);
+        min-width: 24px;
+    }
+
+    .summary-anchor-arrow {
+        margin-left: auto;
+        font-size: 0.85rem;
+        color: var(--mce-sepia-tan);
+        opacity: 0;
+        transform: translateX(-8px);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .summary-anchor:hover {
+        padding-left: 8px;
+        color: var(--mce-dark-red);
+    }
+
+    .summary-anchor:hover .summary-anchor-number {
+        color: var(--mce-dark-red);
+    }
+
+    .summary-anchor:hover .summary-anchor-arrow {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 968px) {
+        .section-summary {
+            padding: 14% 6% 10%;
+        }
+
+        .section-summary-inner {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .section-summary {
+            padding: 16% 5% 12%;
+        }
+
+        .section-summary-body p {
+            margin-bottom: 2rem;
+        }
+    }
+</style>
+
+
+<!-- =============================================
+     USAGE EXAMPLE — SPRINTER PAGE
+     ============================================= -->
+
+<!-- SECTION SUMMARY -->
+<div class="section-summary">
+    <div class="section-summary-inner">
+        <div class="section-summary-headline">
+            <span class="summary-label">SmartKey Starter</span>
+            <h2>Premium Remote Start, <span class="text-accent">Perfected</span></h2>
+        </div>
+        <div class="section-summary-body">
+            <p>
+                Start your vehicle with your factory key fob, upgrade to smartphone control,
+                and add plug &amp; play security — all with seamless OEM integration and a
+                4-year warranty.
+            </p>
+            <div class="summary-anchors">
+                <a href="#out-of-box" class="summary-anchor">
+                    <span class="summary-anchor-number">01</span>
+                    Works Out of the Box
+                    <span class="summary-anchor-arrow">→</span>
+                </a>
+                <a href="#meaningful-upgrades" class="summary-anchor">
+                    <span class="summary-anchor-number">02</span>
+                    Meaningful Upgrades
+                    <span class="summary-anchor-arrow">→</span>
+                </a>
+                <a href="#enhanced-security" class="summary-anchor">
+                    <span class="summary-anchor-number">03</span>
+                    Enhanced Security
+                    <span class="summary-anchor-arrow">→</span>
+                </a>
+                <a href="#plug-and-play-installation" class="summary-anchor">
+                    <span class="summary-anchor-number">04</span>
+                    Plug &amp; Play Installation
+                    <span class="summary-anchor-arrow">→</span>
+                </a>
+                <a href="#warranty" class="summary-anchor">
+                    <span class="summary-anchor-number">05</span>
+                    4-Year Warranty
+                    <span class="summary-anchor-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========== SCROLL ANIMATION FOR INTRODUCTION========== -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const summary = document.querySelector('.section-summary');
+        if (!summary) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+        summary.classList.remove('is-visible');
+        const rect = summary.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.75) {
+            setTimeout(() => summary.classList.add('is-visible'), 250);
+        } else {
+            observer.observe(summary);
+        }
+    });
+</script>
