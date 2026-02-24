@@ -1,0 +1,350 @@
+<style>
+    /* ----- CAPABILITY ROWS ----- */
+    .dm-row {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        min-height: 520px;
+    }
+
+    .dm-row:nth-child(odd) {
+        background: #111111;
+    }
+
+    .dm-row:nth-child(even) {
+        background: #ffffff;
+    }
+
+    .dm-row::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+    }
+
+    .dm-row:nth-child(odd)::before {
+        background: linear-gradient(90deg, transparent 10%, rgba(212, 175, 133, 0.3) 50%, transparent 90%);
+    }
+
+    .dm-row:nth-child(even)::before {
+        background: linear-gradient(90deg, transparent 10%, rgba(129, 3, 5, 0.2) 50%, transparent 90%);
+    }
+
+    /* Image (always right side) */
+    .dm-row-image {
+        flex: 1;
+        min-height: 520px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dm-row-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        inset: 0;
+        transition: transform 5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .dm-row.in-view .dm-row-image img {
+        transform: scale(1.06);
+    }
+
+    /* Gradient fade: image fades into text side (left) */
+    .dm-row-image::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+
+    .dm-row:nth-child(odd) .dm-row-image::after {
+        background: linear-gradient(270deg, transparent 50%, #111111 98%);
+    }
+
+    .dm-row:nth-child(even) .dm-row-image::after {
+        background: linear-gradient(270deg, transparent 50%, #ffffff 98%);
+    }
+
+    /* Text (always left side) */
+    .dm-row-text {
+        flex: 1;
+        padding: 60px 6%;
+        position: relative;
+        z-index: 2;
+    }
+
+    .dm-row-number {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(3.5rem, 6vw, 5rem);
+        font-weight: 400;
+        line-height: 1;
+        margin-bottom: 16px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+    }
+
+    .dm-row:nth-child(odd) .dm-row-number {
+        color: rgba(212, 175, 133, 0.15);
+    }
+
+    .dm-row:nth-child(even) .dm-row-number {
+        color: rgba(129, 3, 5, 0.1);
+    }
+
+    .dm-row.in-view .dm-row-number {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dm-row-heading {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.4rem, 2.8vw, 2rem);
+        margin-bottom: 8px;
+        letter-spacing: 0.03em;
+        line-height: 1.3;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
+    }
+
+    .dm-row:nth-child(odd) .dm-row-heading {
+        color: #ffffff;
+    }
+
+    .dm-row:nth-child(even) .dm-row-heading {
+        color: var(--mce-dark-red);
+    }
+
+    .dm-row.in-view .dm-row-heading {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dm-row-sub {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: clamp(0.9rem, 1.4vw, 1rem);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--mce-sepia-tan);
+        margin-bottom: 24px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.3s;
+    }
+
+    .dm-row.in-view .dm-row-sub {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dm-row-accent {
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        margin-bottom: 28px;
+        transition: width 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.4s;
+    }
+
+    .dm-row.in-view .dm-row-accent {
+        width: 80px;
+    }
+
+    .dm-row-desc {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.6vw, 1.12rem);
+        line-height: 1.8;
+        max-width: 520px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.45s;
+    }
+
+    .dm-row:nth-child(odd) .dm-row-desc {
+        color: #aaa;
+    }
+
+    .dm-row:nth-child(even) .dm-row-desc {
+        color: #555;
+    }
+
+    .dm-row.in-view .dm-row-desc {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media (max-width: 968px) {
+        .dm-row {
+            flex-direction: column;
+            min-height: auto;
+        }
+
+        .dm-row-image {
+            min-height: 320px;
+            width: 100%;
+            order: -1;
+        }
+
+        .dm-row:nth-child(odd) .dm-row-image::after {
+            background: linear-gradient(180deg, transparent 40%, #111111 98%);
+        }
+
+        .dm-row:nth-child(even) .dm-row-image::after {
+            background: linear-gradient(180deg, transparent 40%, #ffffff 98%);
+        }
+
+        .dm-row-text {
+            padding: 40px 6% 60px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .dm-row-image {
+            min-height: 250px;
+        }
+
+        .dm-row-text {
+            padding: 30px 5% 50px;
+        }
+
+        .dm-row-number {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+    }
+</style>
+
+<!-- 1: Wire Processing -->
+<div class="dm-row dm-animate">
+    <div class="dm-row-image">
+        <img src="/documents/content/OBjjZ9FdRwqgZDLFM4jEbwo9c?download=0"
+            alt="Wire processing">
+    </div>
+    <div class="dm-row-text">
+        <h3 class="dm-row-heading">Wire Processing</h3>
+        <p class="dm-row-sub">Cutting · Stripping · Crimping</p>
+        <div class="dm-row-accent"></div>
+        <p class="dm-row-desc">Automatic wire cutting and stripping with semi-automatic crimping, backed by a full suite
+            of crimp testing, verification, and auditing. Die sets available for a wide range of terminal families, with
+            additional overseas high-volume crimping capacity.</p>
+    </div>
+</div>
+
+<!-- 2: Supply Chain -->
+<div class="dm-row dm-animate">
+    <div class="dm-row-image">
+        <img src="/documents/content/mGsR-PIvT9iYqzIi9S2W4go9b?download=0"
+            alt="Supply chain">
+    </div>
+    <div class="dm-row-text">
+        <h3 class="dm-row-heading">Supply Chain</h3>
+        <p class="dm-row-sub">Global Sourcing · Local Stock</p>
+        <div class="dm-row-accent"></div>
+        <p class="dm-row-desc">Access to an extensive global supply chain of hard-to-find automotive connectors. We
+            locally stock large numbers of connectors and terminals, reducing lead times and keeping your production on
+            schedule.</p>
+    </div>
+</div>
+
+<!-- 3: Wire Harnessing -->
+<div class="dm-row dm-animate">
+    <div class="dm-row-image">
+        <img src="/documents/content/rciukrSWTfadmm5XIeh_iQo9a?download=0"
+            alt="Wire harnessing">
+    </div>
+    <div class="dm-row-text">
+        <h3 class="dm-row-heading">Wire Harnessing</h3>
+        <p class="dm-row-sub">Design · Assembly · Electrical Testing</p>
+        <div class="dm-row-accent"></div>
+        <p class="dm-row-desc">Our in-house division designs, builds, and assembles harnesses in quantities up to 1,000
+            pieces — each fully electrically tested. Overseas partners assemble to our specification when volumes scale
+            beyond that.</p>
+    </div>
+</div>
+
+<!-- 4: Hardware Design -->
+<div class="dm-row dm-animate">
+    <div class="dm-row-image">
+        <img src="/documents/content/6iLmOHPXTni1iYY24RKK5woa0?download=0"
+            alt="Hardware design">
+    </div>
+    <div class="dm-row-text">
+        <h3 class="dm-row-heading">Hardware Design</h3>
+        <p class="dm-row-sub">AEC-Q100 · PCB Production · Assembly</p>
+        <div class="dm-row-accent"></div>
+        <p class="dm-row-desc">Hardware designed to automotive standards with full AEC-Q100 compliance. Our local
+            manufacturing partners deliver complete printed circuit board production and pick-and-place assembly.</p>
+    </div>
+</div>
+
+<!-- 5: Software Design -->
+<div class="dm-row dm-animate">
+    <div class="dm-row-image">
+        <img src="/documents/content/oZz0CFr_QL6jIwzlINtbWgo9f?download=0"
+            alt="Software development">
+    </div>
+    <div class="dm-row-text">
+        <h3 class="dm-row-heading">Software Design</h3>
+        <p class="dm-row-sub">MISRA · CANBUS · Safety-Critical</p>
+        <div class="dm-row-accent"></div>
+        <p class="dm-row-desc">MISRA-standard software emphasizing high reliability and extremely long usage profiles —
+            we have software running continuously for over a decade. GCC toolchains specializing in CANBUS development
+            on safety-critical automotive processor families.</p>
+    </div>
+</div>
+
+<!-- 6: Additive Manufacturing -->
+<div class="dm-row dm-animate">
+    <div class="dm-row-image">
+        <img src="/documents/content/POH2x1OWRZ-YlBybBxugfgoa1?download=0"
+            alt="Additive manufacturing">
+    </div>
+    <div class="dm-row-text">
+        <h3 class="dm-row-heading">Additive Manufacturing</h3>
+        <p class="dm-row-sub">Prototyping · Scale Production · Injection Molding</p>
+        <div class="dm-row-accent"></div>
+        <p class="dm-row-desc">We pioneered proprietary processes for producing high-volume custom parts at scale using
+            additive manufacturing. Design for low-quantity additive runs, then transition seamlessly to injection
+            molding as demand grows.</p>
+    </div>
+</div>
+
+<!-- 7: App Design -->
+<div class="dm-row dm-animate">
+    <div class="dm-row-image">
+        <img src="/documents/content/v8aUFW0eRfiWNcHTA--3kwoa2?download=0"
+            alt="App development">
+    </div>
+    <div class="dm-row-text">
+        <h3 class="dm-row-heading">App Design</h3>
+        <p class="dm-row-sub">Full Stack · Hardware Integration</p>
+        <div class="dm-row-accent"></div>
+        <p class="dm-row-desc">Full-stack app development allowing additional feature sets to be integrated with your
+            existing hardware and software platforms.</p>
+    </div>
+</div>
+
+<script>
+    (function () {
+        const sections = document.querySelectorAll('.dm-animate');
+        if (!sections.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        sections.forEach(s => observer.observe(s));
+    })();
+</script>

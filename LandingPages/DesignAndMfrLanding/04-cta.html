@@ -1,0 +1,137 @@
+<style>
+    /* ----- CTA BAND ----- */
+    .dm-cta {
+        background: #1a1a1a;
+        padding: 80px 5%;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dm-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+    }
+
+    .dm-cta h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        color: #ffffff;
+        margin-bottom: 20px;
+        letter-spacing: 0.04em;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .dm-cta.in-view h2 {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dm-cta p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.8vw, 1.15rem);
+        color: #aaa;
+        margin-bottom: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.7;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.15s;
+    }
+
+    .dm-cta.in-view p {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dm-cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 20px 48px;
+        background: linear-gradient(135deg, var(--mce-dark-red) 0%, #a00406 100%);
+        color: #ffffff;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-decoration: none;
+        border-radius: 50px;
+        border: none;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(129, 3, 5, 0.25);
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    .dm-cta.in-view .dm-cta-button {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.3s;
+    }
+
+    .dm-cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+        transition: left 0.7s ease;
+        border-radius: 50px;
+    }
+
+    .dm-cta-button:hover::before {
+        left: 100%;
+    }
+
+    .dm-cta-button:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 15px 40px rgba(129, 3, 5, 0.4);
+    }
+
+    .dm-cta-button-arrow {
+        display: inline-block;
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        font-size: 1.2em;
+    }
+
+    .dm-cta-button:hover .dm-cta-button-arrow {
+        transform: translateX(5px);
+    }
+</style>
+
+<div class="dm-cta dm-animate">
+    <h2>Let's Build Something</h2>
+    <p>From concept to global distribution — tell us about your project and we'll show you what's possible.</p>
+    <a href="/contactus" class="dm-cta-button">
+        Start a Conversation
+        <span class="dm-cta-button-arrow">→</span>
+    </a>
+</div>
+
+<script>
+    (function () {
+        const el = document.querySelector('.dm-cta.dm-animate');
+        if (!el) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('in-view');
+            });
+        }, { threshold: 0.2 });
+        observer.observe(el);
+    })();
+</script>
