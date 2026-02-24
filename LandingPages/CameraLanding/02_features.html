@@ -1,0 +1,215 @@
+<style>
+    .cam-features {
+        background: #fff;
+        padding: 8% 5% 6%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cam-features::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--mce-dark-red), var(--mce-sepia-tan), transparent);
+    }
+
+    .cam-features-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .cam-features-inner h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        color: var(--mce-dark-red);
+        letter-spacing: 0.04em;
+        margin-bottom: 1rem;
+        line-height: 1.4;
+    }
+
+    .cam-features-inner h2 .tan {
+        color: var(--mce-sepia-tan);
+    }
+
+    .cam-features-subtitle {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.6vw, 1.15rem);
+        color: #555;
+        line-height: 1.8;
+        max-width: 780px;
+        margin: 0 auto 3.5rem;
+    }
+
+    .cam-capabilities {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2.5rem 2rem;
+    }
+
+    .cam-cap-item {
+        text-align: center;
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .cam-cap-item.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .cam-cap-icon {
+        width: 56px;
+        height: 56px;
+        margin: 0 auto 1rem;
+        border: 2px solid var(--mce-sepia-tan);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--mce-dark-red);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .cam-cap-item:hover .cam-cap-icon {
+        background: var(--mce-dark-red);
+        border-color: var(--mce-dark-red);
+        color: #fff;
+        transform: scale(1.1);
+    }
+
+    .cam-cap-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .cam-cap-label {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1.05rem;
+        color: #1a1a1a;
+        margin-bottom: 0.4rem;
+    }
+
+    .cam-cap-desc {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.95rem;
+        color: #666;
+        line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+        .cam-capabilities {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem 1.5rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .cam-capabilities {
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+        }
+    }
+</style>
+
+<section class="cam-features">
+    <div class="cam-features-inner">
+        <h2>360º Cameras <span class="tan">On Demand</span></h2>
+        <p class="cam-features-subtitle">
+            Your OEM 360º camera button only works below 10 MPH. Our solutions remove that
+            limitation — giving you full camera access at any speed.
+        </p>
+
+        <div class="cam-capabilities">
+            <!-- 1: Remove 10 MPH cutoff -->
+            <div class="cam-cap-item">
+                <div class="cam-cap-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10" />
+                        <path d="M12 6v6l4 2" />
+                        <path d="M18 14l2.5 4" />
+                        <circle cx="21" cy="19" r="1.5" />
+                    </svg>
+                </div>
+                <div class="cam-cap-label">Remove the 10 MPH Cutoff</div>
+                <div class="cam-cap-desc">Use your 360° or backup camera above the factory 10 MPH speed limit</div>
+            </div>
+
+            <!-- 2: Two Programming Modes -->
+            <div class="cam-cap-item">
+                <div class="cam-cap-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="1" y="5" width="22" height="14" rx="7" />
+                        <circle cx="16" cy="12" r="4" />
+                    </svg>
+                </div>
+                <div class="cam-cap-label">Two Programming Modes</div>
+                <div class="cam-cap-desc">Raise the speed threshold above 10 MPH, or disable the auto-cutoff entirely
+                    for full control</div>
+            </div>
+
+            <!-- 3: Steering wheel activation -->
+            <div class="cam-cap-item">
+                <div class="cam-cap-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <circle cx="12" cy="12" r="2" />
+                        <path d="M12 14v4" />
+                        <path d="M5.5 8.5C7 10 9.5 10 12 10s5-0 6.5-1.5" />
+                    </svg>
+                </div>
+                <div class="cam-cap-label">Steering Wheel Activation</div>
+                <div class="cam-cap-desc">Turn your 360° cameras on directly from the steering wheel at any time</div>
+            </div>
+
+            <!-- 4: Auto triggers -->
+            <div class="cam-cap-item">
+                <div class="cam-cap-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 400 400" fill="currentColor" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" fill-rule="evenodd">
+                        <g id="svgg">
+                            <path id="path0"
+                                d="M283.631 12.672 C 279.647 19.667,276.327 25.461,276.254 25.546 C 276.181 25.632,272.617 24.285,268.334 22.555 C 133.303 -32.015,-9.892 86.644,17.213 230.646 C 21.709 254.530,40.522 298.692,47.312 301.298 C 48.828 301.880,69.705 287.636,69.013 286.492 C 68.698 285.972,66.910 283.173,65.040 280.271 C -2.130 176.053,75.207 36.319,200.000 36.424 C 220.829 36.441,256.464 43.740,261.908 49.104 C 262.345 49.534,252.306 67.932,246.606 77.148 C 246.125 77.925,255.272 78.125,291.360 78.125 C 316.708 78.125,336.719 77.824,336.719 77.442 C 336.719 76.450,292.225 0.432,291.492 0.172 C 291.152 0.051,287.615 5.676,283.631 12.672 M355.229 120.977 C 345.213 125.475,343.711 126.381,344.033 127.734 C 344.237 128.594,346.036 133.467,348.029 138.564 C 391.933 250.811,296.765 369.630,176.563 352.643 C 169.425 351.634,153.889 348.112,152.124 347.102 C 151.788 346.910,154.704 340.628,158.604 333.142 C 165.175 320.528,165.563 319.533,163.902 319.561 C 156.266 319.688,75.657 324.083,75.351 324.389 C 74.990 324.749,79.340 331.603,111.915 382.001 C 118.153 391.652,123.561 399.647,123.933 399.767 C 124.305 399.887,127.685 393.924,131.444 386.516 C 135.203 379.108,138.556 372.621,138.894 372.100 C 139.359 371.383,140.991 371.624,145.616 373.093 C 275.090 414.208,404.818 300.924,383.159 165.659 C 380.609 149.727,369.665 115.312,367.274 115.703 C 367.012 115.746,361.591 118.119,355.229 120.977 M150.000 199.916 C 150.000 241.212,150.181 275.000,150.402 275.000 C 150.859 275.000,273.310 201.744,274.792 200.584 C 275.577 199.970,156.106 127.251,150.977 125.219 C 150.199 124.912,150.000 140.164,150.000 199.916 ">
+                            </path>
+                        </g>
+                    </svg>
+                </div>
+                <div class="cam-cap-label">New Automatic Triggers</div>
+                <div class="cam-cap-desc">Camera can also auto-activate when slowing down below 5 MPH or when the car
+                    shifts into Drive — not just after
+                    reverse</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    (function () {
+        const items = document.querySelectorAll('.cam-cap-item');
+        if (!items.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        items.forEach((item, i) => {
+            item.style.transitionDelay = `${i * 0.12}s`;
+            observer.observe(item);
+        });
+    })();
+</script>

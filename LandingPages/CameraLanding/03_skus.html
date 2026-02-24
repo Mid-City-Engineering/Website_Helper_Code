@@ -1,0 +1,267 @@
+<style>
+    .cam-products {
+        background: #f5f5f5;
+        padding: 0;
+    }
+
+    .cam-products-header {
+        text-align: center;
+        padding: 5% 5% 3%;
+    }
+
+    .cam-products-header h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        color: #1a1a1a;
+        letter-spacing: 0.04em;
+        margin-bottom: 0.6rem;
+    }
+
+    .cam-products-header p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1.05rem;
+        color: #666;
+    }
+
+    /* Full-bleed grid — no max-width, no side padding */
+    .cam-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+    }
+
+    .cam-card {
+        display: flex;
+        min-height: 340px;
+        background: #fff;
+        border-bottom: 1px solid #e0e0e0;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* Vertical divider between left/right columns */
+    .cam-card:nth-child(odd) {
+        border-right: 1px solid #e0e0e0;
+    }
+
+    .cam-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 0;
+        background: linear-gradient(180deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 1;
+    }
+
+    .cam-card:hover::before {
+        height: 100%;
+    }
+
+    .cam-card:hover {
+        background: #fafafa;
+        box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.02);
+    }
+
+    /* Image — takes left ~40% of card */
+    .cam-card-image {
+        width: 40%;
+        flex-shrink: 0;
+        overflow: hidden;
+        background: #f0f0f0;
+    }
+
+    .cam-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .cam-card:hover .cam-card-image img {
+        transform: scale(1.05);
+    }
+
+    /* Text body — right side */
+    .cam-card-body {
+        padding: 3rem 3.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+    }
+
+    .cam-card-tag {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 0.8rem;
+        color: var(--mce-sepia-tan);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-bottom: 0.6rem;
+    }
+
+    .cam-card-body h3 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        font-size: 1.6rem;
+        color: #1a1a1a;
+        margin-bottom: 0.8rem;
+    }
+
+    .cam-card-body p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+
+    .cam-card-cta {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        color: var(--mce-dark-red);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: gap 0.3s ease;
+    }
+
+    .cam-card:hover .cam-card-cta {
+        gap: 14px;
+    }
+
+    .cam-card-cta .arrow {
+        transition: transform 0.3s ease;
+    }
+
+    .cam-card:hover .cam-card-cta .arrow {
+        transform: translateX(4px);
+    }
+
+    /* Coming soon variant */
+    .cam-card.coming-soon {
+        opacity: 0.72;
+    }
+
+    .cam-card.coming-soon .cam-card-tag {
+        color: var(--mce-dark-red);
+    }
+
+    /* Tablet: stack to single column */
+    @media (max-width: 900px) {
+        .cam-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .cam-card:nth-child(odd) {
+            border-right: none;
+        }
+
+        .cam-card {
+            min-height: 280px;
+        }
+
+        .cam-card-body {
+            padding: 2.5rem 2.5rem;
+        }
+    }
+
+    /* Mobile: card goes vertical */
+    @media (max-width: 600px) {
+        .cam-card {
+            flex-direction: column;
+            min-height: auto;
+        }
+
+        .cam-card-image {
+            width: 100%;
+            height: 220px;
+        }
+
+        .cam-card-body {
+            padding: 2rem 1.5rem;
+        }
+
+        .cam-card-body h3 {
+            font-size: 1.35rem;
+        }
+    }
+</style>
+
+<section class="cam-products">
+    <div class="cam-products-header">
+        <h2>Choose Your System</h2>
+        <p>Select the module that matches your Sprinter's year and camera configuration</p>
+    </div>
+
+    <div class="cam-grid">
+
+        <a href="/shop/907obd360-on-demand-camera-obd-programmer-for-w907-with-mbux-and-360-degree-camera-9146"
+            class="cam-card" target="_blank" rel="noopener noreferrer">
+            <div class="cam-card-image">
+                <img src="/documents/content/2FSYYJ7_Rgm2bzL1Cai5LAo62?download=0" alt="907OBD360 Camera Module"
+                    loading="lazy">
+            </div>
+            <div class="cam-card-body">
+                <div class="cam-card-tag">'19-'24 + MBUX + rear/360° cameras + parking sensors</div>
+                <h3>907OBD360</h3>
+                <p>This system is for 2019-2024 Sprinters with MBUX radio and rear or 360º cameras with parking sensors
+                </p>
+                <span class="cam-card-cta">View Product <span class="arrow">→</span></span>
+            </div>
+        </a>
+
+
+        <a href="/shop/907rvci-2019-2024-sprinter-907-mbux-rear-camera-on-demand-907rvc-i-10044" class="cam-card"
+            target="_blank" rel="noopener noreferrer">
+            <div class="cam-card-image">
+                <img src="/documents/content/-Bbww_eiTLu06H9DCo38Bgo8c?download=0" alt="907RVC-I Camera Module"
+                    loading="lazy">
+            </div>
+            <div class="cam-card-body">
+                <div class="cam-card-tag">'19-'24 + MBUX + Rear Camera + NO Parking Sensors</div>
+                <h3>907RVC-I</h3>
+                <p>This system is for 2019-2024 Sprinters with MBUX radio and rear camera without parking sensors</p>
+                <span class="cam-card-cta">View Product <span class="arrow">→</span></span>
+            </div>
+        </a>
+
+
+        <a href="/shop/-10375" class="cam-card" target="_blank" rel="noopener noreferrer">
+            <div class="cam-card-image">
+                <img src="/documents/content/J5EngkkIQq-FhGgtXhAsoAo8d?download=0" alt="907G360 Camera Module"
+                    loading="lazy">
+            </div>
+            <div class="cam-card-body">
+                <div class="cam-card-tag">'25-'26 + 360° Cameras OR (Only Rear Camera + Parking Sensors)</div>
+                <h3>907G360</h3>
+                <p>This system is for 2025-2026 Sprinters with either 360º cameras OR only rear camera with parking
+                    sensors</p>
+                <span class="cam-card-cta">View Product <span class="arrow">→</span></span>
+            </div>
+        </a>
+
+
+        <a href="/shop/-10557" class="cam-card coming-soon" target="_blank" rel="noopener noreferrer">
+            <div class="cam-card-image">
+                <img src="/documents/content/3eP8LsWdRSmiJ9iHpEhqZwo8e?download=0" alt="907GRVC Camera Module"
+                    loading="lazy">
+            </div>
+            <div class="cam-card-body">
+                <div class="cam-card-tag">Coming Soon: '25-'26 + Rear Camera + NO Parking Sensors</div>
+                <h3>907GRVC</h3>
+                <p>This system is for 2025-2026 Sprinters with rear camera without parking sensors</p>
+                <span class="cam-card-cta">View Product <span class="arrow">→</span></span>
+            </div>
+        </a>
+    </div>
+</section>

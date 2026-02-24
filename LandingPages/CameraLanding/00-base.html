@@ -1,0 +1,119 @@
+<style>
+    :root {
+        --mce-dark-red: #810305;
+        --mce-sepia-tan: #D4AF85;
+    }
+
+    /* Box model normalization */
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Base document styles */
+    body {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+    }
+
+    h1 {
+        font-family: 'Michroma', sans-serif;
+    }
+
+    h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: 2.0rem;
+    }
+
+    h3,
+    h4 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+    }
+
+    h5,
+    h6 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+    }
+
+    /* Remove default link styling */
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Remove list styling */
+    ul,
+    ol {
+        list-style: none;
+    }
+
+    /* Make images responsive by default */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Remove button styling */
+    button {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    /* 
+==================================================
+ODOO OVERRIDE
+==================================================
+Remove Odoo's default container constraints
+*/
+
+    /* Remove max-width constraints from Odoo containers */
+    .o_container,
+    .o_container_small,
+    .container,
+    .container-fluid {
+        max-width: none !important;
+        padding: 0 !important;
+    }
+
+    /* Ensure sections can be full-width */
+    section {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    /* Remove any row constraints */
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Remove gaps between Odoo blocks/widgets */
+    .o_colored_level,
+    .s_allow_columns,
+    [data-snippet] {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    a:hover {
+        /* remove auto highlighting links */
+        text-decoration: none !important;
+    }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&amp;display=swap" rel="stylesheet">

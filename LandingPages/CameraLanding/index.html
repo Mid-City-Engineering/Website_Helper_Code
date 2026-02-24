@@ -1,83 +1,72 @@
-<style>
-    /*
-==================================================
-CONTENT SECTION - SPRINTER (FLEET)
-==================================================
-Section-specific styles
-==================================================
-*/
+<!DOCTYPE html>
+<html lang="en">
 
-    .content-section {
-        padding-top: 10%;
-        padding-bottom: 5%;
-        position: relative;
-        background: #fff;
-    }
-</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mid City Engineering</title>
+</head>
 
-<section class="content-section">
+<body>
+    <div id="content"></div>
 
-    <!-- Content Block 1 -->
-    <div class="content-block">
-        <div class="content-block-text-container">
-            <h2>907OBD360</h2>
-            <p>This is for 2019-2024 Sprinters with MBUX radio and rear or 360º cameras with parking sensors</p>
-            <a href="/shop/907obd360-on-demand-camera-obd-programmer-for-w907-with-mbux-and-360-degree-camera-9146"
-                target="_blank" rel="noopener noreferrer">Find out more</a>
-        </div>
+    <script>
+        const htmlFiles = [
+            '00-base.html',
+            '01-hero.html',
+            '02_features.html',
+            '03_skus.html',
+            '04_programming_notes.html',
+            '05-dealer-locator.html',
+        ];
 
-        <div class="content-block-image-container">
-            <img src="/web/image/13022-cdfbed2c/FBS5_2.webp" alt="OEM Key Fob" loading="lazy">
-        </div>
+        async function loadHTMLFiles() {
+            const contentDiv = document.getElementById('content');
 
-    </div>
-    <div class="content-block-separator"></div>
+            for (const file of htmlFiles) {
+                try {
+                    const response = await fetch(file);
+                    const html = await response.text();
 
-    <!-- Content Block 2 -->
-    <div class="content-block reverse">
-        <div class="content-block-image-container">
-            <img src="/web/image/13034-229c0766/Drone_T13_4.webp" alt="Compustar Drone Add-on" loading="lazy">
-        </div>
+                    const tempSection = document.createElement('section');
+                    tempSection.innerHTML = html;
 
-        <div class="content-block-text-container">
-            <h2>907RVC-I</h2>
-            <p>This system us for 2019-2024 Sprinters with MBUX radio and rear camera without parking sensors</p>
-            <a href="/shop/907rvci-2019-2024-sprinter-907-mbux-rear-camera-on-demand-907rvc-i-10044" target="_blank"
-                rel="noopener noreferrer">Check it out in detail</a>
-        </div>
-    </div>
-    <div class="content-block-separator"></div>
+                    // Extract and execute scripts
+                    const scripts = tempSection.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
 
-    <!-- Content Block 3 -->
-    <div class="content-block">
-        <div class="content-block-text-container">
-            <h2>907G360</h2>
-            <p>This system is for 2025-2026 Sprinters either with 360º cameras or with rear-only camera and parking
-                sensors</p>
-            <a href="/shop/-10375" target="_blank" rel="noopener noreferrer">Learn more</a>
-        </div>
+                        // Copy attributes
+                        Array.from(oldScript.attributes).forEach(attr => {
+                            newScript.setAttribute(attr.name, attr.value);
+                        });
 
-        <div class="content-block-image-container">
-            <img src="/web/image/13026-6e52ea5a/security3.webp" alt="Security Kit that connects with SmartKey Starter"
-                loading="lazy">
-        </div>
-    </div>
-    <div class="content-block-separator"></div>
+                        // Copy inline code
+                        newScript.textContent = oldScript.textContent;
 
-    <!-- Content Block 4 -->
-    <div class="content-block reverse">
-        <div class="content-block-image-container">
-            <img src="/web/image/13024-ece9ce97/harness.webp" alt="Plug and play T-Harness" loading="lazy">
-        </div>
+                        // Replace old script with new one
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
 
-        <div class="content-block-text-container">
-            <h2>Coming Soon - 907GRVC</h2>
-            <p> This system is for 2025-2026 Sprinters with rear camera without parking sensors
-            </p>
-            <a href="/shop/-10557" target="_blank" rel="noopener noreferrer">Get additional info</a>
-        </div>
+                    contentDiv.appendChild(tempSection);
+                } catch (error) {
+                    console.error(`Error loading ${file}:`, error);
+                }
+            }
 
-    </div>
-    <div class="content-block-separator"></div>
+            // Simulate Odoo behavior: dispatch DOMContentLoaded after all HTML is loaded
+            console.log('All HTML files loaded - dispatching DOMContentLoaded event');
+            setTimeout(() => {
+                const event = new Event('DOMContentLoaded', {
+                    bubbles: true,
+                    cancelable: false
+                });
+                document.dispatchEvent(event);
+            }, 50);
+        }
 
-</section>
+        loadHTMLFiles();
+    </script>
+</body>
+
+</html>
