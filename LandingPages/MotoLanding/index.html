@@ -1,80 +1,72 @@
-<style>
-    /*
-==================================================
-CONTENT SECTION - SPRINTER (FLEET)
-==================================================
-Section-specific styles
-==================================================
-*/
+<!DOCTYPE html>
+<html lang="en">
 
-    .content-section {
-        padding-top: 10%;
-        padding-bottom: 5%;
-        position: relative;
-        background: #fff;
-    }
-</style>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mid City Engineering</title>
+</head>
 
-<section class="content-section">
+<body>
+    <div id="content"></div>
 
-    <!-- Content Block 1 -->
-    <div class="content-block">
-        <div class="content-block-text-container">
-            <h2>Hide your license plate on demand</h2>
-            <p>Display your plate when you want to, hide it when you don't.</p>
-        </div>
+    <script>
+        const htmlFiles = [
+            '00-base.html',
+            '01-hero.html',
+            '02-intro.html',
+            '03-content-section.html',
+            '04-motoplate-selector.html',
+            '05-dealer-locator.html',
+        ];
 
-        <div class="content-block-image-container">
-            <img src="/web/image/13022-cdfbed2c/FBS5_2.webp" alt="OEM Key Fob" loading="lazy">
-        </div>
+        async function loadHTMLFiles() {
+            const contentDiv = document.getElementById('content');
 
-    </div>
-    <div class="content-block-separator"></div>
+            for (const file of htmlFiles) {
+                try {
+                    const response = await fetch(file);
+                    const html = await response.text();
 
-    <!-- Content Block 2 -->
-    <div class="content-block reverse">
-        <div class="content-block-image-container">
-            <img src="/web/image/13034-229c0766/Drone_T13_4.webp" alt="Compustar Drone Add-on" loading="lazy">
-        </div>
+                    const tempSection = document.createElement('section');
+                    tempSection.innerHTML = html;
 
-        <div class="content-block-text-container">
-            <h2>Factory keyfob control</h2>
-            <p>Our custom plate controller seemlessly integrates with vehicle. When you press lock
-                on your keyfob the plate will display in the up position. When you press unlock on
-                your keyfob the plate will retract in the down position.</p>
-        </div>
-    </div>
-    <div class="content-block-separator"></div>
+                    // Extract and execute scripts
+                    const scripts = tempSection.querySelectorAll('script');
+                    scripts.forEach(oldScript => {
+                        const newScript = document.createElement('script');
 
-    <!-- Content Block 3 -->
-    <div class="content-block">
-        <div class="content-block-text-container">
-            <h2>Steering wheel button control</h2>
-            <p>The plate can also be controlled using your factory steering wheel or turn signal controls.
-                Adjust you plate up or down from the driver seat.</p>
-        </div>
+                        // Copy attributes
+                        Array.from(oldScript.attributes).forEach(attr => {
+                            newScript.setAttribute(attr.name, attr.value);
+                        });
 
-        <div class="content-block-image-container">
-            <img src="/web/image/13026-6e52ea5a/security3.webp" alt="Security Kit that connects with SmartKey Starter"
-                loading="lazy">
-        </div>
-    </div>
-    <div class="content-block-separator"></div>
+                        // Copy inline code
+                        newScript.textContent = oldScript.textContent;
 
-    <!-- Content Block 4 -->
-    <div class="content-block reverse">
-        <div class="content-block-image-container">
-            <img src="/web/image/13024-ece9ce97/harness.webp" alt="Plug and play T-Harness" loading="lazy">
-        </div>
+                        // Replace old script with new one
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
 
-        <div class="content-block-text-container">
-            <h2>Everything included</h2>
-            <p>
-                We provide everything that you need to install and control your plate. No additional parts are needed.
-            </p>
-        </div>
+                    contentDiv.appendChild(tempSection);
+                } catch (error) {
+                    console.error(`Error loading ${file}:`, error);
+                }
+            }
 
-    </div>
-    <div class="content-block-separator"></div>
+            // Simulate Odoo behavior: dispatch DOMContentLoaded after all HTML is loaded
+            console.log('All HTML files loaded - dispatching DOMContentLoaded event');
+            setTimeout(() => {
+                const event = new Event('DOMContentLoaded', {
+                    bubbles: true,
+                    cancelable: false
+                });
+                document.dispatchEvent(event);
+            }, 50);
+        }
 
-</section>
+        loadHTMLFiles();
+    </script>
+</body>
+
+</html>

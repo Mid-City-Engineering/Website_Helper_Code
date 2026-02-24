@@ -1,0 +1,124 @@
+<script>
+    // change from null to actual string for replacement
+    productName = 'Motorized Front License Plates';
+    backgroundVideoLink = "/documents/content/zWrR7jQoTguX05FOod20lgo49?download=0";
+    videoObjectPosition = 'center bottom';
+    videoObjectPositionMobile = null;
+    videoObjectPositionTablet = null;
+    headerBackground = null;
+</script>
+
+<style>
+    /* We need to set a height for the hero placeholder to not trigger content block 
+       fade in animation before applicable. If not done, the first few content blocks appear
+       immediately and their animation is executed. So when the hero loads and pushes those
+       content blocks down, they are already visible and the animation is not executed.
+    */
+
+    /* Match hero-placeholder-height to the fetched hero's hero-overall-height variable */
+    :root {
+        --hero-placeholder-height: 100vh;
+    }
+
+    .hero-placeholder {
+        height: var(--hero-placeholder-height);
+        background: radial-gradient(ellipse 75% 75% at 90% 10%, #810305 0%, black 100%);
+        /* Fallback color while video loads */
+    }
+
+    @media (max-width: 768px) and (min-width: 481px) {
+        :root {
+            --hero-placeholder-height: 85vh;
+        }
+    }
+
+    @media (max-width: 480px) {
+        :root {
+            --hero-placeholder-height: 70vh;
+        }
+    }
+</style>
+
+<div class="hero-placeholder" id="custom-header-hero"></div>
+
+<script>
+
+    (function () {
+        fetch('/documents/content/gyEq9xruTVyrodnhyJDfGgo43?download=0')
+            .then(r => r.text())
+            .then(html => {
+                const container = document.getElementById('custom-header-hero');
+
+                // Parse the fetched HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Inject styles
+                doc.querySelectorAll('style').forEach(style => {
+                    container.appendChild(document.adoptNode(style));
+                });
+
+                // Inject HTML body content
+                const body = doc.querySelector('body');
+                if (body) {
+                    Array.from(body.children).forEach(el => {
+                        if (el.tagName !== 'SCRIPT') {
+                            container.appendChild(document.adoptNode(el));
+                        }
+                    });
+                } else {
+                    // If no <body>, grab non-script/style elements from <html>
+                    doc.querySelectorAll('html > *:not(script):not(style), html *:not(head):not(script):not(style)').forEach(el => {
+                        container.appendChild(document.adoptNode(el));
+                    });
+                }
+
+                // Code to override the hero h2 title
+                const mainProductOrSeries = container.querySelector('.main-product-or-series');
+                if (mainProductOrSeries && productName != null) {
+                    mainProductOrSeries.innerHTML = productName;
+                }
+
+                // Code to override the background video link
+                const video = container.querySelector('.hero-video source');
+                if (video && backgroundVideoLink != null) {
+                    video.src = backgroundVideoLink;
+                    video.parentElement.load(); // reload video with new source
+                }
+
+                // Code to override video focus point
+                const heroVideo = container.querySelector('.hero-video');
+                if (heroVideo && videoObjectPosition != null) {
+                    function applyVideoPosition() {
+                        if (window.matchMedia('(max-width: 480px)').matches) {
+                            heroVideo.style.objectPosition = videoObjectPositionMobile ?? videoObjectPosition;
+                        } else if (window.matchMedia('(max-width: 768px)').matches) {
+                            heroVideo.style.objectPosition = videoObjectPositionTablet ?? videoObjectPosition;
+                        } else {
+                            heroVideo.style.objectPosition = videoObjectPosition;
+                        }
+                    }
+                    applyVideoPosition();
+                    window.addEventListener('resize', applyVideoPosition);
+                }
+
+                // Code to override hero-header background
+                const heroHeader = container.querySelector('.hero-header');
+                if (heroHeader && headerBackground != null) {
+                    heroHeader.style.background = headerBackground;
+                }
+
+                // Execute scripts (they won't run via innerHTML/adoptNode)
+                doc.querySelectorAll('script').forEach(origScript => {
+                    const newScript = document.createElement('script');
+                    if (origScript.src) {
+                        newScript.src = origScript.src;
+                    } else {
+                        newScript.textContent = origScript.textContent;
+                    }
+                    container.appendChild(newScript);
+                });
+            })
+            .catch(err => console.error('Failed to load header/hero:', err));
+    })();
+</script>
