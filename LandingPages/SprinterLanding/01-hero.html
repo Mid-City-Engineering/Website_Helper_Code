@@ -1,504 +1,124 @@
+<script>
+    // change from null to actual string for replacement
+    productName = 'Sprinter Integrations'; // change from null to actual string for replacement
+    backgroundVideoLink = "https://mid-city-engineering.odoo.com/documents/content/oDcqGmgXRBWVFi6MZHvRHQo36?download=0"; // change from null to actual string for replacement
+    videoObjectPosition = null;
+    videoObjectPositionMobile = null;
+    videoObjectPositionTablet = null;
+    headerBackground = null;
+</script>
+
 <style>
-    /*
-==================================================
-HERO SECTION - SMARTKEY STARTER
-==================================================
-Background video with fallback image - relative positioning
-==================================================
-*/
+    /* We need to set a height for the hero placeholder to not trigger content block 
+       fade in animation before applicable. If not done, the first few content blocks appear
+       immediately and their animation is executed. So when the hero loads and pushes those
+       content blocks down, they are already visible and the animation is not executed.
+    */
 
-    .video-section {
-        position: relative;
-        width: 100%;
-        height: 70vh;
-        overflow: visible;
-        background-color: black;
+    /* Match hero-placeholder-height to the fetched hero's hero-overall-height variable */
+    :root {
+        --hero-placeholder-height: 100vh;
     }
 
-    /* Background video */
-    .video-section-background-video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        /* object-fit: contain; */
-        object-fit: cover;
-        object-position: 50% 75%;
-        display: block;
+    .hero-placeholder {
+        height: var(--hero-placeholder-height);
+        background: radial-gradient(ellipse 75% 75% at 90% 10%, #810305 0%, black 100%);
+        /* Fallback color while video loads */
     }
 
-    /* Fallback background image - only shows if video fails to load */
-    .video-section-background-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: 50% 75%;
-        display: none;
-    }
-
-    /* Content overlay */
-    .video-content {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-    }
-
-    /* Add gradient overlay to video-content */
-    .video-content::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(ellipse at top center,
-                rgba(0, 0, 0, 0.7) 0%,
-                rgba(0, 0, 0, 0.3) 40%,
-                transparent 70%);
-        pointer-events: none;
-        /* Allows clicks to pass through */
-        z-index: 1;
-    }
-
-    /* Top bar container */
-    .video-top-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 75vw;
-        margin: 0 auto;
-        padding-top: 3%;
-        position: relative;
-        z-index: 2;
-        /* Above the gradient */
-    }
-
-    /* Spacer to balance layout - same width as social icons */
-    .spacer {
-        width: 160px;
-        flex-shrink: 0;
-    }
-
-    /* Mid City Engineering heading */
-    .mid-city-heading {
-        font-size: 1.5em;
-        font-weight: 900;
-        text-transform: uppercase;
-        color: white;
-        text-wrap: wrap;
-        text-align: center;
-        letter-spacing: 0.15em;
-        text-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
-        margin: 0;
-        flex: 1;
-    }
-
-    /* Social icons container */
-    .social-icons-container {
-        display: flex;
-        gap: 1rem;
-        flex-shrink: 0;
-    }
-
-    .social-icon {
-        width: 40px;
-        height: 40px;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: var(--transition-fast);
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    }
-
-    .social-icon:hover {
-        transform: translateY(-3px);
-        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-    }
-
-    .social-icon svg {
-        width: 24px;
-        height: 24px;
-    }
-
-    /* Desktop Navigation Menu (>1024px) */
-    .nav-container-desktop-and-tablet {
-        position: relative;
-        background: #810305;
-        margin-top: 2rem;
-        width: 80vw;
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0;
-        z-index: 2;
-    }
-
-    .nav-button {
-        padding: 1.25rem 2rem;
-        color: white;
-        font-size: 1.125rem;
-        font-weight: 700;
-        text-transform: capitalize;
-        transition: var(--transition-normal);
-        border-right: 1px solid rgba(0, 0, 0, 0.9);
-        flex: 1;
-        text-align: center;
-        letter-spacing: 0.02em;
-        text-decoration: none;
-        display: block;
-    }
-
-    .nav-button:last-child {
-        border-right: none;
-    }
-
-    .nav-button:hover {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Mobile Navigation (<1024px) */
-
-    /* Mobile menu section - hidden by default */
-    .mobile-menu-section {
-        display: none;
-        width: 100%;
-        background: #810305;
-    }
-
-    .mobile-menu-section .nav-container-mobile {
-        display: block;
-    }
-
-    .nav-container-mobile {
-        display: none;
-    }
-
-    .mobile-nav-toggle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1.25rem 2rem;
-        color: white;
-        font-size: 1.125rem;
-        font-weight: 700;
-        text-transform: capitalize;
-        cursor: pointer;
-        user-select: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.9);
-    }
-
-    .mobile-nav-chevron {
-        width: 24px;
-        height: 24px;
-        transition: transform 0.3s ease;
-    }
-
-    .mobile-nav-chevron.open {
-        transform: rotate(180deg);
-    }
-
-    .mobile-nav-dropdown {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-    }
-
-    .mobile-nav-dropdown.open {
-        max-height: 500px;
-    }
-
-    .mobile-nav-dropdown .nav-button {
-        border-right: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.9);
-    }
-
-    .mobile-nav-dropdown .nav-button:last-child {
-        border-bottom: none;
-    }
-
-    .video-section .video-subheading-container {
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-        padding-top: 0%;
-    }
-
-    .video-subheading {
-        color: white;
-        font-size: 1.3rem;
-        font-weight: 400;
-        text-align: flex-start;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        padding-top: 3%;
-        text-shadow: 0 2px 7px rgba(0, 0, 0, 0.45);
-    }
-
-    /* Bottom Banner */
-    .video-banner {
-        position: absolute;
-        bottom: -5vh;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60vw;
-        height: 10vh;
-        background: #810305;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 20;
-        border-color: #810305;
-        border-width: 3px;
-        border-radius: 7px;
-    }
-
-    .video-banner h2 {
-        color: white;
-        font-size: 1.8rem;
-        font-weight: 900;
-        font-style: italic;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin: 0;
-        /* Add bold effect with text-stroke */
-        -webkit-text-stroke: 1.75px currentColor;
-        letter-spacing: 4.0px;
-    }
-
-    /* Responsive */
-    /* ---- Tablet ---- */
-    @media (max-width: 1024px) and (min-width: 769px) {
-
-        /* For the red navigation menu - reduced padding and font-size */
-        .nav-button {
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-        }
-
-        /* For the left aligned subheading - reduced font size */
-        .video-subheading {
-            font-size: 1.4rem;
-        }
-
-        /* For the banner - reduced font size and more vertical padding */
-        .video-banner h2 {
-            font-size: 1.5rem;
-            padding: 1rem 0rem;
+    @media (max-width: 768px) and (min-width: 481px) {
+        :root {
+            --hero-placeholder-height: 85vh;
         }
     }
 
-    /* Responsive */
-    /* ---- Mobile ---- */
-    @media (max-width: 768px) {
-        .video-section {
-            min-height: 60vh;
-        }
-
-        .video-top-bar {
-            flex-direction: column;
-            gap: 1rem;
-            padding-top: 5%;
-        }
-
-        .spacer {
-            display: none;
-        }
-
-        .mid-city-heading {
-            font-size: 1.2em;
-        }
-
-        .social-icon {
-            width: 36px;
-            height: 36px;
-        }
-
-        .social-icon svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* For the left edged subheading - reduced font size */
-        .video-subheading {
-            font-size: 1.1rem;
-        }
-
-        /* Hide the desktop/tablet navigation on mobile */
-        .nav-container-desktop-and-tablet {
-            display: none;
-        }
-
-        /* Show the below-video dropdown mobile menu */
-        .mobile-menu-section {
-            display: block;
-        }
-
-        /* For the dropdown menu toggle and button text */
-        .nav-button,
-        .mobile-nav-toggle {
-            font-size: 0.9rem;
-            padding: 1rem 2rem;
-        }
-
-        /* For the banner - disable on mobile */
-        .video-banner {
-            display: none;
+    @media (max-width: 480px) {
+        :root {
+            --hero-placeholder-height: 70vh;
         }
     }
 </style>
 
-<section class="hero-section">
-    <section class="video-section">
-        <!-- Background Video -->
-        <video class="video-section-background-video" autoplay="" muted="" loop="" playsinline="">
-            <source src="https://mid-city-engineering.odoo.com/documents/content/oDcqGmgXRBWVFi6MZHvRHQo36?download=0"
-                type="video/mp4">
-        </video>
-
-        <!-- Backup Background Image -->
-        <img class="video-section-background-image"
-            src="https://mid-city-engineering.odoo.com/web/image/13731?unique=26924ad41a9f9f8a10aa68995bd28caaff1a3ec1"
-            alt="Custom Modified Sprinter" loading="lazy" />
-
-        <!-- Content Overlaid on Video/Image -->
-        <div class="video-content">
-            <div class="video-top-bar">
-                <div class="spacer"></div>
-                <h2 class="mid-city-heading">MID CITY ENGINEERING</h3>
-                    <div class="social-icons-container">
-                        <a href="https://www.facebook.com/midcityengineering/" class="social-icon" target="_blank"
-                            aria-label="Facebook">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z">
-                                </path>
-                            </svg>
-                        </a>
-                        <a href="https://www.youtube.com/@catch9966" class="social-icon" target="_blank"
-                            aria-label="YouTube">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z">
-                                </path>
-                            </svg>
-                        </a>
-                        <a href="https://www.instagram.com/mid_city_engineering/?hl=en" class="social-icon"
-                            target="_blank" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z">
-                                </path>
-                            </svg>
-                        </a>
-                    </div>
-            </div>
-
-            <!-- Desktop/Tablet Navigation -->
-            <nav class="nav-container-desktop-and-tablet">
-                <a href="/" class="nav-button">Home</a>
-                <a href="/shop" class="nav-button">Products</a>
-                <a href="/support" class="nav-button">Support</a>
-                <a href="/dealer-locator" class="nav-button">Find A Dealer</a>
-                <a href="/web/login" class="nav-button">Login</a>
-            </nav>
-
-            <!-- Video Subheading (Left Aligned) -->
-            <div class="video-subheading-container">
-                <h2 class="video-subheading">Sprinter Integration</h3>
-            </div>
-
-            <!-- Video Banner -->
-            <div class="video-banner">
-                <h2>The Best Made Better</h2>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mobile Menu - Below Video -->
-    <nav class="mobile-menu-section">
-        <div class="nav-container-mobile">
-            <div class="mobile-nav-toggle" onclick="toggleNav()">
-                <span>Menu</span>
-                <svg class="mobile-nav-chevron" viewBox="0 0 24 24" fill="white">
-                    <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
-                </svg>
-            </div>
-            <div class="mobile-nav-dropdown">
-                <a href="/" class="nav-button">Home</a>
-                <a href="/shop" class="nav-button">Products</a>
-                <a href="/support" class="nav-button">Support</a>
-                <a href="/dealer-locator" class="nav-button">Find A Dealer</a>
-                <a href="/web/login" class="nav-button">Login</a>
-            </div>
-        </div>
-    </nav>
-</section>
+<div class="hero-placeholder" id="custom-header-hero"></div>
 
 <script>
-    function toggleNav() {
-        const dropdown = document.querySelector('.mobile-nav-dropdown');
-        const chevron = document.querySelector('.mobile-nav-chevron');
 
-        dropdown.classList.toggle('open');
-        chevron.classList.toggle('open');
-    }
-
-    // Close dropdown when clicking on a nav link
-    document.querySelectorAll('.mobile-nav-dropdown .nav-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const dropdown = document.querySelector('.mobile-nav-dropdown');
-            const chevron = document.querySelector('.mobile-nav-chevron');
-            dropdown.classList.remove('open');
-            chevron.classList.remove('open');
-        });
-    });
-
-    // Add this script after your existing toggleNav function
     (function () {
-        console.log('[Nav Auth] Starting navigation authentication check...');
+        fetch('https://mid-city-engineering.odoo.com/documents/content/gyEq9xruTVyrodnhyJDfGgo43?download=0')
+            .then(r => r.text())
+            .then(html => {
+                const container = document.getElementById('custom-header-hero');
 
-        // Check Odoo session
-        fetch('/web/session/get_session_info', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
-            body: '{}'
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                const uid = data.result?.uid;
-                const isAuthenticated = uid && uid !== false;
+                // Parse the fetched HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
 
-                console.log('[Nav Auth] Authentication result:', isAuthenticated);
+                // Inject styles
+                doc.querySelectorAll('style').forEach(style => {
+                    container.appendChild(document.adoptNode(style));
+                });
 
-                if (isAuthenticated) {
-                    // User is signed in - update all Login links to Account
-                    document.querySelectorAll('a[href="/web/login"]').forEach(link => {
-                        link.textContent = 'Account';
-                        link.href = '/my/home';
+                // Inject HTML body content
+                const body = doc.querySelector('body');
+                if (body) {
+                    Array.from(body.children).forEach(el => {
+                        if (el.tagName !== 'SCRIPT') {
+                            container.appendChild(document.adoptNode(el));
+                        }
                     });
-                    console.log('[Nav Auth] ✓ Updated navigation to show Account');
                 } else {
-                    console.log('[Nav Auth] ✗ User not authenticated - keeping Login links');
+                    // If no <body>, grab non-script/style elements from <html>
+                    doc.querySelectorAll('html > *:not(script):not(style), html *:not(head):not(script):not(style)').forEach(el => {
+                        container.appendChild(document.adoptNode(el));
+                    });
                 }
+
+                // Code to override the hero h2 title
+                const mainProductOrSeries = container.querySelector('.main-product-or-series');
+                if (mainProductOrSeries && productName != null) {
+                    mainProductOrSeries.innerHTML = productName;
+                }
+
+                // Code to override the background video link
+                const video = container.querySelector('.hero-video source');
+                if (video && backgroundVideoLink != null) {
+                    video.src = backgroundVideoLink;
+                    video.parentElement.load(); // reload video with new source
+                }
+
+                // Code to override video focus point
+                const heroVideo = container.querySelector('.hero-video');
+                if (heroVideo && videoObjectPosition != null) {
+                    function applyVideoPosition() {
+                        if (window.matchMedia('(max-width: 480px)').matches) {
+                            heroVideo.style.objectPosition = videoObjectPositionMobile ?? videoObjectPosition;
+                        } else if (window.matchMedia('(max-width: 768px)').matches) {
+                            heroVideo.style.objectPosition = videoObjectPositionTablet ?? videoObjectPosition;
+                        } else {
+                            heroVideo.style.objectPosition = videoObjectPosition;
+                        }
+                    }
+                    applyVideoPosition();
+                    window.addEventListener('resize', applyVideoPosition);
+                }
+
+                // Code to override hero-header background
+                const heroHeader = container.querySelector('.hero-header');
+                if (heroHeader && headerBackground != null) {
+                    heroHeader.style.background = headerBackground;
+                }
+
+                // Execute scripts (they won't run via innerHTML/adoptNode)
+                doc.querySelectorAll('script').forEach(origScript => {
+                    const newScript = document.createElement('script');
+                    if (origScript.src) {
+                        newScript.src = origScript.src;
+                    } else {
+                        newScript.textContent = origScript.textContent;
+                    }
+                    container.appendChild(newScript);
+                });
             })
-            .catch(error => {
-                console.error('[Nav Auth] ✗ Session check failed:', error);
-                // Keep default "Login" links on error
-            });
+            .catch(err => console.error('Failed to load header/hero:', err));
     })();
 </script>

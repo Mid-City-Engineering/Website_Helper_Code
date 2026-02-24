@@ -114,222 +114,402 @@ Remove Odoo's default container constraints
 </style>
 
 <style>
-    :root {
-        /* Brand Colors */
-        --color-primary-blue: #0072BC;
-        --color-primary-blue-dark: #005A94;
-        --color-text-dark: #333;
-        --color-text-light: #fff;
-        --color-text-muted: #666;
-
-        /* Backgrounds */
-        --color-bg-white: #fff;
-        --color-bg-light: #f5f5f5;
-        --color-bg-dark: #0a0a0a;
-
-        /* Accent Colors */
-        --color-accent-tan: #D4B896;
-        --color-accent-red: #ED1C24;
-
-        /* Spacing */
-        --spacing-xs: 0.5rem;
-        --spacing-sm: 1rem;
-        --spacing-md: 1.5rem;
-        --spacing-lg: 2rem;
-        --spacing-xl: 3rem;
-        --spacing-2xl: 4rem;
-
-        /* Typography */
-        --font-size-sm: 0.875rem;
-        --font-size-base: 1rem;
-        --font-size-lg: 1.125rem;
-        --font-size-xl: 1.5rem;
-        --font-size-2xl: 2rem;
-        --font-size-3xl: 3rem;
-
-        /* Transitions */
-        --transition-fast: 0.15s ease;
-        --transition-normal: 0.3s ease;
-
-        /* Border Radius */
-        --radius-sm: 4px;
-        --radius-md: 8px;
-
-        /* Shadows */
-        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-        --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-</style>
-
-<!-- ========== UNIVERSAL STYLES ========== -->
-<style>
     /*
-==================================================
-CONTENT BLOCK UNIVERSAL COMPONENT
-==================================================
-Reusable full-width block with centered content
-Structure: content-block &gt; content-block-main (image + text) + separator
-==================================================
-*/
+    ==================================================
+    CONTENT BLOCK — CSS OVERHAUL
+    ==================================================
+    Same class names, same HTML structure.
+    Only addition: <span class="feature-step"> inside
+    .content-block-text-container (optional per block).
+    ==================================================
+    */
 
+    .content-section {
+        padding: 0;
+        position: relative;
+        background: #fff;
+    }
+
+    /* ── Content Block ── */
     .content-block {
         width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 3rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 85vh;
+        position: relative;
+        overflow: hidden;
+        padding: 0;
+        gap: 0;
     }
 
-    /* Text container */
-    .content-block-text-container {
-        width: 45%;
-        min-height: 50vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 5% 0%;
+    .content-block.reverse {
+        direction: rtl;
     }
 
-    .content-block-text-container h2 {
-        font-family: 'Goldman', Arial, Helvetica, sans-serif;
-        font-size: 2.5rem;
-        font-weight: 600;
-        font-style: italic;
-        text-align: center;
-        text-transform: uppercase;
-        color: #333;
-        margin: 0;
-        line-height: 1.2;
+    .content-block.reverse>* {
+        direction: ltr;
     }
 
-    .content-block-text-container p {
-        font-size: 1rem;
-        line-height: 1.8;
-        color: #666;
-        margin: 0;
-    }
-
-    .content-block-text-container a {
-        color: #810305;
-        font-weight: 600;
-        font-size: 1rem;
-        text-decoration: none;
-        transition: 0.15s ease;
-        text-transform: uppercase;
-    }
-
-    .content-block-text-container a:hover {
-        text-decoration: underline;
-    }
-
-    /* Image container */
+    /* ── Image Container ── */
     .content-block-image-container {
-        width: 45%;
-        max-width: 500px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        /* Initial State - Hidden */
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-
-    /* Animated state - visible */
-    .content-block-image-container.is-visible {
+        position: relative;
+        overflow: hidden;
+        background: #0a0a0a;
+        width: 100%;
+        max-width: none;
+        /* Override old styles */
         opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Reverse: image aligns to bottom */
-    .content-block.reverse .content-block-image-container {
-        justify-content: flex-start;
+        transform: none;
+        transition: none;
     }
 
     .content-block-image-container img {
         width: 100%;
-        height: auto;
+        height: 100%;
         object-fit: cover;
+        object-position: center;
+        display: block;
+        opacity: 0;
+        transform: scale(1.08);
+        transition: opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1),
+            transform 1.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    /* Tan separator - full width */
+    .content-block.is-visible .content-block-image-container img {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Subtle vignette toward text side */
+    .content-block-image-container::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right,
+                transparent 60%,
+                rgba(0, 0, 0, 0.12) 100%);
+        pointer-events: none;
+    }
+
+    .content-block.reverse .content-block-image-container::after {
+        background: linear-gradient(to left,
+                transparent 60%,
+                rgba(0, 0, 0, 0.12) 100%);
+    }
+
+    /* ── Text Container ── */
+    .content-block-text-container {
+        width: 100%;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 0;
+        padding: 8% 7% 8% 6%;
+    }
+
+    .content-block.reverse .content-block-text-container {
+        padding: 8% 6% 8% 7%;
+    }
+
+    /* ── Feature Step (NEW element) ── */
+    .feature-step {
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        color: var(--mce-sepia-tan);
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        opacity: 0;
+        transform: translateY(15px);
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1) 0.2s;
+    }
+
+    .feature-step::before {
+        content: '';
+        width: 40px;
+        height: 1px;
+        background: var(--mce-sepia-tan);
+        flex-shrink: 0;
+    }
+
+    .content-block.is-visible .feature-step {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* ── Heading ── */
+    .content-block-text-container h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+        font-weight: 400;
+        font-style: normal;
+        text-transform: none;
+        text-align: left;
+        color: #1a1a1a;
+        line-height: 1.35;
+        letter-spacing: 0.01em;
+        margin: 0 0 2rem 0;
+        position: relative;
+        opacity: 0;
+        transform: translateY(25px);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.3s;
+    }
+
+    .content-block.is-visible .content-block-text-container h2 {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .content-block-text-container h2::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 2px;
+        margin-top: 1.5rem;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: width 1s cubic-bezier(0.23, 1, 0.32, 1) 0.6s;
+    }
+
+    .content-block.is-visible .content-block-text-container h2::after {
+        width: 70px;
+    }
+
+    /* ── Body Text ── */
+    .content-block-text-container p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.3vw, 1.12rem);
+        line-height: 1.95;
+        color: #555;
+        margin: 0 0 1.2rem 0;
+        text-align: left;
+        width: 100%;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.5s;
+    }
+
+    .content-block-text-container p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    .content-block.is-visible .content-block-text-container p {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Inline links within paragraphs */
+    .content-block-text-container p a {
+        color: var(--mce-dark-red);
+        font-weight: 400;
+        text-decoration: underline;
+        text-decoration-color: rgba(129, 3, 5, 0.25);
+        text-underline-offset: 3px;
+        transition: color 0.3s ease, text-decoration-color 0.3s ease;
+    }
+
+    .content-block-text-container p a:hover {
+        color: #a00406;
+        text-decoration-color: var(--mce-sepia-tan);
+    }
+
+    /* ── CTA Links (standalone, after paragraphs) ── */
+    .content-block-text-container>a {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 2.5rem;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        color: var(--mce-dark-red);
+        letter-spacing: 0.03em;
+        position: relative;
+        padding-bottom: 6px;
+        text-decoration: none;
+        text-transform: none;
+        opacity: 0;
+        transform: translateY(15px);
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1) 0.7s;
+    }
+
+    /* Stacked CTAs */
+    .content-block-text-container>a+a {
+        margin-top: 1rem;
+    }
+
+    .content-block.is-visible .content-block-text-container>a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .content-block-text-container>a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1.5px;
+        background: var(--mce-sepia-tan);
+        transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .content-block-text-container>a:hover::before {
+        width: 100%;
+    }
+
+    .content-block-text-container>a:hover {
+        color: #a00406;
+    }
+
+    .cta-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1.5px solid var(--mce-dark-red);
+        font-size: 0.85rem;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        flex-shrink: 0;
+    }
+
+    .content-block-text-container>a:hover .cta-arrow {
+        background: var(--mce-dark-red);
+        color: white;
+        transform: translateX(4px);
+    }
+
+    /* ── Separator ── */
     .content-block-separator {
         width: 100%;
-        height: 2px;
-        background: #D4B896;
+        height: 5px;
+        position: relative;
+        overflow: hidden;
+        background: none;
+        opacity: 1;
+        max-width: none;
+        margin: 0;
     }
 
-    /* Responsive */
-    @media (max-width: 968px) {
-        .content-block {
-            flex-direction: column;
+    .content-block-separator::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+                transparent 5%,
+                rgba(212, 175, 133, 0.35) 30%,
+                rgba(129, 3, 5, 0.2) 50%,
+                rgba(212, 175, 133, 0.35) 70%,
+                transparent 95%);
+        transition: left 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .content-block-separator.is-visible::after {
+        left: 0;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+
+        .content-block,
+        .content-block.reverse {
+            grid-template-columns: 1fr;
+            min-height: auto;
+            direction: ltr;
+        }
+
+        .content-block-image-container {
+            height: 50vh;
+            min-height: 350px;
+        }
+
+        .content-block.reverse .content-block-image-container {
+            order: -1;
         }
 
         .content-block-text-container,
-        .content-block-image-container {
-            width: 90%;
+        .content-block.reverse .content-block-text-container {
+            padding: 10% 8%;
         }
 
-        .content-block-text-container {
-            padding: 2% 0%;
-            min-height: 15vh;
-            align-items: center;
-        }
-
-        .content-block-text-container h2,
-        .content-block-text-container p,
-        .content-block-text-container a {
-            text-align: center;
-            /* Centers the text inside each element */
-        }
-
-        .content-block-separator {
-            margin-top: 3%;
-            margin-bottom: 3%;
+        .content-block-image-container::after {
+            background: linear-gradient(to bottom,
+                    transparent 70%,
+                    rgba(0, 0, 0, 0.08) 100%) !important;
         }
     }
 
-    /* @media (max-width: 480px) {} */
+    @media (max-width: 600px) {
+        .content-block-image-container {
+            height: 45vh;
+            min-height: 280px;
+        }
+
+        .content-block-text-container,
+        .content-block.reverse .content-block-text-container {
+            padding: 12% 6%;
+        }
+
+        .feature-step {
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block-text-container h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .content-block-text-container>a {
+            margin-top: 2rem;
+        }
+    }
 </style>
 
+<!-- ========== SCROLL ANIMATION FOR CONTENT-BLOCKS ========== -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('DOM Content Loaded | Triggering image fade-in animation script');
-        const imageContainers = document.querySelectorAll('.content-block-image-container');
+        const contentBlocks = document.querySelectorAll('.content-block');
+        const separators = document.querySelectorAll('.content-block-separator');
 
         const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
+            threshold: 0.15,
+            rootMargin: '0px 0px -60px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    // REMOVED: observer.unobserve(entry.target);
-                    // Now it will retrigger if you scroll away and back
                 }
             });
         }, observerOptions);
 
-        // Process each container
-        imageContainers.forEach(container => {
-            // Remove is-visible class on page load to reset animation
-            container.classList.remove('is-visible');
-
-            const rect = container.getBoundingClientRect();
-            // If element is in viewport (top 80% of screen)
-            if (rect.top < window.innerHeight * 0.8) {
-                // Add small delay so animation is visible even for above-fold content
-                setTimeout(() => {
-                    container.classList.add('is-visible');
-                }, 150);
+        contentBlocks.forEach(block => {
+            block.classList.remove('is-visible');
+            const rect = block.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.75) {
+                setTimeout(() => block.classList.add('is-visible'), 250);
             } else {
-                // Animate when scrolled into view
-                observer.observe(container);
+                observer.observe(block);
+            }
+        });
+
+        separators.forEach(sep => {
+            sep.classList.remove('is-visible');
+            const rect = sep.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.85) {
+                setTimeout(() => sep.classList.add('is-visible'), 400);
+            } else {
+                observer.observe(sep);
             }
         });
     });
@@ -338,6 +518,5 @@ Structure: content-block &gt; content-block-main (image + text) + separator
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@300;400;600;700&display=swap"
-    rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&amp;display=swap" rel="stylesheet">
