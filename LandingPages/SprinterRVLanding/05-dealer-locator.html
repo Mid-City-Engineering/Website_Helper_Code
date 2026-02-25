@@ -1,0 +1,171 @@
+<style>
+    .dealer-locator-section {
+        padding: 8% 5%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        background: linear-gradient(180deg, #f4f4f4 0%, #ffffff 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Top divider line */
+    .dealer-locator-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(
+            90deg,
+            transparent 5%,
+            rgba(212, 175, 133, 0.35) 30%,
+            rgba(129, 3, 5, 0.2) 50%,
+            rgba(212, 175, 133, 0.35) 70%,
+            transparent 95%
+        );
+    }
+
+    .dealer-locator-inner {
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0;
+        transform: translateY(25px);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .dealer-locator-section.is-visible .dealer-locator-inner {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .dealer-locator-section h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.4rem, 2.5vw, 2rem);
+        font-weight: 400;
+        color: #1a1a1a;
+        line-height: 1.35;
+        letter-spacing: 0.01em;
+    }
+
+    .dealer-locator-description {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.3vw, 1.12rem);
+        line-height: 1.8;
+        color: #555;
+        padding: 1.5rem 0 2.5rem;
+    }
+
+    .dealer-locator-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 38px;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        color: var(--mce-dark-red);
+        background: transparent;
+        border: 1.5px solid var(--mce-dark-red);
+        border-radius: 0;
+        letter-spacing: 0.03em;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dealer-locator-button::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--mce-dark-red);
+        transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 0;
+    }
+
+    .dealer-locator-button span,
+    .dealer-locator-button-text {
+        position: relative;
+        z-index: 1;
+    }
+
+    .dealer-locator-button:hover::after {
+        left: 0;
+    }
+
+    .dealer-locator-button:hover {
+        color: #fff;
+        border-color: var(--mce-dark-red);
+    }
+
+    .dealer-locator-button:hover .cta-arrow {
+        border-color: #fff;
+        color: #fff;
+    }
+
+    .dealer-locator-button .cta-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1.5px solid var(--mce-dark-red);
+        font-size: 0.85rem;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    @media (max-width: 600px) {
+        .dealer-locator-section {
+            padding: 14% 6%;
+        }
+
+        .dealer-locator-button {
+            padding: 14px 28px;
+        }
+    }
+</style>
+
+<section class="dealer-locator-section">
+    <div class="dealer-locator-inner">
+        <h2>Find an Authorized Dealer</h2>
+        <p class="dealer-locator-description">
+            Professional installation ensures flawless performance with your vehicle.
+        </p>
+        <a href="/dealer-locator" class="dealer-locator-button" target="_blank">
+            <span class="dealer-locator-button-text">Find a Dealer Near You</span>
+            <span class="cta-arrow">→</span>
+        </a>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const section = document.querySelector('.dealer-locator-section');
+        if (!section) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
+
+        section.classList.remove('is-visible');
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.75) {
+            setTimeout(() => section.classList.add('is-visible'), 250);
+        } else {
+            observer.observe(section);
+        }
+    });
+</script>
