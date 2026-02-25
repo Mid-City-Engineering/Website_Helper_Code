@@ -1,5 +1,5 @@
 <style>
-    .spacer-section {
+    .story-section {
         background: #ffffff;
         padding: 10% 5% 7%;
         position: relative;
@@ -11,7 +11,7 @@
     }
 
     /* Animated background accent */
-    .spacer-section::before {
+    .story-section::before {
         content: '';
         position: absolute;
         top: 0;
@@ -29,7 +29,7 @@
     }
 
     /* Top row: text left, image right */
-    .spacer-top {
+    .story-top {
         display: flex;
         align-items: flex-start;
         gap: 60px;
@@ -38,7 +38,7 @@
     }
 
     /* Red corner bracket: top-left of the section */
-    .spacer-top::before {
+    .story-top::before {
         content: '';
         position: absolute;
         top: 0;
@@ -51,7 +51,7 @@
     }
 
     /* ── LEFT COLUMN ── */
-    .spacer-left {
+    .story-left {
         flex: 1;
         text-align: left;
         display: flex;
@@ -70,7 +70,7 @@
         }
     }
 
-    .spacer-left h2 {
+    .story-left h2 {
         font-family: 'Michroma', sans-serif;
         font-size: clamp(1.75rem, 3vw, 2.5rem);
         color: var(--mce-dark-red);
@@ -80,12 +80,12 @@
         width: 100%;
     }
 
-    .spacer-left h2 .tan-text {
+    .story-left h2 .tan-text {
         color: var(--mce-sepia-tan);
     }
 
     /* Animated underline on h2 */
-    .spacer-left h2::after {
+    .story-left h2::after {
         content: '';
         position: absolute;
         bottom: -8px;
@@ -102,7 +102,7 @@
         }
     }
 
-    .spacer-left p {
+    .story-left p {
         font-family: 'Outfit', sans-serif;
         font-weight: 300;
         font-size: clamp(1rem, 1.8vw, 1.15rem);
@@ -114,7 +114,7 @@
         animation: fadeInText 0.8s ease-out 1s forwards;
     }
 
-    .spacer-left p:last-of-type {
+    .story-left p:last-of-type {
         margin-bottom: 0;
     }
 
@@ -125,7 +125,7 @@
     }
 
     /* ── RIGHT COLUMN ── */
-    .spacer-right {
+    .story-right {
         flex: 1;
         display: flex;
         justify-content: flex-end;
@@ -176,13 +176,13 @@
     }
 
     /* ── BUTTON ROW ── */
-    .spacer-bottom {
+    .story-bottom {
         display: flex;
         justify-content: center;
         width: 100%;
     }
 
-    .dealer-button {
+    .about-us-button {
         position: relative;
         display: inline-flex;
         align-items: center;
@@ -205,7 +205,7 @@
     }
 
     /* Animated gradient overlay */
-    .dealer-button::before {
+    .about-us-button::before {
         content: '';
         position: absolute;
         top: 0;
@@ -218,7 +218,7 @@
     }
 
     /* Glow effect that slides off to the right */
-    .dealer-button::after {
+    .about-us-button::after {
         content: '';
         position: absolute;
         top: 50%;
@@ -234,60 +234,60 @@
         filter: blur(20px);
     }
 
-    .dealer-button:hover::before {
+    .about-us-button:hover::before {
         left: 100%;
     }
 
-    .dealer-button:hover::after {
+    .about-us-button:hover::after {
         left: 120%;
         opacity: 0;
     }
 
-    .dealer-button:hover {
+    .about-us-button:hover {
         transform: translateY(-4px) scale(1.02);
         box-shadow: 0 15px 40px rgba(129, 3, 5, 0.4);
     }
 
-    .dealer-button:active {
+    .about-us-button:active {
         transform: translateY(-2px) scale(1);
         box-shadow: 0 8px 25px rgba(129, 3, 5, 0.3);
     }
 
-    .dealer-button-arrow {
+    .about-us-button-arrow {
         display: inline-block;
         transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         font-size: 1.2em;
     }
 
-    .dealer-button:hover .dealer-button-arrow {
+    .about-us-button:hover .about-us-button-arrow {
         transform: translateX(5px);
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 968px) {
-        .spacer-section {
+        .story-section {
             gap: 40px;
             padding: 15% 5% 12%;
         }
 
-        .spacer-top {
+        .story-top {
             flex-direction: column;
             gap: 40px;
         }
 
-        .spacer-left {
+        .story-left {
             text-align: center;
             align-items: center;
             transform: none;
             animation: fadeInMobile 0.8s ease-out forwards;
         }
 
-        .spacer-left h2::after {
+        .story-left h2::after {
             left: 50%;
             transform: translateX(-50%);
         }
 
-        .spacer-right {
+        .story-right {
             width: 100%;
             justify-content: center;
             transform: none;
@@ -300,7 +300,7 @@
             height: 300px;
         }
 
-        .dealer-button {
+        .about-us-button {
             padding: 20px 40px;
             font-size: 1rem;
         }
@@ -325,11 +325,11 @@
     }
 </style>
 
-<div class="spacer-section">
+<div class="story-section">
 
-    <div class="spacer-top">
+    <div class="story-top">
         <!-- Left: heading + body copy -->
-        <div class="spacer-left">
+        <div class="story-left">
             <h2>Manufactured in Chicago, <span class="tan-text">Trusted Worldwide</span></h2>
             <p>
                 For over 20 years, Mid City Engineering has been at the forefront of automotive innovation,
@@ -346,7 +346,7 @@
         </div>
 
         <!-- Right: image -->
-        <div class="spacer-right">
+        <div class="story-right">
             <div class="story-image-frame">
                 <img
                     src="/documents/content/WfMbfuQ9TuOpt7KWJNkNZQo5d?download=0"
@@ -358,10 +358,10 @@
     </div>
 
     <!-- Button: centered below both columns -->
-    <div class="spacer-bottom">
-        <a href="/about-us" class="dealer-button">
+    <div class="story-bottom">
+        <a href="/about-us" class="about-us-button">
             Learn more about us
-            <span class="dealer-button-arrow">→</span>
+            <span class="about-us-button-arrow">→</span>
         </a>
     </div>
 
