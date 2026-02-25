@@ -127,46 +127,15 @@
         z-index: 1;
     }
 
+    .milestones-section.visible .timeline-item {
+        opacity: 1;
+        transform: translateX(0);
+        transition-delay: calc(0.2s + (var(--i, 0) * 0.15s));
+    }
+
     .milestones-section.visible .timeline-items::after {
         transform: scaleY(0);
         transform-origin: top;
-    }
-
-    /* Staggered item reveal */
-    .milestones-section.visible .timeline-item:nth-child(1) {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: 0.2s;
-    }
-
-    .milestones-section.visible .timeline-item:nth-child(2) {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: 0.35s;
-    }
-
-    .milestones-section.visible .timeline-item:nth-child(3) {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: 0.5s;
-    }
-
-    .milestones-section.visible .timeline-item:nth-child(4) {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: 0.65s;
-    }
-
-    .milestones-section.visible .timeline-item:nth-child(5) {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: 0.8s;
-    }
-
-    .milestones-section.visible .timeline-item:nth-child(6) {
-        opacity: 1;
-        transform: translateX(0);
-        transition-delay: 0.95s;
     }
 
     /* Responsive — just update padding-left and the matching dot left */
@@ -298,6 +267,10 @@
 </div>
 
 <script>
+    document.querySelectorAll('.timeline-item').forEach((item, i) => {
+        item.style.setProperty('--i', i);
+    });
+
     (function () {
         const section = document.querySelector('.milestones-section');
         if (!section) return;
