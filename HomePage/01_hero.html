@@ -216,12 +216,12 @@
 
     /* Hamburger drawer menu */
     .hamburger-drawer {
-        display: none;
+        display: block;
         position: fixed;
-        top: 5vh;
+        top: 6vh;
         right: -100%;
         width: 280px;
-        height: calc(100vh - 5vh);
+        height: calc(100vh - 6vh);
         background: rgba(0, 0, 0, 0.95);
         z-index: 1001;
         transition: right 0.3s ease;
@@ -285,21 +285,6 @@
 
     .hero-content h4:hover {
         opacity: 0.8;
-    }
-
-    /* Below 1000px: Show hamburger menu */
-    @media (max-width: 999px) {
-        .hero-nav {
-            display: none;
-        }
-
-        .hamburger {
-            display: flex;
-        }
-
-        .hamburger-drawer {
-            display: block;
-        }
     }
 
     /* Tablet: 481px to 768px */
@@ -431,8 +416,7 @@
     <!-- Hero Video Section -->
     <section class="hero-video-section">
         <video class="hero-video" autoplay muted loop playsinline>
-            <source src="https://mid-city-engineering.odoo.com/documents/content/VQWv3tSOQlyJZCE1nn7-Fgo16?download=0"
-                type="video/mp4">
+            <source src="/documents/content/VQWv3tSOQlyJZCE1nn7-Fgo16?download=0" type="video/mp4">
             Your browser does not support the video tag.
         </video>
 
@@ -444,6 +428,7 @@
                     <h2>MID CITY ENGINEERING</h2>
                 </a>
             </div>
+            <!-- Filled via JS -->
             <nav class="hero-nav"></nav>
             <div class="hamburger" onclick="toggleMenu()">
                 <span></span>
@@ -452,15 +437,8 @@
             </div>
         </header>
 
-        <!-- Hamburger drawer menu -->
-        <div class="hamburger-drawer" id="hamburgerDrawer">
-            <a href="#products" onclick="toggleMenu()">Products</a>
-            <a href="/dealer-locator" onclick="toggleMenu()">Dealer Locator</a>
-            <a href="/become-dealer/" onclick="toggleMenu()">Become a Dealer</a>
-            <a href="/installation-manuals" onclick="toggleMenu()">Installation Manuals</a>
-            <a href="/support" onclick="toggleMenu()">Support</a>
-            <a href="/contactus" onclick="toggleMenu()">Contact</a>
-        </div>
+        <!-- Hamburger drawer menu (filled via JS) -->
+        <div class="hamburger-drawer" id="hamburgerDrawer"></div>
 
         <div class="hero-content">
             <h1>The Best Made Better</h1>
@@ -475,6 +453,7 @@
     (function () {
         // ─── CONFIG ──────────────────────────────────────────────────────────────
         const NAV_ITEMS = [
+            { label: 'About Us', href: '/about-us' },
             { label: 'Products', href: '/#products' },
             { label: 'Dealer Locator', href: '/dealer-locator' },
             { label: 'Become a Dealer', href: '/become-dealer/' },
@@ -547,12 +526,17 @@
             const candidateFontRem = Math.min(available / totalAt1rem, MAX_FONT_REM);
 
             if (candidateFontRem < MIN_FONT_REM) {
+                // Show nav, hide hamburger
                 nav.style.display = 'none';
                 hamburger.style.display = 'flex';
             } else {
                 nav.style.display = 'flex';
                 hamburger.style.display = 'none';
                 nav.style.fontSize = candidateFontRem + 'rem';
+
+                // Safety: Close the drawer if the screen is resized back to large
+                drawer.classList.remove('active');
+                hamburger.classList.remove('active');
             }
         }
 

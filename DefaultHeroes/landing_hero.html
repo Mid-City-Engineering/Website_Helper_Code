@@ -237,12 +237,12 @@
 
     /* Hamburger drawer menu */
     .hamburger-drawer {
-        display: none;
+        display: block;
         position: fixed;
-        top: 5vh;
+        top: 6vh;
         right: -100%;
         width: 280px;
-        height: calc(100vh - 5vh);
+        height: calc(100vh - 6vh);
         background: rgba(0, 0, 0, 0.95);
         z-index: 1001;
         transition: right 0.3s ease;
@@ -311,22 +311,6 @@
 
     .hero-content .slogan {
         text-align: left;
-    }
-
-    /* Below 1000px: Show hamburger menu */
-    @media (max-width: 999px) {
-
-        .hero-nav {
-            display: none;
-        }
-
-        .hamburger {
-            display: flex;
-        }
-
-        .hamburger-drawer {
-            display: block;
-        }
     }
 
     /* Tablet: 481px to 768px */
@@ -557,12 +541,17 @@
             const candidateFontRem = Math.min(available / totalAt1rem, MAX_FONT_REM);
 
             if (candidateFontRem < MIN_FONT_REM) {
+                // Show nav, hide hamburger
                 nav.style.display = 'none';
                 hamburger.style.display = 'flex';
             } else {
                 nav.style.display = 'flex';
                 hamburger.style.display = 'none';
                 nav.style.fontSize = candidateFontRem + 'rem';
+
+                // Safety: Close the drawer if the screen is resized back to large
+                drawer.classList.remove('active');
+                hamburger.classList.remove('active');
             }
         }
 
