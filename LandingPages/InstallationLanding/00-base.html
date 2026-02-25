@@ -1,0 +1,295 @@
+<style>
+    :root {
+        --mce-dark-red: #810305;
+        --mce-sepia-tan: #D4AF85;
+    }
+
+    /* Box model normalization */
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Base document styles */
+    body {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+    }
+
+    h1 {
+        font-family: 'Michroma', sans-serif;
+    }
+
+    h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: 2.0rem;
+    }
+
+    h3,
+    h4 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+    }
+
+    h5,
+    h6 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+    }
+
+    /* Remove default link styling */
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Remove list styling */
+    ul,
+    ol {
+        list-style: none;
+    }
+
+    /* Make images responsive by default */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Remove button styling */
+    button {
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    /* 
+==================================================
+ODOO OVERRIDE
+==================================================
+Remove Odoo's default container constraints
+*/
+
+    /* Remove max-width constraints from Odoo containers */
+    .o_container,
+    .o_container_small,
+    .container,
+    .container-fluid {
+        max-width: none !important;
+        padding: 0 !important;
+    }
+
+    /* Ensure sections can be full-width */
+    section {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 !important;
+    }
+
+    /* Remove any row constraints */
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    /* Remove gaps between Odoo blocks/widgets */
+    .o_colored_level,
+    .s_allow_columns,
+    [data-snippet] {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    a:hover {
+        /* remove auto highlighting links */
+        text-decoration: none !important;
+    }
+</style>
+
+<style>
+    /*
+==================================================
+CONTENT BLOCK UNIVERSAL COMPONENT
+==================================================
+Reusable full-width block with centered content
+Structure: content-block &gt; content-block-main (image + text) + separator
+==================================================
+*/
+
+    .content-block {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        background: #fff;
+    }
+
+    /* Text container */
+    .content-block-text-container {
+        width: 45%;
+        min-height: 50vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 5% 0%;
+    }
+
+    .content-block-text-container h2 {
+        font-family: 'Goldman', Arial, Helvetica, sans-serif;
+        font-size: 2.5rem;
+        font-weight: 600;
+        font-style: italic;
+        text-align: center;
+        text-transform: uppercase;
+        color: #333;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .content-block-text-container p {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #666;
+        margin: 0;
+    }
+
+    .content-block-text-container a {
+        color: #810305;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        transition: 0.15s ease;
+        text-transform: uppercase;
+    }
+
+    .content-block-text-container a:hover {
+        text-decoration: underline;
+    }
+
+    /* Image container */
+    .content-block-image-container {
+        width: 45%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        /* Initial State - Hidden */
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    /* Animated state - visible */
+    .content-block-image-container.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Reverse: image aligns to bottom */
+    .content-block.reverse .content-block-image-container {
+        justify-content: flex-start;
+    }
+
+    .content-block-image-container img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    /* Tan separator - full width */
+    .content-block-separator {
+        width: 100%;
+        height: 2px;
+        background: #D4B896;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+        .content-block {
+            flex-direction: column;
+        }
+
+        .content-block-text-container,
+        .content-block-image-container {
+            width: 90%;
+        }
+
+        .content-block-text-container {
+            padding: 2% 0%;
+            min-height: 15vh;
+            align-items: center;
+        }
+
+        .content-block-text-container h2,
+        .content-block-text-container p,
+        .content-block-text-container a {
+            text-align: center;
+            /* Centers the text inside each element */
+        }
+
+        .content-block-separator {
+            margin-top: 3%;
+            margin-bottom: 3%;
+        }
+    }
+
+    /* @media (max-width: 480px) {} */
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('DOM Content Loaded | Triggering image fade-in animation script');
+        const imageContainers = document.querySelectorAll('.content-block-image-container');
+
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // REMOVED: observer.unobserve(entry.target);
+                    // Now it will retrigger if you scroll away and back
+                }
+            });
+        }, observerOptions);
+
+        // Process each container
+        imageContainers.forEach(container => {
+            // Remove is-visible class on page load to reset animation
+            container.classList.remove('is-visible');
+
+            const rect = container.getBoundingClientRect();
+            // If element is in viewport (top 80% of screen)
+            if (rect.top < window.innerHeight * 0.8) {
+                // Add small delay so animation is visible even for above-fold content
+                setTimeout(() => {
+                    container.classList.add('is-visible');
+                }, 150);
+            } else {
+                // Animate when scrolled into view
+                observer.observe(container);
+            }
+        });
+    });
+</script>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Michroma&amp;family=Outfit:wght@300;400;600;700&amp;display=swap"
+    rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&amp;display=swap" rel="stylesheet">
