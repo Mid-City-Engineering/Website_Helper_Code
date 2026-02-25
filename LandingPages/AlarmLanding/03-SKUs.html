@@ -1,0 +1,325 @@
+<style>
+    .alarm-products-section {
+        background: #f8f8f8;
+        padding: 80px 0;
+    }
+
+    .alarm-products-header {
+        text-align: center;
+        margin-bottom: 60px;
+        padding: 0 5%;
+    }
+
+    .alarm-products-header h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        color: #1a1a1a;
+        margin-bottom: 16px;
+        letter-spacing: 0.04em;
+    }
+
+    .alarm-products-header p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1.05rem;
+        color: #666;
+    }
+
+    .alarm-products-image {
+        background: #f5f0eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 450px;
+        max-width: 1400px;
+        margin: 0 auto 0;
+        border: 1px solid #e0e0e0;
+    }
+
+    .alarm-products-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .alarm-products-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .alarm-product-card {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .alarm-product-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: left 0.5s ease;
+        z-index: 2;
+    }
+
+    .alarm-product-card:hover::before {
+        left: 0;
+    }
+
+    .alarm-product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(129, 3, 5, 0.1);
+        border-color: var(--mce-sepia-tan);
+    }
+
+    .alarm-card-body {
+        padding: 36px 32px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .alarm-card-sku {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 0.8rem;
+        color: var(--mce-sepia-tan);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .alarm-card-title {
+        font-family: 'Michroma', sans-serif;
+        font-size: 1.5rem;
+        color: #1a1a1a;
+        margin-bottom: 20px;
+        letter-spacing: 0.03em;
+    }
+
+    .alarm-card-compat-label {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: var(--mce-dark-red);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 12px;
+    }
+
+    .alarm-card-compat-list {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.9;
+        margin-bottom: 24px;
+        flex-grow: 1;
+        column-count: 2;
+        column-gap: 20px;
+    }
+
+    .alarm-card-compat-list span {
+        display: block;
+        break-inside: avoid;
+        padding: 2px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .alarm-card-includes {
+        margin-bottom: 28px;
+        padding-top: 20px;
+        border-top: 1px solid #e8e8e8;
+    }
+
+    .alarm-card-includes p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.85rem;
+        color: #888;
+        line-height: 1.7;
+    }
+
+    .alarm-card-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 32px;
+        background: transparent;
+        color: var(--mce-dark-red);
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        border: 2px solid var(--mce-dark-red);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        align-self: center;
+    }
+
+    .alarm-card-cta:hover {
+        background: var(--mce-dark-red);
+        color: #fff;
+        transform: translateX(4px);
+    }
+
+    .alarm-card-cta span {
+        transition: transform 0.3s ease;
+        display: inline-block;
+    }
+
+    .alarm-card-cta:hover span {
+        transform: translateX(4px);
+    }
+
+    @media (max-width: 968px) {
+        .alarm-products-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .alarm-card-compat-list {
+            column-count: 2;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .alarm-card-body {
+            padding: 28px 24px;
+        }
+
+        .alarm-card-compat-list {
+            column-count: 1;
+        }
+    }
+</style>
+
+<div class="alarm-products-section">
+    <div class="alarm-products-header">
+        <h2>Choose Your Kit</h2>
+        <p>Select the alarm kit matched to your Mercedes model and year</p>
+    </div>
+
+    <div class="alarm-products-image">
+        <img src="/documents/content/ZtXeCStRQNaOiPad48U70Qo4d?download=0" loading="lazy">
+    </div>
+
+    <div class="alarm-products-grid">
+
+        <div class="alarm-product-card">
+            <div class="alarm-card-body">
+                <span class="alarm-card-sku">SKU: 907INTK</span>
+                <h3 class="alarm-card-title">907INTK Alarm Kit</h3>
+                <p class="alarm-card-compat-label">Compatible Vehicles</p>
+                <div class="alarm-card-compat-list">
+                    <span>Sprinter 2019 - 2026 (907)</span>
+                    <span>C Class Sedan 2019-2024</span>
+                    <span>C Class Coupe 2019-2024</span>
+                    <span>CLA 2020-2024</span>
+                    <span>CLS 2020-2024</span>
+                    <span>E Class 2017-2024</span>
+                    <span>G Wagon 2019-2024</span>
+                    <span>GLA 2020-2024</span>
+                    <span>GLC 2020-2024</span>
+                    <span>GLE 2020-2024</span>
+                    <span>GLS 2020-2024</span>
+                    <span>S Class 2018-2020</span>
+                    <span>SLC 2022-2024</span>
+                </div>
+                <div class="alarm-card-includes">
+                    <p>Includes: Compustar alarm, vehicle-specific CAN interface, DAS II digital security sensor, siren.
+                        Drone compatible.</p>
+                </div>
+                <a href="/product/mercedes-freightliner-sprinter-alarm-kit-907intk/" class="alarm-card-cta">
+                    Buy Now <span>→</span>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="alarm-product-card">
+            <div class="alarm-card-body">
+                <span class="alarm-card-sku">SKU: METRISINTK</span>
+                <h3 class="alarm-card-title">Metris Alarm Kit</h3>
+                <p class="alarm-card-compat-label">Compatible Vehicles</p>
+                <div class="alarm-card-compat-list">
+                    <span>Metris 2016-2024</span>
+                </div>
+                <div class="alarm-card-includes">
+                    <p>Includes: Compustar alarm, Metris-specific CAN interface, DAS II digital security sensor, siren.
+                        Drone compatible.</p>
+                </div>
+                <a href="/product/mercedes-metris-alarm-kit-with-interface-metrisintk/" class="alarm-card-cta">
+                    Buy Now <span>→</span>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="alarm-product-card">
+            <div class="alarm-card-body">
+                <span class="alarm-card-sku">SKU: HSINTK</span>
+                <h3 class="alarm-card-title">HSINTK Alarm Kit</h3>
+                <p class="alarm-card-compat-label">Compatible Vehicles</p>
+                <div class="alarm-card-compat-list">
+                    <span>C Class Sedan 2008-2014</span>
+                    <span>C Class Coupe 2008-2015</span>
+                    <span>CL 2007-2013</span>
+                    <span>CLA 2014-2019</span>
+                    <span>CLS 2012-2019</span>
+                    <span>E Class 2010-2016</span>
+                    <span>G Wagon 2012-2018</span>
+                    <span>GL 2013-2016</span>
+                    <span>GLA 2014-2019</span>
+                    <span>GLK 2010-2015</span>
+                    <span>GLS 2017-2019</span>
+                    <span>GLE 2016-2019</span>
+                    <span>ML 2013-2015</span>
+                    <span>S Class 2007-2013</span>
+                    <span>SL 2013-2020</span>
+                    <span>SLC 2016-2019</span>
+                    <span>SLK 2012-2015</span>
+                </div>
+                <div class="alarm-card-includes">
+                    <p>Includes: Compustar alarm, vehicle-specific CAN interface, DAS II digital security sensor, siren.
+                        Drone compatible.</p>
+                </div>
+                <a href="/product/mercedes-alarm-kit-hsintk/" class="alarm-card-cta">
+                    Buy Now <span>→</span>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="alarm-product-card">
+            <div class="alarm-card-body">
+                <span class="alarm-card-sku">SKU: 205INTK</span>
+                <h3 class="alarm-card-title">205INTK Alarm Kit</h3>
+                <p class="alarm-card-compat-label">Compatible Vehicles</p>
+                <div class="alarm-card-compat-list">
+                    <span>C Class Sedan 2015-2018</span>
+                    <span>C Class Coupe 2016-2018</span>
+                    <span>GLC 2015-2019</span>
+                    <span>S Class 2014-2017</span>
+                </div>
+                <div class="alarm-card-includes">
+                    <p>Includes: Compustar alarm, vehicle-specific CAN interface, DAS II digital security sensor, siren.
+                        Drone compatible.</p>
+                </div>
+                <a href="/product/alarm-205intk/" class="alarm-card-cta">
+                    Buy Now <span>→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

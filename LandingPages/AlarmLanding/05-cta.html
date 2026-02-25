@@ -1,0 +1,191 @@
+<style>
+    .alarm-cta-section {
+        background: #ffffff;
+        padding: 100px 5%;
+        position: relative;
+        text-align: center;
+    }
+
+    .alarm-cta-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+    }
+
+    .alarm-cta-content {
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .alarm-cta-content h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        color: var(--mce-dark-red);
+        margin-bottom: 20px;
+        line-height: 1.4;
+    }
+
+    .alarm-cta-content h2 .tan-text {
+        color: var(--mce-sepia-tan);
+    }
+
+    .alarm-cta-content p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1.05rem;
+        color: #666;
+        line-height: 1.7;
+        margin-bottom: 40px;
+    }
+
+    .alarm-cta-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .alarm-cta-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 40px;
+        background: linear-gradient(135deg, var(--mce-dark-red) 0%, #a00406 100%);
+        color: #ffffff;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(129, 3, 5, 0.25);
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .alarm-cta-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.6s ease;
+    }
+
+    .alarm-cta-primary:hover::before {
+        left: 100%;
+    }
+
+    .alarm-cta-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(129, 3, 5, 0.35);
+    }
+
+    .alarm-cta-primary span {
+        transition: transform 0.3s ease;
+    }
+
+    .alarm-cta-primary:hover span {
+        transform: translateX(4px);
+    }
+
+    .alarm-cta-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 40px;
+        background: transparent;
+        color: var(--mce-dark-red);
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 2px solid var(--mce-dark-red);
+        border-radius: 50px;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .alarm-cta-secondary:hover {
+        background: var(--mce-dark-red);
+        color: #fff;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(129, 3, 5, 0.15);
+    }
+
+    .alarm-cta-support {
+        margin-top: 50px;
+        padding-top: 40px;
+        border-top: 1px solid #e8e8e8;
+    }
+
+    .alarm-cta-support p {
+        font-size: 0.9rem;
+        color: #999;
+        margin-bottom: 8px;
+    }
+
+    .alarm-cta-support a {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500;
+        color: var(--mce-dark-red);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .alarm-cta-support a:hover {
+        color: var(--mce-sepia-tan);
+    }
+
+    @media (max-width: 480px) {
+        .alarm-cta-section {
+            padding: 70px 5%;
+        }
+
+        .alarm-cta-buttons {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .alarm-cta-primary,
+        .alarm-cta-secondary {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="alarm-cta-section">
+    <div class="alarm-cta-content">
+        <h2>Secure Your <span class="tan-text">Mercedes-Benz</span> Today</h2>
+        <p>
+            Not sure which kit fits your vehicle? Find an authorized dealer near you for expert guidance and
+            professional installation.
+        </p>
+
+        <div class="alarm-cta-buttons">
+            <a href="/dealer-locator" class="alarm-cta-primary" target="_blank" rel="noopener noreferrer">
+                Find a Dealer <span>→</span>
+            </a>
+            <a href="/contactus" class="alarm-cta-secondary" target="_blank" rel="noopener noreferrer">
+                Contact Us
+            </a>
+        </div>
+
+        <div class="alarm-cta-support">
+            <p>Need installation support or have questions?</p>
+            <a href="/support" target="_blank" rel="noopener noreferrer">
+                Visit our support center →
+            </a>
+        </div>
+    </div>
+</div>

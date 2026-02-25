@@ -1,0 +1,207 @@
+<style>
+    .alarm-intro-section {
+        background: #ffffff;
+        padding: 10% 5% 7%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .alarm-intro-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--mce-dark-red), var(--mce-sepia-tan));
+        animation: slideAccentAlarm 2s ease-out forwards;
+    }
+
+    @keyframes slideAccentAlarm {
+        to { left: 0; }
+    }
+
+    .alarm-intro-content {
+        max-width: 800px;
+        margin: 0 auto 80px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+
+    .alarm-intro-content.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .alarm-intro-content h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.75rem, 3vw, 2.5rem);
+        color: var(--mce-dark-red);
+        margin-bottom: 28px;
+        line-height: 1.5;
+    }
+
+    .alarm-intro-content h2 .tan-text {
+        color: var(--mce-sepia-tan);
+    }
+
+    .alarm-intro-content p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.8vw, 1.15rem);
+        color: #444;
+        line-height: 1.8;
+    }
+
+    /* Three pillars */
+    .alarm-pillars {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .alarm-pillar {
+        padding: 50px 40px;
+        text-align: center;
+        position: relative;
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.7s ease-out;
+    }
+
+    .alarm-pillar.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .alarm-pillar:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 20%;
+        height: 60%;
+        width: 1px;
+        background: linear-gradient(180deg, transparent, var(--mce-sepia-tan), transparent);
+    }
+
+    .alarm-pillar-icon {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--mce-dark-red);
+    }
+
+    .alarm-pillar h3 {
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        color: #1a1a1a;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+    }
+
+    .alarm-pillar p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.95rem;
+        color: #666;
+        line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+        .alarm-pillars {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        .alarm-pillar:not(:last-child)::after {
+            right: 20%;
+            top: auto;
+            bottom: 0;
+            height: 1px;
+            width: 60%;
+            background: linear-gradient(90deg, transparent, var(--mce-sepia-tan), transparent);
+        }
+
+        .alarm-pillar {
+            padding: 40px 30px;
+        }
+    }
+</style>
+
+<div class="alarm-intro-section">
+    <div class="alarm-intro-content">
+        <h2>Protect Your Investment, <span class="tan-text">Preserve Your Warranty</span></h2>
+        <p>
+            Our plug and play alarm kits integrate directly with your Mercedes factory system — no wire cutting, no splicing, no compromise. Arm and disarm with your existing key fob, and add smartphone control with Compustar Drone compatibility.
+        </p>
+    </div>
+
+    <div class="alarm-pillars">
+        <div class="alarm-pillar">
+            <div class="alarm-pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="52" height="52" viewBox="0 0 318 366" preserveAspectRatio="xMidYMid meet">
+                    <g transform="translate(0.000000,366.000000) scale(0.100000,-0.100000)" fill="currentColor" stroke="none">
+                    <path d="M575 3481 c-97 -33 -171 -96 -211 -179 -39 -83 -44 -142 -44 -501 0 -190 0 -354 0 -363 0 -10 -6 -18 -13 -18 -26 0 -100 -75 -123 -124 -17 -37 -24 -69 -24 -114 0 -49 -5 -70 -20 -89 -39 -50 -24 -53 257 -53 219 0 254 2 260 15 3 9 -1 23 -9 33 -10 10 -18 47 -21 95 -7 105 -42 167 -121 221 l-57 38 3 382 c3 370 4 382 25 422 47 87 125 130 222 121 64 -5 98 -22 231 -116 52 -37 300 -203 550 -371 250 -167 523 -349 605 -405 83 -56 276 -186 430 -289 154 -104 292 -203 307 -220 16 -17 35 -55 44 -84 22 -73 7 -135 -48 -197 -28 -32 -233 -174 -672 -467 -347 -232 -671 -449 -721 -483 -49 -34 -139 -95 -200 -136 -226 -155 -441 -295 -468 -307 -15 -7 -50 -12 -76 -12 -86 0 -152 40 -199 118 l-27 47 -3 373 c-4 397 -3 402 44 402 14 0 41 17 68 43 48 46 66 92 66 168 0 32 6 53 20 69 12 13 18 30 15 38 -3 7 -5 16 -5 18 0 2 -17 4 -38 4 -21 0 -43 5 -50 12 -8 8 -12 53 -12 136 0 122 0 123 -22 120 -22 -3 -23 -8 -28 -133 l-5 -130 -110 0 -110 0 -5 130 -5 130 -25 0 -25 0 -5 -130 -5 -130 -45 -5 c-50 -6 -64 -28 -35 -59 9 -11 18 -42 20 -78 3 -33 11 -75 19 -94 19 -46 72 -97 111 -107 l30 -8 6 -375 c3 -206 10 -390 16 -409 33 -118 93 -193 186 -238 129 -61 252 -48 387 42 25 16 47 33 50 36 3 4 210 143 460 310 250 167 518 346 595 398 77 53 298 201 490 330 381 255 439 303 474 397 51 135 5 299 -108 390 -14 11 -257 175 -541 365 -283 190 -591 398 -685 461 -600 407 -802 538 -864 558 -77 25 -138 26 -206 2z"></path>
+                    <path d="M1140 2501 c-14 -27 -14 -1325 0 -1352 6 -10 21 -19 33 -19 14 0 185 109 408 258 683 459 640 426 599 466 -14 13 -169 120 -345 238 -176 118 -391 262 -477 321 -161 110 -198 125 -218 88z"></path>
+                    </g>
+                </svg>
+            </div>
+            <h3>Plug &amp; Play</h3>
+            <p>Vehicle-specific CAN interface connects directly, keeping factory integrity intact. Control your alarm system effortlessly using your existing factory key fob.</p>
+        </div>
+
+        <div class="alarm-pillar">
+            <div class="alarm-pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="M9 12l2 2 4-4"></path>
+                </svg>
+            </div>
+            <h3>Full Perimeter</h3>
+            <p>DAS II digital security sensor provides shock, tilt, glass break, and tow sensing for comprehensive protection.</p>
+        </div>
+
+        <div class="alarm-pillar">
+            <div class="alarm-pillar-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                    <path d="M12 18h.01"></path>
+                </svg>
+            </div>
+            <h3>Smartphone Ready</h3>
+            <p>Add Compustar Drone for remote arm/disarm, alerts, and live vehicle data directly from your phone.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const introSection = document.querySelector('.alarm-intro-section');
+        if (!introSection) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const content = entry.target.querySelector('.alarm-intro-content');
+                    const pillars = entry.target.querySelectorAll('.alarm-pillar');
+
+                    if (content) content.classList.add('visible');
+
+                    pillars.forEach((pillar, i) => {
+                        setTimeout(() => pillar.classList.add('visible'), 200 + (i * 150));
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(introSection);
+    })();
+</script>
