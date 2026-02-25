@@ -35,42 +35,104 @@
         color: var(--mce-sepia-tan);
     }
 
-    /* Timeline layout */
+    /* ---- Timeline ---- */
     .timeline {
         max-width: 1200px;
         margin: 0 auto;
+    }
+
+    /*
+     * The items container IS the timeline rail.
+     * border-left = the continuous vertical line.
+     * padding-left = spacing between rail and content.
+     * No separate line element needed.
+     */
+    .timeline-items {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        border-left: 2px solid;
+        border-image: linear-gradient(180deg, var(--mce-dark-red), var(--mce-sepia-tan)) 1;
+        padding-left: 32px;
         position: relative;
-        padding-left: 60px;
     }
 
-    /* Vertical line */
-    .timeline::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 20px;
-        width: 2px;
-        height: 0;
-        background: linear-gradient(180deg, var(--mce-dark-red), var(--mce-sepia-tan));
-        transition: height 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    .milestones-section.visible .timeline::before {
-        height: 100%;
-    }
-
+    /* Each milestone */
     .timeline-item {
         position: relative;
-        margin-bottom: 60px;
         opacity: 0;
         transform: translateX(-20px);
         transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    .timeline-item:last-child {
-        margin-bottom: 0;
+    /*
+     * Dot centering strategy:
+     *   left: 0 = content edge (inside padding).
+     *   Rail border center = -(padding-left) - half(border-width) from content edge.
+     *   translateX(-50%) then centers the dot's own width on that point.
+     *   Works at every breakpoint — just update the left calc when padding changes.
+     */
+    .timeline-dot {
+        position: absolute;
+        top: 4px;
+        left: calc(-32px - 1px);
+        transform: translateX(-50%);
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--mce-dark-red);
+        border: 3px solid #ffffff;
+        box-shadow: 0 0 0 2px var(--mce-dark-red);
+        z-index: 2;
     }
 
+    /* Content */
+    .timeline-year {
+        font-family: 'Michroma', sans-serif;
+        font-size: 1.1rem;
+        color: var(--mce-sepia-tan);
+        margin-bottom: 8px;
+        letter-spacing: 0.05em;
+    }
+
+    .timeline-title {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: #1a1a1a;
+        margin-bottom: 8px;
+        line-height: 1.4;
+    }
+
+    .timeline-desc {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 1rem;
+        color: #666666;
+        line-height: 1.7;
+        max-width: 600px;
+    }
+
+    /* Rail reveal animation — white overlay that shrinks away to expose the gradient border */
+    .timeline-items::after {
+        content: '';
+        position: absolute;
+        left: -2px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #ffffff;
+        transform-origin: top;
+        transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 1;
+    }
+
+    .milestones-section.visible .timeline-items::after {
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+
+    /* Staggered item reveal */
     .milestones-section.visible .timeline-item:nth-child(1) {
         opacity: 1;
         transform: translateX(0);
@@ -107,48 +169,7 @@
         transition-delay: 0.95s;
     }
 
-    /* Dot on timeline */
-    .timeline-item::before {
-        content: '';
-        position: absolute;
-        left: -49px;
-        top: 8px;
-        width: 14px;
-        height: 14px;
-        border-radius: 50%;
-        background: var(--mce-dark-red);
-        border: 3px solid #ffffff;
-        box-shadow: 0 0 0 2px var(--mce-dark-red);
-        z-index: 1;
-    }
-
-    .timeline-year {
-        font-family: 'Michroma', sans-serif;
-        font-size: 1.1rem;
-        color: var(--mce-sepia-tan);
-        margin-bottom: 8px;
-        letter-spacing: 0.05em;
-    }
-
-    .timeline-title {
-        font-family: 'Outfit', sans-serif;
-        font-weight: 600;
-        font-size: 1.25rem;
-        color: #1a1a1a;
-        margin-bottom: 8px;
-        line-height: 1.4;
-    }
-
-    .timeline-desc {
-        font-family: 'Outfit', sans-serif;
-        font-weight: 300;
-        font-size: 1rem;
-        color: #666666;
-        line-height: 1.7;
-        max-width: 600px;
-    }
-
-    /* Responsive */
+    /* Responsive — just update padding-left and the matching dot left */
     @media (max-width: 768px) {
         .milestones-section {
             padding: 80px 5%;
@@ -158,22 +179,15 @@
             margin-bottom: 50px;
         }
 
-        .timeline {
-            padding-left: 45px;
+        .timeline-items {
+            gap: 45px;
+            padding-left: 28px;
         }
 
-        .timeline::before {
-            left: 12px;
-        }
-
-        .timeline-item::before {
-            left: -41px;
+        .timeline-dot {
+            left: calc(-28px - 1px);
             width: 12px;
             height: 12px;
-        }
-
-        .timeline-item {
-            margin-bottom: 45px;
         }
     }
 
@@ -182,16 +196,13 @@
             padding: 60px 5%;
         }
 
-        .timeline {
-            padding-left: 35px;
+        .timeline-items {
+            gap: 35px;
+            padding-left: 24px;
         }
 
-        .timeline::before {
-            left: 8px;
-        }
-
-        .timeline-item::before {
-            left: -32px;
+        .timeline-dot {
+            left: calc(-24px - 1px);
             width: 10px;
             height: 10px;
         }
@@ -213,58 +224,66 @@
     </div>
 
     <div class="timeline">
-        <div class="timeline-item">
-            <div class="timeline-year">2000</div>
-            <div class="timeline-title">Founded in Chicago</div>
-            <div class="timeline-desc">
-                Mid City Engineering opens its doors on Chicago's West Side, beginning with custom
-                automotive electronics for luxury vehicle owners.
+        <div class="timeline-items">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2005</div>
+                <div class="timeline-title">Founded in Chicago</div>
+                <div class="timeline-desc">
+                    Mid City Engineering opens its doors on Chicago's West Side, beginning with custom
+                    automotive electronics for luxury vehicle owners.
+                </div>
             </div>
-        </div>
 
-        <div class="timeline-item">
-            <div class="timeline-year">2004</div>
-            <div class="timeline-title">SmartKey Starter Launch</div>
-            <div class="timeline-desc">
-                Introduction of the first plug-and-play remote start for Mercedes-Benz — a product
-                that would define the company and set the standard for OEM integration.
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2006</div>
+                <div class="timeline-title">SmartKey Starter Launch</div>
+                <div class="timeline-desc">
+                    Introduction of the first plug-and-play remote start for Mercedes-Benz — a product
+                    that would define the company and set the standard for OEM integration.
+                </div>
             </div>
-        </div>
 
-        <div class="timeline-item">
-            <div class="timeline-year">2010</div>
-            <div class="timeline-title">Escort Radar Cluster Integration</div>
-            <div class="timeline-desc">
-                Pioneering the world's first seamless radar-to-instrument-cluster interface, displaying
-                alerts through factory screens with zero visible components.
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2010</div>
+                <div class="timeline-title">Escort Radar Cluster Integration</div>
+                <div class="timeline-desc">
+                    Pioneering the world's first seamless radar-to-instrument-cluster interface, displaying
+                    alerts through factory screens with zero visible components.
+                </div>
             </div>
-        </div>
 
-        <div class="timeline-item">
-            <div class="timeline-year">2015</div>
-            <div class="timeline-title">Sprinter Fleet Solutions</div>
-            <div class="timeline-desc">
-                Expansion into the commercial vehicle market with a full suite of Sprinter products,
-                serving fleet operators, RV builders, and commercial customers.
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2015</div>
+                <div class="timeline-title">Sprinter Fleet Solutions</div>
+                <div class="timeline-desc">
+                    Expansion into the commercial vehicle market with a full suite of Sprinter products,
+                    serving fleet operators, RV builders, and commercial customers.
+                </div>
             </div>
-        </div>
 
-        <div class="timeline-item">
-            <div class="timeline-year">2018</div>
-            <div class="timeline-title">Global Expansion</div>
-            <div class="timeline-desc">
-                Products and partnerships now span North America, India, and China — with factory-trained
-                dealer networks providing expert installation worldwide.
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">2018</div>
+                <div class="timeline-title">Global Expansion</div>
+                <div class="timeline-desc">
+                    Products and partnerships now span North America, India, and China — with factory-trained
+                    dealer networks providing expert installation worldwide.
+                </div>
             </div>
-        </div>
 
-        <div class="timeline-item">
-            <div class="timeline-year">Today</div>
-            <div class="timeline-title">Continuing Innovation</div>
-            <div class="timeline-desc">
-                From motorized license plates to 360° camera systems and alarm integration kits,
-                MCE continues to expand its product line while staying true to its founding
-                principle: the best, made better.
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-year">Today</div>
+                <div class="timeline-title">Continuing Innovation</div>
+                <div class="timeline-desc">
+                    From motorized license plates to 360° camera systems and alarm integration kits,
+                    MCE continues to expand its product line while staying true to its founding
+                    principle: the best, made better.
+                </div>
             </div>
         </div>
     </div>
