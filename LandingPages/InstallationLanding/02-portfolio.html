@@ -114,19 +114,26 @@
         margin: 0 auto;
     }
 
-    /* Masonry-style grid */
+    /* Flexbox rows — each .grid-row is a full-width row with equal-height items */
     .grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
+        display: flex;
+        flex-direction: column;
         gap: 3px;
     }
 
-    /* Item base */
+    .grid-row {
+        display: flex;
+        gap: 3px;
+        height: 350px;
+    }
+
     .item {
         position: relative;
         overflow: hidden;
         cursor: pointer;
         background: var(--mid);
+        height: 100%;
+        min-width: 0;
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 0.6s ease, transform 0.6s ease;
@@ -137,85 +144,11 @@
         transform: translateY(0);
     }
 
-    /* Grid placement — editorial asymmetry */
-    .item:nth-child(1) {
-        grid-column: span 8;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(2) {
-        grid-column: span 4;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(3) {
-        grid-column: span 4;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(4) {
-        grid-column: span 4;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(5) {
-        grid-column: span 4;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(6) {
-        grid-column: span 7;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(7) {
-        grid-column: span 5;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(8) {
-        grid-column: span 5;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(9) {
-        grid-column: span 7;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(10) {
-        grid-column: span 6;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(11) {
-        grid-column: span 6;
-        grid-row: span 1;
-    }
-
-    .item:nth-child(12) {
-        grid-column: span 12;
-        grid-row: span 1;
-    }
-
-    /* Image aspect ratios */
     .item-inner {
         position: relative;
         width: 100%;
-        padding-bottom: 66%;
+        height: 100%;
         overflow: hidden;
-    }
-
-    .item:nth-child(1) .item-inner {
-        padding-bottom: 55%;
-    }
-
-    .item:nth-child(12) .item-inner {
-        padding-bottom: 35%;
-    }
-
-    .item:nth-child(6) .item-inner {
-        padding-bottom: 70%;
     }
 
     .item-img {
@@ -228,12 +161,22 @@
         filter: brightness(0.85) saturate(0.9);
     }
 
-    .item:hover .item-img {
+    video.item-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        filter: brightness(0.85) saturate(0.9);
+    }
+
+    .item:hover .item-img,
+    .item:hover video.item-img {
         transform: scale(1.05);
         filter: brightness(0.7) saturate(1);
     }
 
-    /* Overlay */
     .item-overlay {
         position: absolute;
         inset: 0;
@@ -247,7 +190,6 @@
         opacity: 1;
     }
 
-    /* Label */
     .item-label {
         position: absolute;
         bottom: 20px;
@@ -279,7 +221,6 @@
         letter-spacing: 0.03em;
     }
 
-    /* Red corner accent */
     .item::after {
         content: '';
         position: absolute;
@@ -387,6 +328,12 @@
         transition: transform 0.4s ease;
     }
 
+    video.lightbox-img {
+        max-width: 90vw;
+        max-height: 85vh;
+        object-fit: contain;
+    }
+
     .lightbox.open .lightbox-img {
         transform: scale(1);
     }
@@ -433,7 +380,6 @@
         letter-spacing: 0.06em;
     }
 
-    /* Nav arrows */
     .lightbox-nav {
         position: absolute;
         top: 50%;
@@ -464,7 +410,6 @@
         right: 32px;
     }
 
-    /* ─── ANIMATION ───────────────────────────────────── */
     @keyframes fadeUp {
         to {
             opacity: 1;
@@ -473,56 +418,6 @@
     }
 
     /* ─── RESPONSIVE ──────────────────────────────────── */
-    @media (max-width: 1024px) {
-        .item:nth-child(1) {
-            grid-column: span 7;
-        }
-
-        .item:nth-child(2) {
-            grid-column: span 5;
-        }
-
-        .item:nth-child(3) {
-            grid-column: span 6;
-        }
-
-        .item:nth-child(4) {
-            grid-column: span 6;
-        }
-
-        .item:nth-child(5) {
-            grid-column: span 6;
-        }
-
-        .item:nth-child(6) {
-            grid-column: span 6;
-        }
-
-        .item:nth-child(7) {
-            grid-column: span 6;
-        }
-
-        .item:nth-child(8) {
-            grid-column: span 6;
-        }
-
-        .item:nth-child(9) {
-            grid-column: span 6;
-        }
-
-        .item:nth-child(10) {
-            grid-column: span 6;
-        }
-
-        .item:nth-child(11) {
-            grid-column: span 6;
-        }
-
-        .item:nth-child(12) {
-            grid-column: span 6;
-        }
-    }
-
     @media (max-width: 768px) {
         .intro {
             padding: 100px 6% 60px;
@@ -536,23 +431,8 @@
             padding: 0 0 60px;
         }
 
-        .grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 2px;
-        }
-
-        .item:nth-child(n) {
-            grid-column: span 1;
-        }
-
-        .item:nth-child(1),
-        .item:nth-child(6),
-        .item:nth-child(12) {
-            grid-column: span 2;
-        }
-
-        .item-inner {
-            padding-bottom: 75% !important;
+        .grid-row {
+            height: 250px;
         }
 
         .divider-statement {
@@ -563,211 +443,35 @@
     }
 
     @media (max-width: 480px) {
-        .grid {
-            grid-template-columns: 1fr;
-            gap: 2px;
+        .grid-row {
+            flex-direction: column;
+            height: auto;
         }
 
-        .item:nth-child(n) {
-            grid-column: span 1 !important;
+        .item {
+            height: 280px;
         }
     }
 </style>
-
-
-
-
 
 <div class="intro">
     <div class="intro-eyebrow">Professional Installations</div>
     <h2>Precision work.<br><em>Every vehicle. Every time.</em></h2>
 </div>
 
-
 <div class="filter-bar">
     <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="alarm">Alarm Systems</button>
-    <button class="filter-btn" data-filter="smartkey">SmartKey</button>
-    <button class="filter-btn" data-filter="camera">Camera</button>
-    <button class="filter-btn" data-filter="fleet">Fleet</button>
-    <button class="filter-btn" data-filter="custom">Custom</button>
+    <button class="filter-btn" data-filter="lights">Lights</button>
+    <button class="filter-btn" data-filter="accessories">Accessories</button>
+    <button class="filter-btn" data-filter="radar">Radar</button>
+    <button class="filter-btn" data-filter="stereo">Stereo</button>
 </div>
-
 
 <div class="portfolio">
     <div class="grid" id="portfolioGrid">
-
-
-        <div class="item" data-category="alarm" data-title="G-Wagon Alarm Integration" data-cat-label="Alarm Systems">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&amp;h=800&amp;fit=crop&amp;q=80"
-                    alt="G-Wagon Alarm Integration" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Alarm Systems</div>
-                    <div class="item-label-title">G-Wagon Alarm Integration</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="smartkey" data-title="S-Class SmartKey" data-cat-label="SmartKey">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&amp;h=600&amp;fit=crop&amp;q=80"
-                    alt="S-Class SmartKey" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">SmartKey</div>
-                    <div class="item-label-title">S-Class SmartKey</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="camera" data-title="360° Camera — GLE" data-cat-label="Camera">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&amp;h=600&amp;fit=crop&amp;q=80"
-                    alt="360 Camera GLE" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Camera</div>
-                    <div class="item-label-title">360° Camera — GLE</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="alarm" data-title="E-Class Alarm Kit" data-cat-label="Alarm Systems">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&amp;h=600&amp;fit=crop&amp;q=80"
-                    alt="E-Class Alarm Kit" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Alarm Systems</div>
-                    <div class="item-label-title">E-Class Alarm Kit</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="custom" data-title="AMG Custom Wiring" data-cat-label="Custom">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&amp;h=600&amp;fit=crop&amp;q=80"
-                    alt="AMG Custom Wiring" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Custom</div>
-                    <div class="item-label-title">AMG Custom Wiring</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="smartkey" data-title="C-Class SmartKey Retrofit" data-cat-label="SmartKey">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&amp;h=1100&amp;fit=crop&amp;q=80"
-                    alt="C-Class SmartKey Retrofit" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">SmartKey</div>
-                    <div class="item-label-title">C-Class SmartKey Retrofit</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="fleet" data-title="Sprinter Fleet Alarm" data-cat-label="Fleet">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=800&amp;h=600&amp;fit=crop&amp;q=80"
-                    alt="Sprinter Fleet Alarm" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Fleet</div>
-                    <div class="item-label-title">Sprinter Fleet Alarm</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="camera" data-title="GLC Dashcam Integration" data-cat-label="Camera">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=800&amp;h=600&amp;fit=crop&amp;q=80"
-                    alt="GLC Dashcam Integration" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Camera</div>
-                    <div class="item-label-title">GLC Dashcam Integration</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="alarm" data-title="Metris Van Security" data-cat-label="Alarm Systems">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=900&amp;h=600&amp;fit=crop&amp;q=80"
-                    alt="Metris Van Security" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Alarm Systems</div>
-                    <div class="item-label-title">Metris Van Security</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="custom" data-title="CLA PSM Retrofit" data-cat-label="Custom">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&amp;h=600&amp;fit=crop&amp;q=80"
-                    alt="CLA PSM Retrofit" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Custom</div>
-                    <div class="item-label-title">CLA PSM Retrofit</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="fleet" data-title="RV Security Package" data-cat-label="Fleet">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=800&amp;h=600&amp;fit=crop&amp;q=80"
-                    alt="RV Security Package" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Fleet</div>
-                    <div class="item-label-title">RV Security Package</div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="item" data-category="custom" data-title="Showroom Build — G63 Full Suite" data-cat-label="Custom">
-            <div class="item-inner">
-                <img class="item-img"
-                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1800&amp;h=700&amp;fit=crop&amp;q=80"
-                    alt="G63 Full Suite" loading="lazy">
-                <div class="item-overlay"></div>
-                <div class="item-label">
-                    <div class="item-label-cat">Custom</div>
-                    <div class="item-label-title">Showroom Build — G63 Full Suite</div>
-                </div>
-            </div>
-        </div>
-
+        <!-- JS builds .grid-row wrappers here -->
     </div>
 </div>
-
 
 <div class="divider-statement">
     <p>Every installation is performed by <em>factory-trained technicians</em> to the highest standards. We take the
@@ -778,11 +482,11 @@
     </a>
 </div>
 
-
 <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lbClose">×</button>
     <button class="lightbox-nav lightbox-prev" id="lbPrev">←</button>
     <img class="lightbox-img" id="lbImg" src="" alt="" loading="lazy">
+    <video class="lightbox-img" id="lbVideo" autoplay loop playsinline style="display:none;"></video>
     <button class="lightbox-nav lightbox-next" id="lbNext">→</button>
     <div class="lightbox-meta">
         <div class="lightbox-meta-cat" id="lbCat"></div>
@@ -790,89 +494,572 @@
     </div>
 </div>
 
+<!-- Hidden source items — JS reads from here -->
+<div id="itemSource" style="display:none;">
+
+    <!-- ACCESSORIES (15) -->
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/8MwlbvuOSFOxbLq5bP5psQocd?download=0" alt="GLS450 headrest1"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/C4mr6zT4QFGrd5WCI7GqWwoce?download=0" alt="IMG_0402"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/fRWg7DabQz2kbVN8l2zfKQocf?download=0" alt="IMG_0750"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/EDmcXuBKR_mQ6zIOg-Lb9Aod0?download=0" alt="IMG_1437"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/rfCmg6Q6R7mj0ta70SMsDAod1?download=0" alt="IMG_4349"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/cJG7MDD4TZKfNMxSHVOgVwod2?download=0" alt="IMG_4350"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/Sl8YVIBXQIOjZ2rXE1DaWgod3?download=0" alt="IMG_7089"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/T9GWa2HHRlK2T4eEtGiPbAod4?download=0" alt="IMG_7184"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/IJj8d5yeSQOt_IuiJVb1jwod5?download=0" alt="IMG_7290"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/ULJLatV6QjiCpTCsVaOKvwod6?download=0" alt="IMG_7667"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/ohTUb5DlSOqLGKQwdTSF4Qod7?download=0" alt="IMG_8085"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/9N3IbOggTySstgG9gGqlDAod8?download=0" alt="IMG_8089"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/aBaF5jrvRXOmniKH6awkGAoda?download=0"
+                alt="Sprinter Brush Guard" loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/I5t9aSLeRfqJO-Sn0K6jnwodb?download=0"
+                alt="Sprinter motorized steps" loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="accessories" data-title="" data-cat-label="Accessories">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/Y7MFqKgVRHC7ViOafwVHEQod9?download=0" alt="metriscam13"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIGHTS (14) -->
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/jPETKx8OShKP90MPOL6GEQob0?download=0" alt="59312637764"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/-J7SxpLmSvOFd8YQuQ3EYQob1?download=0" alt="Eshadowlight1"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/MqJtWHBfSJixmr2KGmnb0gob2?download=0" alt="Estar1"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/gvNlc4CJQdCBVpYv5w351Aob3?download=0" alt="IMG_0706"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/ZnGVJkIMQJSSkpMsepIPBQob4?download=0" alt="IMG_1549"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/QbV5CsPQQtOsDNCCb_tWRAob5?download=0" alt="IMG_7300"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/yJaDOzRmTAmTsD42bCcKrAob6?download=0" alt="IMG_7666"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/zEc2gZ5WRIOodB_yduxAlgob7?download=0" alt="IMG_7860"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/pqsvK0ehR-GtFXR5niAzlQob8?download=0" alt="IMG_8186"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/JwL1ZY0pTv2TrWmQSoPwWAob9?download=0" alt="IMG_8190"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/5fe3DiE5SzKRscdA9EIs_Qoba?download=0" alt="IMG_9937"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/BYGfNkLQSsKQcgOIeDNJuAobb?download=0"
+                alt="Screenshot 2026-02-24" loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/uVpf71B-TrW-KXTdlgZ3Nwobc?download=0"
+                alt="Sprinter Xenon headlights LED light bar fog lights" loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="lights" data-title="" data-cat-label="Lights">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/g8IPJJMvQxqaVTMQ--7O-gobd?download=0" alt="W463 light up star"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RADAR (4) -->
+    <div class="item" data-category="radar" data-title="" data-cat-label="Radar">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/hSkwpbvXTL-rF4zD7XhrgQodc?download=0" alt="IMG_0733"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="radar" data-title="" data-cat-label="Radar">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/4H-BpYjkQ3WUHRqqkOFAtgodd?download=0" alt="IMG_0804"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="radar" data-title="" data-cat-label="Radar">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/QBHcxU0PRKGBQh5v8b2mYAode?download=0" alt="IMG_4334"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="radar" data-title="" data-cat-label="Radar">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/D61_K_pCSE-sLexTsKMXRAodf?download=0" alt="IMG_8243"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEREO (5) -->
+    <div class="item" data-category="stereo" data-title="" data-cat-label="Stereo">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/-HwR_o5AQk6c1zS9Qop2FAoe0?download=0" alt="IMG_0700"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="stereo" data-title="" data-cat-label="Stereo">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/rjfX3yF9SHO9VHb-T7wbQwoe1?download=0" alt="IMG_7669"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="stereo" data-title="" data-cat-label="Stereo">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/ej29jFsyTBWdxOBFgHek2Qoe2?download=0" alt="IMG_7671"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="stereo" data-title="" data-cat-label="Stereo">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/157r8JXBQAOZQNaK87zWgAoe3?download=0" alt="IMG_8411"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+    <div class="item" data-category="stereo" data-title="" data-cat-label="Stereo">
+        <div class="item-inner">
+            <img class="item-img" src="/documents/content/b-WX81SkSvizYGGoDKdMIgoe4?download=0" alt="IMG_9633"
+                loading="lazy">
+            <div class="item-overlay"></div>
+            <div class="item-label">
+                <div class="item-label-cat"></div>
+                <div class="item-label-title"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    // ── Scroll reveal ────────────────────────────────────────────
-    const items = document.querySelectorAll('.item');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach((entry, i) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => entry.target.classList.add('visible'), 60 * Array.from(items).indexOf(entry.target) % 6);
-                observer.unobserve(entry.target);
+    (function () {
+        const grid = document.getElementById('portfolioGrid');
+        const source = document.getElementById('itemSource');
+        const allItems = Array.from(source.querySelectorAll('.item'));
+
+        // Row layout pattern: items-per-row and flex ratios
+        // Each entry: [flex1, flex2, ...] — the number of values = items in that row
+        // Ratios control relative widths. All items in a row share the same height.
+        const rowPattern = [
+            [2, 1],        // Row A: 2/3 + 1/3
+            [1, 1, 1],     // Row B: equal thirds
+            [1.4, 1],       // Row C: ~58% + ~42%
+            [1, 2],        // Row D: 1/3 + 2/3
+        ];
+
+        function buildGrid(filter) {
+            grid.innerHTML = '';
+
+            const filtered = allItems.filter(item =>
+                filter === 'all' || item.dataset.category === filter
+            );
+
+            let idx = 0;
+            let patternIdx = 0;
+
+            while (idx < filtered.length) {
+                const rowDef = rowPattern[patternIdx % rowPattern.length];
+                const row = document.createElement('div');
+                row.className = 'grid-row';
+
+                // How many items this row wants vs how many remain
+                const count = Math.min(rowDef.length, filtered.length - idx);
+
+                for (let i = 0; i < count; i++) {
+                    const item = filtered[idx];
+                    // Use the pattern's flex value, or equal flex for partial last row
+                    const flex = (count === rowDef.length) ? rowDef[i] : 1;
+                    item.style.flex = flex;
+                    item.classList.add('visible');
+                    row.appendChild(item);
+                    idx++;
+                }
+
+                grid.appendChild(row);
+                patternIdx++;
             }
-        });
-    }, { threshold: 0.08 });
+        }
 
-    items.forEach((item, i) => {
-        item.style.transitionDelay = `${(i % 4) * 80}ms`;
-        observer.observe(item);
-    });
-
-    // ── Filter ───────────────────────────────────────────────────
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const filter = btn.dataset.filter;
-            items.forEach(item => {
-                const match = filter === 'all' || item.dataset.category === filter;
-                item.style.display = match ? '' : 'none';
+        // ── Filter buttons ───────────────────────────────────────────
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                buildGrid(btn.dataset.filter);
             });
         });
-    });
 
-    // ── Lightbox ─────────────────────────────────────────────────
-    const lightbox = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lbImg');
-    const lbCat = document.getElementById('lbCat');
-    const lbTitle = document.getElementById('lbTitle');
+        // ── Initial build ────────────────────────────────────────────
+        buildGrid('all');
 
-    let currentIndex = 0;
-    let visibleItems = [];
+        // ── Lightbox ─────────────────────────────────────────────────
+        const lightbox = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lbImg');
+        const lbVideo = document.getElementById('lbVideo');
+        const lbCat = document.getElementById('lbCat');
+        const lbTitle = document.getElementById('lbTitle');
+        let currentIndex = 0;
+        let visibleItems = [];
 
-    function openLightbox(item) {
-        visibleItems = Array.from(items).filter(i => i.style.display !== 'none');
-        currentIndex = visibleItems.indexOf(item);
-        updateLightbox();
-        lightbox.classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
+        function getVisibleItems() {
+            return Array.from(grid.querySelectorAll('.item'));
+        }
 
-    function updateLightbox() {
-        const item = visibleItems[currentIndex];
-        const img = item.querySelector('.item-img');
-        lbImg.src = img.src;
-        lbCat.textContent = item.dataset.catLabel;
-        lbTitle.textContent = item.dataset.title;
-    }
+        function openLightbox(item) {
+            visibleItems = getVisibleItems();
+            currentIndex = visibleItems.indexOf(item);
+            updateLightbox();
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
 
-    function closeLightbox() {
-        lightbox.classList.remove('open');
-        document.body.style.overflow = '';
-    }
+        function updateLightbox() {
+            const item = visibleItems[currentIndex];
+            if (!item) return;
+            const isVideo = item.dataset.type === 'video';
 
-    items.forEach(item => {
-        item.addEventListener('click', () => openLightbox(item));
-    });
+            lbImg.style.display = isVideo ? 'none' : 'block';
+            lbVideo.style.display = isVideo ? 'block' : 'none';
 
-    document.getElementById('lbClose').addEventListener('click', closeLightbox);
-    document.getElementById('lbPrev').addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
-        updateLightbox();
-    });
-    document.getElementById('lbNext').addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % visibleItems.length;
-        updateLightbox();
-    });
+            if (isVideo) {
+                const vid = item.querySelector('video.item-img');
+                lbVideo.src = vid.src;
+                lbVideo.muted = false;
+                lbVideo.play();
+            } else {
+                lbVideo.pause();
+                lbVideo.removeAttribute('src');
+                lbImg.src = item.querySelector('.item-img').src;
+            }
 
-    lightbox.addEventListener('click', e => {
-        if (e.target === lightbox) closeLightbox();
-    });
+            lbCat.textContent = item.dataset.catLabel;
+            lbTitle.textContent = item.dataset.title;
+        }
 
-    document.addEventListener('keydown', e => {
-        if (!lightbox.classList.contains('open')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length; updateLightbox(); }
-        if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % visibleItems.length; updateLightbox(); }
-    });
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+            lbVideo.pause();
+            lbVideo.removeAttribute('src');
+        }
+
+        grid.addEventListener('click', e => {
+            const item = e.target.closest('.item');
+            if (item) openLightbox(item);
+        });
+
+        document.getElementById('lbClose').addEventListener('click', closeLightbox);
+        document.getElementById('lbPrev').addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+            updateLightbox();
+        });
+        document.getElementById('lbNext').addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % visibleItems.length;
+            updateLightbox();
+        });
+
+        lightbox.addEventListener('click', e => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', e => {
+            if (!lightbox.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length; updateLightbox(); }
+            if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % visibleItems.length; updateLightbox(); }
+        });
+    })();
 </script>
