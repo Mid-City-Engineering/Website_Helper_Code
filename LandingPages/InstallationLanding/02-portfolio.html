@@ -1036,6 +1036,11 @@
                 grid.appendChild(row);
                 patternIdx++;
             }
+
+            // Restart any videos that were moved in the DOM
+            grid.querySelectorAll('video.item-img').forEach(vid => {
+                vid.play().catch(() => { });
+            });
         }
 
         // ── Filter buttons ───────────────────────────────────────────
