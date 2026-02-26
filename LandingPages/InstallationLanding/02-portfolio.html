@@ -308,8 +308,10 @@
         z-index: 9999;
         background: rgba(0, 0, 0, 0.95);
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
+        gap: 20px;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.4s ease;
@@ -322,7 +324,7 @@
 
     .lightbox-img {
         max-width: 90vw;
-        max-height: 85vh;
+        max-height: 75vh;
         object-fit: contain;
         transform: scale(0.95);
         transition: transform 0.4s ease;
@@ -330,7 +332,7 @@
 
     video.lightbox-img {
         max-width: 90vw;
-        max-height: 85vh;
+        max-height: 75vh;
         object-fit: contain;
     }
 
@@ -358,10 +360,8 @@
     }
 
     .lightbox-meta {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
+        position: static;
+        transform: none;
         text-align: center;
     }
 
@@ -974,7 +974,8 @@
         </div>
     </div>
 
-    <div class="item" data-type="video" data-category="motoplate" data-title="Mercedes-Benz E-Class" data-cat-label="Motorized Front Plate">
+    <div class="item" data-type="video" data-category="motoplate" data-title="Mercedes-Benz E-Class"
+        data-cat-label="Motorized Front Plate">
         <div class="item-inner">
             <video class="item-img" src="/documents/content/zeIBufl1QjK5C6o1Al5vFwoea?download=0" muted autoplay loop
                 playsinline></video>
