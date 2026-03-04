@@ -222,19 +222,6 @@
                 <h3 class="alarm-card-title">907INTK Alarm Kit</h3>
                 <p class="alarm-card-compat-label">Compatible Vehicles</p>
                 <div class="alarm-card-compat-list">
-                    <span>Sprinter 2019 - 2026 (907)</span>
-                    <span>C Class Sedan 2019-2024</span>
-                    <span>C Class Coupe 2019-2024</span>
-                    <span>CLA 2020-2024</span>
-                    <span>CLS 2020-2024</span>
-                    <span>E Class 2017-2024</span>
-                    <span>G Wagon 2019-2024</span>
-                    <span>GLA 2020-2024</span>
-                    <span>GLC 2020-2024</span>
-                    <span>GLE 2020-2024</span>
-                    <span>GLS 2020-2024</span>
-                    <span>S Class 2018-2020</span>
-                    <span>SLC 2022-2024</span>
                 </div>
                 <div class="alarm-card-includes">
                     <p>Includes: Compustar alarm, vehicle-specific CAN interface, DAS II digital security sensor, siren.
@@ -253,7 +240,6 @@
                 <h3 class="alarm-card-title">Metris Alarm Kit</h3>
                 <p class="alarm-card-compat-label">Compatible Vehicles</p>
                 <div class="alarm-card-compat-list">
-                    <span>Metris 2016-2024</span>
                 </div>
                 <div class="alarm-card-includes">
                     <p>Includes: Compustar alarm, Metris-specific CAN interface, DAS II digital security sensor, siren.
@@ -272,23 +258,6 @@
                 <h3 class="alarm-card-title">HSINTK Alarm Kit</h3>
                 <p class="alarm-card-compat-label">Compatible Vehicles</p>
                 <div class="alarm-card-compat-list">
-                    <span>C Class Sedan 2008-2014</span>
-                    <span>C Class Coupe 2008-2015</span>
-                    <span>CL 2007-2013</span>
-                    <span>CLA 2014-2019</span>
-                    <span>CLS 2012-2019</span>
-                    <span>E Class 2010-2016</span>
-                    <span>G Wagon 2012-2018</span>
-                    <span>GL 2013-2016</span>
-                    <span>GLA 2014-2019</span>
-                    <span>GLK 2010-2015</span>
-                    <span>GLS 2017-2019</span>
-                    <span>GLE 2016-2019</span>
-                    <span>ML 2013-2015</span>
-                    <span>S Class 2007-2013</span>
-                    <span>SL 2013-2020</span>
-                    <span>SLC 2016-2019</span>
-                    <span>SLK 2012-2015</span>
                 </div>
                 <div class="alarm-card-includes">
                     <p>Includes: Compustar alarm, vehicle-specific CAN interface, DAS II digital security sensor, siren.
@@ -307,10 +276,6 @@
                 <h3 class="alarm-card-title">205INTK Alarm Kit</h3>
                 <p class="alarm-card-compat-label">Compatible Vehicles</p>
                 <div class="alarm-card-compat-list">
-                    <span>C Class Sedan 2015-2018</span>
-                    <span>C Class Coupe 2016-2018</span>
-                    <span>GLC 2015-2019</span>
-                    <span>S Class 2014-2017</span>
                 </div>
                 <div class="alarm-card-includes">
                     <p>Includes: Compustar alarm, vehicle-specific CAN interface, DAS II digital security sensor, siren.
@@ -323,3 +288,39 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var skuMap = {};
+        (OdooProductData || []).forEach(function (product) {
+            skuMap[product.default_code] = product;
+        });
+
+        document.querySelectorAll('.alarm-product-card').forEach(function (card) {
+            var skuEl = card.querySelector('.alarm-card-sku');
+            if (!skuEl) return;
+
+            // Extract SKU from "SKU: 907INTK" text
+            var sku = skuEl.textContent.replace('SKU:', '').trim();
+            var product = skuMap[sku];
+            if (!product) return;
+
+            var listEl = card.querySelector('.alarm-card-compat-list');
+            if (!listEl) return;
+
+            // Clear the hard-coded list
+            listEl.innerHTML = '';
+
+            // x_studio_compatibility_list is typically a '|'-separated string
+            var items = (product.x_studio_compatibility_list || '').split('|').filter(function (line) {
+                return line.trim() !== '';
+            });
+
+            items.forEach(function (item) {
+                var span = document.createElement('span');
+                span.textContent = item.trim();
+                listEl.appendChild(span);
+            });
+        });
+    });
+</script>
