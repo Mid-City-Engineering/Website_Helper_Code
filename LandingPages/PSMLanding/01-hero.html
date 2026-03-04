@@ -1,10 +1,11 @@
 <script>
     // change from null to actual string for replacement
     productName = 'PSM'; // change from null to actual string for replacement
-    backgroundVideoLink = '/documents/content/y8SwX8UTQv-9LmD2x7NIlwo99?download=0'; // change from null to actual string for replacement
-    videoObjectPosition = 'center top';
-    videoObjectPositionMobile = null;
-    videoObjectPositionTablet = null;
+    backgroundMediaIsImage = false;
+    backgroundMediaLink = '/documents/content/y8SwX8UTQv-9LmD2x7NIlwo99?download=0'; // change from null to actual string for replacement
+    mediaObjectPosition = 'center top';
+    mediaObjectPositionMobile = null;
+    mediaObjectPositionTablet = null;
     headerBackground = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 60%, rgba(0, 0, 0, 0.4) 100%)';
 </script>
 
@@ -23,7 +24,7 @@
     .hero-placeholder {
         height: var(--hero-placeholder-height);
         background: radial-gradient(ellipse 75% 75% at 90% 10%, #810305 0%, black 100%);
-        /* Fallback color while video loads */
+        /* Fallback background gradient while media loads */
     }
 
     @media (max-width: 768px) and (min-width: 481px) {
@@ -79,27 +80,41 @@
                     mainProductOrSeries.innerHTML = productName;
                 }
 
-                // Code to override the background video link
-                const video = container.querySelector('.hero-video source');
-                if (video && backgroundVideoLink != null) {
-                    video.src = backgroundVideoLink;
-                    video.parentElement.load(); // reload video with new source
-                }
-
-                // Code to override video focus point
-                const heroVideo = container.querySelector('.hero-video');
-                if (heroVideo && videoObjectPosition != null) {
-                    function applyVideoPosition() {
-                        if (window.matchMedia('(max-width: 480px)').matches) {
-                            heroVideo.style.objectPosition = videoObjectPositionMobile ?? videoObjectPosition;
-                        } else if (window.matchMedia('(max-width: 768px)').matches) {
-                            heroVideo.style.objectPosition = videoObjectPositionTablet ?? videoObjectPosition;
-                        } else {
-                            heroVideo.style.objectPosition = videoObjectPosition;
+                // Override background media
+                if (backgroundMediaLink != null) {
+                    if (backgroundMediaIsImage) {
+                        const media = container.querySelector('.hero-media');
+                        if (media) {
+                            const img = document.createElement('img');
+                            img.className = media.className;
+                            img.src = backgroundMediaLink;
+                            img.alt = 'Hero image';
+                            img.loading = 'eager';
+                            media.replaceWith(img);
+                        }
+                    } else {
+                        const videoSource = container.querySelector('.hero-media source');
+                        if (videoSource) {
+                            videoSource.src = backgroundMediaLink;
+                            videoSource.parentElement.load();
                         }
                     }
-                    applyVideoPosition();
-                    window.addEventListener('resize', applyVideoPosition);
+                }
+
+                // Override media focus point
+                const heroMedia = container.querySelector('.hero-media');
+                if (heroMedia && mediaObjectPosition != null) {
+                    function applyMediaPosition() {
+                        if (window.matchMedia('(max-width: 480px)').matches) {
+                            heroMedia.style.objectPosition = mediaObjectPositionMobile ?? mediaObjectPosition;
+                        } else if (window.matchMedia('(max-width: 768px)').matches) {
+                            heroMedia.style.objectPosition = mediaObjectPositionTablet ?? mediaObjectPosition;
+                        } else {
+                            heroMedia.style.objectPosition = mediaObjectPosition;
+                        }
+                    }
+                    applyMediaPosition();
+                    window.addEventListener('resize', applyMediaPosition);
                 }
 
                 // Code to override hero-header background
