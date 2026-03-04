@@ -1,0 +1,499 @@
+<style>
+    .support-section {
+        background: #ffffff;
+        padding: 120px 0 140px;
+        position: relative;
+    }
+
+    .support-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 5%;
+    }
+
+    /* Section header */
+    .support-header {
+        text-align: center;
+        margin-bottom: 80px;
+        opacity: 0;
+        transform: translateY(-30px);
+        animation: fadeInHeader 0.8s ease-out 0.2s forwards;
+    }
+
+    @keyframes fadeInHeader {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .support-header h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+        color: var(--mce-dark-red);
+        margin-bottom: 20px;
+        letter-spacing: 0.02em;
+    }
+
+    .support-header p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.8vw, 1.2rem);
+        color: #666666;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Support options grid */
+    .support-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-bottom: 80px;
+    }
+
+    .support-card {
+        background: #fafafa;
+        padding: 50px 40px;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid transparent;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    .support-card:nth-child(1) {
+        animation: fadeInCard 0.6s ease-out 0.3s forwards;
+    }
+
+    .support-card:nth-child(2) {
+        animation: fadeInCard 0.6s ease-out 0.4s forwards;
+    }
+
+    .support-card:nth-child(3) {
+        animation: fadeInCard 0.6s ease-out 0.5s forwards;
+    }
+
+    .support-card:nth-child(4) {
+        animation: fadeInCard 0.6s ease-out 0.6s forwards;
+    }
+
+    .support-card:nth-child(5) {
+        animation: fadeInCard 0.6s ease-out 0.7s forwards;
+    }
+
+    .support-card:nth-child(6) {
+        animation: fadeInCard 0.6s ease-out 0.8s forwards;
+    }
+
+    @keyframes fadeInCard {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Top border accent */
+    .support-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: width 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .support-card:hover::before {
+        width: 100%;
+    }
+
+    .support-card:hover {
+        background: #ffffff;
+        border-color: var(--mce-sepia-tan);
+        transform: translateY(-8px);
+        box-shadow: 0 20px 50px rgba(129, 3, 5, 0.08);
+    }
+
+    .support-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--mce-dark-red);
+        border-radius: 50%;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .support-icon svg {
+        width: 28px;
+        height: 28px;
+        stroke: var(--mce-dark-red);
+        transition: stroke 0.5s ease;
+    }
+
+    .support-card:hover .support-icon {
+        background: var(--mce-dark-red);
+        border-color: var(--mce-dark-red);
+        transform: scale(1.1);
+    }
+
+    .support-card:hover .support-icon svg {
+        stroke: white;
+    }
+
+    .support-card h3 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1.3rem;
+        color: #1a1a1a;
+        margin-bottom: 15px;
+        letter-spacing: 0.01em;
+    }
+
+    .support-card p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.95rem;
+        color: #666666;
+        line-height: 1.6;
+        margin-bottom: 25px;
+    }
+
+    .support-card-arrow {
+        display: inline-block;
+        font-size: 1.2rem;
+        color: var(--mce-sepia-tan);
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .support-card:hover .support-card-arrow {
+        transform: translateX(8px);
+        color: var(--mce-dark-red);
+    }
+
+    /* Divider accent */
+    .support-divider {
+        width: 100px;
+        height: 2px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        margin: 0 auto 80px;
+        opacity: 0;
+        animation: expandDivider 1s ease-out 0.9s forwards;
+    }
+
+    @keyframes expandDivider {
+        from {
+            width: 0;
+            opacity: 0;
+        }
+
+        to {
+            width: 100px;
+            opacity: 1;
+        }
+    }
+
+    /* Bottom CTA section */
+    .support-cta {
+        text-align: center;
+        padding: 60px 5%;
+        background: #fafafa;
+        border-top: 1px solid #e8e8e8;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInCTA 0.8s ease-out 1s forwards;
+    }
+
+    @keyframes fadeInCTA {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .support-cta h3 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        color: var(--mce-dark-red);
+        margin-bottom: 20px;
+    }
+
+    .support-cta p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(1rem, 1.5vw, 1.1rem);
+        color: #666666;
+        margin-bottom: 35px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .support-cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 18px 40px;
+        background: var(--mce-dark-red);
+        color: white;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        border: 2px solid var(--mce-dark-red);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .support-cta-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: var(--mce-sepia-tan);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+        z-index: 0;
+    }
+
+    .support-cta-button:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    .support-cta-button:hover {
+        border-color: var(--mce-sepia-tan);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(129, 3, 5, 0.2);
+    }
+
+    .support-cta-button span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .support-cta-button-arrow {
+        position: relative;
+        z-index: 1;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .support-cta-button:hover .support-cta-button-arrow {
+        transform: translateX(5px);
+    }
+
+    /* Responsive design */
+    @media (max-width: 1024px) {
+        .support-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 35px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .support-section {
+            padding: 80px 0 100px;
+        }
+
+        .support-header {
+            margin-bottom: 60px;
+        }
+
+        .support-grid {
+            gap: 30px;
+        }
+
+        .support-card {
+            padding: 40px 30px;
+        }
+
+        .support-divider {
+            margin-bottom: 60px;
+        }
+
+        .support-cta {
+            padding: 50px 5%;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .support-grid {
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        .support-card {
+            padding: 35px 25px;
+        }
+
+        .support-section {
+            padding: 60px 0 80px;
+        }
+    }
+</style>
+
+<div class="support-section">
+    <div class="support-container">
+        <div class="support-header">
+
+            <p>We're here to help you get the most from your Mid City Engineering products</p>
+        </div>
+
+        <div class="support-grid">
+
+            <a href="/installation-manuals" class="support-card">
+                <div class="support-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                </div>
+                <h3>Installation Manuals</h3>
+                <p>Comprehensive guides for all products</p>
+                <span class="support-card-arrow">→</span>
+            </a>
+
+
+            <a href="/helpdesk/customer-care-1" class="support-card">
+                <div class="support-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="12" y1="18" x2="12" y2="12"></line>
+                        <line x1="9" y1="15" x2="15" y2="15"></line>
+                    </svg>
+                </div>
+                <h3>Submit a Ticket</h3>
+                <p>Get technical support from our team</p>
+                <span class="support-card-arrow">→</span>
+            </a>
+
+
+            <a href="/contactus" class="support-card">
+                <div class="support-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                </div>
+                <h3>Contact Us</h3>
+                <p>General inquiries and questions</p>
+                <span class="support-card-arrow">→</span>
+            </a>
+
+
+            <a href="/become-dealer/" class="support-card">
+                <div class="support-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <h3>Become a Dealer</h3>
+                <p>Join our network of trusted partners</p>
+                <span class="support-card-arrow">→</span>
+            </a>
+
+
+            <a href="/smartkey-starter-faq" class="support-card">
+                <div class="support-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
+                <h3>SmartKey FAQ</h3>
+                <p>Answers to common questions</p>
+                <span class="support-card-arrow">→</span>
+            </a>
+
+
+            <a href="/dealer-locator" class="support-card">
+                <div class="support-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </div>
+                <h3>Dealer Locator</h3>
+                <p>Find authorized dealers near you</p>
+                <span class="support-card-arrow">→</span>
+            </a>
+        </div>
+
+        <div class="support-divider"></div>
+
+        <div class="support-cta">
+            <h3>Need Immediate Assistance?</h3>
+            <p>
+                Give us a call at
+                <a href="tel:+13124211114"
+                    style="color: var(--mce-dark-red); text-decoration: none; font-weight: 500; border-bottom: 1px solid var(--mce-sepia-tan); transition: color 0.3s ease;"
+                    onmouseover="this.style.color='var(--mce-sepia-tan)'"
+                    onmouseout="this.style.color='var(--mce-dark-red)'">
+                    1 (312) 421-1114
+                </a>
+
+                <br>
+                Mon–Fri • 9am – 5pm
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Pause animations until section is in view
+    const supportSection = document.querySelector('.support-section');
+
+    if (supportSection) {
+        const animatedElements = supportSection.querySelectorAll(
+            '.support-header, .support-card, .support-divider, .support-cta'
+        );
+
+        animatedElements.forEach(el => {
+            el.style.animationPlayState = 'paused';
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const elements = entry.target.querySelectorAll(
+                        '.support-header, .support-card, .support-divider, .support-cta'
+                    );
+
+                    elements.forEach(el => {
+                        el.style.animationPlayState = 'running';
+                    });
+
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.2
+        });
+
+        observer.observe(supportSection);
+    }
+</script>
