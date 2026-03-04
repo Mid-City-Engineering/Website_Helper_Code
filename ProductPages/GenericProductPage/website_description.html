@@ -522,18 +522,16 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
                 </button>
                 <div id="accordion-content-1" class="mce-accordion-content" role="region">
                     <div class="mce-accordion-items">
-                        <a class="mce-accordion-item" href="/installation-manuals" target="_blank"
-                            rel="noopener noreferrer">
+                        <a class="mce-accordion-item" href="/installation-manuals">
                             <div class="mce-accordion-text">Installation Manuals</div>
                         </a>
-                        <a class="mce-accordion-item" href="/dealer-locator" target="_blank" rel="noopener noreferrer">
+                        <a class="mce-accordion-item" href="/dealer-locator">
                             <div class="mce-accordion-text">Find A Dealer</div>
                         </a>
-                        <a class="mce-accordion-item" href="/helpdesk/customer-care-1" target="_blank"
-                            rel="noopener noreferrer">
+                        <a class="mce-accordion-item" href="/support">
                             <div class="mce-accordion-text">Get Support</div>
                         </a>
-                        <a class="mce-accordion-item" href="/contactus" target="_blank" rel="noopener noreferrer">
+                        <a class="mce-accordion-item" href="/contactus">
                             <div class="mce-accordion-text">Contact Us</div>
                         </a>
                     </div>
@@ -557,15 +555,15 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
         }
     };
 
-    // Function to make all HTML links open in a new tab
-    function makeLinksOpenInNewTab(htmlString) {
+    // Function to make all HTML links open in the same tab
+    function makeLinksOpenInSameTab(htmlString) {
         const tempDiv = document.createElement('div');
         tempDiv.innerHTML = htmlString;
 
         const links = tempDiv.querySelectorAll('a');
         links.forEach(link => {
-            link.setAttribute('target', '_blank');
-            link.setAttribute('rel', 'noopener');
+            link.removeAttribute('target');
+            link.removeAttribute('rel');
         });
 
         return tempDiv.innerHTML;
@@ -597,7 +595,7 @@ PASTE THIS INTO ODOO HTML EMBED WIDGET -->
             // Substitute "\n" wuth <br> tags for HTML line breaks
             const formattedAdCopy = adCopyWithMarkdownLinks.replace(/\n/g, '<br>');
             // Enclose the formatted ad copy in a paragraph tag
-            const processedAdCopy = makeLinksOpenInNewTab('<p>' + formattedAdCopy + '</p>');
+            const processedAdCopy = makeLinksOpenInSameTab('<p>' + formattedAdCopy + '</p>');
             container.innerHTML = processedAdCopy;
         } else {
             console.log('AdCopy Widget: No adCopy to display');
