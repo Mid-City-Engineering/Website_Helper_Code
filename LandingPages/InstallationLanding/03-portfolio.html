@@ -27,53 +27,6 @@
         overflow-x: hidden;
     }
 
-    /* ─── INTRO STATEMENT ─────────────────────────────── */
-    .intro {
-        padding: 140px 8% 80px;
-        max-width: 1400px;
-        margin: 0 auto;
-        border-bottom: 1px solid var(--border);
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeUp 0.9s ease-out 0.2s forwards;
-    }
-
-    .intro-eyebrow {
-        font-family: 'Outfit', sans-serif;
-        font-size: 0.75rem;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        color: var(--tan);
-        margin-bottom: 32px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .intro-eyebrow::before {
-        content: '';
-        display: block;
-        width: 40px;
-        height: 1px;
-        background: var(--red);
-    }
-
-    .intro h2 {
-        font-family: 'Michroma', sans-serif;
-        font-size: clamp(2.5rem, 5vw, 4.5rem);
-        font-weight: 400;
-        color: #fff;
-        line-height: 1.15;
-        letter-spacing: 0.02em;
-        text-align: left;
-        max-width: 800px;
-    }
-
-    .intro h2 em {
-        font-style: normal;
-        color: var(--tan);
-    }
-
     /* ─── FILTER BAR ──────────────────────────────────── */
     .filter-bar {
         padding: 40px 8%;
@@ -237,70 +190,6 @@
         width: 100%;
     }
 
-    /* ─── FULL-WIDTH DIVIDER STATEMENT ────────────────── */
-    .divider-statement {
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-        padding: 60px 8%;
-        margin: 80px 0 0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 40px;
-    }
-
-    .divider-statement p {
-        font-family: 'Michroma', sans-serif;
-        font-size: clamp(1.1rem, 2vw, 1.5rem);
-        color: #fff;
-        letter-spacing: 0.04em;
-        line-height: 1.5;
-        max-width: 600px;
-        text-align: left;
-    }
-
-    .divider-statement p em {
-        font-style: normal;
-        color: var(--tan);
-    }
-
-    .cta-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        font-family: 'Outfit', sans-serif;
-        font-size: 0.85rem;
-        font-weight: 400;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: var(--tan);
-        text-decoration: none;
-        white-space: nowrap;
-        transition: gap 0.3s ease, color 0.3s ease;
-    }
-
-    .cta-link:hover {
-        gap: 20px;
-        color: #fff;
-    }
-
-    .cta-arrow {
-        width: 36px;
-        height: 36px;
-        border: 1px solid var(--tan);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1rem;
-        transition: background 0.3s ease, border-color 0.3s ease;
-    }
-
-    .cta-link:hover .cta-arrow {
-        background: var(--red);
-        border-color: var(--red);
-    }
-
     /* ─── LIGHTBOX ────────────────────────────────────── */
     .lightbox {
         position: fixed;
@@ -419,9 +308,6 @@
 
     /* ─── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 768px) {
-        .intro {
-            padding: 100px 6% 60px;
-        }
 
         .filter-bar {
             padding: 30px 6%;
@@ -440,12 +326,6 @@
             height: 250px;
             flex: none !important;
         }
-
-        .divider-statement {
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 50px 6%;
-        }
     }
 
     @media (max-width: 480px) {
@@ -454,11 +334,6 @@
         }
     }
 </style>
-
-<div class="intro">
-    <div class="intro-eyebrow">Professional Installations</div>
-    <h2>Precision work.<br><em>Every vehicle. Every time.</em></h2>
-</div>
 
 <div class="filter-bar">
     <button class="filter-btn active" data-filter="all">All</button>
@@ -473,15 +348,6 @@
     <div class="grid" id="portfolioGrid">
         <!-- JS builds .grid-row wrappers here -->
     </div>
-</div>
-
-<div class="divider-statement">
-    <p>Every installation is performed by <em>factory-trained technicians</em> to the highest standards. We take the
-        best and make it better.</p>
-    <a href="/contactus" class="cta-link">
-        Request an Installation
-        <span class="cta-arrow">→</span>
-    </a>
 </div>
 
 <div class="lightbox" id="lightbox">

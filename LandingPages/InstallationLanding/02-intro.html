@@ -1,0 +1,60 @@
+<style>
+    /* ─── INTRO STATEMENT ─────────────────────────────── */
+    .intro {
+        padding: 140px 8% 80px;
+        max-width: 1400px;
+        margin: 0 auto;
+        border-bottom: 1px solid var(--border);
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 0.9s ease-out 0.2s forwards;
+    }
+
+    .intro-eyebrow {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--tan);
+        margin-bottom: 32px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .intro-eyebrow::before {
+        content: '';
+        display: block;
+        width: 40px;
+        height: 1px;
+        background: var(--red);
+    }
+
+    .intro h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        font-weight: 400;
+        color: #fff;
+        line-height: 1.15;
+        letter-spacing: 0.02em;
+        text-align: left;
+        max-width: 800px;
+    }
+
+    .intro h2 em {
+        font-style: normal;
+        color: var(--tan);
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 768px) {
+        .intro {
+            padding: 100px 6% 60px;
+        }
+    }
+</style>
+
+<div class="intro">
+    <div class="intro-eyebrow">Professional Installations</div>
+    <h2>Precision work.<br><em>Every vehicle. Every time.</em></h2>
+</div>
