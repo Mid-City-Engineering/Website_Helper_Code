@@ -43,6 +43,7 @@
     /* Remove default link styling */
     a {
         color: inherit;
+        text-align: left !important;
         text-decoration: none;
     }
 
@@ -111,140 +112,6 @@ Remove Odoo's default container constraints
         /* remove auto highlighting links */
         text-decoration: none !important;
     }
-</style>
-
-<style>
-    /*
-==================================================
-CONTENT BLOCK UNIVERSAL COMPONENT
-==================================================
-Reusable full-width block with centered content
-Structure: content-block &gt; content-block-main (image + text) + separator
-==================================================
-*/
-
-    .content-block {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 3rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        background: #fff;
-    }
-
-    /* Text container */
-    .content-block-text-container {
-        width: 45%;
-        min-height: 50vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 5% 0%;
-    }
-
-    .content-block-text-container h2 {
-        font-family: 'Goldman', Arial, Helvetica, sans-serif;
-        font-size: 2.5rem;
-        font-weight: 600;
-        font-style: italic;
-        text-align: center;
-        text-transform: uppercase;
-        color: #333;
-        margin: 0;
-        line-height: 1.2;
-    }
-
-    .content-block-text-container p {
-        font-size: 1rem;
-        line-height: 1.8;
-        color: #666;
-        margin: 0;
-    }
-
-    .content-block-text-container a {
-        color: #810305;
-        font-weight: 600;
-        font-size: 1rem;
-        text-decoration: none;
-        transition: 0.15s ease;
-        text-transform: uppercase;
-    }
-
-    .content-block-text-container a:hover {
-        text-decoration: underline;
-    }
-
-    /* Image container */
-    .content-block-image-container {
-        width: 45%;
-        max-width: 500px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        /* Initial State - Hidden */
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-
-    /* Animated state - visible */
-    .content-block-image-container.is-visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Reverse: image aligns to bottom */
-    .content-block.reverse .content-block-image-container {
-        justify-content: flex-start;
-    }
-
-    .content-block-image-container img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-
-    /* Tan separator - full width */
-    .content-block-separator {
-        width: 100%;
-        height: 2px;
-        background: #D4B896;
-    }
-
-    /* Responsive */
-    @media (max-width: 968px) {
-        .content-block {
-            flex-direction: column;
-        }
-
-        .content-block-text-container,
-        .content-block-image-container {
-            width: 90%;
-        }
-
-        .content-block-text-container {
-            padding: 2% 0%;
-            min-height: 15vh;
-            align-items: center;
-        }
-
-        .content-block-text-container h2,
-        .content-block-text-container p,
-        .content-block-text-container a {
-            text-align: center;
-            /* Centers the text inside each element */
-        }
-
-        .content-block-separator {
-            margin-top: 3%;
-            margin-bottom: 3%;
-        }
-    }
-
-    /* @media (max-width: 480px) {} */
 </style>
 
 <script>
