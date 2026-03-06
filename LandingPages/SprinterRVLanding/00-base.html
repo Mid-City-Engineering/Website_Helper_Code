@@ -344,8 +344,10 @@ Remove Odoo's default container constraints
 
     /* ── CTA Links (standalone, after paragraphs) ── */
     .content-block-text-container>a {
-        display: inline-flex;
+        display: flex;
         align-items: center;
+        justify-content: space-between;
+        width: 100%;
         gap: 12px;
         margin-top: 2.5rem;
         font-family: 'Outfit', sans-serif;
@@ -395,6 +397,7 @@ Remove Odoo's default container constraints
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        margin-left: auto;
         width: 28px;
         height: 28px;
         border-radius: 50%;
