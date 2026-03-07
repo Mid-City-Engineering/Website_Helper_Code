@@ -1,0 +1,428 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@300;400;600;700&display=swap');
+
+    :root {
+        --header-logo-nav-gap: 1.5rem;
+        --mce-dark-red: #810305;
+        --mce-sepia-tan: #D4AF85;
+    }
+
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Utility Bar */
+    .mce-utility-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 6vh;
+        background: #000;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0 4rem;
+        gap: 2rem;
+        z-index: 2000;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.3);
+    }
+
+    .mce-utility-bar form {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .mce-utility-bar input[type="search"] {
+        padding: 0.3rem 0.8rem;
+        border: none;
+        border-bottom: 1px solid var(--mce-sepia-tan);
+        background: transparent;
+        color: var(--mce-sepia-tan);
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.85rem;
+        width: 180px;
+        transition: all 0.3s ease;
+    }
+
+    .mce-utility-bar input[type="search"]::placeholder {
+        color: var(--mce-sepia-tan);
+        opacity: 0.7;
+    }
+
+    .mce-utility-bar input[type="search"]:focus {
+        outline: none;
+        border-bottom-color: white;
+        width: 220px;
+    }
+
+    .mce-utility-bar button,
+    .mce-utility-bar a {
+        background: transparent;
+        border: none;
+        color: white !important;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none !important;
+        display: flex;
+        align-items: center;
+    }
+
+    .mce-utility-bar button:hover,
+    .mce-utility-bar a:hover {
+        color: var(--mce-sepia-tan) !important;
+    }
+
+    #mceAccountMenu {
+        position: absolute;
+        top: 100%;
+        right: 4rem;
+        background: rgba(0, 0, 0, 0.95);
+        border: 1px solid var(--mce-sepia-tan);
+        border-top: none;
+        min-width: 150px;
+    }
+
+    #mceAccountMenu a {
+        display: block;
+        padding: 0.8rem 1.2rem;
+        color: white !important;
+        text-decoration: none !important;
+        font-size: 0.85rem;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.2);
+        transition: background 0.3s ease;
+    }
+
+    #mceAccountMenu a:last-child {
+        border-bottom: none;
+    }
+
+    #mceAccountMenu a:hover {
+        background: rgba(129, 3, 5, 0.3);
+    }
+
+    /* Header */
+    .mce-hero-header {
+        position: sticky;
+        top: 6vh;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3rem 4rem;
+        z-index: 1002;
+        background: #000;
+        border-bottom: 5px solid var(--mce-dark-red);
+        /* Break out of Odoo's boxed container */
+        width: 100vw;
+        padding-top: 10vh;
+        margin-right: calc(50% - 50vw);
+        margin-bottom: 1.5%;
+        margin-left: calc(50% - 50vw);
+    }
+
+    .mce-hero-logo .mce-name {
+        font-family: 'Michroma', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background: linear-gradient(to right, white 60%, #b0b0b0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .mce-hero-logo a {
+        text-decoration: none !important;
+    }
+
+    .mce-hero-nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 1;
+        flex-wrap: nowrap;
+        overflow: hidden;
+        margin-left: var(--header-logo-nav-gap);
+    }
+
+    .mce-hero-nav a {
+        color: white !important;
+        text-decoration: none !important;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
+        padding: 0 0.75rem;
+    }
+
+    .mce-hero-nav a:hover {
+        opacity: 0.7 !important;
+        color: white !important;
+    }
+
+    /* Hamburger */
+    .mce-hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        cursor: pointer;
+        z-index: 1003;
+    }
+
+    .mce-hamburger span {
+        width: 30px;
+        height: 3px;
+        background-color: white;
+        transition: all 0.3s ease;
+    }
+
+    .mce-hamburger.active span {
+        background-color: var(--mce-sepia-tan);
+    }
+
+    .mce-hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .mce-hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mce-hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    .mce-hamburger-drawer {
+        position: fixed;
+        top: calc(6vh + 11rem);
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 6vh);
+        background: rgba(0, 0, 0, 0.95);
+        z-index: 1001;
+        transition: right 0.3s ease;
+        padding-top: 11rem;
+    }
+
+    .mce-hamburger-drawer.active {
+        right: 0;
+    }
+
+    .mce-hamburger-drawer a {
+        display: block;
+        color: white !important;
+        text-decoration: none !important;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid rgba(212, 175, 133, 0.2);
+        transition: background 0.3s ease;
+    }
+
+    .mce-hamburger-drawer a:hover {
+        background: rgba(129, 3, 5, 0.3) !important;
+        color: white !important;
+    }
+
+    /* Tablet */
+    @media (max-width: 768px) and (min-width: 481px) {
+        .mce-utility-bar {
+            padding: 0 2rem;
+            gap: 1.5rem;
+        }
+
+        .mce-hero-header {
+            padding: 2rem 3rem;
+        }
+    }
+
+    /* Mobile */
+    @media (max-width: 480px) {
+        .mce-utility-bar {
+            padding: 0 1.5rem;
+            gap: 1rem;
+        }
+
+        .mce-utility-bar input[type="search"] {
+            width: 100px;
+            font-size: 0.75rem;
+        }
+
+        #mceAccountMenu {
+            right: 1.5rem;
+        }
+
+        .mce-hero-header {
+            padding: 1.5rem 2rem;
+        }
+
+        .mce-hamburger-drawer {
+            width: 100%;
+        }
+    }
+</style>
+
+
+<div class="mce-utility-bar">
+    <form method="get" action="/website/search">
+        <input type="search" name="search" placeholder="Search...">
+        <input name="order" type="hidden" value="name asc">
+        <button type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+        </button>
+    </form>
+    <a href="/shop/cart">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="21" r="1"></circle>
+            <circle cx="19" cy="21" r="1"></circle>
+            <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+        </svg>
+    </a>
+    <div id="mceCustomAccount"></div>
+</div>
+
+
+<header class="mce-hero-header">
+    <div class="mce-hero-logo">
+        <a href="/">
+            <h2 class="mce-name">MID CITY ENGINEERING</h2>
+        </a>
+    </div>
+    <nav class="mce-hero-nav"></nav>
+    <div class="mce-hamburger" id="mceHamburger">
+        <span></span><span></span><span></span>
+    </div>
+</header>
+
+
+<div class="mce-hamburger-drawer" id="mceHamburgerDrawer"></div>
+
+<script>
+    (function () {
+        const NAV_ITEMS = [
+            { label: 'About Us', href: '/about-us' },
+            { label: 'Products', href: '/#products' },
+            { label: 'Dealer Locator', href: '/dealer-locator' },
+            { label: 'Become a Dealer', href: '/become-dealer/' },
+            { label: 'Installation Manuals', href: '/installation-manuals' },
+            { label: 'Support', href: '/support' },
+            { label: 'Contact', href: '/contactus' },
+        ];
+
+        const MIN_FONT_REM = 0.90;
+        const MAX_FONT_REM = 1.15;
+        const ITEM_PAD_REM = 0.75;
+
+        const header = document.querySelector('.mce-hero-header');
+        const logo = document.querySelector('.mce-hero-logo');
+        const nav = document.querySelector('.mce-hero-nav');
+        const hamburger = document.getElementById('mceHamburger');
+        const drawer = document.getElementById('mceHamburgerDrawer');
+
+        if (!header || !logo || !nav || !hamburger || !drawer) return;
+
+        nav.innerHTML = NAV_ITEMS.map(i => `<a href="${i.href}">${i.label}</a>`).join('');
+        drawer.innerHTML = NAV_ITEMS.map(i => `<a href="${i.href}" onclick="mceToggleMenu()">${i.label}</a>`).join('');
+
+        let textWidthsAt1rem = [];
+
+        function measureNavItems() {
+            const remPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
+            const clone = nav.cloneNode(true);
+            Object.assign(clone.style, {
+                position: 'absolute', visibility: 'hidden', fontSize: '1rem',
+                whiteSpace: 'nowrap', display: 'flex', pointerEvents: 'none',
+            });
+            clone.querySelectorAll('a').forEach(a => a.style.padding = '0');
+            document.body.appendChild(clone);
+            textWidthsAt1rem = Array.from(clone.querySelectorAll('a')).map(a => a.getBoundingClientRect().width);
+            document.body.removeChild(clone);
+            return remPx;
+        }
+
+        function update(remPx) {
+            const headerRect = header.getBoundingClientRect();
+            const logoRect = logo.getBoundingClientRect();
+            const headerStyle = getComputedStyle(header);
+            const headerPad = parseFloat(headerStyle.paddingLeft) + parseFloat(headerStyle.paddingRight);
+            const navGapPx = 1.5 * remPx;
+            const available = headerRect.width - headerPad - logoRect.width - navGapPx - 32;
+            const totalTextAt1rem = textWidthsAt1rem.reduce((s, w) => s + w, 0);
+            const totalPaddingAt1rem = ITEM_PAD_REM * 2 * remPx * NAV_ITEMS.length;
+            const totalAt1rem = totalTextAt1rem + totalPaddingAt1rem;
+            const candidateFontRem = Math.min(available / totalAt1rem, MAX_FONT_REM);
+
+            if (candidateFontRem < MIN_FONT_REM) {
+                nav.style.display = 'none';
+                hamburger.style.display = 'flex';
+            } else {
+                nav.style.display = 'flex';
+                hamburger.style.display = 'none';
+                nav.style.fontSize = candidateFontRem + 'rem';
+                drawer.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        }
+
+        document.fonts.ready.then(() => {
+            const remPx = measureNavItems();
+            update(remPx);
+            const ro = new ResizeObserver(() => update(remPx));
+            ro.observe(header);
+        });
+
+        hamburger.addEventListener('click', mceToggleMenu);
+
+        document.addEventListener('click', function (e) {
+            if (drawer.classList.contains('active') && !drawer.contains(e.target) && !hamburger.contains(e.target)) {
+                mceToggleMenu();
+            }
+        });
+
+        // Account dropdown
+        const container = document.getElementById('mceCustomAccount');
+        fetch('/web/session/get_session_info', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: '{}'
+        }).then(r => r.json()).then(data => {
+            const uid = data.result?.uid;
+            if (uid && uid !== false) {
+                container.innerHTML = `<a href="#" id="mceAccountToggle"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a><div id="mceAccountMenu" style="display:none;"><a href="/my/home">My Account</a><a href="/web/session/logout?redirect=/">Logout</a></div>`;
+                const toggle = document.getElementById('mceAccountToggle');
+                const menu = document.getElementById('mceAccountMenu');
+                toggle.onclick = e => { e.preventDefault(); e.stopPropagation(); menu.style.display = menu.style.display === 'none' ? 'block' : 'none'; };
+                document.addEventListener('click', e => { if (!container.contains(e.target)) menu.style.display = 'none'; });
+            } else {
+                container.innerHTML = '<a href="/web/login">Sign In</a>';
+            }
+        }).catch(() => { container.innerHTML = '<a href="/web/login">Sign In</a>'; });
+
+    })();
+
+    function mceToggleMenu() {
+        const hamburger = document.getElementById('mceHamburger');
+        const drawer = document.getElementById('mceHamburgerDrawer');
+        if (!drawer || !hamburger) return;
+        hamburger.classList.toggle('active');
+        drawer.classList.toggle('active');
+    }
+</script>
