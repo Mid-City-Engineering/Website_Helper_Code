@@ -1,0 +1,97 @@
+<script>
+    heroReplacementTitle = 'Product Catalog'; // change from null to actual string for replacement
+    heroReplacementText = ''; // change from null to actual string for replacement
+    heroOverallHeight = '55vh';       // e.g. '60vh' or null to skip
+    heroTitlePaddingTop = '2%';     // e.g. '5%' or null to skip
+</script>
+
+<style>
+    /* We need to set a height for the hero placeholder to not make it suddenly
+    appear and push content down (it looks glitchy).
+    */
+
+    /* Match placeholder-height to the fetched hero's overall height */
+    :root {
+        --placeholder-height: 55vh;
+    }
+
+    .no-media-header-hero {
+        height: var(--placeholder-height);
+    }
+</style>
+
+<div class="no-media-header-hero" id="no-media-header-hero"></div>
+
+<script>
+    (function () {
+        fetch('/documents/content/fmoUcH3xRAKDCNWx_NMhNgo42?download=0')
+            .then(r => r.text())
+            .then(html => {
+                const container = document.getElementById('no-media-header-hero');
+
+                // Parse the fetched HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+
+                // Inject styles
+                doc.querySelectorAll('style').forEach(style => {
+                    container.appendChild(document.adoptNode(style));
+                });
+
+                // Inject HTML body content
+                const body = doc.querySelector('body');
+                if (body) {
+                    Array.from(body.children).forEach(el => {
+                        if (el.tagName !== 'SCRIPT') {
+                            container.appendChild(document.adoptNode(el));
+                        }
+                    });
+                } else {
+                    // If no <body>, grab non-script/style elements from <html>
+                    doc.querySelectorAll('html > *:not(script):not(style), html *:not(head):not(script):not(style)').forEach(el => {
+                        container.appendChild(document.adoptNode(el));
+                    });
+                }
+
+                // Code to override the hero h2 title
+                const heroTitle = container.querySelector('.hero-title');
+                if (heroTitle && heroReplacementTitle != null) {
+                    heroTitle.innerHTML = heroReplacementTitle;
+                }
+
+                // Code to override the hero p text
+                const heroText = container.querySelector('.hero-text');
+                if (heroText && heroReplacementText != null) {
+                    heroText.innerHTML = heroReplacementText;
+                }
+
+                // Code to override the hero's overall height
+                if (heroOverallHeight !== null) {
+                    document.documentElement.style.setProperty('--hero-overall-height', heroOverallHeight);
+                }
+
+                // Code to override padding-top of hero's title container
+                if (heroTitlePaddingTop !== null) {
+                    const overrideStyle = document.createElement('style');
+                    overrideStyle.textContent = `
+                        #no-media-header-hero .hero-content .hero-title-container {
+                            padding-top: ${heroTitlePaddingTop} !important;
+                        }
+                    `;
+                    container.appendChild(overrideStyle);
+                }
+
+                // Execute scripts (they won't run via innerHTML/adoptNode)
+                doc.querySelectorAll('script').forEach(origScript => {
+                    const newScript = document.createElement('script');
+                    if (origScript.src) {
+                        newScript.src = origScript.src;
+                    } else {
+                        newScript.textContent = origScript.textContent;
+                    }
+                    container.appendChild(newScript);
+                });
+            })
+            .catch(err => console.error('Failed to load header/hero:', err));
+    })();
+</script>
