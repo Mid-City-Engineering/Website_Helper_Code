@@ -1,3 +1,12 @@
+<script>
+    var interfaceVariants = {
+        '907INTK': { '907INTC': { id: '9130' }, '907INTD': { id: '9131' } },
+        'METRISINTK': { 'METRISINTC': { id: '9570' } },
+        'HSINTK': { 'HSINTC': { id: '9405' }, 'HSINTD': { id: '9406' } },
+        '205INTK': { '205INTC': { id: '9203' } },
+    };
+</script>
+
 <style>
     .alarm-products-section {
         background: #f8f8f8;
@@ -183,6 +192,51 @@
         transform: translateX(4px);
     }
 
+    .alarm-card-interfaces {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 24px;
+        /* increased from 12px */
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+        border-top: 1px solid #e8e8e8;
+    }
+
+    .alarm-card-interfaces-label {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.82rem;
+        color: #555;
+        /* darker than #aaa */
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .alarm-card-interface-link {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: #666;
+        text-decoration: none;
+        border: 1px solid #d0d0d0;
+        background: #f5f5f5;
+        padding: 10px 24px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+
+    .alarm-card-interface-link:hover {
+        background: #ede8e2;
+        border-color: var(--mce-sepia-tan);
+        color: var(--mce-dark-red);
+    }
+
     @media (max-width: 968px) {
         .alarm-products-grid {
             grid-template-columns: 1fr;
@@ -300,27 +354,53 @@
             var skuEl = card.querySelector('.alarm-card-sku');
             if (!skuEl) return;
 
-            // Extract SKU from "SKU: 907INTK" text
             var sku = skuEl.textContent.replace('SKU:', '').trim();
             var product = skuMap[sku];
-            if (!product) return;
 
-            var listEl = card.querySelector('.alarm-card-compat-list');
-            if (!listEl) return;
+            // Compatibility list
+            if (product) {
+                var listEl = card.querySelector('.alarm-card-compat-list');
+                if (listEl) {
+                    listEl.innerHTML = '';
+                    var items = (product.x_studio_compatibility_list || '').split('|').filter(function (line) {
+                        return line.trim() !== '';
+                    });
+                    items.forEach(function (item) {
+                        var span = document.createElement('span');
+                        span.textContent = item.trim();
+                        listEl.appendChild(span);
+                    });
+                }
+            }
 
-            // Clear the hard-coded list
-            listEl.innerHTML = '';
+            // Interface variant buttons
+            var variants = (interfaceVariants || {})[sku] || {};
+            var available = Object.keys(variants);
 
-            // x_studio_compatibility_list is typically a '|'-separated string
-            var items = (product.x_studio_compatibility_list || '').split('|').filter(function (line) {
-                return line.trim() !== '';
-            });
+            if (available.length > 0) {
+                var ctaEl = card.querySelector('.alarm-card-cta');
+                if (!ctaEl) return;
 
-            items.forEach(function (item) {
-                var span = document.createElement('span');
-                span.textContent = item.trim();
-                listEl.appendChild(span);
-            });
+                var wrapper = document.createElement('div');
+                wrapper.className = 'alarm-card-interfaces';
+
+                var label = document.createElement('span');
+                label.className = 'alarm-card-interfaces-label';
+                label.textContent = 'Or Get Just Our Interface For:';
+                wrapper.appendChild(label);
+
+                available.forEach(function (varSku) {
+                    var varData = variants[varSku];
+                    var link = document.createElement('a');
+                    link.className = 'alarm-card-interface-link';
+                    link.href = '/shop/-' + varData.id;
+                    var suffix = varSku.slice(-1);
+                    link.textContent = suffix === 'C' ? 'Compustar' : suffix === 'D' ? 'Directed' : varSku;
+                    wrapper.appendChild(link);
+                });
+
+                ctaEl.insertAdjacentElement('afterend', wrapper);
+            }
         });
     });
 </script>
