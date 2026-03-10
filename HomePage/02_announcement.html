@@ -1,0 +1,255 @@
+<style>
+    .mbrace-banner {
+        background: #111111;
+        position: relative;
+        overflow: hidden;
+        border-top: 1px solid rgba(212, 175, 133, 0.15);
+        border-bottom: 1px solid rgba(212, 175, 133, 0.15);
+    }
+
+    /* Animated left accent bar */
+    .mbrace-banner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--mce-dark-red), var(--mce-sepia-tan), transparent);
+        z-index: 2;
+    }
+
+    /* Subtle grain texture overlay */
+    .mbrace-banner::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .mbrace-inner {
+        position: relative;
+        z-index: 3;
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 52px 7%;
+        display: flex;
+        align-items: center;
+        gap: 60px;
+    }
+
+    /* Left: label + headline stack */
+    .mbrace-text {
+        flex: 1;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .mbrace-text.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mbrace-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .mbrace-label {
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mce-sepia-tan);
+    }
+
+    /* Editorial year-range style divider — matches your established pattern */
+    .mbrace-divider {
+        flex: 1;
+        max-width: 120px;
+        height: 1px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan), transparent);
+    }
+
+    .mbrace-headline {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+        color: #ffffff;
+        line-height: 1.35;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+        text-align: left;
+    }
+
+    .mbrace-headline em {
+        font-style: normal;
+        color: var(--mce-sepia-tan);
+    }
+
+    .mbrace-sub {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+        color: #999999;
+        line-height: 1.7;
+        max-width: 560px;
+    }
+
+    /* Right: CTA */
+    .mbrace-cta-wrap {
+        flex-shrink: 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+    }
+
+    .mbrace-cta-wrap.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .mbrace-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 36px;
+        border: 1px solid var(--mce-sepia-tan);
+        background: transparent;
+        color: var(--mce-sepia-tan);
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500;
+        font-size: 0.95rem;
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.4s ease, border-color 0.4s ease;
+        white-space: nowrap;
+    }
+
+    /* Fill sweep on hover */
+    .mbrace-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--mce-sepia-tan);
+        transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 0;
+    }
+
+    .mbrace-cta:hover::before {
+        left: 0;
+    }
+
+    .mbrace-cta:hover {
+        border-color: var(--mce-sepia-tan);
+        color: #111111;
+    }
+
+    .mbrace-cta span,
+    .mbrace-cta svg {
+        position: relative;
+        z-index: 1;
+    }
+
+    .mbrace-cta svg {
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .mbrace-cta:hover svg {
+        transform: translateX(5px);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .mbrace-inner {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 32px;
+            padding: 44px 7%;
+        }
+
+        .mbrace-cta-wrap {
+            width: 100%;
+        }
+
+        .mbrace-cta {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .mbrace-inner {
+            padding: 36px 8%;
+        }
+
+        .mbrace-headline {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+
+<div class="mbrace-banner">
+    <div class="mbrace-inner">
+
+        <div class="mbrace-text">
+            <div class="mbrace-eyebrow">
+                <span class="mbrace-label">Announcement</span>
+                <div class="mbrace-divider"></div>
+            </div>
+            <h2 class="mbrace-headline">
+                Mercedes-Benz has shut down mbrace.<br>
+                <em>We have your replacement.</em>
+            </h2>
+            <p class="mbrace-sub">
+                mbrace is dark. Don't lose your remote start functionality —
+                our SmartKey Starter is the direct replacement.
+                No subscription, no compromise.
+            </p>
+        </div>
+
+        <div class="mbrace-cta-wrap">
+            <a href="/mbrace-shutdown" class="mbrace-cta">
+                <span>Learn More</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    (function () {
+        const banner = document.querySelector('.mbrace-banner');
+        if (!banner) return;
+
+        const text = banner.querySelector('.mbrace-text');
+        const cta = banner.querySelector('.mbrace-cta-wrap');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (text) text.classList.add('is-visible');
+                    if (cta) cta.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.25 });
+
+        observer.observe(banner);
+    })();
+</script>
