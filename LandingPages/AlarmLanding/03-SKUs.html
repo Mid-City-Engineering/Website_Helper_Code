@@ -194,47 +194,88 @@
 
     .alarm-card-interfaces {
         display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 0;
         margin-top: 24px;
-        /* increased from 12px */
-        justify-content: center;
-        align-items: center;
         padding-top: 20px;
         border-top: 1px solid #e8e8e8;
+        align-items: center;
+    }
+
+    .alarm-card-interfaces-inner {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+        max-width: 220px;
     }
 
     .alarm-card-interfaces-label {
         font-family: 'Outfit', sans-serif;
         font-size: 0.82rem;
         color: #555;
-        /* darker than #aaa */
         font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         width: 100%;
         text-align: center;
-        margin-bottom: 8px;
+        margin-bottom: 12px;
     }
 
     .alarm-card-interface-link {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        margin: 0.2rem 0;
         font-family: 'Outfit', sans-serif;
-        font-size: 0.82rem;
         font-weight: 500;
-        color: #666;
+        font-size: 1rem;
+        color: var(--mce-dark-red);
+        letter-spacing: 0.03em;
+        position: relative;
+        padding-bottom: 6px;
         text-decoration: none;
-        border: 1px solid #d0d0d0;
-        background: #f5f5f5;
-        padding: 10px 24px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
+        text-transform: none;
+        box-sizing: border-box;
+    }
+
+    .alarm-card-interface-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 1.5px;
+        background: var(--mce-sepia-tan);
+        transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .alarm-card-interface-link:hover::before {
+        width: 100%;
     }
 
     .alarm-card-interface-link:hover {
-        background: #ede8e2;
-        border-color: var(--mce-sepia-tan);
-        color: var(--mce-dark-red);
+        color: #a00406;
+    }
+
+    .alarm-card-interface-link:hover .cta-arrow {
+        background: var(--mce-dark-red);
+        color: white;
+        transform: translateX(4px);
+    }
+
+    .alarm-card-interface-link .cta-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1.5px solid var(--mce-dark-red);
+        font-size: 0.85rem;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        flex-shrink: 0;
     }
 
     @media (max-width: 968px) {
@@ -389,16 +430,21 @@
                 label.textContent = 'Or Get Just Our Interface For:';
                 wrapper.appendChild(label);
 
+                var inner = document.createElement('div');
+                inner.className = 'alarm-card-interfaces-inner';
+
                 available.forEach(function (varSku) {
                     var varData = variants[varSku];
                     var link = document.createElement('a');
                     link.className = 'alarm-card-interface-link';
                     link.href = '/shop/-' + varData.id;
                     var suffix = varSku.slice(-1);
-                    link.textContent = suffix === 'C' ? 'Compustar' : suffix === 'D' ? 'Directed' : varSku;
-                    wrapper.appendChild(link);
+                    var labelText = suffix === 'C' ? 'Compustar Alarms' : suffix === 'D' ? 'Directed Alarms' : varSku;
+                    link.innerHTML = labelText + '<span class="cta-arrow">→</span>';
+                    inner.appendChild(link);
                 });
 
+                wrapper.appendChild(inner);
                 ctaEl.insertAdjacentElement('afterend', wrapper);
             }
         });
