@@ -1,13 +1,11 @@
 <style>
-    .mbrace-alert-section {
-        background: #ffffff;
+    .mbrace-solution-section {
+        background: #f5f3f0;
         padding: 100px 0;
         position: relative;
-        overflow: hidden;
     }
 
-    /* Subtle top accent line */
-    .mbrace-alert-section::before {
+    .mbrace-solution-section::before {
         content: '';
         position: absolute;
         top: 0;
@@ -17,24 +15,21 @@
         background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan), transparent);
     }
 
-    .mbrace-alert-container {
+    .mbrace-solution-container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 6%;
-        display: flex;
-        gap: 80px;
-        align-items: flex-start;
     }
 
-    /* Left: the "what" */
-    .mbrace-alert-left {
-        flex: 1.1;
+    /* ── Section header ── */
+    .solution-header {
+        margin-bottom: 56px;
         opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease, transform 0.8s ease;
+        transform: translateY(20px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    .mbrace-alert-left.visible {
+    .solution-header.visible {
         opacity: 1;
         transform: translateY(0);
     }
@@ -45,7 +40,7 @@
         letter-spacing: 0.2em;
         text-transform: uppercase;
         color: var(--mce-dark-red);
-        margin-bottom: 24px;
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
         gap: 12px;
@@ -59,288 +54,465 @@
         background: var(--mce-dark-red);
     }
 
-    .mbrace-alert-left h2 {
+    .solution-header h2 {
         font-family: 'Michroma', sans-serif;
         font-size: clamp(1.8rem, 3vw, 2.6rem);
         color: #1a1a1a;
         line-height: 1.3;
         letter-spacing: 0.03em;
-        margin-bottom: 32px;
+        margin-bottom: 16px;
         text-align: left;
     }
 
-    .mbrace-alert-left h2 span {
+    .solution-header h2 span {
         color: var(--mce-dark-red);
     }
 
-    .mbrace-alert-left p {
+    .solution-header p {
         font-family: 'Outfit', sans-serif;
         font-weight: 300;
-        font-size: clamp(1rem, 1.6vw, 1.1rem);
-        color: #555;
-        line-height: 1.85;
-        margin-bottom: 20px;
-    }
-
-    .mbrace-alert-left p strong {
-        color: #1a1a1a;
-        font-weight: 600;
-    }
-
-    /* Affected features list */
-    .losing-list {
-        list-style: none;
-        margin-top: 36px;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .losing-list li {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        font-family: 'Outfit', sans-serif;
         font-size: 1rem;
-        color: #555;
-        font-weight: 300;
+        color: #666;
+        line-height: 1.75;
+        max-width: 620px;
+        text-align: left;
     }
 
-    .losing-list li::before {
-        content: '';
-        display: block;
-        width: 18px;
-        height: 18px;
-        min-width: 18px;
-        border: 1px solid #555;
-        border-radius: 50%;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23810305' stroke-width='2.5' stroke-linecap='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E") center/10px no-repeat;
-    }
-
-    /* Right: date countdown card */
-    .mbrace-alert-right {
-        flex: 0.7;
+    /* ── SmartKey hero block ── */
+    .smartkey-block {
+        background: white;
+        border-top: 3px solid var(--mce-dark-red);
+        display: flex;
+        gap: 0;
+        margin-bottom: 2px;
         opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+        transform: translateY(24px);
+        transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
     }
 
-    .mbrace-alert-right.visible {
+    .smartkey-block.visible {
         opacity: 1;
         transform: translateY(0);
     }
 
-    .shutdown-card {
-        border: 1px solid rgba(129, 3, 5, 0.25);
-        background: #1a1a1a;
-        padding: 48px 40px;
-        position: relative;
+    .smartkey-main {
+        flex: 1.4;
+        padding: 52px 48px;
+        border-right: 1px solid #eee;
     }
 
-    .shutdown-card::before {
+    .smartkey-main h3 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+        color: #1a1a1a;
+        letter-spacing: 0.03em;
+        margin-bottom: 24px;
+    }
+
+    .smartkey-main .feature-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        margin-bottom: 40px;
+    }
+
+    .smartkey-main .feature-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.95rem;
+        color: #444;
+        font-weight: 400;
+    }
+
+    .smartkey-main .feature-list li::before {
+        content: '';
+        display: block;
+        width: 14px;
+        height: 14px;
+        min-width: 14px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23810305' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/12px no-repeat;
+    }
+
+    .smartkey-cta-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .cta-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 38px;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        color: var(--mce-dark-red);
+        background: transparent;
+        border: 1.5px solid var(--mce-dark-red);
+        letter-spacing: 0.03em;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .cta-primary::after {
         content: '';
         position: absolute;
         top: 0;
-        left: 0;
-        width: 3px;
+        left: -100%;
+        width: 100%;
         height: 100%;
         background: var(--mce-dark-red);
+        transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 0;
     }
 
-    .shutdown-label {
+    .cta-primary span {
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-primary:hover::after {
+        left: 0;
+    }
+
+    .cta-primary:hover {
+        color: white;
+        border-color: var(--mce-dark-red);
+    }
+
+    .cta-primary:hover .cta-arrow {
+        border-color: white;
+        color: white;
+    }
+
+    .cta-primary .cta-arrow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1.5px solid var(--mce-dark-red);
+        font-size: 0.85rem;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+
+
+    /* Right panel: credibility + run time callout */
+    .smartkey-aside {
+        flex: 0.6;
+        padding: 52px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 32px;
+    }
+
+    .credibility-block {
+        border-left: 3px solid var(--mce-dark-red);
+        padding-left: 20px;
+    }
+
+    .credibility-block p {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.95rem;
+        color: #555;
+        line-height: 1.75;
+    }
+
+    .credibility-block p strong {
+        color: #1a1a1a;
+        font-weight: 600;
+    }
+
+    .runtime-callout {
+        background: #f5f3f0;
+        padding: 24px 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .runtime-callout-label {
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mce-dark-red);
+    }
+
+    .runtime-callout-value {
+        font-family: 'Michroma', sans-serif;
+        font-size: 1rem;
+        color: #1a1a1a;
+        line-height: 1.5;
+    }
+
+    .runtime-callout-sub {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.8rem;
+        color: #888;
+        margin-top: 2px;
+    }
+
+    /* ── Add-on cards row ── */
+    .addon-label-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin: 36px 0 16px;
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.6s ease 0.25s, transform 0.6s ease 0.25s;
+    }
+
+    .addon-label-row.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .addon-label {
         font-family: 'Michroma', sans-serif;
         font-size: 0.65rem;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: var(--mce-sepia-tan);
+        color: #aaa;
+        white-space: nowrap;
+    }
+
+    .addon-label-line {
+        flex: 1;
+        height: 1px;
+        background: #ddd;
+    }
+
+    .addon-cards {
+        display: flex;
+        gap: 2px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+    }
+
+    .addon-cards.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .addon-card {
+        flex: 1;
+        background: white;
+        padding: 36px 36px;
+        border-top: 2px solid transparent;
+        transition: border-color 0.3s ease;
+    }
+
+    .addon-card:hover {
+        border-top-color: var(--mce-sepia-tan);
+    }
+
+    .addon-card h4 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+        color: #1a1a1a;
+        letter-spacing: 0.03em;
         margin-bottom: 16px;
     }
 
-    .shutdown-date {
-        font-family: 'Michroma', sans-serif;
-        font-size: clamp(2rem, 4vw, 3rem);
-        color: white;
-        line-height: 1.2;
-        margin-bottom: 8px;
-    }
-
-    .shutdown-date-sub {
+    .addon-card p {
         font-family: 'Outfit', sans-serif;
         font-weight: 300;
         font-size: 0.9rem;
         color: #666;
-        margin-bottom: 40px;
+        line-height: 1.75;
+        margin-bottom: 24px;
     }
 
-    .shutdown-divider {
-        height: 1px;
-        background: rgba(255, 255, 255, 0.08);
-        margin-bottom: 32px;
+    .addon-card p strong {
+        color: #333;
+        font-weight: 500;
     }
 
-    .shutdown-note {
-        font-family: 'Outfit', sans-serif;
-        font-weight: 300;
-        font-size: 0.95rem;
-        color: #888;
-        line-height: 1.7;
-    }
-
-    .shutdown-note strong {
-        color: var(--mce-sepia-tan);
-        font-weight: 600;
-    }
-
-    /* Vehicles affected accordion teaser */
-    .vehicles-teaser {
-        margin-top: 40px;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        padding-top: 28px;
-    }
-
-    .vehicles-teaser-label {
+    .addon-card-price {
         font-family: 'Michroma', sans-serif;
         font-size: 0.65rem;
         letter-spacing: 0.15em;
         text-transform: uppercase;
         color: var(--mce-sepia-tan);
-        margin-bottom: 16px;
+        margin-bottom: 20px;
     }
 
-    .vehicles-list {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .vehicles-list li {
-        font-family: 'Outfit', sans-serif;
-        font-weight: 300;
-        font-size: 0.88rem;
-        color: #888;
-        padding-left: 16px;
-        position: relative;
-    }
-
-    .vehicles-list li::before {
-        content: '—';
-        position: absolute;
-        left: 0;
-        color: var(--mce-sepia-tan);
-    }
-
-    .alert-cta {
+    .addon-cta {
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        margin-top: 28px;
         font-family: 'Outfit', sans-serif;
         font-weight: 500;
-        font-size: 0.9rem;
-        color: var(--mce-dark-red);
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        color: #555;
         text-decoration: none;
-        border-bottom: 1px solid rgba(129, 3, 5, 0.3);
+        border-bottom: 1px solid #ccc;
         padding-bottom: 2px;
-        transition: gap 0.3s ease, border-color 0.3s ease;
+        transition: all 0.3s ease;
     }
 
-    .alert-cta:hover {
-        gap: 12px;
+    .addon-cta:hover {
+        color: var(--mce-dark-red);
         border-bottom-color: var(--mce-dark-red);
-    }
-
-    .shutdown-card .alert-cta {
-        color: var(--mce-sepia-tan);
-        border-bottom-color: rgba(212, 175, 133, 0.3);
-        margin-top: 24px;
-    }
-
-    .shutdown-card .alert-cta:hover {
-        border-bottom-color: var(--mce-sepia-tan);
+        gap: 12px;
     }
 
     @media (max-width: 900px) {
-        .mbrace-alert-container {
+        .smartkey-block {
             flex-direction: column;
-            gap: 50px;
         }
 
-        .mbrace-alert-right {
-            width: 100%;
+        .smartkey-main {
+            border-right: none;
+            border-bottom: 1px solid #eee;
+        }
+
+        .addon-cards {
+            flex-direction: column;
+            gap: 2px;
         }
     }
 
     @media (max-width: 480px) {
-        .mbrace-alert-section {
+        .mbrace-solution-section {
             padding: 70px 0;
         }
 
-        .shutdown-card {
-            padding: 36px 28px;
+        .smartkey-main {
+            padding: 40px 28px;
+        }
+
+        .smartkey-aside {
+            padding: 32px 28px;
+        }
+
+        .addon-card {
+            padding: 30px 28px;
+        }
+
+        .smartkey-cta-row {
+            justify-content: flex-start;
         }
     }
 </style>
 
-<section class="mbrace-alert-section" id="whats-happening">
-    <div class="mbrace-alert-container">
-        <div class="mbrace-alert-left">
-            <div class="section-eyebrow">What's Happening</div>
-            <h2>mBrace is being<br><span>permanently shut down</span></h2>
-            <p>On <strong>December 31, 2025</strong>, Mercedes-Benz is permanently ending mBrace® with no replacement
-                and no upgrade path for affected owners.</p>
-            <ul class="losing-list">
-                <li>Remote start via app</li>
-                <li>Remote lock &amp; unlock</li>
-                <li>GPS tracking &amp; vehicle location</li>
-                <li>Vehicle status updates</li>
-            </ul>
-            <a href="#solution" class="alert-cta">We have a solution →</a>
+<section class="mbrace-solution-section" id="solution">
+    <div class="mbrace-solution-container">
+
+        <div class="solution-header">
+            <div class="section-eyebrow">Our Solution</div>
+            <h2>We have a <span>proven replacement - </span><br />Our SmartKey Starter</h2>
+            <p>Mid City Engineering has been building remote start solutions for Mercedes-Benz for over 20 years —
+                longer than Mercedes themselves have offered remote start.</p>
         </div>
 
-        <div class="mbrace-alert-right">
-            <div class="shutdown-card">
-                <div class="shutdown-label">Shutdown Date</div>
-                <div class="shutdown-date">December 31<br>2025</div>
-                <div class="shutdown-date-sub">Service ends permanently at midnight</div>
-                <div class="shutdown-divider"></div>
-                <div class="shutdown-note">
-                    No retrofit, no upgrade path. <strong>You need a replacement.</strong>
+        <!-- SmartKey Starter — primary product -->
+        <div class="smartkey-block">
+            <div class="smartkey-main">
+                <h3>SmartKey Starter®</h3>
+                <ul class="feature-list">
+                    <li>Remote start via factory OEM key fob — no new hardware required</li>
+                    <li>Unlimited remote starts on DAS4 vehicles</li>
+                    <li>Vehicle stays running when door opens</li>
+                    <li>Full Keyless Go while remotely started</li>
+                    <li>Compatible with most Mercedes-Benz vehicles back to 2008</li>
+                    <li>4-year warranty</li>
+                </ul>
+                <div class="smartkey-cta-row">
+                    <a href="/device/smart-key-starter#mce-selector" class="cta-primary">
+                        <span>Select the SmartKey Starter for your car</span>
+                        <span class="cta-arrow">→</span>
+                    </a>
+                    <a href="/device/smart-key-starter/" class="cta-primary">
+                        <span>Learn more about our SmartKey Starters</span>
+                        <span class="cta-arrow">→</span>
+                    </a>
                 </div>
-                <a href="#solution" class="alert-cta">We have a solution →</a>
+            </div>
 
-                <div class="vehicles-teaser">
-                    <div class="vehicles-teaser-label">Affected Vehicles</div>
-                    <ul class="vehicles-list">
-                        <li>2017 C-Class Coupe, GLS, AMG GT, S-Class Cabriolet</li>
-                        <li>2016 C-Class, E-Class, CLS, M-Class / GLE, SL, G-Class</li>
-                        <li>2016 B-Class, CLA, S-Class, GLC, GLE Coupe</li>
-                        <li>2015–2016 AMG GT</li>
-                    </ul>
+            <div class="smartkey-aside">
+                <div class="credibility-block">
+                    <p>We were engineering interfaces for Mercedes vehicles <strong>before mbrace® existed</strong>. Our
+                        system is plug-and-play, proven, and dealer-installed.</p>
+                </div>
+                <div class="runtime-callout">
+                    <div class="runtime-callout-label">Default Run Time</div>
+                    <div class="runtime-callout-value">15 min — Passenger<br>60 min — Sprinter / Metris</div>
+                    <div class="runtime-callout-sub">Configurable via instrument cluster</div>
                 </div>
             </div>
         </div>
+
+        <!-- Add-ons -->
+        <div class="addon-label-row">
+            <span class="addon-label">Optional Add-Ons</span>
+            <div class="addon-label-line"></div>
+        </div>
+
+        <div class="addon-cards">
+
+            <div class="addon-card">
+                <h4>Compustar Drone®</h4>
+                <p>Plug-and-play smartphone control. Replaces — and exceeds — everything mbrace® offered: <strong>remote
+                        start, lock/unlock, live GPS tracking, vehicle immobilization,</strong> and alarm push
+                    notifications.</p>
+                <a href="https://dronemobile.com/plans" class="addon-cta">View Drone plans →</a>
+            </div>
+
+            <div class="addon-card">
+                <h4>Compustar DAS II Sensor</h4>
+                <p>Adds <strong>shock, tilt, glass break, and tow sensing</strong> using your factory horn as the alarm.
+                    Paired with Drone, receive push notifications when any sensor triggers or a door opens while armed.
+                </p>
+                <a href="/shop/-9374" class="addon-cta">Learn more →</a>
+            </div>
+
+        </div>
+
     </div>
 </section>
 
 <script>
     (function () {
-        const section = document.querySelector('.mbrace-alert-section');
+        const section = document.querySelector('.mbrace-solution-section');
         if (!section) return;
 
-        const left = section.querySelector('.mbrace-alert-left');
-        const right = section.querySelector('.mbrace-alert-right');
+        const targets = [
+            section.querySelector('.solution-header'),
+            section.querySelector('.smartkey-block'),
+            section.querySelector('.addon-label-row'),
+            section.querySelector('.addon-cards'),
+        ].filter(Boolean);
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    if (left) left.classList.add('visible');
-                    if (right) right.classList.add('visible');
+                    entry.target.classList.add('visible');
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.12 });
 
-        observer.observe(section);
+        targets.forEach(t => observer.observe(t));
     })();
 </script>

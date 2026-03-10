@@ -254,6 +254,41 @@
         border-bottom-color: var(--mce-dark-red);
     }
 
+    .faq-vehicles-list {
+        list-style: none;
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .faq-vehicles-list li {
+        padding-left: 16px;
+        position: relative;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.95rem;
+    }
+
+    .faq-vehicles-list li::before {
+        content: '—';
+        position: absolute;
+        left: 0;
+        color: var(--mce-dark-red);
+    }
+
+    .faq-vehicles-list li a {
+        color: #444;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(129, 3, 5, 0.2);
+        transition: color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .faq-vehicles-list li a:hover {
+        color: var(--mce-dark-red);
+        border-bottom-color: var(--mce-dark-red);
+    }
+
     @media (max-width: 900px) {
         .mbrace-faq-container {
             flex-direction: column;
@@ -285,7 +320,7 @@
 <section class="mbrace-faq-section" id="faq">
     <div class="mbrace-faq-container">
 
-
+        <!-- Left: sticky header -->
         <div class="faq-left">
             <div class="section-eyebrow">FAQ</div>
             <h2>Common Questions</h2>
@@ -296,7 +331,7 @@
             </a>
         </div>
 
-
+        <!-- Right: accordion -->
         <div class="faq-right">
 
             <details class="faq-item">
@@ -305,10 +340,17 @@
                     <span class="faq-icon"></span>
                 </summary>
                 <div class="faq-answer">
-                    <p>If you are currently using mbrace, you're affected. The service ends permanently on January 1,
-                        2026 with no replacement from Mercedes. Affected vehicles include: <strong>2017 C-Class Coupe,
-                            GLS, AMG GT, S-Class Cabriolet / 2016 C-Class, E-Class, CLS, M-Class/GLE, SL, GL, SLK/SLC,
-                            G-Class, B-Class, CLA, S-Class, GLC, GLE Coupe / 2015–2016 AMG GT.</strong></p>
+                    <p>If you are currently using mbrace®, you're affected. The service ends permanently on January 1,
+                        2026 with no replacement from Mercedes. Affected vehicles include:</p>
+                    <ul class="faq-vehicles-list">
+                        <li><a href="/shop/-9772">2016 CLS, 2016 E Class</a></li>
+                        <li><a href="/shop/-9766">2016 G Class</a></li>
+                        <li><a href="/shop/-9784">2016 SL</a></li>
+                        <li><a href="/shop/-9765">2016 B Class, 2016 CLA, 2016 GLE, 2017 GLS</a></li>
+                        <li><a href="/shop/-9776">2016 C Class, 2016 GLC, 2017 C Class Coupe</a></li>
+                        <li><a href="/shop/-9782">2016-2017 S Class</a></li>
+                        <li><a href="/shop/-9768">2017 AMG GT</a></li>
+                    </ul>
                 </div>
             </details>
 
@@ -319,7 +361,7 @@
                 </summary>
                 <div class="faq-answer">
                     <p>Out of the box, it works via your OEM factory key fob. If your key has a panic button, press it
-                        to remote start. If not, use a lock–unlock–lock sequence. No new key fobs or hardware required
+                        to remote start. If not, use a lock-unlock-lock sequence. No new key fobs or hardware required
                         to get started.</p>
                 </div>
             </details>
@@ -343,7 +385,7 @@
                 </summary>
                 <div class="faq-answer">
                     <p>Key fob remote start has <strong>no subscription required</strong>. Phone control via Compustar
-                        Drone requires a DroneMobile app subscription — significantly less expensive than mbrace, with
+                        Drone requires a DroneMobile app subscription — significantly less expensive than mbrace®, with
                         annual and multi-year discounts available. See all plans at <a
                             href="https://dronemobile.com/plans" target="_blank">dronemobile.com/plans</a>.</p>
                 </div>
@@ -381,7 +423,7 @@
                 </summary>
                 <div class="faq-answer">
                     <p><strong>DAS4 vehicles have no limit.</strong> DAS3 vehicles allow 5 remote starts before
-                        requiring a drive cycle. This is a significant improvement over the mbrace factory limit of 2
+                        requiring a drive cycle. This is a significant improvement over the mbrace® factory limit of 2
                         starts at a time.</p>
                 </div>
             </details>
@@ -394,7 +436,7 @@
                 </summary>
                 <div class="faq-answer">
                     <p>Absolutely. Our SmartKey Starter is compatible with <strong>most Mercedes-Benz vehicles going
-                            back to 2008</strong>. The mbrace shutdown doesn't change your eligibility.</p>
+                            back to 2008</strong>. The mbrace® shutdown doesn't change your eligibility.</p>
                 </div>
             </details>
 
