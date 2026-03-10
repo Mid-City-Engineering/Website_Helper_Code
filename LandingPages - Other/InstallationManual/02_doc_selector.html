@@ -1,0 +1,582 @@
+<script>
+    const SELECTOR_CONFIG = {
+        heading: "Find The Support Document For Your Product",
+        subheading: "Select your product type and SKU below to find installation guides and manuals.",
+    };
+
+    function getSelectorData() {
+        // Guard: return null if Odoo data hasn't been injected into the page
+        if (typeof OdooProductData === 'undefined' || OdooProductData === null) return null;
+
+        const result = [];
+
+        for (const p of OdooProductData) {
+            // 1. Split pipe-separated types (e.g. "Eco Off | OBD Feature Programmers") into an array.
+            // 2. Fall back to ['Miscellaneous'] if the type field is empty/null.
+            const types = p.type
+                ? p.type.split('|').map(t => t.trim()).filter(Boolean)
+                : ['Miscellaneous'];
+
+            // Duplicate the product entry for each type so it appears under all relevant categories
+            for (const type of types) {
+                result.push({ ...p, type });
+            }
+        }
+        return result;
+    }
+</script>
+
+
+
+<style>
+    .mce-sel-section {
+        background: #f5f3f0;
+        padding: 80px 0 100px;
+        position: relative;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    .mce-sel-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+    }
+
+    .mce-sel-inner {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 5%;
+    }
+
+    .mce-sel-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .mce-sel-header h2 {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+        color: #1a1a1a;
+        letter-spacing: 0.04em;
+        position: relative;
+        display: inline-block;
+    }
+
+    .mce-sel-header h2::after {
+        content: '';
+        position: absolute;
+        bottom: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 48px;
+        height: 2px;
+        background: var(--mce-dark-red);
+    }
+
+    .mce-sel-header p {
+        margin-top: 32px;
+        font-size: 1.05rem;
+        font-weight: 300;
+        color: #777;
+        letter-spacing: 0.02em;
+    }
+
+    .mce-sel-header a {
+        color: var(--mce-dark-red);
+    }
+
+    .mce-sel-steps {
+        display: flex;
+        border-bottom: 2px solid #dedad4;
+        margin-bottom: 36px;
+    }
+
+    .mce-sel-tab {
+        flex: 1;
+        padding: 12px 8px 15px;
+        text-align: center;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #bbb;
+        position: relative;
+        cursor: default;
+        user-select: none;
+        transition: color 0.25s ease;
+    }
+
+    .mce-sel-tab-num {
+        display: block;
+        font-size: 0.6rem;
+        font-weight: 400;
+        color: #ccc;
+        letter-spacing: 0.1em;
+        margin-bottom: 3px;
+    }
+
+    .mce-sel-tab.is-active {
+        color: var(--mce-dark-red);
+    }
+
+    .mce-sel-tab.is-active .mce-sel-tab-num {
+        color: var(--mce-sepia-tan);
+    }
+
+    .mce-sel-tab.is-active::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--mce-dark-red);
+    }
+
+    .mce-sel-tab.is-done {
+        color: #888;
+        cursor: pointer;
+    }
+
+    .mce-sel-tab.is-done:hover {
+        color: #333;
+    }
+
+    .mce-sel-crumb-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 24px;
+        margin-bottom: 30px;
+        gap: 16px;
+    }
+
+    .mce-sel-crumb {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .mce-crumb-piece {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.88rem;
+        font-weight: 300;
+        color: #999;
+    }
+
+    .mce-crumb-val {
+        font-weight: 500;
+        color: #555;
+        cursor: pointer;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 1px;
+        transition: all 0.2s ease;
+    }
+
+    .mce-crumb-val:hover {
+        color: var(--mce-dark-red);
+        border-bottom-color: var(--mce-sepia-tan);
+    }
+
+    .mce-sel-restart {
+        flex-shrink: 0;
+        background: none;
+        border: 1px solid var(--mce-dark-red);
+        color: var(--mce-dark-red);
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        outline: none;
+        -webkit-appearance: none;
+    }
+
+    .mce-sel-restart:hover {
+        background: var(--mce-dark-red);
+        border-color: var(--mce-dark-red);
+        color: #f5f3f0;
+    }
+
+    .mce-sel-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #aaa;
+        margin-bottom: 18px;
+    }
+
+    .mce-sel-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+        gap: 10px;
+    }
+
+    .mce-sel-btn {
+        padding: 15px 28px;
+        background: #fff;
+        border: 1.5px solid #dedad4;
+        color: #333;
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        cursor: pointer;
+        transition: all 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+        min-width: 110px;
+        text-align: center;
+        outline: none;
+        -webkit-appearance: none;
+    }
+
+    .mce-sel-btn:hover {
+        border-color: var(--mce-sepia-tan);
+        color: #111;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.07);
+    }
+
+    .mce-sel-btn.is-selected {
+        background: var(--mce-dark-red);
+        border-color: var(--mce-dark-red);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(129, 3, 5, 0.22);
+    }
+
+    .mce-sel-results-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #aaa;
+        margin-bottom: 20px;
+    }
+
+    .mce-sel-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        background: #fff;
+        border: 1.5px solid #dedad4;
+        padding: 26px 30px;
+        margin-bottom: 12px;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.22s ease;
+    }
+
+    .mce-sel-card:last-child {
+        margin-bottom: 0;
+    }
+
+    .mce-sel-card:hover {
+        border-color: var(--mce-sepia-tan);
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.07);
+        transform: translateY(-2px);
+    }
+
+    .mce-sel-card-body {
+        flex: 1;
+    }
+
+    .mce-sel-card-sku {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--mce-sepia-tan);
+        margin-bottom: 6px;
+    }
+
+    .mce-sel-card-name {
+        font-size: 1.05rem;
+        font-weight: 400;
+        color: #1a1a1a;
+        line-height: 1.45;
+    }
+
+    .mce-sel-card-arrow {
+        flex-shrink: 0;
+        width: 42px;
+        height: 42px;
+        border: 1.5px solid #ddd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        color: var(--mce-dark-red);
+        transition: all 0.25s ease;
+    }
+
+    .mce-sel-card:hover .mce-sel-card-arrow {
+        background: var(--mce-dark-red);
+        border-color: var(--mce-dark-red);
+        color: #fff;
+        transform: translateX(3px);
+    }
+
+    .mce-sel-empty {
+        text-align: center;
+        padding: 48px 20px;
+        color: #999;
+    }
+
+    .mce-sel-empty p {
+        font-size: 1rem;
+        font-weight: 300;
+        line-height: 1.7;
+    }
+
+    .mce-sel-empty a {
+        color: var(--mce-dark-red);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    .mce-sel-anim {
+        animation: mceSelIn 0.28s ease-out both;
+    }
+
+    @keyframes mceSelIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .mce-sel-section {
+            padding: 60px 0 80px;
+        }
+
+        .mce-sel-btn {
+            width: 100%;
+            text-align: left;
+            padding: 16px 20px;
+        }
+
+        .mce-sel-card {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .mce-sel-card-arrow {
+            align-self: flex-end;
+        }
+
+        .mce-sel-tab {
+            padding: 10px 4px 13px;
+            font-size: 0.65rem;
+        }
+    }
+</style>
+
+
+
+<div class="mce-sel-section" id="mce-selector">
+    <div class="mce-sel-inner">
+        <div class="mce-sel-header">
+            <h2 id="mce-sel-heading">Find Your Documentation</h2>
+            <p id="mce-sel-subheading"></p>
+        </div>
+        <div class="mce-sel-steps" id="mce-sel-steps" role="tablist"></div>
+        <div class="mce-sel-crumb-row">
+            <div class="mce-sel-crumb" id="mce-sel-crumb" aria-label="Current selection"></div>
+            <button class="mce-sel-restart" id="mce-sel-restart" onclick="mceDocRestartSelector()"
+                style="display:none;">
+                Start Over
+            </button>
+        </div>
+        <div id="mce-sel-content"></div>
+    </div>
+</div>
+
+
+
+<script>
+    (function () {
+
+        document.getElementById('mce-sel-heading').textContent = SELECTOR_CONFIG.heading;
+        document.getElementById('mce-sel-subheading').innerHTML = SELECTOR_CONFIG.subheading;
+
+        const STEP_NAMES = ["Product Type", "SKU"];
+
+        let data = [];
+        let sel = { type: null, sku: null };
+        let currentStep = 0;
+
+        function init() {
+            data = getSelectorData();
+            if (!data || !data.length) {
+                document.getElementById('mce-sel-content').innerHTML =
+                    '<div class="mce-sel-empty"><p>No product data loaded.</p></div>';
+                return;
+            }
+            goStep(0);
+        }
+
+        function renderTabs() {
+            document.getElementById('mce-sel-steps').innerHTML =
+                STEP_NAMES.map((name, i) => {
+                    let cls = 'mce-sel-tab';
+                    if (i === currentStep) cls += ' is-active';
+                    else if (i < currentStep) cls += ' is-done';
+                    return `<div class="${cls}" role="tab" onclick="mceDocGoStep(${i})">
+                        <span class="mce-sel-tab-num">STEP ${i + 1}</span>
+                        ${name}
+                    </div>`;
+                }).join('');
+        }
+
+        window.mceDocGoStep = function (step) {
+            if (step >= currentStep) return;
+            if (step <= 0) sel.type = null;
+            if (step <= 1) sel.sku = null;
+            goStep(step);
+        };
+
+        function renderCrumb() {
+            const parts = [];
+            if (sel.type) parts.push({ v: sel.type, s: 0 });
+            if (sel.sku) parts.push({ v: sel.sku, s: 1 });
+
+            document.getElementById('mce-sel-crumb').innerHTML = parts.map((p, i) => `
+                <span class="mce-crumb-piece">
+                    <span class="mce-crumb-val" onclick="mceDocGoStep(${p.s})">${p.v}</span>
+                    ${i < parts.length - 1 ? '<span class="mce-crumb-sep">›</span>' : ''}
+                </span>`
+            ).join('');
+
+            document.getElementById('mce-sel-restart').style.display =
+                currentStep > 0 ? 'block' : 'none';
+        }
+
+        function goStep(step) {
+            currentStep = step;
+            renderTabs();
+            renderCrumb();
+
+            const el = document.getElementById('mce-sel-content');
+            el.classList.remove('mce-sel-anim');
+            void el.offsetWidth;
+            el.classList.add('mce-sel-anim');
+            el.innerHTML = '';
+
+            if (step === 0) renderTypeStep();
+            else if (step === 1) renderSkuStep();
+            else renderResults();
+        }
+
+        window.mceDocRestartSelector = function () {
+            sel.type = null;
+            sel.sku = null;
+            goStep(0);
+        };
+
+        function renderTypeStep() {
+            const types = [...new Set(data.map(p => p.type))].sort((a, b) => {
+                if (a === 'Miscellaneous') return 1;
+                if (b === 'Miscellaneous') return -1;
+                return a.localeCompare(b);
+            });
+
+            renderOptions("Select your product type", types, v => {
+                sel.type = v;
+                goStep(1);
+            });
+        }
+
+        function renderSkuStep() {
+            const skus = [...new Set(
+                data.filter(p => p.type === sel.type).map(p => p.sku)
+            )].sort();
+            renderOptions("Select your SKU", skus, v => {
+                sel.sku = v;
+                goStep(2);
+            });
+        }
+
+        function renderResults() {
+            const el = document.getElementById('mce-sel-content');
+
+            const product = data.find(p => p.type === sel.type && p.sku === sel.sku);
+            const attachments = product ? product.attachments : [];
+
+            if (!attachments.length) {
+                el.innerHTML = `<div class="mce-sel-empty">
+                    <p>No documents found for this product.<br>
+                    Please <a href="/contactus">contact us</a> and we'll help you find what you need.</p>
+                </div>`;
+                return;
+            }
+
+            el.innerHTML = `
+                <div class="mce-sel-results-label">
+                    ${attachments.length === 1 ? '1 document found' : attachments.length + ' documents found'}
+                </div>
+                ${attachments.map(a => `
+                    <a class="mce-sel-card" href="${a.url}" target="_blank" rel="noopener">
+                        <div class="mce-sel-card-body">
+                            <div class="mce-sel-card-sku">${sel.sku}</div>
+                            <div class="mce-sel-card-name">${a.name}</div>
+                        </div>
+                        <div class="mce-sel-card-arrow">&#8594;</div>
+                    </a>
+                `).join('')}`;
+        }
+
+        function renderOptions(labelText, options, onSelect) {
+            const el = document.getElementById('mce-sel-content');
+            el.innerHTML = `
+                <div class="mce-sel-label">${labelText}</div>
+                <div class="mce-sel-options">
+                    ${options.map(opt => `
+                        <button class="mce-sel-btn"
+                                onclick="mceDocPickOption(this, '${esc(opt)}')"
+                                aria-pressed="false">${opt}</button>
+                    `).join('')}
+                </div>`;
+            el._onSelect = onSelect;
+        }
+
+        window.mceDocPickOption = function (btn, value) {
+            const el = document.getElementById('mce-sel-content');
+            el.querySelectorAll('.mce-sel-btn').forEach(b => {
+                b.classList.remove('is-selected');
+                b.setAttribute('aria-pressed', 'false');
+            });
+            btn.classList.add('is-selected');
+            btn.setAttribute('aria-pressed', 'true');
+            setTimeout(() => { if (el._onSelect) el._onSelect(value); }, 180);
+        };
+
+        function esc(s) {
+            return s.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+    })();
+</script>
