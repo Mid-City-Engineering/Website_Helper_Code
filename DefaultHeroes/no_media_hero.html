@@ -293,7 +293,10 @@
         background: rgba(0, 0, 0, 0.95);
         z-index: 1001;
         transition: right 0.3s ease;
-        padding-top: 11rem;
+        padding: 11rem 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
     }
 
     .hamburger-drawer.active {
@@ -665,6 +668,8 @@
 
         hamburger.classList.toggle('active');
         drawer.classList.toggle('active');
+        document.body.style.position = drawer.classList.contains('active') ? 'fixed' : '';
+        document.body.style.width = drawer.classList.contains('active') ? '100%' : '';
     }
 
     // Close drawer when clicking outside
@@ -679,6 +684,20 @@
             toggleMenu();
         }
     });
+
+    // Close drawer when scrolling outside
+    let touchStartY = 0;
+
+    window.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+        const drawer = document.getElementById('hamburgerDrawer');
+        if (drawer && drawer.classList.contains('active') && !drawer.contains(e.target)) {
+            toggleMenu();
+        }
+    }, { passive: true });
 
     // Account dropdown with working session check
     (function () {
@@ -705,11 +724,7 @@
                 return response.text().then(text => {
                     console.error('[Auth Check] Error response:', text);
 
-                    throw new Error(`HTTP $ {
-                                response.status
-                            }
-
-                            `);
+                    throw new Error(`HTTP response: ${response.status}`);
                 });
             }
 
