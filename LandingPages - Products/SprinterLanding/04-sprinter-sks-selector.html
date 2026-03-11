@@ -1,5 +1,5 @@
 <script>
-    // UI copy — override per page if desired
+    // UI copy: override per page if desired
     const SELECTOR_CONFIG = {
         heading: "Find The SmartKey Starter For Your Sprinter",
         subheading: "Select the year range that includes your Sprinter's yaer of manufacture. You can also use our <a href='/device/smart-key-starter#mce-selector'>general SmartKey Starter Product Selector</a> that shows all our SmartKey Starters, not just the Sprinter ones.",
@@ -41,7 +41,7 @@
         "Volkswagen", "GMC",
     ];
 
-    // Maps make names (including common typos and shorthands) to their canonical form —
+    // Maps make names (including common typos and shorthands) to their canonical form:
     // auto-generated from KNOWN_MAKES, with manual additions below
     const MAKE_LOOKUP = {};
     for (const make of KNOWN_MAKES) {
@@ -108,7 +108,7 @@
         let text = entry.trim();
         if (!text) return [];
 
-        // 1. Extract parentheticals — qualifiers become a selector step, rest become notes
+        // 1. Extract parentheticals (qualifiers become a selector step, rest become notes)
         let notes = [];
         let qualifier = null;
         const parenMatches = text.match(/\(([^)]+)\)/g);

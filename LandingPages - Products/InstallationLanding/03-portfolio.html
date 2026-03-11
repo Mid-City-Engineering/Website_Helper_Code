@@ -67,7 +67,7 @@
         margin: 0 auto;
     }
 
-    /* Flexbox rows — each .grid-row is a full-width row with equal-height items */
+    /* Flexbox rows, each .grid-row is a full-width row with equal-height items */
     .grid {
         display: flex;
         flex-direction: column;
@@ -362,7 +362,7 @@
     </div>
 </div>
 
-<!-- Hidden source items — JS reads from here -->
+<!-- Hidden source items: JS reads from here -->
 <div id="itemSource" style="display:none;">
 
     <!-- ACCESSORIES (17) -->
@@ -863,7 +863,7 @@
         const allItems = Array.from(source.querySelectorAll('.item'));
 
         // Row layout pattern: items-per-row and flex ratios
-        // Each entry: [flex1, flex2, ...] — the number of values = items in that row
+        // Each entry: [flex1, flex2, ...] | the number of values = items in that row
         // Ratios control relative widths. All items in a row share the same height.
         const rowPattern = [
             [2, 1],        // Row A: 2/3 + 1/3
