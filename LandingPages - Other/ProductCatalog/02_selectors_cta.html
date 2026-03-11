@@ -99,6 +99,18 @@
         color: #444;
     }
 
+    .selector-eyebrow-subheading span:last-child a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(129, 3, 5, 0.3);
+        transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .selector-eyebrow-subheading span:last-child a:hover {
+        color: var(--mce-dark-red);
+        border-bottom-color: var(--mce-dark-red);
+    }
+
     /* ── CARDS GRID ─────────────────────────────────────────── */
     .selector-cards {
         display: grid;
@@ -328,8 +340,7 @@
             <div class="selector-card-top">
                 <span class="selector-card-index">01</span>
                 <span class="selector-card-name">SmartKey Starter</span>
-                <p class="selector-card-desc">Find the right remote starter kit for your vehicle.
-                </p>
+                <p class="selector-card-desc">Find the right remote starter kit for your vehicle.</p>
             </div>
             <div class="selector-card-bottom">
                 <span class="selector-card-cta">Select Your Vehicle</span>
