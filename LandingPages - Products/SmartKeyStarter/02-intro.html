@@ -106,6 +106,74 @@
         width: 80px;
     }
 
+    .selector-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 2.5rem;
+        padding: 18px 24px 18px 20px;
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--mce-dark-red);
+        text-decoration: none;
+        position: relative;
+        width: fit-content;
+        background: rgba(129, 3, 5, 0.04);
+        border-top: 1px solid rgba(129, 3, 5, 0.15);
+        border-right: 1px solid rgba(129, 3, 5, 0.15);
+        border-bottom: 1px solid rgba(129, 3, 5, 0.15);
+        border-left: 3px solid var(--mce-dark-red);
+        overflow: hidden;
+        transition: color 0.4s ease, transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .selector-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: var(--mce-dark-red);
+        transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 0;
+    }
+
+    .selector-cta:hover::before {
+        width: 100%;
+    }
+
+    .selector-cta:hover {
+        color: #fff;
+        border-color: var(--mce-dark-red);
+    }
+
+    .selector-cta-label,
+    .selector-cta-icon {
+        position: relative;
+        z-index: 1;
+    }
+
+    .selector-cta-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--mce-dark-red);
+        color: #fff;
+        flex-shrink: 0;
+        transition: background 0.4s ease;
+    }
+
+    .selector-cta:hover .selector-cta-icon {
+        background: #fff;
+        color: var(--mce-dark-red);
+    }
+
     /* ── Right: Description + Anchor Links ── */
     .section-summary-body {
         opacity: 0;
@@ -217,6 +285,15 @@
         <div class="section-summary-headline">
             <span class="summary-label">SmartKey Starter</span>
             <h2>Premium Remote Start, <span class="text-accent">Perfected</span></h2>
+            <a href="#mce-selector" class="selector-cta">
+                <span class="selector-cta-label">Use Our Selector To Find The SmartKey Starter For Your Vehicle</span>
+                <span class="selector-cta-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 5v14M5 12l7 7 7-7" />
+                    </svg>
+                </span>
+            </a>
         </div>
         <div class="section-summary-body">
             <p>
