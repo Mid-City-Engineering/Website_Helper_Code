@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Compat Parser Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        th {
+            background: #f0f0f0;
+            position: sticky;
+            top: 0;
+        }
+
+        .note {
+            color: #888;
+            font-style: italic;
+        }
+
+        .qualifier {
+            color: #0066cc;
+        }
+
+        .multi {
+            background: #fff3cd;
+        }
+
+        #stats {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Compatibility List Parser Test</h2>
+    <div id="stats"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Years</th>
+                <th>Qualifier</th>
+                <th>Note</th>
+                <th>SKU(s)</th>
+                <th>Product Name(s)</th>
+            </tr>
+        </thead>
+        <tbody id="results"></tbody>
+    </table>
+
+    <script>
+        // ============================================================
+        // SELECTOR DATA - paste your extracted data here
+        // ============================================================
+        function getSelectorData() {
+            // Code to extract selectorData from the page. Maybe add error state for UI?
+            return
+        }
+
+        const selectorData = getSelectorData();
+        // ============================================================
+        // CONFIG
+        // ============================================================
+        const KNOWN_MAKES = [
+            "Mercedes-Benz", "Freightliner", "Dodge", "Tesla", "Audi",
+            "BMW", "Infiniti", "Porsche", "Chevrolet", "Lexus", "Maserati",
+            "Acura", "Volvo", "Bentley", "Range Rover", "Lamborghini", "Rolls-Royce",
+            "Jaguar", "Land Rover", "Mini", "Mitsubishi", "Nissan", "Subaru", "Toyota", "Volkswagen", "GMC",
+        ];
+
+        // Maps make names (including common typos and shorthands) to their canonical form — 
+        // auto-generated from KNOWN_MAKES, with manual additions below
+        const MAKE_LOOKUP = {};
+        for (const make of KNOWN_MAKES) {
+            MAKE_LOOKUP[make.toLowerCase()] = make;
+        }
+        // Add manual aliases for misspellings/shorthands
+        MAKE_LOOKUP["mercedes"] = "Mercedes-Benz";
+        MAKE_LOOKUP["chevrolette"] = "Chevrolet";
+        MAKE_LOOKUP["masarati"] = "Maserati";
+        MAKE_LOOKUP["rolls royce"] = "Rolls-Royce";
+
+        const DEFAULT_MAKE = "Mercedes-Benz";
+
+        const SKU_MAKE_OVERRIDES = {
+            "SKSXC": "Volvo",
+            "MOTOAUDI": "Audi",
+            "MOTOBMW": "BMW",
+            "MOTOLEXUS": "Lexus",
+            "MOTOMGT": "Maserati",
+            "MOTOP29": "Porsche",
+            "MOTOSTING": "Chevrolet",
+            "MOTOTSX": "Acura",
+            "MOTOVOLVO": "Volvo",
+            "MOTOTS3": "Tesla",
+            "MOTOTSS": "Tesla",
+            "MOTOBNTSPUR": "Bentley"
+        };
+
+        // Parenthetical text that should be kept as a qualifier (shown as a selector step)
+        // e.g. "CLA (Push to Start) 2015-2019" → model: "CLA", qualifier: "Push to Start"
+        const MODEL_QUALIFIERS = ["Not 48V", "push to start", "key", "push start"];
+
+        const PLURAL_MAP = {
+            "sprinters": "Sprinter"
+        };
+
+        const FILLER_WORDS = ["all", "and", "&", ","];
+
+        // ============================================================
+        // PARSER
+        // ============================================================
+        function getDefaultMake(sku) {
+            for (const [prefix, make] of Object.entries(SKU_MAKE_OVERRIDES)) {
+                if (sku.toUpperCase().startsWith(prefix.toUpperCase())) {
+                    return make;
+                }
+            }
+            return DEFAULT_MAKE;
+        }
+
+        function normalizeYears(yearStr) {
+            yearStr = yearStr.replace(/\s+/g, "");
+            const match = yearStr.match(/^(\d{4})[-–](\d{2,4})(\+?)$/);
+            if (match) {
+                const start = match[1];
+                let end = match[2];
+                const plus = match[3];
+                if (end.length === 2) {
+                    end = start.substring(0, 2) + end;
+                }
+                return start + "-" + end + plus;
+            }
+            return yearStr;
+        }
+
+        function normalizePlurals(model) {
+            const words = model.split(/\s+/);
+            return words.map(w => {
+                const lower = w.toLowerCase();
+                return PLURAL_MAP[lower] || w;
+            }).join(" ");
+        }
+
+        function parseCompatEntry(entry, sku) {
+            let text = entry.trim();
+            if (!text) return [];
+
+            // 1. Extract parentheticals — qualifiers become a selector step, rest become notes
+            let notes = [];
+            let qualifier = null;
+            const parenMatches = text.match(/\(([^)]+)\)/g);
+            if (parenMatches) {
+                for (const p of parenMatches) {
+                    const inner = p.replace(/[()]/g, "").trim();
+                    if (MODEL_QUALIFIERS.some(q => inner.toLowerCase() === q.toLowerCase())) {
+                        qualifier = inner;
+                    } else {
+                        notes.push(p.trim());
+                    }
+                    text = text.replace(p, "").trim();
+                }
+            }
+            let note = notes.length > 0 ? notes.join(" ") : null;
+
+            // 2. Extract year range from end
+            let years = "";
+            const yearPattern = /(\d{4}\s*[-–]\s*\d{2,4}\+?|\d{4}\+?)\s*$/;
+            const yearMatch = text.match(yearPattern);
+            if (yearMatch) {
+                years = normalizeYears(yearMatch[1]);
+                text = text.substring(0, yearMatch.index).trim();
+            }
+
+            // 3. Detect makes in remaining text
+            const detectedMakes = [];
+            let remaining = text;
+
+            const sortedMakes = Object.keys(MAKE_LOOKUP).sort((a, b) => b.length - a.length);
+
+            for (const make of sortedMakes) {
+                const escaped = make.replace(/[-]/g, "[-]?");
+                const regex = new RegExp("\\b" + escaped + "\\b", "gi");
+                if (regex.test(remaining)) {
+                    detectedMakes.push(MAKE_LOOKUP[make.toLowerCase()]);
+                    remaining = remaining.replace(regex, "").trim();
+                }
+            }
+
+            // 4. Strip filler words
+            for (const filler of FILLER_WORDS) {
+                const fillerRegex = new RegExp(
+                    filler === "&" || filler === ","
+                        ? "\\" + filler
+                        : "\\b" + filler + "\\b",
+                    "gi"
+                );
+                remaining = remaining.replace(fillerRegex, "").trim();
+            }
+
+            // 5. Clean up whitespace
+            remaining = remaining.replace(/\s{2,}/g, " ").trim();
+
+            // 6. Normalize plurals
+            remaining = normalizePlurals(remaining);
+
+            const model = remaining;
+
+            // 7. Determine makes
+            let makes = detectedMakes.length > 0
+                ? [...new Set(detectedMakes)]
+                : [getDefaultMake(sku)];
+
+            return makes.map(make => ({ make, model, years, qualifier, note }));
+        }
+
+        function parseSelectorData(selectorData) {
+            const grouped = {};
+
+            for (const item of selectorData) {
+                const sku = item.default_code;
+                const productUrl = item.website_url;
+                const name = item.name;
+                const compat = item.x_studio_compatibility_list || "";
+
+                const entries = compat.split("|");
+
+                for (const entry of entries) {
+                    const parsed = parseCompatEntry(entry, sku);
+
+                    for (const p of parsed) {
+                        const key = [p.make, p.model, p.years, p.qualifier || "", p.note || ""].join("|");
+
+                        if (!grouped[key]) {
+                            grouped[key] = {
+                                make: p.make,
+                                model: p.model,
+                                years: p.years,
+                                qualifier: p.qualifier,
+                                note: p.note,
+                                products: []
+                            };
+                        }
+
+                        grouped[key].products.push({ sku, name, productUrl });
+                    }
+                }
+            }
+
+            return Object.values(grouped);
+        }
+
+        // ============================================================
+        // RENDER
+        // ============================================================
+        const parsed = parseSelectorData(selectorData);
+
+        parsed.sort((a, b) =>
+            a.make.localeCompare(b.make) ||
+            a.model.localeCompare(b.model) ||
+            a.years.localeCompare(b.years) ||
+            (a.qualifier || "").localeCompare(b.qualifier || "")
+        );
+
+        const totalProducts = selectorData.length;
+        const totalEntries = parsed.length;
+        const multiSku = parsed.filter(p => p.products.length > 1).length;
+        const withQualifiers = parsed.filter(p => p.qualifier).length;
+
+        document.getElementById("stats").innerHTML =
+            `<strong>${totalProducts}</strong> SKUs → <strong>${totalEntries}</strong> vehicle entries` +
+            (multiSku ? ` | <strong>${multiSku}</strong> with multiple SKUs` : "") +
+            (withQualifiers ? ` | <strong>${withQualifiers}</strong> with qualifiers` : "");
+
+        const tbody = document.getElementById("results");
+
+        if (parsed.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:#888;">No data. Paste your selectorData array above and refresh.</td></tr>';
+        } else {
+            parsed.forEach((entry, i) => {
+                const isMulti = entry.products.length > 1;
+                const tr = document.createElement("tr");
+                if (isMulti) tr.className = "multi";
+                tr.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${entry.make}</td>
+            <td>${entry.model}</td>
+            <td>${entry.years}</td>
+            <td class="qualifier">${entry.qualifier || ""}</td>
+            <td class="note">${entry.note || ""}</td>
+            <td>${entry.products.map(p => p.sku).join("<br>")}</td>
+            <td>${entry.products.map(p => p.name).join("<br>")}</td>
+        `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+
+</html>
