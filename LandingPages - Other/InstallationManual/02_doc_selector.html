@@ -1,3 +1,6 @@
+<!-- ============================================================
+     BLOCK 1: CONFIG
+     ============================================================ -->
 <script>
     const SELECTOR_CONFIG = {
         heading: "Find The Support Document For Your Product",
@@ -27,7 +30,9 @@
 </script>
 
 
-
+<!-- ============================================================
+     BLOCK 2: STYLES
+     ============================================================ -->
 <style>
     .mce-sel-section {
         background: #f5f3f0;
@@ -390,7 +395,9 @@
 </style>
 
 
-
+<!-- ============================================================
+     BLOCK 3: HTML
+     ============================================================ -->
 <div class="mce-sel-section" id="mce-selector">
     <div class="mce-sel-inner">
         <div class="mce-sel-header">
@@ -410,7 +417,9 @@
 </div>
 
 
-
+<!-- ============================================================
+     BLOCK 4: SELECTOR UI
+     ============================================================ -->
 <script>
     (function () {
 
@@ -469,6 +478,8 @@
                 currentStep > 0 ? 'block' : 'none';
         }
 
+        let isInitialLoad = true;
+
         function goStep(step) {
             currentStep = step;
             renderTabs();
@@ -479,6 +490,15 @@
             void el.offsetWidth;
             el.classList.add('mce-sel-anim');
             el.innerHTML = '';
+
+            if (!isInitialLoad) {
+                document.getElementById('mce-selector').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+
+            isInitialLoad = false;
 
             if (step === 0) renderTypeStep();
             else if (step === 1) renderSkuStep();

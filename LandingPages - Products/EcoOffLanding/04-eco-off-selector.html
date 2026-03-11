@@ -29,8 +29,8 @@
         "Volkswagen", "GMC",
     ];
 
-    // Maps make names (including common typos and shorthands) to their canonical form:
-    // auto-generated from KNOWN_MAKES, with manual additions below
+    // Maps make names (including common typos and shorthands) to their canonical form,
+    // auto-generated from KNOWN_MAKES with manual additions below
     const MAKE_LOOKUP = {};
     for (const make of KNOWN_MAKES) {
         MAKE_LOOKUP[make.toLowerCase()] = make;
@@ -356,8 +356,8 @@
     .mce-sel-restart {
         flex-shrink: 0;
         background: none;
-        border: 1px solid #ccc;
-        color: #888;
+        border: 1px solid var(--mce-dark-red);
+        color: var(--mce-dark-red);
         font-family: 'Outfit', sans-serif;
         font-size: 0.78rem;
         font-weight: 500;
@@ -371,8 +371,9 @@
     }
 
     .mce-sel-restart:hover {
+        background: var(--mce-dark-red);
         border-color: var(--mce-dark-red);
-        color: var(--mce-dark-red);
+        color: #f5f3f0;
     }
 
 
@@ -690,6 +691,8 @@
                 currentStep > (EXCLUSIVE_CAR_FOR_SELECTOR != null ? 2 : 0) ? 'block' : 'none';
         }
 
+        let isInitialLoad = true;
+
         function goStep(step) {
             currentStep = step;
             renderTabs();
@@ -700,6 +703,14 @@
             void el.offsetWidth;
             el.classList.add('mce-sel-anim');
             el.innerHTML = '';
+
+            if (!isInitialLoad) {
+                document.getElementById('mce-selector').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+            isInitialLoad = false;
 
             if (step === 0) renderMakeStep();
             else if (step === 1) renderModelStep();
