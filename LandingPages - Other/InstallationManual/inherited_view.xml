@@ -1,0 +1,26 @@
+<data>
+    <xpath expr="//div[@id='wrap']" position="before">
+        <t t-set="product_fields" t-value="['id', 'default_code', 'x_studio_product_type_for_doc_selector']"/>
+        <t t-set="products" t-value="request.env['product.template'].sudo().search_read([('is_published', '=', True)], product_fields)"/>
+        <t t-set="product_ids" t-value="[p['id'] for p in products]"/>
+        <t t-set="attachments" t-value="request.env['ir.attachment'].sudo().search_read([('res_model', '=', 'product.template'), ('res_id', 'in', product_ids), ('type', '=', 'url')], ['res_id', 'name', 'url'])"/>
+        <script type="text/javascript">
+            const _products = <t t-raw="json.dumps(products)"/>;
+            const _attachments = <t t-raw="json.dumps(attachments)"/>;
+
+            const _attachmentsByProduct = {};
+            _attachments.forEach(a =&gt; {
+                if (!_attachmentsByProduct[a.res_id]) _attachmentsByProduct[a.res_id] = [];
+                _attachmentsByProduct[a.res_id].push({ name: a.name, url: a.url });
+            });
+
+            var OdooProductData = _products
+                .filter(p =&gt; _attachmentsByProduct[p.id])
+                .map(p =&gt; ({
+                    sku: p.default_code,
+                    type: p.x_studio_product_type_for_doc_selector,
+                    attachments: _attachmentsByProduct[p.id]
+                }));
+        </script>
+    </xpath>
+</data>
