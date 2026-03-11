@@ -42,9 +42,7 @@ def scan_directory(root_dir: str) -> None:
 
     for dirpath, _dirnames, filenames in os.walk(root_dir):
         for filename in sorted(filenames):
-            # Must be an HTML file whose name starts with '0'
-            if not filename.startswith("0"):
-                continue
+            # Must be an HTML file
             if not filename.lower().endswith((".html", ".htm")):
                 continue
 

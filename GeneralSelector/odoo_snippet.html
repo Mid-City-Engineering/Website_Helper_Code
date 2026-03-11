@@ -3,7 +3,7 @@
      Everything a developer needs to touch lives here.
      ============================================================ -->
 <script>
-    // UI copy — override per page if desired
+    // UI copy: override per page if desired
     const SELECTOR_CONFIG = {
         heading: "Find Your SmartKey Starter",
         subheading: "Select your vehicle below to find the right product. Need help? <a href='/contactus'>Contact us</a> or <a href='/support'>visit our Support Center</a>.",
@@ -45,8 +45,8 @@
         "Volkswagen", "GMC",
     ];
 
-    // Maps make names (including common typos and shorthands) to their canonical form —
-    // auto-generated from KNOWN_MAKES, with manual additions below
+    // Maps make names (including common typos and shorthands) to their canonical form,
+    // auto-generated from KNOWN_MAKES with manual additions below
     const MAKE_LOOKUP = {};
     for (const make of KNOWN_MAKES) {
         MAKE_LOOKUP[make.toLowerCase()] = make;
@@ -74,7 +74,7 @@
 
 
 <!-- ============================================================
-     BLOCK 2: PARSER LOGIC — do not edit
+     BLOCK 2: PARSER LOGIC (do not edit)
      ============================================================ -->
 <script>
     function getDefaultMake(sku) {
@@ -113,7 +113,7 @@
         let text = entry.trim();
         if (!text) return [];
 
-        // 1. Extract parentheticals — qualifiers become a selector step, rest become notes
+        // 1. Extract parentheticals (qualifiers become a selector step, rest become notes)
         let notes = [];
         let qualifier = null;
         const parenMatches = text.match(/\(([^)]+)\)/g);
