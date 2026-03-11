@@ -1,0 +1,537 @@
+<t t-name="website.smartkey-starter-faq">
+    <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+            <section class="s_embed_code pt16 pb16 o_colored_level text-center" data-snippet="s_embed_code"
+                data-name="Embed Code">
+                <template class="s_embed_code_saved">
+                    <script>
+                        heroReplacementTitle = 'SmartKey Starter FAQ'; // change from null to actual string for replacement
+                        heroReplacementText = ''; // change from null to actual string for replacement
+                    </script>
+
+                    <style>
+                        /* We need to set a height for the hero placeholder to not make it suddenly
+    appear and push content down (it looks glitchy).
+    */
+
+                        /* Match placeholder-height to the fetched hero's overall height */
+                        :root {
+                            --placeholder-height: 80vh;
+                        }
+
+                        .no-media-header-hero {
+                            height: var(--placeholder-height);
+                        }
+
+                        @media (max-width: 768px) and (min-width: 481px) {
+                            :root {
+                                --placeholder-height: 80vh;
+                            }
+                        }
+
+                        @media (max-width: 480px) {
+                            :root {
+                                --placeholder-height: 80vh;
+                            }
+                        }
+                    </style>
+
+                    <div class="no-media-header-hero" id="no-media-header-hero" />
+
+                    <script>
+                        (function () {
+                            fetch('/documents/content/fmoUcH3xRAKDCNWx_NMhNgo42?download=0')
+                                .then(r =& gt; r.text())
+            .then(html =& gt; {
+                                const container = document.getElementById('no-media-header-hero');
+
+                                // Parse the fetched HTML
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+
+                                // Inject styles
+                                doc.querySelectorAll('style').forEach(style =& gt; {
+                                    container.appendChild(document.adoptNode(style));
+                                });
+
+                                // Inject HTML body content
+                                const body = doc.querySelector('body');
+                                if (body) {
+                                    Array.from(body.children).forEach(el =& gt; {
+                                        if (el.tagName !== 'SCRIPT') {
+                                            container.appendChild(document.adoptNode(el));
+                                        }
+                                    });
+                                } else {
+                                    // If no &lt;body&gt;, grab non-script/style elements from &lt;html&gt;
+                                    doc.querySelectorAll('html &gt; *:not(script):not(style), html *:not(head):not(script):not(style)').forEach(el =& gt; {
+                                        container.appendChild(document.adoptNode(el));
+                                    });
+                                }
+
+                                // Code to override the hero h2 title
+                                const heroTitle = container.querySelector('.hero-title');
+                                if (heroTitle & amp;& amp; heroReplacementTitle != null) {
+                                    heroTitle.innerHTML = heroReplacementTitle;
+                                }
+
+                                // Code to override the hero p text
+                                const heroText = container.querySelector('.hero-text');
+                                if (heroText & amp;& amp; heroReplacementText != null) {
+                                    heroText.innerHTML = heroReplacementText;
+                                }
+
+                                // Execute scripts (they won't run via innerHTML/adoptNode)
+                                doc.querySelectorAll('script').forEach(origScript =& gt; {
+                                    const newScript = document.createElement('script');
+                                    if (origScript.src) {
+                                        newScript.src = origScript.src;
+                                    } else {
+                                        newScript.textContent = origScript.textContent;
+                                    }
+                                    container.appendChild(newScript);
+                                });
+                            })
+            .catch (err =& gt; console.error('Failed to load header/hero:', err));
+                        })();
+                    </script>
+                </template>
+                <div class="s_embed_code_embedded o_not_editable container">
+                    <script>
+                        heroReplacementTitle = 'SmartKey Starter FAQ'; // change from null to actual string for replacement
+                        heroReplacementText = ''; // change from null to actual string for replacement
+                    </script>
+                    <style>
+                        /* We need to set a height for the hero placeholder to not make it suddenly
+    appear and push content down (it looks glitchy).
+    */
+
+                        /* Match placeholder-height to the fetched hero's overall height */
+                        :root {
+                            --placeholder-height: 80vh;
+                        }
+
+                        .no-media-header-hero {
+                            height: var(--placeholder-height);
+                        }
+
+                        @media (max-width: 768px) and (min-width: 481px) {
+                            :root {
+                                --placeholder-height: 80vh;
+                            }
+                        }
+
+                        @media (max-width: 480px) {
+                            :root {
+                                --placeholder-height: 80vh;
+                            }
+                        }
+                    </style>
+                    <div class="no-media-header-hero" id="no-media-header-hero" />
+                    <script>
+                        (function () {
+                            fetch('/documents/content/fmoUcH3xRAKDCNWx_NMhNgo42?download=0')
+                                .then(r =& gt; r.text())
+            .then(html =& gt; {
+                                const container = document.getElementById('no-media-header-hero');
+
+                                // Parse the fetched HTML
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+
+                                // Inject styles
+                                doc.querySelectorAll('style').forEach(style =& gt; {
+                                    container.appendChild(document.adoptNode(style));
+                                });
+
+                                // Inject HTML body content
+                                const body = doc.querySelector('body');
+                                if (body) {
+                                    Array.from(body.children).forEach(el =& gt; {
+                                        if (el.tagName !== 'SCRIPT') {
+                                            container.appendChild(document.adoptNode(el));
+                                        }
+                                    });
+                                } else {
+                                    // If no &lt;body&gt;, grab non-script/style elements from &lt;html&gt;
+                                    doc.querySelectorAll('html &gt; *:not(script):not(style), html *:not(head):not(script):not(style)').forEach(el =& gt; {
+                                        container.appendChild(document.adoptNode(el));
+                                    });
+                                }
+
+                                // Code to override the hero h2 title
+                                const heroTitle = container.querySelector('.hero-title');
+                                if (heroTitle & amp;& amp; heroReplacementTitle != null) {
+                                    heroTitle.innerHTML = heroReplacementTitle;
+                                }
+
+                                // Code to override the hero p text
+                                const heroText = container.querySelector('.hero-text');
+                                if (heroText & amp;& amp; heroReplacementText != null) {
+                                    heroText.innerHTML = heroReplacementText;
+                                }
+
+                                // Execute scripts (they won't run via innerHTML/adoptNode)
+                                doc.querySelectorAll('script').forEach(origScript =& gt; {
+                                    const newScript = document.createElement('script');
+                                    if (origScript.src) {
+                                        newScript.src = origScript.src;
+                                    } else {
+                                        newScript.textContent = origScript.textContent;
+                                    }
+                                    container.appendChild(newScript);
+                                });
+                            })
+            .catch (err =& gt; console.error('Failed to load header/hero:', err));
+                        })();
+                    </script>
+                </div>
+            </section>
+            <section class="s_embed_code pt16 pb16 o_colored_level text-center" data-snippet="s_embed_code"
+                data-name="Embed Code">
+                <template class="s_embed_code_saved">
+                    <style>
+                        .spacer {
+                            height: 10vh;
+                            width: 100%;
+                        }
+                    </style>
+
+                    <div class="spacer">
+                    </div>
+                </template>
+                <div class="s_embed_code_embedded o_not_editable container">
+                    <style>
+                        .spacer {
+                            height: 10vh;
+                            width: 100%;
+                        }
+                    </style>
+                    <div class="spacer">
+                    </div>
+                </div>
+            </section>
+            <section class="s_embed_code pt16 pb16 o_colored_level text-center" data-snippet="s_embed_code"
+                data-name="Embed Code">
+                <template class="s_embed_code_saved">
+                    <style>
+                        .s_allow_columns.container-fluid {
+                            padding: 0% 5% !important;
+                        }
+                    </style>
+                </template>
+                <div class="s_embed_code_embedded o_not_editable container">
+                    <style>
+                        .s_allow_columns.container-fluid {
+                            padding: 0% 5% !important;
+                        }
+                    </style>
+                </div>
+            </section>
+            <section class="s_title pt40 o_colored_level pb40" data-vcss="001" data-snippet="s_title" data-name="Title">
+                <div class="s_allow_columns container-fluid">
+                    <p><br /></p>
+                    <p><strong>&amp;nbsp;What is the SmartKey Starter®?</strong></p>
+                    <ul>
+                        <li>The SmartKey Starter is a seamless remote start solution for Mercedes-Benz passenger
+                            vehicles and Sprinter vans.</li>
+                    </ul>
+                    <p><strong>How does it work?</strong></p>
+                    <ul>
+                        <li>Out of the box, the SmartKey Starter® will work off of the factory key fob. &amp;nbsp;All
+                            passenger (non-Sprinter) vehicles can be remotely started by hitting the ‘panic’ button one
+                            time (if the OEM key is equipped with a panic button). &amp;nbsp;The panic feature will work
+                            as designed by holding down the panic button. &amp;nbsp;If the vehicle does not have a panic
+                            button on the OEM key, you will be able to use a ‘lock-unlock-lock’ sequence to start the
+                            vehicle remotely. The 2007-2018 Sprinter vans will remotely start by hitting the ‘lock’
+                            button on the factory remote three times. &amp;nbsp;The 2019+ Sprinters (SKSNG907 and
+                            SKSNG907RV will remotely start using a lock-unlock-lock sequence from the OEM key fob. There
+                            are also several ways to add extended-range remote starting, lock, and unlocking
+                            capabilities. &amp;nbsp;The&amp;nbsp;<a href="https://www.dronemobile.com/"
+                                target="_blank">Compustar Drone</a>&amp;nbsp;or&amp;nbsp;<a
+                                href="https://www.mysmartstart.com/?b=d" target="_blank">Directed&amp;nbsp;Smart
+                                Start</a>&amp;nbsp;can be added to the SmartKey Starter® and will allow for operation
+                            from a smartphone or computer anywhere in the world. &amp;nbsp;Extended-range RF remote kits
+                            from either Compustar or Directed will also work with the SmartKey Starter®.
+                            &amp;nbsp;&amp;nbsp;</li>
+                    </ul>
+                    <p><strong>Adding smartphone integration:&amp;nbsp;</strong>will give you unlimited range.
+                        &amp;nbsp;As long as the module in your vehicle has a cell signal and you can get on the
+                        internet, you will be able to remote start, lock, unlock, and release the trunk (if applicable).
+                        &amp;nbsp;This is the most popular way to extend the range. &amp;nbsp;This feature is an
+                        additional module that can be plugged into the SmartKey Starter®. &amp;nbsp;The&amp;nbsp;<a
+                            href="https://www.dronemobile.com/" target="_blank">Compustar Drone</a>&amp;nbsp;is
+                        available for purchase at a discounted rate as a package with the SmartKey Starter®.
+                        &amp;nbsp;When adding to your cart, check the box for smartphone control. &amp;nbsp; There is
+                        a&amp;nbsp;<a href="https://www.dronemobile.com/plans.html" target="_blank">yearly
+                            fee&amp;nbsp;</a>for the Compustar Drone. &amp;nbsp;The&amp;nbsp;<a
+                            href="https://www.mysmartstart.com/" target="_blank">Directed Smart Start</a>&amp;nbsp;is
+                        also compatible with the SmartKey Starter® and also gives you the same features. &amp;nbsp;There
+                        is a yearly fee for the Smart Start as well. &amp;nbsp;Both the Drone and Smart Start offer
+                        premium plans that allow for GPS services such as vehicle tracking, speed notifications,
+                        geo-fencing, and more. &amp;nbsp;All SKUs with ‘SKSNG’ in the part # will work with both
+                        Compustar and Directed. &amp;nbsp;For all other models, orders for Directed compatible units
+                        will need to be placed over the phone at 312-421-1114.</p>
+                    <p><strong>Adding RF remote kits:&amp;nbsp;</strong>RF remote kits are external fobs that can be
+                        used to operate the SmartKey Starter®. &amp;nbsp;<a
+                            href="https://www.compustar.com/products/remote-start/" target="_blank">Every Compustar
+                            remote kit&amp;nbsp;</a>will work with the SmartKey Starter®. &amp;nbsp;Adding&amp;nbsp;<a
+                            href="https://www.directed.com/" target="_blank">Directed remotes&amp;nbsp;</a>requires an<a
+                            href="https://www.directechs.com/Product.aspx?sku=XL202"
+                            target="_blank">&amp;nbsp;XL202</a>&amp;nbsp;RF to the data transmitter and any remote and
+                        antenna combination that works with the XL202. &amp;nbsp;Both manufacturers offer one-way or
+                        two-way remote options. One-way remotes transmit a signal to the vehicle and two-way remotes
+                        transmit information both to the vehicle and back to the remote.</p>
+                    <p><strong>How long will it run?</strong></p>
+                    <ul>
+                        <li>For most passenger vehicles (vehicles other than Sprinters), the remote start factory
+                            setting will run for 15 minutes.</li>
+                        <li>For the Sprinter van (SKS906C, SKS906D, SKSNG907, SKSNG907RV), the stand-alone remote start
+                            time is 1-hour. For SKS906CRV, SKS906-SMRT, and SKS906-SMRT-B, the default run time is 2
+                            hours. If the remote start command is initiated through an external Compustar or Directed
+                            alarm / remote start module (for example, using a Compustar Drone or RF remote connected to
+                            a Compustar module), the run time will be dictated by the device that the remote start
+                            command was initiated through (for example, Compustar remote start brains can be programmed
+                            for 15-45 minute run-times). If initiating the remote start command through the OEM key fob
+                            or through a device connected directly to the SmartKey Starter® module, the run time will be
+                            the default setting (2-hour default for this system). If a shorter run time is desired,
+                            please contact us for custom programming.&amp;nbsp;<strong>For all Next Generation (with
+                                SKSNG in the part #) hardware units</strong>, the run-time is field
+                            programmable.&amp;nbsp; For all other SKUs, custom run time needs to be programmed upon
+                            ordering.&amp;nbsp;&amp;nbsp;</li>
+                        <li><strong>Note: when using a Sprinter auto start (SKSNG907, SKSNG907RV, SKS906CRV,
+                                SKS906-SMRT, SKS906SMRT-B) with external 1-wire trigger (latched ground to start and
+                                run) the system will re-start if the ground is still applied to start wire after
+                                run-time expiration. The system will continue running and re-starting until the external
+                                trigger removes the ground signal.&amp;nbsp;</strong></li>
+                    </ul>
+                    <p><strong>How is it installed?</strong></p>
+                    <ul>
+                        <li>The SmartKey Starter® is a revolutionary way to install a remote starter. &amp;nbsp;Nearly
+                            all models are 100% plug-and-play and none of our units require any programming.
+                            &amp;nbsp;Once you install the system and run the engine for 30 seconds, remote start will
+                            work right away. &amp;nbsp;All SmartKey Starter® kits come with a T-harness that plugs in
+                            behind the Electronic Ignition Cylinder. &amp;nbsp;Our T-harnessing requires no cutting or
+                            soldering. &amp;nbsp;All of our harnessing comes with OEM connectors to ensure reliability
+                            and ease in installation. &amp;nbsp;Most vehicles with Keyless Go (push-button start)
+                            require a jumper harness to either a CAN distribution block or a Keyless Go module.
+                            &amp;nbsp;This harness also requires no cutting of wires or soldering.</li>
+                    </ul>
+                    <p><strong>Who can install the SmartKey Starter®?</strong></p>
+                    <ul>
+                        <li>Professional installation is always recommended. &amp;nbsp;You can locate an&amp;nbsp;<a
+                                href="https://www.midcityengineering.com/device/dealer-locater/">authorized dealer and
+                                installer near you,</a>&amp;nbsp;or&amp;nbsp;<a
+                                href="https://www.midcityengineering.com/device/smart-key-starter/">purchase the system
+                                online</a>&amp;nbsp;and bring to a shop that you feel comfortable with. &amp;nbsp;There
+                            have been many end-users who have installed the SmartKey Starter® themselves. &amp;nbsp;You
+                            can view all of our&amp;nbsp;<a
+                                href="https://drive.google.com/folderview?id=0B9LGLyLb-OsrfjdmT0Fxb3lkamtlTjNnWFZPOWNwbDVFQWlJUU9Ra0J4REJ3ajFwV0hpWXM&amp;usp=sharing"
+                                target="_blank">installation and disassembly manuals</a>&amp;nbsp;to see if the project
+                            is something you or you and your installer are comfortable with. &amp;nbsp;We are available
+                            Monday-Friday for&amp;nbsp;<a href="https://www.midcityengineering.com/support/">technical
+                                support</a>.</li>
+                    </ul>
+                    <p><strong>Does the installation require any specialty tools?</strong></p>
+                    <ul>
+                        <li>In most cases, the tools required for the SmartKey Starter® installation are standard torx
+                            screwdrivers and panel removal tools. &amp;nbsp;However, for some models, removing the EIS
+                            (electronic ignition cylinder) is either required or very helpful for the installation.
+                            &amp;nbsp;To remove the EIS, some models require using an EIS removal tool to remove the
+                            metal ring that holds the EIS in the vehicle’s dash. &amp;nbsp;This tool
+                            is&amp;nbsp;not&amp;nbsp;required for all models. You can see the full&amp;nbsp;<a
+                                href="https://www.midcityengineering.com/eis-tool-required-vehicle-list/">list of
+                                required or recommended vehicles here</a>&amp;nbsp;and&amp;nbsp;<a
+                                href="https://www.midcityengineering.com/product/igntool/">purchase the EIS removal tool
+                                here.</a>&amp;nbsp; The tool is $29 and is an OEM Mercedes tool.</li>
+                    </ul>
+                    <p><strong>How will my climate control settings work?</strong></p>
+                    <ul>
+                        <li>Upon remote start, the climate control settings will remain the same as they were the last
+                            time the vehicle was shut off. &amp;nbsp;To ensure optimal comfort, set the climate control
+                            to the desired temperature before you shut the vehicle off.</li>
+                    </ul>
+                    <p><strong>Will my heated seats turn on automatically?</strong></p>
+                    <ul>
+                        <li><strong>For all Next Generation (NG) hardware units</strong>&amp;nbsp;(with ‘SKSNG’ in the
+                            part #&amp;nbsp;), the heated seats will turn on when the outside temperature is below a
+                            programmable threshold. &amp;nbsp;The default setting is &amp;lt; 41* F. &amp;nbsp;From the
+                            steering wheel, you can set the temperature threshold to &amp;lt;32* F or &amp;lt;50* F or
+                            return to the factory setting. &amp;nbsp;Any temperature can be set from a computer using a
+                            Compustar&amp;nbsp;programmer and computer.&amp;nbsp;</li>
+                    </ul>
+                    <p><strong>Will my rear defroster come on?</strong></p>
+                    <ul>
+                        <li><strong>For all Next Generation (NG) hardware units (with ‘SKSNG’ in the part #&amp;nbsp;),
+                                the rear defroster will turn on when the outside temperature is below the same
+                                programmed threshold as the heated seats.</strong></li>
+                    </ul>
+                    <p><strong>What about my cooling seats?</strong></p>
+                    <ul>
+                        <li><strong>For all Next Generation (NG) hardware units with the exception of the W166
+                                platform</strong>&amp;nbsp;(<a
+                                href="https://www.midcityengineering.com/product/smartkey-starter-sksng166d3/">&amp;nbsp;SKSNG166D3</a>,&amp;nbsp;<a
+                                href="https://www.midcityengineering.com/product/smartkey-starter-sksng166d4/">SKSNG166D4</a>&amp;nbsp;)
+                            cooling seats can be programmed to come on at a desired temperature using a Compustar
+                            programmer and a computer. &amp;nbsp;If you contact us, we can pre-program the unit to
+                            trigger the cooling seats at a desired temperature if your model is applicable. &amp;nbsp;
+                        </li>
+                    </ul>
+                    <p><strong>What is the warranty?</strong></p>
+                    <ul>
+                        <li>Since our system is designed specifically for Mercedes Benz, we offer a warranty that is
+                            consistent with what is expected by Mercedes owners. &amp;nbsp;Our warranty for the SmartKey
+                            Starter® is 4 years. &amp;nbsp;Please see our&amp;nbsp;<a
+                                href="https://drive.google.com/open?id=0B9LGLyLb-OsrVUZEcGN6Y2VpTWc"
+                                target="_blank">owner’s manual&amp;nbsp;</a>for more warranty information.</li>
+                    </ul>
+                    <p><strong>How do I know if it is compatible with my vehicle?</strong></p>
+                    <ul>
+                        <li>Click&amp;nbsp;<a
+                                href="https://www.midcityengineering.com/device/smart-key-starter/">here</a>&amp;nbsp;and
+                            choose your vehicle to purchase and get vehicle-specific information.</li>
+                    </ul>
+                    <p><strong>Does the SmartKey Starter® affect my factory warranty?</strong></p>
+                    <ul>
+                        <li>No- installed correctly, our system does not affect your factory warranty. &amp;nbsp;Because
+                            the harnessing is plug-and-play, the integrity of the vehicle is not disrupted.
+                            &amp;nbsp;The system can be installed and removed with no signs of it being installed- there
+                            are no cut wires.</li>
+                    </ul>
+                    <p><strong>Are you&amp;nbsp;<em>sure</em>&amp;nbsp;it won’t affect my warranty?</strong></p>
+                    <ul>
+                        <li>Yes. &amp;nbsp;In the United States, there is legislation known as the&amp;nbsp;<a
+                                href="https://www.consumer.ftc.gov/articles/0138-auto-warranties-routine-maintenance"
+                                target="_blank">Magnuson-Moss Warranty Act</a>&amp;nbsp;that protects consumers from
+                            having their factory warranties unfairly terminated.</li>
+                    </ul>
+                    <p><strong>What is the range of the factory key fob?</strong></p>
+                    <ul>
+                        <li>For passenger vehicles, Mercedes lists the factory key fob range at 200 feet. &amp;nbsp;The
+                            Sprinter is about 30 feet. The Smartkey Starter® will be effective from a key fob at the
+                            same maximum distance that you can currently lock and unlock the doors using the factory
+                            remote. &amp;nbsp;If you find that your range is far below the Mercedes listed range, you
+                            may need to replace the battery in your remote.</li>
+                    </ul>
+                    <p><strong>Can the Mercedes factory key range be extended?</strong></p>
+                    <ul>
+                        <li>While the range of the Mercedes factory key cannot be extended, you can extend the range of
+                            the remote start using either smartphone integration or RF remote kits.</li>
+                    </ul>
+                    <p><strong>Adding smartphone integration:&amp;nbsp;</strong>will give you unlimited range.
+                        &amp;nbsp;As long as the module in your vehicle has a cell signal and you can get on the
+                        internet, you will be able to remote start, lock, unlock, and release the trunk (if applicable).
+                        &amp;nbsp;This is the most popular way to extend the range. &amp;nbsp;This feature is an
+                        additional module that can be plugged into the SmartKey Starter®. &amp;nbsp;The&amp;nbsp;<a
+                            href="https://www.dronemobile.com/" target="_blank">Compustar Drone</a>&amp;nbsp;is
+                        available for purchase at a discounted rate as a package with the SmartKey Starter®.
+                        &amp;nbsp;When adding to your cart, check the box for smartphone control. &amp;nbsp; There is
+                        a&amp;nbsp;<a href="https://www.dronemobile.com/plans.html" target="_blank">yearly
+                            fee&amp;nbsp;</a>for the Compustar Drone. &amp;nbsp;The&amp;nbsp;<a
+                            href="https://www.mysmartstart.com/" target="_blank">Directed Smart Start</a>&amp;nbsp;is
+                        also compatible with the SmartKey Starter® and also gives you the same features. &amp;nbsp;There
+                        is a yearly fee for the Smart Start as well. &amp;nbsp;Both the Drone and Smart Start offer
+                        premium plans that allow for GPS services such as vehicle tracking, speed notifications,
+                        geo-fencing, and more. All SKSNG kits (with ‘SKSNG’ in the part # will work with both Compustar
+                        and Directed. &amp;nbsp;For all other models, orders for Directed compatible units must be
+                        placed over the phone at 312-421-1114.</p>
+                    <p><strong>Adding RF remote kits:&amp;nbsp;</strong>RF remote kits are external fobs that can be
+                        used to operate the SmartKey Starter®. &amp;nbsp;<a
+                            href="https://www.compustar.com/products/remote-start/" target="_blank">Every Compustar
+                            remote kit&amp;nbsp;</a>will work with the SmartKey Starter®. &amp;nbsp;Adding&amp;nbsp;<a
+                            href="https://www.directed.com/" target="_blank">Directed remotes&amp;nbsp;</a>requires an<a
+                            href="https://www.directechs.com/Product.aspx?sku=XL202"
+                            target="_blank">&amp;nbsp;XL202</a>&amp;nbsp;RF to the data transmitter and any remote and
+                        antenna combination that works with the XL202. &amp;nbsp;Both manufacturers offer one-way or
+                        two-way remote options. One-way remotes transmit a signal to the vehicle and two-way remotes
+                        transmit information both to the vehicle and back to the remote.</p>
+                    <p><strong>What if my vehicle does not have a ‘panic’ button?</strong></p>
+                    <ul>
+                        <li>Vehicles without a panic button that are covered by the SmartKey Starter® can still be
+                            remotely started using the factory remote. &amp;nbsp;For passenger vehicles, there is a
+                            ‘lock-unlock-lock’ sequence that can be utilized for remote start. &amp;nbsp;The 2007-2018
+                            Sprinter Vans can be remotely started by hitting the lock button three times. 2019 and up
+                            Sprinters use a lock-unlock-lock sequence to remote start from the OEM key.
+                            &amp;nbsp;&amp;nbsp;&amp;nbsp;</li>
+                    </ul>
+                    <p><strong>How do I program ‘lock-unlock lock’ remote start sequence?</strong></p>
+                    <ul>
+                        <li><strong>For all Next Generation (NG) hardware units</strong>&amp;nbsp;(all kits with ‘SKSNG’
+                            in the part #), if no panic button is detected, the ‘lock-unlock-lock’ remote start sequence
+                            will be set automatically. &amp;nbsp;For all other passenger vehicles, please consult
+                            this&amp;nbsp;<a href="https://drive.google.com/open?id=0B_PFgziPIgryZUxTMmdHRnBhaWM"
+                                target="_blank">application note</a>&amp;nbsp;for the ‘lock-unlock-lock’ programming
+                            procedure. &amp;nbsp; Sprinter vans (SKS906) do not require programming to utilize
+                            lock-lock-lock remote start. &amp;nbsp;Once the system is installed and the valet switch is
+                            on, start the vehicle manually and let run for 30 seconds- remove the key, close all doors,
+                            and attempt to remote start. Please note: SKSNG907 and SKSNG907RV (2019+ Sprinter) use a
+                            ‘lock-unlock-lock sequence to remote start from the OEM key.</li>
+                    </ul>
+                    <p><strong>What if I am having trouble with my system?</strong></p>
+                    <ul>
+                        <li>If you are having any issues, questions, or concerns with our products, please visit our
+                            support page. &amp;nbsp;It is advised to consult any instruction/installation manuals,
+                            troubleshooting guides, or tech documents. &amp;nbsp;You can also contact us by phone at
+                            312-421-1114 to speak to someone in technical support. &amp;nbsp;We are available M-F from
+                            10-6 US Central Time.</li>
+                    </ul>
+                    <p><strong>What if I need to take my vehicle into service?</strong></p>
+                    <ul>
+                        <li>While the SmartKey Starter® does not disrupt the Mercedes diagnostic
+                            process,<strong>&amp;nbsp;it is required to put the system in valet mode (remote start off)
+                                before any service is done to the vehicle. &amp;nbsp;This is most important for safety
+                                reasons.</strong>&amp;nbsp;For information on valet mode, see the next question.</li>
+                    </ul>
+                    <p><strong>How do I put the SmartKey Starter® in valet mode?</strong></p>
+                    <ul>
+                        <li>Valet mode (remote start-off) instructions depend on the model and version #.<a
+                                href="https://midcityengineering.dozuki.com/Wiki/SmartKey_Starter_Valet_mode_%28Remote_Start_Off%29"
+                                target="_blank">&amp;nbsp;For details and valet mode instructions, click here.</a></li>
+                    </ul>
+                    <p><strong>What is the orange warning sticker in the kit for?</strong></p>
+                    <ul>
+                        <li>Every SmartKey Starter® kit comes with an orange and white warning label.
+                            &amp;nbsp;<strong>Installation of this label is required.</strong>&amp;nbsp;&amp;nbsp;This
+                            label is to inform anyone performing service on the vehicle that there is a remote start
+                            system installed and to make sure that the system is in valet mode. If you did not get a
+                            sticker with your kit, please contact us at 312-421-1114 or&amp;nbsp;<a
+                                href="https://www.midcityengineering.com/contact/">sales@midcityengineering.com</a>&amp;nbsp;with
+                            your order or invoice number and we will send you a new sticker right away.</li>
+                    </ul>
+                    <p><strong>What is the return policy?</strong></p>
+                    <ul>
+                        <li>Returns are accepted within 30 days of the original purchase date and may be subject to a
+                            restocking fee.</li>
+                    </ul>
+                    <p>
+
+                    </p>
+                    <section class="s_embed_code text-center pt16 pb16" data-snippet="s_embed_code"
+                        data-name="Embed Code">
+                        <template class="s_embed_code_saved">
+                            <style>
+                                .spacer {
+                                    height: 10vh;
+                                    width: 100%;
+                                }
+                            </style>
+
+                            <div class="spacer">
+                            </div>
+                        </template>
+                        <div class="s_embed_code_embedded container o_not_editable">
+                            <style>
+                                .spacer {
+                                    height: 10vh;
+                                    width: 100%;
+                                }
+                            </style>
+                            <div class="spacer">
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </t>
+</t>

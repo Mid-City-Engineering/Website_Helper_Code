@@ -1,0 +1,623 @@
+<t t-name="website.contactus">
+    <t t-call="website.layout">
+        <div id="wrap" class="oe_structure oe_empty">
+            <section class="s_embed_code pt16 pb16 o_colored_level text-center" data-snippet="s_embed_code"
+                data-name="Embed Code">
+                <template class="s_embed_code_saved">
+                    <script>
+                        heroReplacementTitle = "Let's Connect"; // change from null to actual string for replacement
+                        heroReplacementText = "Whether you're looking for general Q/A, technical specifications, dealer partnerships, or custom engineering solutions, we're here to help."; // change from null to actual string for replacement
+                    </script>
+
+                    <style>
+                        /* We need to set a height for the hero placeholder to not make it suddenly
+    appear and push content down (it looks glitchy).
+    */
+
+                        /* Match placeholder-height to the fetched hero's overall height */
+                        :root {
+                            --placeholder-height: 80vh;
+                        }
+
+                        .no-media-header-hero {
+                            height: var(--placeholder-height);
+                        }
+
+                        @media (max-width: 768px) and (min-width: 481px) {
+                            :root {
+                                --placeholder-height: 80vh;
+                            }
+                        }
+
+                        @media (max-width: 480px) {
+                            :root {
+                                --placeholder-height: 80vh;
+                            }
+                        }
+                    </style>
+
+                    <div class="no-media-header-hero" id="no-media-header-hero" />
+
+                    <script>
+                        (function () {
+                            fetch('/documents/content/fmoUcH3xRAKDCNWx_NMhNgo42?download=0')
+                                .then(r =& gt; r.text())
+            .then(html =& gt; {
+                                const container = document.getElementById('no-media-header-hero');
+
+                                // Parse the fetched HTML
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+
+                                // Inject styles
+                                doc.querySelectorAll('style').forEach(style =& gt; {
+                                    container.appendChild(document.adoptNode(style));
+                                });
+
+                                // Inject HTML body content
+                                const body = doc.querySelector('body');
+                                if (body) {
+                                    Array.from(body.children).forEach(el =& gt; {
+                                        if (el.tagName !== 'SCRIPT') {
+                                            container.appendChild(document.adoptNode(el));
+                                        }
+                                    });
+                                } else {
+                                    // If no &lt;body&gt;, grab non-script/style elements from &lt;html&gt;
+                                    doc.querySelectorAll('html &gt; *:not(script):not(style), html *:not(head):not(script):not(style)').forEach(el =& gt; {
+                                        container.appendChild(document.adoptNode(el));
+                                    });
+                                }
+
+                                // Code to override the hero h2 title
+                                const heroTitle = container.querySelector('.hero-title');
+                                if (heroTitle & amp;& amp; heroReplacementTitle != null) {
+                                    heroTitle.innerHTML = heroReplacementTitle;
+                                }
+
+                                // Code to override the hero p text
+                                const heroText = container.querySelector('.hero-text');
+                                if (heroText & amp;& amp; heroReplacementText != null) {
+                                    heroText.innerHTML = heroReplacementText;
+                                }
+
+                                // Execute scripts (they won't run via innerHTML/adoptNode)
+                                doc.querySelectorAll('script').forEach(origScript =& gt; {
+                                    const newScript = document.createElement('script');
+                                    if (origScript.src) {
+                                        newScript.src = origScript.src;
+                                    } else {
+                                        newScript.textContent = origScript.textContent;
+                                    }
+                                    container.appendChild(newScript);
+                                });
+                            })
+            .catch (err =& gt; console.error('Failed to load header/hero:', err));
+                        })();
+                    </script>
+                </template>
+                <div class="s_embed_code_embedded o_not_editable container">
+                    <script>
+                        heroReplacementTitle = "Let's Connect"; // change from null to actual string for replacement
+                        heroReplacementText = "Whether you're looking for general Q/A, technical specifications, dealer partnerships, or custom engineering solutions, we're here to help."; // change from null to actual string for replacement
+                    </script>
+                    <style>
+                        /* We need to set a height for the hero placeholder to not make it suddenly
+    appear and push content down (it looks glitchy).
+    */
+
+                        /* Match placeholder-height to the fetched hero's overall height */
+                        :root {
+                            --placeholder-height: 80vh;
+                        }
+
+                        .no-media-header-hero {
+                            height: var(--placeholder-height);
+                        }
+
+                        @media (max-width: 768px) and (min-width: 481px) {
+                            :root {
+                                --placeholder-height: 80vh;
+                            }
+                        }
+
+                        @media (max-width: 480px) {
+                            :root {
+                                --placeholder-height: 80vh;
+                            }
+                        }
+                    </style>
+                    <div class="no-media-header-hero" id="no-media-header-hero" />
+                    <script>
+                        (function () {
+                            fetch('/documents/content/fmoUcH3xRAKDCNWx_NMhNgo42?download=0')
+                                .then(r =& gt; r.text())
+            .then(html =& gt; {
+                                const container = document.getElementById('no-media-header-hero');
+
+                                // Parse the fetched HTML
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(html, 'text/html');
+
+                                // Inject styles
+                                doc.querySelectorAll('style').forEach(style =& gt; {
+                                    container.appendChild(document.adoptNode(style));
+                                });
+
+                                // Inject HTML body content
+                                const body = doc.querySelector('body');
+                                if (body) {
+                                    Array.from(body.children).forEach(el =& gt; {
+                                        if (el.tagName !== 'SCRIPT') {
+                                            container.appendChild(document.adoptNode(el));
+                                        }
+                                    });
+                                } else {
+                                    // If no &lt;body&gt;, grab non-script/style elements from &lt;html&gt;
+                                    doc.querySelectorAll('html &gt; *:not(script):not(style), html *:not(head):not(script):not(style)').forEach(el =& gt; {
+                                        container.appendChild(document.adoptNode(el));
+                                    });
+                                }
+
+                                // Code to override the hero h2 title
+                                const heroTitle = container.querySelector('.hero-title');
+                                if (heroTitle & amp;& amp; heroReplacementTitle != null) {
+                                    heroTitle.innerHTML = heroReplacementTitle;
+                                }
+
+                                // Code to override the hero p text
+                                const heroText = container.querySelector('.hero-text');
+                                if (heroText & amp;& amp; heroReplacementText != null) {
+                                    heroText.innerHTML = heroReplacementText;
+                                }
+
+                                // Execute scripts (they won't run via innerHTML/adoptNode)
+                                doc.querySelectorAll('script').forEach(origScript =& gt; {
+                                    const newScript = document.createElement('script');
+                                    if (origScript.src) {
+                                        newScript.src = origScript.src;
+                                    } else {
+                                        newScript.textContent = origScript.textContent;
+                                    }
+                                    container.appendChild(newScript);
+                                });
+                            })
+            .catch (err =& gt; console.error('Failed to load header/hero:', err));
+                        })();
+                    </script>
+                </div>
+            </section>
+            <section class="s_embed_code pt16 pb16 o_colored_level text-center" data-snippet="s_embed_code"
+                data-name="Embed Code">
+                <template class="s_embed_code_saved">
+                    <style>
+                        .contact-intro-section {
+                            padding: 60px 5% 10px;
+                            text-align: center;
+                        }
+
+                        .contact-intro-section p {
+                            font-family: 'Outfit', sans-serif;
+                            font-weight: 400;
+                            font-size: clamp(1rem, 1.8vw, 1.2rem);
+                            color: #444444;
+                            margin: 0 auto;
+                            max-width: 600px;
+                            padding-bottom: 15px;
+                            border-bottom: 2px solid transparent;
+                            border-image: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan)) 1;
+                            display: inline-block;
+                        }
+                    </style>
+
+                    <div class="contact-intro-section">
+                        <p>Fill out the form below and our team will get back to you shortly.</p>
+                    </div>
+                </template>
+                <div class="s_embed_code_embedded o_not_editable container">
+                    <style>
+                        .contact-intro-section {
+                            padding: 60px 5% 10px;
+                            text-align: center;
+                        }
+
+                        .contact-intro-section p {
+                            font-family: 'Outfit', sans-serif;
+                            font-weight: 400;
+                            font-size: clamp(1rem, 1.8vw, 1.2rem);
+                            color: #444444;
+                            margin: 0 auto;
+                            max-width: 600px;
+                            padding-bottom: 15px;
+                            border-bottom: 2px solid transparent;
+                            border-image: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan)) 1;
+                            display: inline-block;
+                        }
+                    </style>
+                    <div class="contact-intro-section">
+                        <p>Fill out the form below and our team will get back to you shortly.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="s_embed_code pt16 pb16 o_colored_level text-center" data-snippet="s_embed_code"
+                data-name="Embed Code">
+                <template class="s_embed_code_saved">
+                    <style>
+                        /* ========================================
+   CONTAINER &amp; RESPONSIVE WIDTH
+   ======================================== */
+
+                        .s_website_form {
+                            margin: 5% auto !important;
+                        }
+
+                        .s_website_form {
+                            max-width: 50%;
+                            margin: 0 auto;
+                        }
+
+                        /* Tablet */
+                        @media (max-width: 850px) {
+                            .s_website_form {
+                                max-width: 70%;
+                            }
+                        }
+
+                        /* Mobile */
+                        @media (max-width: 480px) {
+                            .s_website_form {
+                                max-width: 90%;
+                            }
+                        }
+
+
+                        /* ========================================
+   BRAND COLORS &amp; FORM ELEMENTS
+   ======================================== */
+
+                        /* Input focus - subtle tan accent */
+                        .s_website_form_input:focus {
+                            border-color: #D4AF85;
+                            box-shadow: 0 0 0 3px rgba(212, 175, 133, 0.2);
+                        }
+
+                        /* Required field marker - deep red */
+                        .s_website_form_mark {
+                            color: #810305;
+                        }
+
+                        /* ========================================
+   SUBMIT BUTTON - LUXURY MINIMALIST DESIGN
+   ======================================== */
+
+                        .s_website_form_send {
+                            background: transparent;
+                            color: #810305;
+                            border: 2px solid #810305;
+                            padding: 16px 50px;
+                            border-radius: 0;
+                            font-family: 'Outfit', sans-serif;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            letter-spacing: 0.08em;
+                            text-transform: uppercase;
+                            cursor: pointer;
+                            position: relative;
+                            overflow: hidden;
+                            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                            z-index: 1;
+                        }
+
+                        /* Sliding fill effect from left */
+                        .s_website_form_send::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: -100%;
+                            width: 100%;
+                            height: 100%;
+                            background: linear-gradient(135deg, #810305 0%, #a01507 100%);
+                            transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                            z-index: -1;
+                        }
+
+                        .s_website_form_send:hover::before {
+                            left: 0;
+                        }
+
+                        .s_website_form_send:hover {
+                            color: #ffffff;
+                            border-color: #810305;
+                            transform: translateY(-3px);
+                            box-shadow: 0 10px 30px rgba(129, 3, 5, 0.25);
+                        }
+
+                        .s_website_form_send:active {
+                            transform: translateY(-1px);
+                            box-shadow: 0 5px 15px rgba(129, 3, 5, 0.2);
+                        }
+
+                        /* Subtle corner accent lines */
+                        .s_website_form_send::after {
+                            content: '';
+                            position: absolute;
+                            top: -2px;
+                            right: -2px;
+                            width: 20px;
+                            height: 20px;
+                            border-top: 2px solid #D4AF85;
+                            border-right: 2px solid #D4AF85;
+                            opacity: 0;
+                            transition: opacity 0.4s ease, transform 0.4s ease;
+                        }
+
+                        .s_website_form_send:hover::after {
+                            opacity: 1;
+                            transform: translate(3px, -3px);
+                        }
+
+                        /* Responsive button sizing */
+                        @media (max-width: 850px) {
+                            .s_website_form_send {
+                                padding: 14px 40px;
+                                font-size: 0.9rem;
+                            }
+                        }
+
+                        @media (max-width: 480px) {
+                            .s_website_form_send {
+                                padding: 12px 35px;
+                                font-size: 0.85rem;
+                                letter-spacing: 0.06em;
+                            }
+                        }
+                    </style>
+                </template>
+                <div class="s_embed_code_embedded o_not_editable container">
+                    <style>
+                        /* ========================================
+   CONTAINER &amp; RESPONSIVE WIDTH
+   ======================================== */
+
+                        .s_website_form {
+                            margin: 5% auto !important;
+                        }
+
+                        .s_website_form {
+                            max-width: 50%;
+                            margin: 0 auto;
+                        }
+
+                        /* Tablet */
+                        @media (max-width: 850px) {
+                            .s_website_form {
+                                max-width: 70%;
+                            }
+                        }
+
+                        /* Mobile */
+                        @media (max-width: 480px) {
+                            .s_website_form {
+                                max-width: 90%;
+                            }
+                        }
+
+
+                        /* ========================================
+   BRAND COLORS &amp; FORM ELEMENTS
+   ======================================== */
+
+                        /* Input focus - subtle tan accent */
+                        .s_website_form_input:focus {
+                            border-color: #D4AF85;
+                            box-shadow: 0 0 0 3px rgba(212, 175, 133, 0.2);
+                        }
+
+                        /* Required field marker - deep red */
+                        .s_website_form_mark {
+                            color: #810305;
+                        }
+
+                        /* ========================================
+   SUBMIT BUTTON - LUXURY MINIMALIST DESIGN
+   ======================================== */
+
+                        .s_website_form_send {
+                            background: transparent;
+                            color: #810305;
+                            border: 2px solid #810305;
+                            padding: 16px 50px;
+                            border-radius: 0;
+                            font-family: 'Outfit', sans-serif;
+                            font-weight: 600;
+                            font-size: 0.95rem;
+                            letter-spacing: 0.08em;
+                            text-transform: uppercase;
+                            cursor: pointer;
+                            position: relative;
+                            overflow: hidden;
+                            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                            z-index: 1;
+                        }
+
+                        /* Sliding fill effect from left */
+                        .s_website_form_send::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: -100%;
+                            width: 100%;
+                            height: 100%;
+                            background: linear-gradient(135deg, #810305 0%, #a01507 100%);
+                            transition: left 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                            z-index: -1;
+                        }
+
+                        .s_website_form_send:hover::before {
+                            left: 0;
+                        }
+
+                        .s_website_form_send:hover {
+                            color: #ffffff;
+                            border-color: #810305;
+                            transform: translateY(-3px);
+                            box-shadow: 0 10px 30px rgba(129, 3, 5, 0.25);
+                        }
+
+                        .s_website_form_send:active {
+                            transform: translateY(-1px);
+                            box-shadow: 0 5px 15px rgba(129, 3, 5, 0.2);
+                        }
+
+                        /* Subtle corner accent lines */
+                        .s_website_form_send::after {
+                            content: '';
+                            position: absolute;
+                            top: -2px;
+                            right: -2px;
+                            width: 20px;
+                            height: 20px;
+                            border-top: 2px solid #D4AF85;
+                            border-right: 2px solid #D4AF85;
+                            opacity: 0;
+                            transition: opacity 0.4s ease, transform 0.4s ease;
+                        }
+
+                        .s_website_form_send:hover::after {
+                            opacity: 1;
+                            transform: translate(3px, -3px);
+                        }
+
+                        /* Responsive button sizing */
+                        @media (max-width: 850px) {
+                            .s_website_form_send {
+                                padding: 14px 40px;
+                                font-size: 0.9rem;
+                            }
+                        }
+
+                        @media (max-width: 480px) {
+                            .s_website_form_send {
+                                padding: 12px 35px;
+                                font-size: 0.85rem;
+                                letter-spacing: 0.06em;
+                            }
+                        }
+                    </style>
+                </div>
+            </section>
+
+            <section class="s_website_form pt16 pb16 o_colored_level" data-vcss="001" data-snippet="s_website_form"
+                data-name="Form" style="margin: 0px auto; display: block;">
+                <div class="o_container_small"><grammarly-extension data-grammarly-shadow-root="true"
+                        style="position: absolute; top: 0px; left: 0px; pointer-events: none; --rem: 16;"
+                        class="dnXmp" /><grammarly-extension data-grammarly-shadow-root="true"
+                        style="position: absolute; top: 0px; left: 0px; pointer-events: none; --rem: 16;"
+                        class="dnXmp" /><grammarly-extension data-grammarly-shadow-root="true"
+                        style="position: absolute; top: 0px; left: 0px; pointer-events: none; --rem: 16;"
+                        class="dnXmp" /><grammarly-extension data-grammarly-shadow-root="true"
+                        style="position: absolute; top: 0px; left: 0px; pointer-events: none; --rem: 16;"
+                        class="dnXmp" />
+                    <form action="/website/form/" method="post" enctype="multipart/form-data" class="o_mark_required"
+                        data-mark="*" data-pre-fill="true" data-model_name="mail.mail" data-success-mode="redirect"
+                        data-success-page="/contactus-thank-you"
+                        style="margin: 0px auto !important; display: block !important;">
+                        <div class="s_website_form_rows row s_col_no_bgcolor">
+
+                            <div data-name="Field"
+                                class="s_website_form_field mb-3 col-12 s_website_form_custom s_website_form_required"
+                                data-type="char" data-translated-name="Your Name">
+                                <div class="row s_col_no_resize s_col_no_bgcolor"><label
+                                        class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                        for="ob4fhjupswk9"><span class="s_website_form_label_content">Your
+                                            Name</span><span class="s_website_form_mark"> *</span></label>
+                                    <div class="col-sm"><input class="form-control s_website_form_input" type="text"
+                                            name="name" required="" placeholder="" id="ob4fhjupswk9"
+                                            data-fill-with="name" /></div>
+                                </div>
+                            </div>
+                            <div data-name="Field" class="s_website_form_field mb-3 col-12 s_website_form_custom"
+                                data-type="tel" data-translated-name="Phone Number">
+                                <div class="row s_col_no_resize s_col_no_bgcolor"><label
+                                        class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                        for="om371m4vc6nc"><span class="s_website_form_label_content">Phone
+                                            Number</span></label>
+                                    <div class="col-sm"><input class="form-control s_website_form_input" type="tel"
+                                            name="phone" placeholder="" id="om371m4vc6nc" data-fill-with="phone" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-name="Field"
+                                class="s_website_form_field mb-3 col-12 s_website_form_model_required" data-type="email"
+                                data-translated-name="Your Email">
+                                <div class="row s_col_no_resize s_col_no_bgcolor"><label
+                                        class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                        for="oxp66k20arym"><span class="s_website_form_label_content">Your
+                                            Email</span><span class="s_website_form_mark"> *</span></label>
+                                    <div class="col-sm"><input class="form-control s_website_form_input" type="email"
+                                            name="email_from" required="" placeholder="" id="oxp66k20arym"
+                                            data-fill-with="email" /></div>
+                                </div>
+                            </div>
+                            <div data-name="Field" class="s_website_form_field mb-3 col-12 s_website_form_custom"
+                                data-type="char" data-translated-name="Your Company">
+                                <div class="row s_col_no_resize s_col_no_bgcolor"><label
+                                        class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                        for="oz01uopqr1u"><span class="s_website_form_label_content">Your
+                                            Company</span></label>
+                                    <div class="col-sm"><input class="form-control s_website_form_input" type="text"
+                                            name="company" value="" placeholder="" id="oz01uopqr1u"
+                                            data-fill-with="commercial_company_name" /></div>
+                                </div>
+                            </div>
+                            <div data-name="Field"
+                                class="s_website_form_field mb-3 col-12 s_website_form_model_required" data-type="char"
+                                data-translated-name="Subject">
+                                <div class="row s_col_no_resize s_col_no_bgcolor"><label
+                                        class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                        for="o418iwd6svh3"><span
+                                            class="s_website_form_label_content">Subject</span><span
+                                            class="s_website_form_mark"> *</span></label>
+                                    <div class="col-sm"><input class="form-control s_website_form_input" type="text"
+                                            name="subject" required="" value="" placeholder="" id="o418iwd6svh3" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div data-name="Field"
+                                class="s_website_form_field mb-3 col-12 s_website_form_custom s_website_form_required"
+                                data-type="text" data-translated-name="Your Question">
+                                <div class="row s_col_no_resize s_col_no_bgcolor"><label
+                                        class="col-form-label col-sm-auto s_website_form_label" style="width: 200px"
+                                        for="o37xp5nf702p"><span class="s_website_form_label_content">Your
+                                            Question</span><span class="s_website_form_mark"> *</span></label>
+                                    <div class="col-sm"><textarea class="form-control s_website_form_input"
+                                            name="description" required="" placeholder="" id="o37xp5nf702p" rows="3"
+                                            spellcheck="false" /></div>
+                                </div>
+                            </div>
+                            <div data-name="Field" class="s_website_form_field mb-3 col-12 s_website_form_dnone">
+                                <div class="row s_col_no_resize s_col_no_bgcolor"><label
+                                        class="col-form-label col-sm-auto s_website_form_label"
+                                        style="width: 200px"><span class="s_website_form_label_content" /></label>
+                                    <div class="col-sm"><input type="hidden" class="form-control s_website_form_input"
+                                            name="email_to" value="sales@midcityengineering.com" /><input type="hidden"
+                                            value="d2b93ed9a0706a3fecc889562d266b4d8b593b937027d502b1bbc1a163c5ab8c"
+                                            class="form-control s_website_form_input s_website_form_custom"
+                                            name="website_form_signature" /></div>
+                                </div>
+                            </div>
+                            <div class="mb-0 py-2 col-12 s_website_form_submit text-center s_website_form_no_submit_label"
+                                data-name="Submit Button">
+                                <div style="width: 200px;" class="s_website_form_label" />
+                                <span id="s_website_form_result" />
+                                <a href="#" role="button" class="btn btn-primary s_website_form_send">Submit</a>
+                            </div>
+                        </div>
+                    </form>
+                    <grammarly-extension-vbars data-grammarly-shadow-root="true" style="display: contents; --rem: 16;"
+                        class="dnXmp" />
+                </div>
+            </section>
+        </div>
+    </t>
+</t>
