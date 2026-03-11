@@ -1,0 +1,425 @@
+<style>
+    /* ── SELECTOR STRIP ─────────────────────────────────────── */
+    .selector-strip {
+        background: #f4f4f2;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Top gradient rule: dark-red → sepia-tan → transparent */
+    .selector-strip::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg,
+                var(--mce-dark-red) 0%,
+                var(--mce-sepia-tan) 50%,
+                transparent 100%);
+        z-index: 2;
+    }
+
+    /* Bottom rule, reversed */
+    .selector-strip::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(212, 175, 133, 0.6) 50%,
+                var(--mce-dark-red) 100%);
+        z-index: 2;
+    }
+
+    /* ── EYEBROW LABEL ──────────────────────────────────────── */
+    .selector-eyebrow {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 32px 5% 0;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .selector-eyebrow.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .selector-eyebrow-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .selector-eyebrow-label {
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #222;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .selector-eyebrow-rule {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg,
+                var(--mce-dark-red),
+                var(--mce-sepia-tan),
+                transparent);
+    }
+
+    .selector-eyebrow-subheading {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .selector-eyebrow-subheading span {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.85rem;
+        letter-spacing: 0.03em;
+        color: #444;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    .selector-eyebrow-subheading span:last-child {
+        font-style: italic;
+        font-weight: 600;
+        color: #444;
+    }
+
+    /* ── CARDS GRID ─────────────────────────────────────────── */
+    .selector-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 28px 5% 36px;
+        gap: 0;
+    }
+
+    /* ── SINGLE CARD ────────────────────────────────────────── */
+    .selector-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 28px 32px;
+        text-decoration: none;
+        color: inherit;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        overflow: hidden;
+
+        /* Entry animation: staggered via inline style */
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease, background 0.4s ease;
+    }
+
+    .selector-card:last-child {
+        border-right: none;
+    }
+
+    .selector-card.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Red left-border sweep on hover */
+    .selector-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 2px;
+        height: 0;
+        background: linear-gradient(180deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .selector-card:hover::before {
+        height: 100%;
+    }
+
+    .selector-card:hover {
+        background: rgba(129, 3, 5, 0.04);
+    }
+
+    /* ── CARD TOP ────────────────────────────────────────────── */
+    .selector-card-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+        margin-bottom: 28px;
+    }
+
+    .selector-card-index {
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        color: var(--mce-dark-red);
+        text-transform: uppercase;
+    }
+
+    .selector-card-name {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+        color: #1a1a1a;
+        line-height: 1.4;
+        letter-spacing: 0.03em;
+        position: relative;
+        display: inline-block;
+    }
+
+    /* Underline sweep on hover */
+    .selector-card-name::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
+        transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .selector-card:hover .selector-card-name::after {
+        width: 100%;
+    }
+
+    .selector-card-desc {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: 0.78rem;
+        color: #777;
+        line-height: 1.6;
+        letter-spacing: 0.04em;
+        max-width: 200px;
+        text-align: center;
+    }
+
+    /* ── CARD BOTTOM ─────────────────────────────────────────── */
+    .selector-card-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .selector-card-cta {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--mce-dark-red);
+        transition: color 0.3s ease, letter-spacing 0.3s ease;
+    }
+
+    .selector-card:hover .selector-card-cta {
+        color: #1a1a1a;
+        letter-spacing: 0.18em;
+    }
+
+    .selector-card-arrow {
+        width: 28px;
+        height: 28px;
+        border: 1px solid rgba(129, 3, 5, 0.3);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--mce-dark-red);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        flex-shrink: 0;
+    }
+
+    .selector-card-arrow svg {
+        width: 11px;
+        height: 11px;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .selector-card:hover .selector-card-arrow {
+        background: var(--mce-dark-red);
+        border-color: var(--mce-dark-red);
+        color: #fff;
+        transform: scale(1.12);
+    }
+
+    .selector-card:hover .selector-card-arrow svg {
+        transform: translateX(2px);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+        .selector-cards {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
+        }
+
+        .selector-card {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .selector-card:nth-child(even) {
+            border-right: none;
+        }
+
+        .selector-card:nth-last-child(-n+2) {
+            border-bottom: none;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .selector-cards {
+            grid-template-columns: 1fr;
+            padding: 20px 5% 28px;
+        }
+
+        .selector-card {
+            border-right: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 22px 24px;
+        }
+
+        .selector-card:last-child {
+            border-bottom: none;
+        }
+
+        .selector-card-desc {
+            max-width: none;
+        }
+
+        .selector-eyebrow {
+            padding: 24px 5% 0;
+        }
+    }
+</style>
+
+<section class="selector-strip">
+
+    <div class="selector-eyebrow">
+        <div class="selector-eyebrow-header">
+            <span class="selector-eyebrow-label">Vehicle Compatibility Selectors</span>
+            <div class="selector-eyebrow-rule"></div>
+        </div>
+        <div class="selector-eyebrow-subheading">
+            <span>For these 4 product categories, we have product selectors where you can enter your vehicle's make,
+                model, &amp; year to see the compatible SKUs.</span>
+            <span><a href="#products_grid">Or scroll down to view all products.</a></span>
+        </div>
+    </div>
+
+    <div class="selector-cards">
+
+        <a href="/device/smart-key-starter#mce-selector" class="selector-card">
+            <div class="selector-card-top">
+                <span class="selector-card-index">01</span>
+                <span class="selector-card-name">SmartKey Starter</span>
+                <p class="selector-card-desc">Find the right remote starter kit for your vehicle.
+                </p>
+            </div>
+            <div class="selector-card-bottom">
+                <span class="selector-card-cta">Select Your Vehicle</span>
+                <span class="selector-card-arrow">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M2 6h8M6 2l4 4-4 4" />
+                    </svg>
+                </span>
+            </div>
+        </a>
+
+        <a href="/device/escort-radar-integration#mce-selector" class="selector-card">
+            <div class="selector-card-top">
+                <span class="selector-card-index">02</span>
+                <span class="selector-card-name">Radar Integration</span>
+                <p class="selector-card-desc">Get the radar integration unit built for your vehicle.</p>
+            </div>
+            <div class="selector-card-bottom">
+                <span class="selector-card-cta">Select Your Vehicle</span>
+                <span class="selector-card-arrow">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M2 6h8M6 2l4 4-4 4" />
+                    </svg>
+                </span>
+            </div>
+        </a>
+
+        <a href="/device/motorized-front-license-plate#mce-selector" class="selector-card">
+            <div class="selector-card-top">
+                <span class="selector-card-index">03</span>
+                <span class="selector-card-name">Motorized Front Plate</span>
+                <p class="selector-card-desc">Discover which Motoplate is best for your vehicle.</p>
+            </div>
+            <div class="selector-card-bottom">
+                <span class="selector-card-cta">Select Your Vehicle</span>
+                <span class="selector-card-arrow">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M2 6h8M6 2l4 4-4 4" />
+                    </svg>
+                </span>
+            </div>
+        </a>
+
+        <a href="/device/eco-off#mce-selector" class="selector-card">
+            <div class="selector-card-top">
+                <span class="selector-card-index">04</span>
+                <span class="selector-card-name">Eco Off Programmer</span>
+                <p class="selector-card-desc">Find out which ECO Off Programmer is tailored for your vehicle.</p>
+            </div>
+            <div class="selector-card-bottom">
+                <span class="selector-card-cta">Select Your Vehicle</span>
+                <span class="selector-card-arrow">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M2 6h8M6 2l4 4-4 4" />
+                    </svg>
+                </span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<script>
+    (function () {
+        const strip = document.querySelector('.selector-strip');
+        if (!strip) return;
+
+        const eyebrow = strip.querySelector('.selector-eyebrow');
+        const cards = strip.querySelectorAll('.selector-card');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                // Eyebrow
+                if (eyebrow) eyebrow.classList.add('is-visible');
+
+                // Cards: staggered
+                cards.forEach((card, i) => {
+                    setTimeout(() => card.classList.add('is-visible'), i * 90);
+                });
+
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(strip);
+    })();
+</script>
