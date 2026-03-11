@@ -1,9 +1,0 @@
-<data>
-    <xpath expr="//div[@id='wrap']" position="before">
-        <t t-set="product_fields" t-value="['id', 'default_code', 'name', 'website_url', 'x_studio_compatibility_list']"/>
-        <t t-set="products" t-value="request.env['product.template'].sudo().search_read([('is_published', '=', True), ('default_code', '=ilike', 'MAX%')], product_fields)"/>
-        <script type="text/javascript">
-            var OdooProductData = <t t-raw="json.dumps(products)"/>;
-        </script>
-    </xpath>
-</data>
