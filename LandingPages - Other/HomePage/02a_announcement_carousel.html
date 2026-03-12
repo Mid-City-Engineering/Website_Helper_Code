@@ -1,0 +1,551 @@
+<script>
+    const ANNOUNCEMENTS = [
+        {
+            headline: 'Mercedes-Benz has shut down mbrace.\n*We have your replacement.*',
+            sub: 'Mercedes mbrace is dark. Don\'t lose your remote start functionality: our SmartKey Starter is the direct replacement. No subscription, no compromise.',
+            links: [
+                { text: 'Learn More', href: '/mbrace-shutdown' },
+                { text: 'More Links', href: '/home' },
+            ]
+        },
+        {
+            headline: 'Sprinter Camera Systems\n*now cover 2025-2026 vans.*',
+            sub: 'Our plug-and-play rear and side camera integration now extends full support to the latest Sprinter generation. Same clean install, zero cutting.',
+            links: [
+                { text: 'View Systems', href: '/device/sprinter' },
+                { text: 'Secondary Link', href: '/mbrace-shutdown' },
+            ]
+        },
+        {
+            headline: 'Become an authorized\n*MCE dealer.*',
+            sub: 'Join our growing network of certified installers and resellers. Preferential pricing, dedicated support, and co-marketing included.',
+            links: [
+                { text: 'Apply Now', href: '/become-dealer/' },
+                { text: 'Learn More', href: '/dealer-locator' }
+            ]
+        }
+    ];
+
+    const AUTOPLAY_MS = 3000;
+</script>
+
+<style>
+    .ann-banner {
+        background: #111111;
+        position: relative;
+        overflow: hidden;
+        border-top: 1px solid rgba(212, 175, 133, 0.15);
+        border-bottom: 1px solid rgba(212, 175, 133, 0.15);
+    }
+
+    /* Left accent bar */
+    .ann-banner::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--mce-dark-red), var(--mce-sepia-tan), transparent);
+        z-index: 2;
+    }
+
+    /* Grain overlay */
+    .ann-banner::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        opacity: 0.4;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Slide track */
+    .ann-track {
+        position: relative;
+        z-index: 3;
+    }
+
+    .ann-slide {
+        display: none;
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 52px 7%;
+        align-items: center;
+        gap: 60px;
+    }
+
+    .ann-slide.is-active {
+        display: flex;
+    }
+
+    @keyframes annSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .ann-slide.is-active .ann-text,
+    .ann-slide.is-active .ann-cta-wrap {
+        animation: annSlideIn 0.55s ease forwards;
+    }
+
+    .ann-slide.is-active .ann-cta-wrap {
+        animation-delay: 0.12s;
+    }
+
+    .ann-text {
+        flex: 1;
+    }
+
+    /* Eyebrow */
+    .ann-eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .ann-announcement {
+        font-family: 'Michroma', sans-serif;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mce-sepia-tan);
+        white-space: nowrap;
+    }
+
+    .ann-divider {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan), transparent);
+    }
+
+    .ann-tan {
+        color: var(--mce-sepia-tan);
+    }
+
+    .ann-headline {
+        font-family: 'Michroma', sans-serif;
+        font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+        color: #ffffff;
+        line-height: 1.35;
+        letter-spacing: 0.02em;
+        margin-bottom: 16px;
+        text-align: left;
+    }
+
+    .ann-sub {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 300;
+        font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+        color: #999999;
+        line-height: 1.7;
+        max-width: 560px;
+    }
+
+    .ann-cta-wrap {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-end;
+    }
+
+    .ann-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 36px;
+        border: 1px solid var(--mce-sepia-tan);
+        background: transparent;
+        color: var(--mce-sepia-tan);
+        font-family: 'Outfit', sans-serif;
+        font-weight: 500;
+        font-size: 0.95rem;
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        transition: color 0.4s ease, border-color 0.4s ease;
+        white-space: nowrap;
+    }
+
+    .ann-cta::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--mce-sepia-tan);
+        transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 0;
+    }
+
+    .ann-cta:hover::before {
+        left: 0;
+    }
+
+    .ann-cta:hover {
+        color: #111111;
+    }
+
+    .ann-cta span,
+    .ann-cta svg {
+        position: relative;
+        z-index: 1;
+    }
+
+    .ann-cta svg {
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .ann-cta:hover svg {
+        transform: translateX(5px);
+    }
+
+    .ann-cta-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid transparent;
+        color: #cccccc;
+        font-family: 'Outfit', sans-serif;
+        font-weight: 400;
+        font-size: 0.85rem;
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        transition: color 0.3s ease, border-color 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .ann-cta-secondary:hover {
+        color: var(--mce-sepia-tan);
+        border-bottom-color: var(--mce-sepia-tan);
+    }
+
+    /* Nav row */
+    .ann-nav {
+        position: relative;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 0 7% 22px;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .ann-dots {
+        display: flex;
+        gap: 10px;
+        margin-right: auto;
+    }
+
+    .ann-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #444;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .ann-dot.is-active {
+        background: var(--mce-sepia-tan);
+        transform: scale(1.4);
+    }
+
+    /* Progress bar */
+    .ann-progress {
+        position: absolute;
+        bottom: 0;
+        left: 7%;
+        height: 1px;
+        background: var(--mce-dark-red);
+        width: 0;
+    }
+
+    /* Pause button */
+    .ann-pause {
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(212, 175, 133, 0.25);
+        background: transparent;
+        color: rgba(212, 175, 133, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.3s ease, color 0.3s ease;
+        padding: 0;
+        flex-shrink: 0;
+    }
+
+    .ann-pause:hover {
+        border-color: var(--mce-sepia-tan);
+        color: var(--mce-sepia-tan);
+    }
+
+    .ann-arrow {
+        width: 34px;
+        height: 34px;
+        border: 1px solid rgba(212, 175, 133, 0.25);
+        background: transparent;
+        color: rgba(212, 175, 133, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.3s ease, color 0.3s ease;
+        padding: 0;
+    }
+
+    .ann-arrow:hover {
+        border-color: var(--mce-sepia-tan);
+        color: var(--mce-sepia-tan);
+    }
+
+    @media (max-width: 900px) {
+        .ann-slide.is-active {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 32px;
+            padding: 44px 7% 28px;
+        }
+
+        .ann-cta-wrap {
+            width: 100%;
+            align-items: stretch;
+        }
+
+        .ann-cta {
+            justify-content: center;
+        }
+
+        .ann-cta-secondary {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .ann-slide.is-active {
+            padding: 36px 8% 24px;
+        }
+
+        .ann-headline {
+            font-size: 1.2rem;
+        }
+
+        .ann-nav {
+            padding: 0 8% 18px;
+        }
+    }
+</style>
+
+<div class="ann-banner">
+    <div class="ann-track" id="annTrack"></div>
+    <div class="ann-nav">
+        <div class="ann-dots" id="annDots"></div>
+        <div class="ann-progress" id="annProgress"></div>
+        <button class="ann-pause" id="annPause" aria-label="Pause">
+            <svg id="annPauseIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+            </svg>
+        </button>
+        <button class="ann-arrow" id="annPrev" aria-label="Previous">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5"></path>
+                <path d="m12 19-7-7 7-7"></path>
+            </svg>
+        </button>
+        <button class="ann-arrow" id="annNext" aria-label="Next">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    (function () {
+        function compile(str) {
+            return str
+                .replace(/\n/g, '<br />')
+                .replace(/\[\[(.+?)\]\]/g, '[$1]')
+                .replace(/\*(.+?)\*/g, '<span class="ann-tan">$1</span>');
+        }
+
+        const ARROW_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
+        const ICON_PAUSE = `<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>`;
+        const ICON_PLAY = `<polygon points="5,3 19,12 5,21"/>`;
+
+        const track = document.getElementById('annTrack');
+        const dotsWrap = document.getElementById('annDots');
+        const progress = document.getElementById('annProgress');
+        const prevBtn = document.getElementById('annPrev');
+        const nextBtn = document.getElementById('annNext');
+        const pauseBtn = document.getElementById('annPause');
+        const pauseIcon = document.getElementById('annPauseIcon');
+
+        if (!track || !ANNOUNCEMENTS || !ANNOUNCEMENTS.length) {
+            document.querySelector('.ann-nav').style.display = 'none';
+            return;
+        }
+
+        // ── Build slides ──────────────────────────────────────────
+        ANNOUNCEMENTS.forEach((item, i) => {
+            const [primaryLink, ...secondaryLinks] = item.links || [];
+
+            const primaryHTML = primaryLink ? `
+                <a href="${primaryLink.href}" class="ann-cta">
+                    <span>${primaryLink.text}</span>
+                    ${ARROW_SVG}
+                </a>` : '';
+
+            const secondaryHTML = secondaryLinks.map(l => `
+                <a href="${l.href}" class="ann-cta-secondary">
+                    ${l.text}
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>`).join('');
+
+            const eyebrowHTML = `
+                <div class="ann-eyebrow">
+                    <span class="ann-announcement">Announcement</span>
+                    <div class="ann-divider"></div>
+                </div>`;
+
+            const slide = document.createElement('div');
+            slide.className = 'ann-slide' + (i === 0 ? ' is-active' : '');
+            slide.innerHTML = `
+                <div class="ann-text">
+                    ${eyebrowHTML}
+                    <h2 class="ann-headline">${compile(item.headline)}</h2>
+                    <p class="ann-sub">${compile(item.sub)}</p>
+                </div>
+                <div class="ann-cta-wrap">
+                    ${primaryHTML}
+                    ${secondaryHTML}
+                </div>`;
+            track.appendChild(slide);
+
+            const dot = document.createElement('button');
+            dot.className = 'ann-dot' + (i === 0 ? ' is-active' : '');
+            dot.setAttribute('aria-label', `Slide ${i + 1}`);
+            dot.dataset.index = i;
+            dotsWrap.appendChild(dot);
+        });
+
+        const slides = track.querySelectorAll('.ann-slide');
+        const dots = dotsWrap.querySelectorAll('.ann-dot');
+        let current = 0;
+        let paused = false;
+
+        // ── Clock: tracks elapsed time precisely ──────────────────
+        let clockStart = null;  // Date.now() when current tick began
+        let elapsed = 0;     // ms already consumed this tick
+        let rafId = null;
+
+        function tickProgress() {
+            if (paused) return;
+            const now = Date.now();
+            const total = elapsed + (now - clockStart);
+            const pct = Math.min(total / AUTOPLAY_MS, 1);
+
+            // Drive progress bar width directly from clock
+            progress.style.transition = 'none';
+            progress.style.width = (pct * 86) + '%';
+
+            if (pct >= 1) {
+                goTo(current + 1);
+                return;
+            }
+            rafId = requestAnimationFrame(tickProgress);
+        }
+
+        function startClock() {
+            cancelAnimationFrame(rafId);
+            clockStart = Date.now();
+            rafId = requestAnimationFrame(tickProgress);
+        }
+
+        function pauseClock() {
+            cancelAnimationFrame(rafId);
+            elapsed += Date.now() - clockStart;
+        }
+
+        function resumeClock() {
+            clockStart = Date.now();
+            rafId = requestAnimationFrame(tickProgress);
+        }
+
+        function resetClock() {
+            cancelAnimationFrame(rafId);
+            elapsed = 0;
+            progress.style.width = '0';
+            if (!paused) startClock();
+        }
+
+        // ── Navigation ────────────────────────────────────────────
+        function goTo(idx) {
+            slides[current].classList.remove('is-active');
+            dots[current].classList.remove('is-active');
+            current = (idx + slides.length) % slides.length;
+            slides[current].classList.add('is-active');
+            dots[current].classList.add('is-active');
+            resetClock();
+        }
+
+        prevBtn.addEventListener('click', () => goTo(current - 1));
+        nextBtn.addEventListener('click', () => goTo(current + 1));
+        dots.forEach(dot => dot.addEventListener('click', () => goTo(+dot.dataset.index)));
+
+        // ── Pause / resume ────────────────────────────────────────
+        pauseBtn.addEventListener('click', () => {
+            paused = !paused;
+            pauseIcon.innerHTML = paused ? ICON_PLAY : ICON_PAUSE;
+            pauseBtn.setAttribute('aria-label', paused ? 'Play' : 'Pause');
+            if (paused) pauseClock();
+            else resumeClock();
+        });
+
+        // ── IntersectionObserver: pause when off-screen ───────────
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (!paused) {
+                    if (e.isIntersecting) resumeClock();
+                    else pauseClock();
+                }
+            });
+        }, { threshold: 0.25 });
+        io.observe(document.querySelector('.ann-banner'));
+
+        // ── Hide nav when only one slide ─────────────────────────
+        if (slides.length < 2) {
+            document.querySelector('.ann-nav').style.display = 'none';
+        }
+
+        // ── Boot ──────────────────────────────────────────────────
+        if (AUTOPLAY_MS && slides.length > 1) startClock();
+
+    })();
+</script>
