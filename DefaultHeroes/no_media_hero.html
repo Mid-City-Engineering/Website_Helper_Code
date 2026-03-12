@@ -89,6 +89,21 @@
         border-bottom: 1px solid rgba(212, 175, 133, 0.3);
     }
 
+    .utility-bar-logo {
+        width: 3.5vh;
+        height: 3.5vh;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: white;
+        border: 1px solid rgba(212, 175, 133, 0.4);
+    }
+
+    .utility-bar a:has(.utility-bar-logo) {
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+    }
+
     .utility-bar form {
         display: flex;
         gap: 0.5rem;
@@ -499,6 +514,11 @@
 <div class="hero-wrapper">
     <!-- Utility Bar -->
     <div class="utility-bar">
+        <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+            <img src="/documents/content/naZlHr47T1uGIwXrx_h2uQo2f?download=0" alt="Mid City Engineering"
+                class="utility-bar-logo">
+        </a>
+
         <form method="get" action="/website/search" id="customSearchForm"><input type="search" name="search"
                 id="customSearchInput" placeholder="Search..."><input name="order" type="hidden"
                 value="name asc"><button type="submit" id="customSearchBtn"><svg xmlns="http://www.w3.org/2000/svg"
