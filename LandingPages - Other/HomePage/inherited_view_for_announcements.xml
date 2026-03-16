@@ -1,0 +1,27 @@
+<data>
+    <xpath expr="//div[@id='wrap']" position="before">
+        <t t-set="announcement_fields" t-value="['id', 'x_name', 'x_studio_headline', 'x_studio_subtitle', 'x_studio_media_link', 'x_studio_is_video', 'x_studio_sequence']"/>
+        <t t-set="announcements" t-value="request.env['x_announcements'].sudo().search_read([('x_studio_display_on_website', '=', True)], announcement_fields, order='x_studio_sequence asc')"/>
+        <t t-set="announcement_ids" t-value="[a['id'] for a in announcements]"/>
+        <t t-set="links" t-value="request.env['x_announcement_links'].sudo().search_read([('x_studio_announcement_id', 'in', announcement_ids)], ['x_studio_announcement_id', 'x_studio_display_text', 'x_studio_href'])"/>
+        <script type="text/javascript">
+            const _announcements = <t t-raw="json.dumps(announcements)"/>;
+            const _links = <t t-raw="json.dumps(links)"/>;
+
+            const _linksByAnnouncement = {};
+            _links.forEach(l =&gt; {
+                const aid = l.x_studio_announcement_id[0];
+                if (!_linksByAnnouncement[aid]) _linksByAnnouncement[aid] = [];
+                _linksByAnnouncement[aid].push({ text: l.x_studio_display_text, href: l.x_studio_href });
+            });
+
+            var OdooAnnouncements = _announcements.map(a =&gt; ({
+                headline: a.x_studio_headline,
+                sub: a.x_studio_subtitle,
+                mediaLink: a.x_studio_media_link,
+                isVideo: a.x_studio_is_video,
+                links: _linksByAnnouncement[a.id] || []
+            }));
+        </script>
+    </xpath>
+</data>

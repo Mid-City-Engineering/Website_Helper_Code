@@ -1,33 +1,5 @@
 <script>
-    const ANNOUNCEMENTS = [
-        {
-            headline: 'Sprinter Camera Systems [now cover 2025-2026 vans.]',
-            sub: 'Our plug-and-play rear and side camera integration now extends full support to the latest Sprinter generation. Same clean install, zero cutting.',
-            mediaLink: '/documents/content/SXovadAeSHiw3BbCWMr8rAoa6?download=0',
-            isVideo: true,
-            links: [
-                { text: 'View Systems', href: '/device/sprinter' },
-                { text: 'Secondary Link', href: '/mbrace-shutdown' },
-            ]
-        },
-        {
-            headline: 'Mercedes-Benz has shut down mbrace. [We have your replacement.]',
-            sub: 'Mercedes mbrace is dark. Don\'t lose your remote start functionality: our SmartKey Starter is the direct replacement. No subscription, no compromise.',
-            mediaLink: '/documents/content/rnD9sybWTzqb6ITNigt0mgo3f?download=0',
-            isVideo: false,
-            links: [
-                { text: 'Learn More', href: '/mbrace-shutdown' },
-                { text: 'More Links', href: '/home' },
-            ]
-        },
-        {
-            headline: 'Become an authorized\n[MCE dealer.]',
-            links: [
-                { text: 'Apply Now', href: '/become-dealer/' },
-                { text: 'Learn More', href: '/dealer-locator' }
-            ]
-        }
-    ];
+    const ANNOUNCEMENTS = OdooAnnouncements;
 
     const AUTOPLAY_MS = 6000;
 </script>
@@ -141,15 +113,6 @@
         gap: 16px;
     }
 
-    .ann-announcement {
-        font-family: 'Michroma', sans-serif;
-        font-size: 0.7rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--mce-sepia-tan);
-        white-space: nowrap;
-    }
-
     .ann-divider {
         flex: 1;
         height: 1px;
@@ -168,14 +131,13 @@
         line-height: 1.35;
         letter-spacing: 0.02em;
         margin: 0 0 16px 0;
-        text-align: left;
     }
 
     .ann-sub {
         font-family: 'Outfit', sans-serif;
         font-weight: 300;
         font-size: clamp(0.9rem, 1.4vw, 1.05rem);
-        color: #999999;
+        color: #cccccc;
         line-height: 1.7;
         margin: 0;
     }
@@ -309,17 +271,6 @@
     .ann-dot.is-active {
         background: var(--mce-sepia-tan);
         transform: scale(1.4);
-    }
-
-    .ann-progress {
-        position: absolute;
-        bottom: 0;
-        left: 7%;
-        right: 7%;
-        height: 3px;
-        background: var(--mce-sepia-tan);
-        transform: scaleX(0);
-        transform-origin: left;
     }
 
     .ann-pause,
@@ -457,7 +408,6 @@
             slide.innerHTML = `
             <div class="ann-slide-top">
                 <div class="ann-eyebrow">
-                    <span class="ann-announcement">Announcement</span>
                     <div class="ann-divider"></div>
                 </div>
             </div>
@@ -471,8 +421,7 @@
                     ${primaryHTML}
                     ${secondaryHTML}
                 </div>
-            </div>
-            <div class="ann-progress"></div>`;
+            </div>`;
 
             track.appendChild(slide);
 
@@ -492,13 +441,6 @@
 
         const SLIDE_DURATION = 420;
         const SNAP_DURATION = 320;
-
-        // ── Progress helper ───────────────────────────────────────
-        function setProgress(pct) {
-            track.querySelectorAll('.ann-progress').forEach((p, i) => {
-                p.style.transform = i === current ? `scaleX(${pct})` : 'scaleX(0)';
-            });
-        }
 
         // ── Position helpers ──────────────────────────────────────
         function setSlide(slide, x, duration) {
@@ -549,7 +491,6 @@
             if (paused) return;
             const total = elapsed + (Date.now() - clockStart);
             const pct = Math.min(total / AUTOPLAY_MS, 1);
-            setProgress(pct);
             if (total >= AUTOPLAY_MS) { goTo(current + 1); return; }
             rafId = requestAnimationFrame(tickProgress);
         }
@@ -575,7 +516,6 @@
             cancelAnimationFrame(rafId);
             elapsed = 0;
             clockStart = null;
-            setProgress(0);
             if (!paused) startClock();
         }
 
@@ -704,26 +644,31 @@
             dragAxis = null;
         }
 
-        track.addEventListener('pointerdown', e => {
-            if (e.pointerType === 'mouse' && e.button !== 0) return;
-            track.setPointerCapture(e.pointerId);
-            onDragStart(e.clientX, e.clientY);
-        });
+        // Add manual sliding if we have more than 1 slide
+        if (n > 1) {
+            track.addEventListener('pointerdown', e => {
+                if (e.pointerType === 'mouse' && e.button !== 0) return;
+                if (e.target.closest('a, button')) return;
+                track.setPointerCapture(e.pointerId);
+                onDragStart(e.clientX, e.clientY);
+            });
 
-        track.addEventListener('pointermove', e => {
-            if (dragStartX === null) return;
-            if (!dragAxis) {
-                const adx = Math.abs(e.clientX - dragStartX);
-                const ady = Math.abs(e.clientY - dragStartY);
-                if (adx > 6 || ady > 6) dragAxis = adx >= ady ? 'h' : 'v';
-            }
-            if (dragAxis !== 'h') return;
-            e.preventDefault();
-            onDragMove(e.clientX);
-        }, { passive: false });
+            track.addEventListener('pointermove', e => {
+                if (dragStartX === null) return;
+                if (!dragAxis) {
+                    const adx = Math.abs(e.clientX - dragStartX);
+                    const ady = Math.abs(e.clientY - dragStartY);
+                    if (adx > 6 || ady > 6) dragAxis = adx >= ady ? 'h' : 'v';
+                }
+                if (dragAxis !== 'h') return;
+                e.preventDefault();
+                onDragMove(e.clientX);
+            }, { passive: false });
 
-        track.addEventListener('pointerup', e => onDragEnd(e.clientX));
-        track.addEventListener('pointercancel', e => onDragEnd(e.clientX));
+            track.addEventListener('pointerup', e => onDragEnd(e.clientX));
+            track.addEventListener('pointercancel', e => onDragEnd(e.clientX));
+        }
+
 
         window.addEventListener('resize', () => {
             const w = track.offsetWidth;
