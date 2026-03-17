@@ -6,6 +6,8 @@
     };
 
     const EXCLUSIVE_CAR_FOR_SELECTOR = null;
+    const PINNED_MAKES = ["Mercedes-Benz", "Freightliner", "Dodge", "Volvo", "Infiniti", ];
+    const PINNED_MODELS = ["Sprinter"];
     const DEFAULT_MAKE = "Mercedes-Benz";
 
     // Parenthetical text that should be kept as a qualifier (shown as a selector step)
@@ -736,14 +738,28 @@
 
 
         function renderMakeStep() {
-            const makes = [...new Set(parsed.map(e => e.make))].sort();
+            const makes = [...new Set(parsed.map(e => e.make))].sort((a, b) => {
+                const ai = PINNED_MAKES.indexOf(a);
+                const bi = PINNED_MAKES.indexOf(b);
+                if (ai !== -1 && bi !== -1) return ai - bi;
+                if (ai !== -1) return -1;
+                if (bi !== -1) return 1;
+                return a.localeCompare(b);
+            });
             renderOptions("Select your vehicle make", makes, v => { sel.make = v; goStep(1); });
         }
 
         function renderModelStep() {
             const models = [...new Set(
                 parsed.filter(e => e.make === sel.make).map(e => e.model)
-            )].sort();
+            )].sort((a, b) => {
+                const ai = PINNED_MODELS.indexOf(a);
+                const bi = PINNED_MODELS.indexOf(b);
+                if (ai !== -1 && bi !== -1) return ai - bi;
+                if (ai !== -1) return -1;
+                if (bi !== -1) return 1;
+                return a.localeCompare(b);
+            });
             renderOptions("Select your model", models, v => { sel.model = v; goStep(2); });
         }
 
