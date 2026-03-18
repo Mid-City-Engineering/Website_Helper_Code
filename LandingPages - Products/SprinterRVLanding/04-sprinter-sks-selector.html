@@ -6,6 +6,9 @@
     };
 
     const EXCLUSIVE_CAR_FOR_SELECTOR = { make: 'Mercedes-Benz', model: 'Sprinter' };
+    const PINNED_MAKES = [];
+    const PINNED_MODELS = [];
+    const MODEL_SHORTCUTS = [];
     const DEFAULT_MAKE = "Mercedes-Benz";
 
     // Parenthetical text that should be kept as a qualifier (shown as a selector step)
@@ -108,7 +111,7 @@
         let text = entry.trim();
         if (!text) return [];
 
-        // 1. Extract parentheticals: qualifiers become a selector step, rest become notes
+        // 1. Extract parentheticals (qualifiers become a selector step, rest become notes)
         let notes = [];
         let qualifier = null;
         const parenMatches = text.match(/\(([^)]+)\)/g);
@@ -410,7 +413,7 @@
     /* Option buttons */
     .mce-sel-options {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 10px;
     }
 
@@ -564,15 +567,25 @@
         }
     }
 
+    @media (min-width: 601px) and (max-width: 860px) {
+        .mce-sel-options {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
     /* Mobile */
     @media (max-width: 600px) {
+
+        .mce-sel-options {
+            grid-template-columns: 1fr;
+        }
+
         .mce-sel-section {
             padding: 60px 0 80px;
         }
 
         .mce-sel-btn {
             width: 100%;
-            text-align: left;
             padding: 16px 20px;
         }
 
@@ -752,14 +765,79 @@
 
 
         function renderMakeStep() {
-            const makes = [...new Set(parsed.map(e => e.make))].sort();
-            renderOptions("Select your vehicle make", makes, v => { sel.make = v; goStep(1); });
+            const makes = [...new Set(parsed.map(e => e.make))].sort((a, b) => {
+                const ai = PINNED_MAKES.indexOf(a), bi = PINNED_MAKES.indexOf(b);
+                if (ai !== -1 && bi !== -1) return ai - bi;
+                if (ai !== -1) return -1;
+                if (bi !== -1) return 1;
+                return a.localeCompare(b);
+            });
+
+            const shortcuts = MODEL_SHORTCUTS.filter(s =>
+                parsed.some(e => e.make === s.make && e.model === s.model)
+            );
+
+            const el = document.getElementById('mce-sel-content');
+            el.innerHTML = `
+        <div class="mce-sel-label">Select your vehicle make</div>
+        <div class="mce-sel-options">
+            ${makes.map(opt => `
+                <button class="mce-sel-btn"
+                        onclick="mcePickOption(this, '${esc(opt)}')"
+                        aria-pressed="false">${opt}</button>
+            `).join('')}
+        </div>
+        ${shortcuts.length ? `
+            <div class="mce-sel-label" style="margin-top: 28px;">Quick Select</div>
+            <div class="mce-sel-options" id="mce-sel-shortcuts">
+                ${shortcuts.map(s => `
+                    <button class="mce-sel-btn"
+                            onclick="mcePickShortcut(this, '${esc(s.make)}', '${esc(s.model)}')"
+                            aria-pressed="false">${s.model}</button>
+                `).join('')}
+            </div>
+        ` : ''}
+    `;
+            el._onSelect = v => { sel.make = v; goStep(1); };
+
+            if (shortcuts.length === 1) {
+                const mq3col = window.matchMedia('(min-width: 861px)');
+
+                function updateGhost() {
+                    const grid = document.getElementById('mce-sel-shortcuts');
+                    if (!grid) return;
+
+                    const existing = grid.querySelector('.mce-sel-ghost');
+                    if (mq3col.matches) {
+                        if (!existing) {
+                            const ghost = document.createElement('button');
+                            ghost.className = 'mce-sel-btn mce-sel-ghost';
+                            ghost.style.visibility = 'hidden';
+                            ghost.setAttribute('aria-hidden', 'true');
+                            ghost.setAttribute('tabindex', '-1');
+                            grid.prepend(ghost);
+                        }
+                    } else {
+                        if (existing) existing.remove();
+                    }
+                }
+
+                updateGhost();
+                mq3col.addEventListener('change', updateGhost);
+            }
         }
 
         function renderModelStep() {
             const models = [...new Set(
                 parsed.filter(e => e.make === sel.make).map(e => e.model)
-            )].sort();
+            )].sort((a, b) => {
+                const ai = PINNED_MODELS.indexOf(a);
+                const bi = PINNED_MODELS.indexOf(b);
+                if (ai !== -1 && bi !== -1) return ai - bi;
+                if (ai !== -1) return -1;
+                if (bi !== -1) return 1;
+                return a.localeCompare(b);
+            });
             renderOptions("Select your model", models, v => { sel.model = v; goStep(2); });
         }
 
@@ -858,6 +936,16 @@
             btn.classList.add('is-selected');
             btn.setAttribute('aria-pressed', 'true');
             setTimeout(() => { if (el._onSelect) el._onSelect(value); }, 180);
+        };
+
+        window.mcePickShortcut = function (btn, make, model) {
+            btn.classList.add('is-selected');
+            btn.setAttribute('aria-pressed', 'true');
+            setTimeout(() => {
+                sel.make = make;
+                sel.model = model;
+                goStep(2);
+            }, 180);
         };
 
         function esc(s) {
