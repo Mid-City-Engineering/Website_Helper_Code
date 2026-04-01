@@ -177,7 +177,8 @@
         position: relative;
         overflow: hidden;
         transition: color 0.4s ease, border-color 0.4s ease;
-        white-space: nowrap;
+        white-space: normal;
+        text-align: left;
         width: 100%;
         box-sizing: border-box;
         justify-content: center;
@@ -210,6 +211,8 @@
     }
 
     .ann-cta svg {
+        flex-shrink: 0;
+        /* prevents squishing */
         transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
@@ -232,7 +235,8 @@
         letter-spacing: 0.06em;
         text-decoration: none;
         transition: color 0.3s ease, border-color 0.3s ease;
-        white-space: nowrap;
+        text-align: left;
+        white-space: normal;
     }
 
     .ann-cta-secondary:hover {
