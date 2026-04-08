@@ -33,7 +33,7 @@
         background: var(--mce-dark-red);
     }
 
-    .global-header h6 {
+    .global-header h3 {
         font-family: 'Outfit', sans-serif;
         font-weight: 300;
         font-size: clamp(1rem, 2vw, 1.2rem);
@@ -91,7 +91,7 @@
 <div class="global-section">
     <div class="global-header">
         <h2>Worldwide Presence</h2>
-        <h6>Our products and services reach customers across the globe</h6>
+        <h3>Our products and services reach customers across the globe</h3>
     </div>
 
     <div class="map-container">
@@ -100,13 +100,13 @@
 </div>
 
 <!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer=""
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
     // Wait for Leaflet to be fully loaded
     function initializeGlobalMap() {
-        // Check if Leaflet is loaded
+        // Check if Leaflet JS is loaded
         if (typeof L === 'undefined') {
             console.log('Waiting for Leaflet to load...');
             setTimeout(initializeGlobalMap, 100);
@@ -271,7 +271,9 @@
         locations.forEach((location, index) => {
             setTimeout(() => {
                 const marker = L.marker([location.lat, location.lng], {
-                    icon: customIcon
+                    icon: customIcon,
+                    alt: location.name,
+                    title: location.name,
                 }).addTo(map);
 
                 // Create popup content - just the name in tan
