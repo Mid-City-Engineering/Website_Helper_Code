@@ -1,3 +1,32 @@
+<!-- Start Connecting to Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<!-- Preload Michroma directly -->
+<link rel="preload" as="font" type="font/woff2" crossorigin
+    href="https://fonts.gstatic.com/s/michroma/v21/PN_zRfy9qWD8fEagAPg9pTn5_PDb.woff2">
+
+<!-- Michroma: direct @font-face, no API round-trip -->
+<style>
+    @font-face {
+        font-family: 'Michroma';
+        font-style: normal;
+        font-weight: 400;
+        font-display: block;
+        src: url('https://fonts.gstatic.com/s/michroma/v21/PN_zRfy9qWD8fEagAPg9pTn5_PDb.woff2') format('woff2');
+        unicode-range: U+0000-00FF;
+    }
+</style>
+
+<!-- Outfit: via Google Fonts API, async (non-blocking) -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
+    media="print" onload="this.media='all'">
+<noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap">
+</noscript>
+<!-- End Code to Prompt Connecting to Google Fonts -->
+
 <!-- Google Tag Manager -->
 <script>(function (w, d, s, l, i) {
         w[l] = w[l] || []; w[l].push({
@@ -8,6 +37,14 @@
                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-KRQ2J4K5');</script>
 <!-- End Google Tag Manager -->
+
+<!-- Set aria-label for Odoo supplied scroll-to-top button -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const scrollTop = document.getElementById('o_footer_scrolltop');
+        if (scrollTop) scrollTop.setAttribute('aria-label', 'Scroll to top');
+    });
+</script>
 
 <!-- When navigating to ids in another page, scroll to top before jumping to hash anchor -->
 <script>
