@@ -4,6 +4,19 @@
         padding: 80px 0;
     }
 
+    /* Visually hidden utility: hides element from view but keeps it in the a11y tree */
+    .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
     .cards-container {
         display: flex;
         flex-wrap: wrap;
@@ -13,6 +26,12 @@
         justify-content: center;
     }
 
+    /*
+     * CARD LINK PATTERN
+     * The <a> wraps only the <h3> title for a clean, concise accessible name.
+     * The ::after pseudo-element expands the click/tap target to cover the full card.
+     * position: relative on .product-card is the containing block for that pseudo-element.
+     */
     .product-card {
         flex: 1 1 calc(25% - 0px);
         /* 4 cards per row by default (>1024px) */
@@ -25,7 +44,6 @@
         transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         position: relative;
         overflow: hidden;
-        text-decoration: none;
         color: inherit;
     }
 
@@ -93,6 +111,29 @@
         min-height: 76px;
     }
 
+    /* The title link is the accessible anchor; ::after covers the whole card */
+    .card-title a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .card-title a::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+
+    .card-title a:focus-visible {
+        outline: none;
+    }
+
+    /* Show a focus ring on the card itself when the inner link is focused */
+    .product-card:has(.card-title a:focus-visible) {
+        outline: 3px solid var(--mce-sepia-tan);
+        outline-offset: 2px;
+    }
+
     .card-meta {
         display: flex;
         justify-content: space-between;
@@ -112,20 +153,12 @@
         letter-spacing: 0.1em;
     }
 
-    .card-date {
-        font-family: 'Outfit', sans-serif;
-        font-weight: 300;
-        font-size: 0.85rem;
-        color: #888;
-    }
-
     /* Responsive adjustments */
     /* 3 cards per row for 769px - 1024px */
     @media (max-width: 1024px) {
         .product-card {
             flex: 1 1 calc(33.333% - 0px);
             max-width: none;
-            /* Remove max-width constraint */
         }
 
         .card-image-wrapper {
@@ -142,7 +175,6 @@
         .product-card {
             flex: 1 1 calc(50% - 0px);
             max-width: none;
-            /* Remove max-width constraint */
         }
 
         .card-image-wrapper {
@@ -177,185 +209,202 @@
     }
 </style>
 
-<div class="landing-cards-section" id="products">
+<section class="landing-cards-section" id="products" aria-labelledby="productsHeading">
+    <h2 id="productsHeading" class="visually-hidden">Product Categories</h2>
     <div class="cards-container">
 
-        <a href="/device/smart-key-starter" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/uTNiDlIISp6hnDC0z95Wpwo59?download=0" alt="SmartKey Starter"
-                    class="card-image" loading="lazy">
+                <img src="/documents/content/uTNiDlIISp6hnDC0z95Wpwo59?download=0"
+                    alt="SmartKey Starter remote start module, invented by Mid City Engineering" class="card-image" loading="lazy"
+                    width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">SmartKey Starter®</h3>
+                <h3 class="card-title">
+                    <a href="/device/smart-key-starter" aria-describedby="desc-smartkey">SmartKey Starter®</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">The original mercedes-benz remote starter</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-smartkey">The original Mercedes-Benz remote starter</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/device/sprinter" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/KwonyN7_RaCYesQZw7f1uwo5c?download=0" alt="Sprinter Integrations"
-                    class="card-image" loading="lazy">
+                <img src="/documents/content/KwonyN7_RaCYesQZw7f1uwo5c?download=0"
+                    alt="Mercedes-Benz Sprinter van with integration accessories" class="card-image" loading="lazy"
+                    width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">Sprinter Integrations</h3>
+                <h3 class="card-title">
+                    <a href="/device/sprinter" aria-describedby="desc-sprinter">Sprinter Integrations</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">Products for sprinter work vehicles</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-sprinter">Products for Sprinter work vehicles</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-        <a href="/sprinter-rv" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/E3nFWrGWTnqunG2rPyoX9Ao5b?download=0" alt="RV Solutions" class="card-image"
-                    loading="lazy">
+                <img src="/documents/content/E3nFWrGWTnqunG2rPyoX9Ao5b?download=0"
+                    alt="Sprinter RV camper van conversion interior" class="card-image" loading="lazy" width="400"
+                    height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">Sprinter RV</h3>
+                <h3 class="card-title">
+                    <a href="/sprinter-rv" aria-describedby="desc-sprinter-rv">Sprinter RV</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">Premium Products for your sprinter RV</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-sprinter-rv">Premium products for your Sprinter RV</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/modelock" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/taL56vf8TLalUlrSc5f6Two55?download=0" alt="ModeLock" class="card-image"
-                    loading="lazy">
+                <img src="/documents/content/taL56vf8TLalUlrSc5f6Two55?download=0"
+                    alt="ModeLock drive mode preset device" class="card-image" loading="lazy" width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">ModeLock</h3>
+                <h3 class="card-title">
+                    <a href="/modelock" aria-describedby="desc-modelock">ModeLock</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">Your preferred drive settings on startup</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-modelock">Your preferred drive settings on startup</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/alarm-kits" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/ldE5PHN7RbeeZqmCWjUUoAo51?download=0" alt="Plug &amp; Play Alarm Kits"
-                    class="card-image" loading="lazy">
+                <img src="/documents/content/ldE5PHN7RbeeZqmCWjUUoAo51?download=0"
+                    alt="Plug and play alarm kit components for Mercedes-Benz Sprinters" class="card-image" loading="lazy"
+                    width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">Plug &amp; Play Alarm Kits</h3>
+                <h3 class="card-title">
+                    <a href="/alarm-kits" aria-describedby="desc-alarm">Plug &amp; Play Alarm Kits</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">Upgraded security for your Mercedes-Benz</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-alarm">Upgraded security for your Mercedes-Benz</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/device/escort-radar-integration" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/gML7-pLbRKarSwMs8T6zXwo58?download=0" alt="Radar Integration"
-                    class="card-image" loading="lazy">
+                <img src="/documents/content/gML7-pLbRKarSwMs8T6zXwo58?download=0"
+                    alt="Escort radar detector integrated into a premium vehicle's dashboard display" class="card-image"
+                    loading="lazy" width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">Radar Integration</h3>
+                <h3 class="card-title">
+                    <a href="/device/escort-radar-integration" aria-describedby="desc-radar">Radar Integration</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">Radar integration into your vehicle's display</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-radar">Radar integration into your vehicle's display</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/device/motorized-front-license-plate" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/Urek6lftRKuaMo5S3DTbxwo56?download=0" alt="Motorized Front License Plate"
-                    class="card-image" loading="lazy">
+                <img src="/documents/content/Urek6lftRKuaMo5S3DTbxwo56?download=0"
+                    alt="Motorized retractable front license plate mechanism" class="card-image" loading="lazy"
+                    width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">Motorized Front License Plate</h3>
+                <h3 class="card-title">
+                    <a href="/device/motorized-front-license-plate" aria-describedby="desc-plate">Motorized Front
+                        License Plate</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">Automatically retract your front plate</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-plate">Automatically retract your front plate</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/device/360-degree-camera-on-demand" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/fJkDAJwuQjOi9vGQSN6gugo50?download=0" alt="360º Camera On Demand"
-                    class="card-image" loading="lazy">
+                <img src="/documents/content/fJkDAJwuQjOi9vGQSN6gugo50?download=0"
+                    alt="360-degree surround camera view on Mercedes-Benz infotainment display" class="card-image"
+                    loading="lazy" width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">Camera On Demand</h3>
+                <h3 class="card-title">
+                    <a href="/device/360-degree-camera-on-demand" aria-describedby="desc-camera">Camera On Demand</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">Use your rear camera view while driving</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-camera">Use your rear camera view while driving</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/device/installations" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/FXOSATVuR16SHH9LVe2duQo54?download=0" alt="Professional Installations"
-                    class="card-image" loading="lazy">
+                <img src="/documents/content/FXOSATVuR16SHH9LVe2duQo54?download=0"
+                    alt="Professional installations and upgrades on premium vehicles" class="card-image" loading="lazy"
+                    width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">Installations</h3>
+                <h3 class="card-title">
+                    <a href="/device/installations" aria-describedby="desc-installations">Installations</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">OUR PROFESSIONAL INSTALLATION PORTFOLIO</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-installations">Our professional installation
+                        portfolio</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/device/psm" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/dut_PHx8T--TaA7HADXP9wo57?download=0" alt="PSM" class="card-image"
-                    loading="lazy">
+                <img src="/documents/content/dut_PHx8T--TaA7HADXP9wo57?download=0"
+                    alt="Sprinter PSM upfitter module for inputs and outputs" class="card-image" loading="lazy"
+                    width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">PSM/Upfitter</h3>
+                <h3 class="card-title">
+                    <a href="/device/psm" aria-describedby="desc-psm">PSM/Upfitter</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">Sprinter inputs and outputs for upfitters</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-psm">Sprinter inputs and outputs for upfitters</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/device/eco-off" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/arnCVzNQSg-1aPNfLdPqvQo53?download=0" alt="Eco Off" class="card-image"
-                    loading="lazy">
+                <img src="/documents/content/arnCVzNQSg-1aPNfLdPqvQo53?download=0"
+                    alt="Eco Off module that disables ECO mode automatically on startup" class="card-image"
+                    loading="lazy" width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">Eco Off</h3>
+                <h3 class="card-title">
+                    <a href="/device/eco-off" aria-describedby="desc-eco">Eco Off</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">Turn off ECO mode automatically on startup</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-eco">Turn off ECO mode automatically on startup</span>
                 </div>
             </div>
-        </a>
+        </div>
 
-
-        <a href="/design-and-manufacturing" class="product-card">
+        <div class="product-card">
             <div class="card-image-wrapper">
-                <img src="/documents/content/w05EEWqgQEmz6QmAQD7FqQo52?download=0" alt="Eco Off" class="card-image"
-                    loading="lazy">
+                <img src="/documents/content/w05EEWqgQEmz6QmAQD7FqQo52?download=0"
+                    alt="Custom automotive product design and manufacturing at Mid City Engineering" class="card-image"
+                    loading="lazy" width="400" height="240">
             </div>
             <div class="card-content">
-                <h3 class="card-title">Design &amp; Manufacturing</h3>
+                <h3 class="card-title">
+                    <a href="/design-and-manufacturing" aria-describedby="desc-design">Design &amp; Manufacturing</a>
+                </h3>
                 <div class="card-meta">
-                    <span class="card-description">We can design and build your product</span>
-                    <span class="card-date"></span>
+                    <span class="card-description" id="desc-design">We can design and build your product</span>
                 </div>
             </div>
-        </a>
+        </div>
+
     </div>
-</div>
+</section>

@@ -20,6 +20,11 @@
         height: 2px;
         background: linear-gradient(90deg, transparent, var(--mce-dark-red), var(--mce-sepia-tan));
         animation: slideAccent 2s ease-out forwards;
+        animation-play-state: paused;
+    }
+
+    .story-section.is-visible::before {
+        animation-play-state: running;
     }
 
     @keyframes slideAccent {
@@ -61,6 +66,11 @@
         opacity: 0;
         transform: translateX(-40px);
         animation: slideInLeft 0.8s ease-out 0.3s forwards;
+        animation-play-state: paused;
+    }
+
+    .story-section.is-visible .story-left {
+        animation-play-state: running;
     }
 
     @keyframes slideInLeft {
@@ -94,6 +104,11 @@
         height: 3px;
         background: linear-gradient(90deg, var(--mce-dark-red), var(--mce-sepia-tan));
         animation: expandUnderline 1s ease-out 0.8s forwards;
+        animation-play-state: paused;
+    }
+
+    .story-section.is-visible .story-left h2::after {
+        animation-play-state: running;
     }
 
     @keyframes expandUnderline {
@@ -112,6 +127,11 @@
         opacity: 0;
         width: 100%;
         animation: fadeInText 0.8s ease-out 1s forwards;
+        animation-play-state: paused;
+    }
+
+    .story-section.is-visible .story-left p {
+        animation-play-state: running;
     }
 
     .story-left p:last-of-type {
@@ -132,6 +152,11 @@
         opacity: 0;
         transform: translateX(40px);
         animation: slideInRight 0.8s ease-out 0.5s forwards;
+        animation-play-state: paused;
+    }
+
+    .story-section.is-visible .story-right {
+        animation-play-state: running;
     }
 
     @keyframes slideInRight {
@@ -263,6 +288,25 @@
         transform: translateX(5px);
     }
 
+    /* ── REDUCED MOTION ── */
+    @media (prefers-reduced-motion: reduce) {
+
+        .story-section::before,
+        .story-left,
+        .story-left h2::after,
+        .story-left p,
+        .story-right {
+            animation: none;
+            opacity: 1;
+            transform: none;
+            width: auto;
+        }
+
+        .story-left h2::after {
+            width: 120px;
+        }
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 968px) {
         .story-section {
@@ -280,6 +324,11 @@
             align-items: center;
             transform: none;
             animation: fadeInMobile 0.8s ease-out forwards;
+            animation-play-state: paused;
+        }
+
+        .story-section.is-visible .story-left {
+            animation-play-state: running;
         }
 
         .story-left h2::after {
@@ -292,6 +341,11 @@
             justify-content: center;
             transform: none;
             animation: fadeInMobile 0.8s ease-out forwards;
+            animation-play-state: paused;
+        }
+
+        .story-section.is-visible .story-right {
+            animation-play-state: running;
         }
 
         .story-image-frame {
@@ -325,12 +379,12 @@
     }
 </style>
 
-<div class="story-section">
+<section class="story-section" aria-labelledby="storyHeading">
 
     <div class="story-top">
         <!-- Left: heading + body copy -->
         <div class="story-left">
-            <h2>Manufactured in Chicago, <span class="tan-text">Trusted Worldwide</span></h2>
+            <h2 id="storyHeading">Manufactured in Chicago, <span class="tan-text">Trusted Worldwide</span></h2>
             <p>
                 For over 20 years, Mid City Engineering has been at the forefront of automotive innovation,
                 engineering premium solutions that enhance vehicle performance, security, and convenience.
@@ -348,8 +402,9 @@
         <!-- Right: image -->
         <div class="story-right">
             <div class="story-image-frame">
-                <img src="/documents/content/WfMbfuQ9TuOpt7KWJNkNZQo5d?download=0" alt="Premium automotive engineering"
-                    class="story-image">
+                <img src="/documents/content/WfMbfuQ9TuOpt7KWJNkNZQo5d?download=0"
+                    alt="Premium automotive engineering in Chicago" class="story-image" loading="lazy" width="600"
+                    height="440">
             </div>
         </div>
     </div>
@@ -358,8 +413,26 @@
     <div class="story-bottom">
         <a href="/about-us" class="about-us-button">
             Learn more about us
-            <span class="about-us-button-arrow">→</span>
+            <span class="about-us-button-arrow" aria-hidden="true">→</span>
         </a>
     </div>
 
-</div>
+</section>
+
+<script>
+    (function () {
+        const storySection = document.querySelector('.story-section');
+        if (!storySection) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    storySection.classList.add('is-visible');
+                    observer.unobserve(storySection); // fire once
+                }
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(storySection);
+    })();
+</script>

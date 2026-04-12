@@ -252,13 +252,29 @@
             max-height: 60px;
         }
     }
+
+    /* Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+
+        .collab-left,
+        .companies-grid {
+            animation: none;
+            opacity: 1;
+            transform: none;
+        }
+
+        .collab-left::before {
+            animation: none;
+            width: 80px;
+        }
+    }
 </style>
 
-<div class="collab-section" id="companies">
+<section class="collab-section" id="companies" aria-labelledby="collabHeading">
     <div class="collab-container">
         <!-- Left Side: Collaboration Story -->
         <div class="collab-left">
-            <h2><span class="tan-text">COMPANIES</span> WE WORK WITH</h2>
+            <h2 id="collabHeading"><span class="tan-text">COMPANIES</span> WE WORK WITH</h2>
             <p>
                 Over two decades of innovation, we've partnered with industry-leading brands and manufacturers
                 to deliver cutting-edge automotive technology solutions.
@@ -275,11 +291,11 @@
             <div class="collab-links">
                 <a href="#globalMap" class="collab-link">
                     See our worldwide presence
-                    <span class="collab-link-down-arrow">→</span>
+                    <span class="collab-link-down-arrow" aria-hidden="true">→</span>
                 </a>
                 <a href="#products" class="collab-link">
                     Explore our product range
-                    <span class="collab-link-up-arrow">→</span>
+                    <span class="collab-link-up-arrow" aria-hidden="true">→</span>
                 </a>
             </div>
         </div>
@@ -289,37 +305,37 @@
             <div class="companies-grid">
                 <!-- Logo Slot 1 -->
                 <div class="company-logo-wrapper">
-                    <img src="/documents/content/hHGq7BfnQIe84IeQN2jPBQo3d?download=0"
-                        alt="Garmin" class="company-logo">
+                    <img src="/documents/content/hHGq7BfnQIe84IeQN2jPBQo3d?download=0" alt="Garmin logo"
+                        class="company-logo" loading="lazy" width="160" height="80">
                 </div>
 
                 <!-- Logo Slot 2 -->
                 <div class="company-logo-wrapper">
-                    <img src="/documents/content/ek75AwdyRFCCz5G-oHQ-yQo3b?download=0"
-                        alt="Directed" class="company-logo">
+                    <img src="/documents/content/ek75AwdyRFCCz5G-oHQ-yQo3b?download=0" alt="Directed logo"
+                        class="company-logo" loading="lazy" width="160" height="80">
                 </div>
 
                 <!-- Logo Slot 3 -->
                 <div class="company-logo-wrapper">
-                    <img src="/documents/content/KCDZ3ikES4aK3BJRZ_ialQo3c?download=0"
-                        alt="Escort" class="company-logo">
+                    <img src="/documents/content/KCDZ3ikES4aK3BJRZ_ialQo3c?download=0" alt="Escort logo"
+                        class="company-logo" loading="lazy" width="160" height="80">
                 </div>
 
                 <!-- Logo Slot 4 -->
                 <div class="company-logo-wrapper">
-                    <img src="/documents/content/PMaoQQaYT5OC5wQT0u5xDAo3e?download=0"
-                        alt="Uniden" class="company-logo">
+                    <img src="/documents/content/PMaoQQaYT5OC5wQT0u5xDAo3e?download=0" alt="Uniden logo"
+                        class="company-logo" loading="lazy" width="160" height="80">
                 </div>
 
                 <!-- Logo Slot 5 -->
                 <div class="company-logo-wrapper" style="grid-column: 1 / -1;">
-                    <img src="/documents/content/TVj_GlBUSwy9Z78t9IVcbAo3a?download=0"
-                        alt="Compustar" class="company-logo">
+                    <img src="/documents/content/TVj_GlBUSwy9Z78t9IVcbAo3a?download=0" alt="Compustar logo"
+                        class="company-logo" loading="lazy" width="160" height="80">
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <script>
     // Trigger animations when section comes into view

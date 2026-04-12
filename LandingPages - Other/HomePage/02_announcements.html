@@ -332,26 +332,30 @@
     }
 </style>
 
-<div class="ann-banner">
+<!-- FIX: role="region" + aria-label identify this as a landmark for screen readers.        -->
+<!--      aria-live="polite" announces slide content changes without interrupting the user.  -->
+<div class="ann-banner" role="region" aria-label="Announcements">
     <div class="ann-track" id="annTrack"></div>
     <div class="ann-nav">
-        <button class="ann-arrow" id="annPrev" aria-label="Previous">
+        <button class="ann-arrow" id="annPrev" aria-label="Previous announcement">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                 <path d="M19 12H5"></path>
                 <path d="m12 19-7-7 7-7"></path>
             </svg>
         </button>
-        <div class="ann-dots" id="annDots"></div>
-        <button class="ann-arrow" id="annNext" aria-label="Next">
+        <div class="ann-dots" id="annDots" role="tablist" aria-label="Announcement slides"></div>
+        <button class="ann-arrow" id="annNext" aria-label="Next announcement">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                 <path d="M5 12h14"></path>
                 <path d="m12 5 7 7-7 7"></path>
             </svg>
         </button>
-        <button class="ann-pause" id="annPause" aria-label="Pause">
-            <svg id="annPauseIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+        <!-- FIX: aria-pressed communicates toggle state to screen readers -->
+        <button class="ann-pause" id="annPause" aria-label="Pause announcements" aria-pressed="false">
+            <svg id="annPauseIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                focusable="false">
                 <rect x="6" y="4" width="4" height="16"></rect>
                 <rect x="14" y="4" width="4" height="16"></rect>
             </svg>
@@ -368,7 +372,7 @@
                 .replace(/\[(.+?)\]/g, '<span class="ann-tan">$1</span>');
         }
 
-        const ARROW_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
+        const ARROW_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
         const ICON_PAUSE = `<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>`;
         const ICON_PLAY = `<polygon points="5,3 19,12 5,21"/>`;
 
@@ -384,6 +388,11 @@
             return;
         }
 
+        // FIX: Respect prefers-reduced-motion (WCAG 2.2.2).
+        // Start paused if the user has requested reduced motion.
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let paused = prefersReduced;
+
         // ── Build slides ──────────────────────────────────────────
         ANNOUNCEMENTS.forEach((item, i) => {
             const [primaryLink, ...secondaryLinks] = item.links || [];
@@ -397,18 +406,30 @@
             const secondaryHTML = secondaryLinks.map(l => `
             <a href="${l.href}" class="ann-cta-secondary">
                 ${l.text}
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>`).join('');
 
             let mediaHTML = '';
             if (item.mediaLink) {
+                // FIX: Videos are decorative — aria-hidden keeps them out of the a11y tree.
+                // FIX: Images use item.altText if provided; empty string marks them decorative.
                 mediaHTML = item.isVideo === true
-                    ? `<div class="ann-slide-body-media"><div class="ann-media"><video src="${item.mediaLink}" autoplay muted loop playsinline></video></div></div>`
-                    : `<div class="ann-slide-body-media"><div class="ann-media"><img src="${item.mediaLink}" alt="" loading="lazy"></div></div>`;
+                    ? `<div class="ann-slide-body-media"><div class="ann-media"><video src="${item.mediaLink}" autoplay muted loop playsinline aria-hidden="true"></video></div></div>`
+                    : `<div class="ann-slide-body-media"><div class="ann-media"><img src="${item.mediaLink}" alt="${item.altText || ''}" loading="lazy"></div></div>`;
             }
 
             const slide = document.createElement('div');
             slide.className = 'ann-slide';
+            // FIX: role="group" + aria-label tell screen readers this is slide N of N.
+            slide.setAttribute('role', 'group');
+            slide.setAttribute('aria-label', `Announcement ${i + 1} of ${ANNOUNCEMENTS.length}`);
+            // FIX: Hide non-active slides from the accessibility tree so screen readers
+            // don't read offscreen content. Toggled in goTo().
+            slide.setAttribute('aria-hidden', i === 0 ? 'false' : 'true');
+
+            // FIX: h2 → h3. The page already uses h2 for section headings (story, collab,
+            // global). An announcement headline is a sub-feature, not a page section,
+            // so h3 keeps the document outline correct for Google and screen readers.
             slide.innerHTML = `
             <div class="ann-slide-top">
                 <div class="ann-eyebrow">
@@ -417,7 +438,7 @@
             </div>
             <div class="ann-slide-body">
                 <div class="ann-slide-body-text">
-                    <h2 class="ann-headline">${compile(item.headline)}</h2>
+                    <h3 class="ann-headline">${compile(item.headline)}</h3>
                     ${item.sub ? `<p class="ann-sub">${compile(item.sub)}</p>` : ''}
                 </div>
                 ${mediaHTML}
@@ -431,7 +452,13 @@
 
             const dot = document.createElement('button');
             dot.className = 'ann-dot' + (i === 0 ? ' is-active' : '');
-            dot.setAttribute('aria-label', `Slide ${i + 1}`);
+            // FIX: role="tab" pairs with the tablist on the dots container.
+            // aria-selected + aria-controls link each dot to its slide.
+            dot.setAttribute('role', 'tab');
+            dot.setAttribute('aria-label', `Announcement ${i + 1} of ${ANNOUNCEMENTS.length}`);
+            dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+            dot.setAttribute('aria-controls', `ann-slide-${i}`);
+            slide.id = `ann-slide-${i}`;
             dot.dataset.index = i;
             dotsWrap.appendChild(dot);
         });
@@ -440,11 +467,17 @@
         const dots = dotsWrap.querySelectorAll('.ann-dot');
         const n = slides.length;
         let current = 0;
-        let paused = false;
         let animating = false;
 
         const SLIDE_DURATION = 420;
         const SNAP_DURATION = 320;
+
+        // Sync pause button visual state on load if reduced-motion is active
+        if (paused) {
+            pauseIcon.innerHTML = ICON_PLAY;
+            pauseBtn.setAttribute('aria-label', 'Play announcements');
+            pauseBtn.setAttribute('aria-pressed', 'true');
+        }
 
         // ── Position helpers ──────────────────────────────────────
         function setSlide(slide, x, duration) {
@@ -494,7 +527,6 @@
         function tickProgress() {
             if (paused) return;
             const total = elapsed + (Date.now() - clockStart);
-            const pct = Math.min(total / AUTOPLAY_MS, 1);
             if (total >= AUTOPLAY_MS) { goTo(current + 1); return; }
             rafId = requestAnimationFrame(tickProgress);
         }
@@ -540,8 +572,16 @@
                     setSlide(slides[current], -dir * w, SLIDE_DURATION);
                     setSlide(slides[next], 0, SLIDE_DURATION);
 
+                    // FIX: Update aria-hidden so only the active slide is in the a11y tree
+                    slides[current].setAttribute('aria-hidden', 'true');
+                    slides[next].setAttribute('aria-hidden', 'false');
+
+                    // Update dots: remove active state from old, apply to new
                     dots[current].classList.remove('is-active');
+                    dots[current].setAttribute('aria-selected', 'false');
                     dots[next].classList.add('is-active');
+                    dots[next].setAttribute('aria-selected', 'true');
+
                     current = next;
                     resetClock();
 
@@ -558,7 +598,9 @@
         pauseBtn.addEventListener('click', () => {
             paused = !paused;
             pauseIcon.innerHTML = paused ? ICON_PLAY : ICON_PAUSE;
-            pauseBtn.setAttribute('aria-label', paused ? 'Play' : 'Pause');
+            // FIX: aria-label + aria-pressed both update so state is unambiguous
+            pauseBtn.setAttribute('aria-label', paused ? 'Play announcements' : 'Pause announcements');
+            pauseBtn.setAttribute('aria-pressed', paused ? 'true' : 'false');
             if (paused) pauseClock();
             else resumeClock();
         });
@@ -628,8 +670,14 @@
                 setSlide(slides[current], (delta < 0 ? -1 : 1) * w, SNAP_DURATION);
                 setSlide(slides[neighbourIdx], 0, SNAP_DURATION);
 
+                slides[current].setAttribute('aria-hidden', 'true');
+                slides[neighbourIdx].setAttribute('aria-hidden', 'false');
+
                 dots[current].classList.remove('is-active');
+                dots[current].setAttribute('aria-selected', 'false');
                 dots[neighbourIdx].classList.add('is-active');
+                dots[neighbourIdx].setAttribute('aria-selected', 'true');
+
                 current = neighbourIdx;
                 resetClock();
 
@@ -673,7 +721,6 @@
             track.addEventListener('pointercancel', e => onDragEnd(e.clientX));
         }
 
-
         window.addEventListener('resize', () => {
             const w = track.offsetWidth;
             slides.forEach((s, i) => {
@@ -696,7 +743,8 @@
             document.querySelector('.ann-nav').style.display = 'none';
         }
 
-        if (AUTOPLAY_MS && slides.length > 1) startClock();
+        // FIX: Only autoplay if not in reduced-motion mode
+        if (AUTOPLAY_MS && slides.length > 1 && !prefersReduced) startClock();
 
     })();
 
