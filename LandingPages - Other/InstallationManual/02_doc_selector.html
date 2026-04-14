@@ -86,12 +86,13 @@
         margin-top: 32px;
         font-size: 1.05rem;
         font-weight: 300;
-        color: #777;
+        color: #666;
         letter-spacing: 0.02em;
     }
 
     .mce-sel-header a {
         color: var(--mce-dark-red);
+        text-decoration: underline;
     }
 
     .mce-sel-steps {
@@ -108,7 +109,7 @@
         font-weight: 700;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: #bbb;
+        color: #444;
         position: relative;
         cursor: default;
         user-select: none;
@@ -119,7 +120,7 @@
         display: block;
         font-size: 0.6rem;
         font-weight: 400;
-        color: #ccc;
+        color: #444;
         letter-spacing: 0.1em;
         margin-bottom: 3px;
     }
@@ -129,7 +130,7 @@
     }
 
     .mce-sel-tab.is-active .mce-sel-tab-num {
-        color: var(--mce-sepia-tan);
+        color: #8a6c44;
     }
 
     .mce-sel-tab.is-active::after {
@@ -143,7 +144,7 @@
     }
 
     .mce-sel-tab.is-done {
-        color: #888;
+        color: #767676;
         cursor: pointer;
     }
 
@@ -173,7 +174,7 @@
         gap: 6px;
         font-size: 0.88rem;
         font-weight: 300;
-        color: #999;
+        color: #767676;
     }
 
     .mce-crumb-val {
@@ -203,8 +204,12 @@
         padding: 6px 14px;
         cursor: pointer;
         transition: all 0.2s ease;
-        outline: none;
         -webkit-appearance: none;
+    }
+
+    .mce-sel-restart:focus-visible {
+        outline: 3px solid var(--mce-sepia-tan);
+        outline-offset: 2px;
     }
 
     .mce-sel-restart:hover {
@@ -218,7 +223,7 @@
         font-weight: 700;
         letter-spacing: 0.16em;
         text-transform: uppercase;
-        color: #aaa;
+        color: #666;
         margin-bottom: 18px;
     }
 
@@ -240,8 +245,12 @@
         transition: all 0.22s cubic-bezier(0.23, 1, 0.32, 1);
         min-width: 110px;
         text-align: center;
-        outline: none;
         -webkit-appearance: none;
+    }
+
+    .mce-sel-btn:focus-visible {
+        outline: 3px solid var(--mce-sepia-tan);
+        outline-offset: 2px;
     }
 
     .mce-sel-btn:hover {
@@ -264,7 +273,7 @@
         font-weight: 700;
         letter-spacing: 0.16em;
         text-transform: uppercase;
-        color: #aaa;
+        color: #666;
         margin-bottom: 20px;
     }
 
@@ -336,7 +345,7 @@
     .mce-sel-empty {
         text-align: center;
         padding: 48px 20px;
-        color: #999;
+        color: #767676;
     }
 
     .mce-sel-empty p {
@@ -406,7 +415,8 @@
         </div>
         <div class="mce-sel-steps" id="mce-sel-steps" role="tablist"></div>
         <div class="mce-sel-crumb-row">
-            <div class="mce-sel-crumb" id="mce-sel-crumb" aria-label="Current selection"></div>
+            <div class="mce-sel-crumb" id="mce-sel-crumb" role="status" aria-live="polite"
+                aria-label="Current selection"></div>
             <button class="mce-sel-restart" id="mce-sel-restart" onclick="mceDocRestartSelector()"
                 style="display:none;">
                 Start Over
@@ -448,7 +458,7 @@
                     let cls = 'mce-sel-tab';
                     if (i === currentStep) cls += ' is-active';
                     else if (i < currentStep) cls += ' is-done';
-                    return `<div class="${cls}" role="tab" onclick="mceDocGoStep(${i})">
+                    return `<div class="${cls}" role="tab" tabindex="${i === currentStep ? '0' : (i < currentStep ? '0' : '-1')}" onclick="mceDocGoStep(${i})" onkeydown="mceDocTabKeydown(event, ${i})">
                         <span class="mce-sel-tab-num">STEP ${i + 1}</span>
                         ${name}
                     </div>`;
@@ -460,6 +470,21 @@
             if (step <= 0) sel.type = null;
             if (step <= 1) sel.sku = null;
             goStep(step);
+        };
+
+        window.mceDocTabKeydown = function (e, stepIndex) {
+            const tabs = document.querySelectorAll('#mce-sel-steps [role="tab"]');
+            const tabArr = Array.from(tabs);
+            const pos = tabArr.indexOf(e.currentTarget);
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const dir = e.key === 'ArrowRight' ? 1 : -1;
+                const next = tabArr[pos + dir];
+                if (next && next.classList.contains('is-done')) next.focus();
+            } else if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.currentTarget.click();
+            }
         };
 
         function renderCrumb() {

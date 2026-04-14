@@ -2,7 +2,7 @@
     // UI copy: override per page if desired
     const SELECTOR_CONFIG = {
         heading: "Find Your SmartKey Starter®",
-        subheading: "Select your vehicle below to find the right product. For Sprinter customers, we also have a dedicated SmartKey Starter product selector <a href='/device/sprinter#mce-selector'>here</a> for your convenience.",
+        subheading: "Select your vehicle below to find the right product. For Sprinter customers, we also have a <a href='/device/sprinter#mce-selector'>dedicated SmartKey Starter selector for Sprinters here</a> for your convenience.",
     };
 
     const EXCLUSIVE_CAR_FOR_SELECTOR = null;
@@ -59,8 +59,9 @@
 </script>
 
 
-
-
+<!-- ============================================================
+     BLOCK 2: PARSER LOGIC (do not edit)
+     ============================       ================================ -->
 <script>
     function getDefaultMake(sku) {
         for (const [prefix, make] of Object.entries(SKU_MAKE_OVERRIDES)) {
@@ -256,12 +257,13 @@
         margin-top: 32px;
         font-size: 1.05rem;
         font-weight: 300;
-        color: #777;
+        color: #666;
         letter-spacing: 0.02em;
     }
 
     .mce-sel-header a {
         color: var(--mce-dark-red);
+        text-decoration: underline;
     }
 
     /* Step tabs */
@@ -279,7 +281,7 @@
         font-weight: 700;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: #bbb;
+        color: #444;
         position: relative;
         cursor: default;
         user-select: none;
@@ -290,7 +292,7 @@
         display: block;
         font-size: 0.6rem;
         font-weight: 400;
-        color: #ccc;
+        color: #444;
         letter-spacing: 0.1em;
         margin-bottom: 3px;
     }
@@ -300,7 +302,7 @@
     }
 
     .mce-sel-tab.is-active .mce-sel-tab-num {
-        color: var(--mce-sepia-tan);
+        color: #5c4a2a;
     }
 
     .mce-sel-tab.is-active::after {
@@ -345,7 +347,7 @@
         gap: 6px;
         font-size: 0.88rem;
         font-weight: 300;
-        color: #999;
+        color: #767676;
     }
 
     .mce-crumb-val {
@@ -375,8 +377,12 @@
         padding: 6px 14px;
         cursor: pointer;
         transition: all 0.2s ease;
-        outline: none;
         -webkit-appearance: none;
+    }
+
+    .mce-sel-restart:focus-visible {
+        outline: 3px solid var(--mce-sepia-tan);
+        outline-offset: 2px;
     }
 
     .mce-sel-restart:hover {
@@ -393,7 +399,7 @@
         font-weight: 700;
         letter-spacing: 0.16em;
         text-transform: uppercase;
-        color: #aaa;
+        color: #666;
         margin-bottom: 18px;
     }
 
@@ -416,8 +422,12 @@
         transition: all 0.22s cubic-bezier(0.23, 1, 0.32, 1);
         min-width: 110px;
         text-align: center;
-        outline: none;
         -webkit-appearance: none;
+    }
+
+    .mce-sel-btn:focus-visible {
+        outline: 3px solid var(--mce-sepia-tan);
+        outline-offset: 2px;
     }
 
     .mce-sel-btn:hover {
@@ -493,7 +503,7 @@
         margin-top: 5px;
         font-size: 0.85rem;
         font-weight: 300;
-        color: #999;
+        color: #767676;
         font-style: italic;
     }
 
@@ -605,7 +615,8 @@
         <div class="mce-sel-steps" id="mce-sel-steps" role="tablist"></div>
 
         <div class="mce-sel-crumb-row">
-            <div class="mce-sel-crumb" id="mce-sel-crumb" aria-label="Current selection"></div>
+            <div class="mce-sel-crumb" id="mce-sel-crumb" role="status" aria-live="polite"
+                aria-label="Current selection"></div>
             <button class="mce-sel-restart" id="mce-sel-restart" onclick="mceRestartSelector()" style="display:none;">
                 Start Over
             </button>
@@ -663,13 +674,27 @@
                     let cls = 'mce-sel-tab';
                     if (stepIndex === currentStep) cls += ' is-active';
                     else if (stepIndex < currentStep) cls += ' is-done';
-                    return `<div class="${cls}" role="tab" onclick="mceGoStep(${stepIndex})">
+                    return `<div class="${cls}" role="tab" tabindex="${stepIndex === currentStep ? '0' : (stepIndex < currentStep ? '0' : '-1')}" onclick="mceGoStep(${stepIndex})" onkeydown="mceTabKeydown(event, ${stepIndex})">
                 <span class="mce-sel-tab-num">STEP ${i + 1}</span>
                 ${STEP_NAMES[stepIndex]}
             </div>`;
                 }).join('');
         }
 
+        window.mceTabKeydown = function (e, stepIndex) {
+            const tabs = document.querySelectorAll('#mce-sel-steps [role="tab"]');
+            const tabArr = Array.from(tabs);
+            const pos = tabArr.indexOf(e.currentTarget);
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const dir = e.key === 'ArrowRight' ? 1 : -1;
+                const next = tabArr[pos + dir];
+                if (next && next.classList.contains('is-done')) next.focus();
+            } else if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                e.currentTarget.click();
+            }
+        };
 
         window.mceGoStep = function (step) {
             if (step >= currentStep) return;
