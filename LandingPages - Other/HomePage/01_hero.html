@@ -716,7 +716,7 @@
 
             if (!response.ok) {
                 return response.text().then(text => {
-                    console.error('[Auth Check] Error response:', text);
+                    // console.error('[Auth Check] Error response:', text);
                     throw new Error(`HTTP ${response.status}`);
                 });
             }
@@ -783,7 +783,7 @@
             }
 
         }).catch(error => {
-            console.error('[Auth Check] ✗ Session check FAILED:', error);
+            // console.error('[Auth Check] ✗ Session check FAILED:', error);
             // console.log('[Auth Check] Falling back to "Sign In" link due to error');
 
             // Fallback to sign in

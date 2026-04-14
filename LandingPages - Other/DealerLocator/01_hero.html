@@ -86,6 +86,9 @@
                     container.appendChild(newScript);
                 });
             })
-            .catch(err => console.error('Failed to load header/hero:', err));
+            .catch(err => {
+                // console.error('Failed to load header/hero:', err)
+                return;
+            })
     })();
 </script>
