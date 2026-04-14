@@ -13,6 +13,18 @@
         display: flex;
     }
 
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+
     #dealer-map {
         flex: 1;
         height: 100%;
@@ -47,6 +59,12 @@
         right: 0;
         bottom: 0;
         background: linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    }
+
+    .panel-header h2 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
     }
 
     .panel-title {
@@ -334,24 +352,15 @@
 
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-
-
 <div class="map-container">
-    <div id="dealer-map">
+    <div id="dealer-map" role="region" aria-label="Interactive dealer location map">
         <div class="loading">Loading dealer locations...</div>
     </div>
     <div class="locations-panel">
         <div class="panel-header">
-            <h3 class="panel-title">DEALER LOCATIONS</h3>
+            <h2 class="panel-title">Dealer Locations</h2>
         </div>
         <div class="search-controls">
             <div class="search-group">
@@ -380,8 +389,9 @@
                 <button class="secondary-btn" onclick="getCurrentLocation()">Get current location</button>
             </div>
         </div>
-        <div class="locations-list" id="locations-list">
-            <div class="location-item" style="text-align: center; color: #999; font-style: italic;">
+        <span id="results-count" class="sr-only" aria-live="polite"></span>
+        <div class="locations-list" id="locations-list" role="list" aria-label="Dealer locations" aria-live="polite">
+            <div class="location-item" role="listitem" style="text-align: center; color: #999; font-style: italic;">
                 Loading locations...
             </div>
         </div>
@@ -610,7 +620,7 @@
         const processedDealers = dealers.map(dealer => {
             const address = [dealer.street, `${dealer.city || ''}, ${dealer.state_id ? dealer.state_id[1] : ''} ${dealer.zip || ''}`].filter(Boolean).join('<br>');
             const contact = [];
-            if (dealer.phone) contact.push(`📞 ${dealer.phone}`);
+            if (dealer.phone) contact.push(`<span aria-hidden="true">📞</span> ${dealer.phone}`);
             // if (dealer.email) contact.push(`✉️ ${dealer.email}`);
 
             return {
@@ -854,6 +864,14 @@
             selectedMarker = null;
             selectedListItem = null;
 
+            // Update screen reader count
+            const resultsCount = document.getElementById('results-count');
+            if (resultsCount) {
+                resultsCount.textContent = locations.length === 0
+                    ? 'No dealers found'
+                    : `Showing ${locations.length} dealer${locations.length === 1 ? '' : 's'}`;
+            }
+
             // Clear existing locations list
             const locationsList = document.getElementById('locations-list');
             if (!locationsList) {
@@ -865,7 +883,7 @@
             // Handle empty locations
             if (locations.length === 0) {
                 console.log('No locations provided, showing empty state');
-                locationsList.innerHTML = '<div class="location-item" style="text-align: center; color: #999; font-style: italic;">No locations to display</div>';
+                locationsList.innerHTML = '<div class="location-item" role="listitem" style="text-align: center; color: #999; font-style: italic;">No locations to display</div>';
                 return;
             }
 
@@ -875,8 +893,6 @@
             locations.forEach((dealer, index) => {
                 const markerId = `dealer-marker-${index}`;
                 const listItemId = `list-item-${index}`;
-
-                // console.log(`Processing dealer ${index}:`, dealer);
 
                 // Validate dealer coordinates
                 if (!dealer.lat || !dealer.lng) {
@@ -888,37 +904,22 @@
                 const blackAirbnbIcon = L.divIcon({
                     className: 'interactive-dealer-marker',
                     html: `
-                        <style>
-                            @keyframes dealer-pulse {
-                                0% { 
-                                    transform: scale(1.5); 
-                                    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.9), 0 2px 8px rgba(0, 0, 0, 0.3); 
-                                }
-                                25% { 
-                                    transform: scale(1.6); 
-                                    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.6), 0 2px 8px rgba(0, 0, 0, 0.3); 
-                                }
-                                50% { 
-                                    transform: scale(1.7); 
-                                    box-shadow: 0 0 0 20px rgba(255, 255, 255, 0.3), 0 2px 8px rgba(0, 0, 0, 0.3); 
-                                }
-                                75% { 
-                                    transform: scale(1.6); 
-                                    box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.1), 0 2px 8px rgba(0, 0, 0, 0.3); 
-                                }
-                                100% { 
-                                    transform: scale(1.5); 
-                                    box-shadow: 0 0 0 40px rgba(255, 255, 255, 0), 0 2px 8px rgba(0, 0, 0, 0.3); 
-                                }
-                            }
-                            .dealer-selected {
-                                animation: dealer-pulse 1.5s infinite !important;
-                            }
-                            .dealer-marker-hover:hover {
-                                transform: scale(1.1);
-                            }
-                        </style>
-                        <div id="${markerId}" class="dealer-marker-hover" style="
+                    <style>
+                        @keyframes dealer-pulse {
+                            0% { transform: scale(1.5); box-shadow: 0 0 0 0 rgba(255,255,255,0.9), 0 2px 8px rgba(0,0,0,0.3); }
+                            25% { transform: scale(1.6); box-shadow: 0 0 0 10px rgba(255,255,255,0.6), 0 2px 8px rgba(0,0,0,0.3); }
+                            50% { transform: scale(1.7); box-shadow: 0 0 0 20px rgba(255,255,255,0.3), 0 2px 8px rgba(0,0,0,0.3); }
+                            75% { transform: scale(1.6); box-shadow: 0 0 0 30px rgba(255,255,255,0.1), 0 2px 8px rgba(0,0,0,0.3); }
+                            100% { transform: scale(1.5); box-shadow: 0 0 0 40px rgba(255,255,255,0), 0 2px 8px rgba(0,0,0,0.3); }
+                        }
+                        .dealer-selected { animation: dealer-pulse 1.5s infinite !important; }
+                        .dealer-marker-hover:hover { transform: scale(1.1); }
+                    </style>
+                    <div id="${markerId}" class="dealer-marker-hover"
+                        role="button"
+                        aria-label="${dealer.name}"
+                        tabindex="0"
+                        style="
                             background-color: #333;
                             border: 1px solid #333;
                             border-radius: 12px;
@@ -927,7 +928,7 @@
                             font-size: 14px;
                             font-weight: 700;
                             color: white;
-                            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
                             white-space: nowrap;
                             position: relative;
                             display: flex;
@@ -938,19 +939,19 @@
                             transition: all 0.3s ease;
                             cursor: pointer;
                         ">
-                            M
-                            <div style="
-                                position: absolute;
-                                bottom: -6px;
-                                left: 50%;
-                                transform: translateX(-50%);
-                                width: 0;
-                                height: 0;
-                                border-left: 6px solid transparent;
-                                border-right: 6px solid transparent;
-                                border-top: 6px solid #333;
-                            "></div>
-                        </div>`,
+                        M
+                        <div style="
+                            position: absolute;
+                            bottom: -6px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 0;
+                            height: 0;
+                            border-left: 6px solid transparent;
+                            border-right: 6px solid transparent;
+                            border-top: 6px solid #333;
+                        "></div>
+                    </div>`,
                     iconSize: [0, 0],
                     iconAnchor: [0, -6]
                 });
@@ -966,6 +967,7 @@
                 const listItem = document.createElement('div');
                 listItem.className = 'location-item';
                 listItem.id = listItemId;
+                listItem.setAttribute('role', 'listitem');
 
                 const addressParts = [];
                 if (dealer.address) addressParts.push(dealer.address);
@@ -973,22 +975,16 @@
                     addressParts.push(`${dealer.city || ''}, ${dealer.state || ''} ${dealer.zip || ''}`.trim());
                 }
 
-                const contactParts = [];
-                if (dealer.phone) contactParts.push(`📞 ${dealer.phone}`);
-                // if (dealer.email) contactParts.push(`✉️ ${dealer.email}`);
-
-                // Show distance if available
-                let distanceText = '';
-                if (dealer.distance !== undefined) {
-                    distanceText = `<div style="color: #888; font-size: 12px; margin-top: 4px;">${dealer.distance.toFixed(1)} miles away</div>`;
-                }
+                const distanceText = dealer.distance !== undefined
+                    ? `<div style="color: #888; font-size: 12px; margin-top: 4px;">${dealer.distance.toFixed(1)} miles away</div>`
+                    : '';
 
                 listItem.innerHTML = `
-                        <div class="location-name">${dealer.name}</div>
-                        <div class="location-address">${addressParts.join('<br>')}</div>
-                        ${contactParts.length ? `<div class="location-contact">${contactParts.join(' • ')}</div>` : ''}
-                        ${distanceText}
-                    `;
+                <div class="location-name">${dealer.name}</div>
+                <div class="location-address">${addressParts.join('<br>')}</div>
+                ${dealer.phone ? `<div class="location-contact" aria-label="Phone: ${dealer.phone}"><span aria-hidden="true">📞</span> ${dealer.phone}</div>` : ''}
+                ${distanceText}
+            `;
 
                 // Add click event to list item
                 listItem.addEventListener('click', function () {
@@ -1000,46 +996,46 @@
 
                 locationsList.appendChild(listItem);
 
-                // Add click event to marker
-                marker.on('click', function (e) {
+                // Marker click
+                marker.on('click', function () {
                     selectLocation(index);
+                });
+
+                // Marker keyboard support
+                marker.on('add', function () {
+                    const markerEl = document.getElementById(markerId);
+                    if (markerEl) {
+                        markerEl.addEventListener('keydown', function (e) {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                selectLocation(index);
+                                marker.openPopup();
+                            }
+                        });
+                    }
                 });
             });
 
-            // Adjust map view to show all markers if there are any
+            // Fit bounds
             if (currentMarkers.length > 0) {
                 try {
-                    // Create array of valid coordinates
                     const validMarkers = currentMarkers.filter(m => m.marker && m.marker.getLatLng);
-
-                    if (validMarkers.length === 0) {
-                        console.warn('No valid markers found for bounds calculation');
-                        return; // Just stay at current view (user location or previous view)
-                    }
-
                     if (validMarkers.length === 1) {
-                        // If only one marker, center on it
                         dealerMap.setView(validMarkers[0].marker.getLatLng(), 10);
-                    } else {
-                        // For multiple markers, try to fit bounds
+                    } else if (validMarkers.length > 1) {
                         const group = new L.featureGroup(validMarkers.map(m => m.marker));
                         const bounds = group.getBounds();
-
-                        // Additional validation - check if bounds have valid coordinates
                         const sw = bounds.getSouthWest();
                         const ne = bounds.getNorthEast();
-
                         if (isFinite(sw.lat) && isFinite(sw.lng) && isFinite(ne.lat) && isFinite(ne.lng) &&
                             sw.lat !== ne.lat && sw.lng !== ne.lng) {
                             dealerMap.fitBounds(bounds.pad(0.1));
                         } else {
-                            console.warn('Bounds coordinates are invalid, centering on first marker');
                             dealerMap.setView(validMarkers[0].marker.getLatLng(), 8);
                         }
                     }
                 } catch (boundsError) {
-                    console.warn('Error calculating bounds, using default view:', boundsError.message);
-                    // Just stay at current view (user location or previous view)
+                    console.warn('Error calculating bounds:', boundsError.message);
                 }
             }
 
@@ -1047,10 +1043,9 @@
 
         } catch (error) {
             console.error('Error updating map markers:', error);
-            console.error('Error stack:', error.stack);
             const locationsList = document.getElementById('locations-list');
             if (locationsList) {
-                locationsList.innerHTML = '<div class="location-item" style="text-align: center; color: #d32f2f;">Error updating locations</div>';
+                locationsList.innerHTML = '<div class="location-item" role="listitem" style="text-align: center; color: #d32f2f;">Error updating locations</div>';
             }
         }
     }
