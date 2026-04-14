@@ -1,6 +1,4 @@
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@300;400;600;700&display=swap');
-
     :root {
         --header-logo-nav-gap: 1.5rem;
         --mce-dark-red: #810305;
@@ -32,10 +30,31 @@
         border-bottom: 1px solid rgba(212, 175, 133, 0.3);
     }
 
+    /* Explicit button reset */
+    .utility-bar button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
     .utility-bar form {
         display: flex;
         gap: 0.5rem;
         align-items: center;
+    }
+
+    /* Visually-hidden label for the search input */
+    #customSearchForm label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 
     .utility-bar input[type="search"] {
@@ -120,12 +139,22 @@
         z-index: 1002;
         background: #000;
         border-bottom: 5px solid var(--mce-dark-red);
-        /* Break out of Odoo's boxed container */
         width: 100vw;
         padding-top: 10vh;
         margin-right: calc(50% - 50vw);
         margin-bottom: 1.5%;
         margin-left: calc(50% - 50vw);
+    }
+
+    /*
+     * .hero-logo uses a <p> tag (not <h2>) — site name is not a page heading.
+     * flex column + align-items: flex-start keeps both children left-aligned
+     * regardless of text length.
+     */
+    .hero-logo {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .hero-logo .mce-name {
@@ -170,9 +199,12 @@
         color: white !important;
     }
 
-    /* Hamburger */
+    /* Hamburger — hidden on desktop, revealed by JS when nav can't fit */
     .hamburger {
         display: none;
+        background: none;
+        border: none;
+        padding: 0;
         flex-direction: column;
         gap: 6px;
         cursor: pointer;
@@ -248,7 +280,6 @@
         }
 
         .hero-header {
-            /* Vertical padding remains same */
             padding-left: 3rem;
             padding-right: 3rem;
         }
@@ -271,7 +302,6 @@
         }
 
         .hero-header {
-            /* Vertical padding remains same */
             padding-left: 2rem;
             padding-right: 2rem;
         }
@@ -284,46 +314,67 @@
 
 
 <div class="utility-bar">
-    <form method="get" action="/website/search">
-        <input type="search" name="search" placeholder="Search...">
+    <form method="get" action="/website/search" id="customSearchForm">
+        <label for="customSearchInput">Search</label>
+        <input type="search" name="search" id="customSearchInput" placeholder="Search...">
         <input name="order" type="hidden" value="name asc">
-        <button type="submit">
+        <button type="submit" aria-label="Search">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                focusable="false">
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
             </svg>
         </button>
     </form>
-    <a href="/shop/cart">
+
+    <!-- aria-label gives the cart link an accessible name (icon-only link) -->
+    <a href="/shop/cart" aria-label="Shopping cart">
         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+            focusable="false">
             <circle cx="8" cy="21" r="1"></circle>
             <circle cx="19" cy="21" r="1"></circle>
             <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
         </svg>
     </a>
+
     <div id="customAccount"></div>
 </div>
 
 
 <header class="hero-header">
     <div class="hero-logo">
-        <a href="/">
-            <h2 class="mce-name">MID CITY ENGINEERING</h2>
+        <!--
+            Site name uses <p> (not <h2>) — brand identity, not a page heading.
+        -->
+        <a href="/" aria-label="Mid City Engineering — Home">
+            <p class="mce-name">MID CITY ENGINEERING</p>
         </a>
     </div>
-    <nav class="hero-nav"></nav>
-    <div class="hamburger" id="hamburger">
+
+    <!-- aria-label distinguishes this from the footer nav landmark -->
+    <nav class="hero-nav" aria-label="Main navigation"></nav>
+
+    <!--
+        Hamburger: <button> for keyboard and screen-reader access.
+        aria-expanded tracks open/closed state; aria-controls points to the drawer.
+    -->
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="hamburgerDrawer"
+        aria-label="Toggle navigation">
         <span></span><span></span><span></span>
-    </div>
+    </button>
 </header>
 
 
-<div class="hamburger-drawer" id="hamburgerDrawer"></div>
+<!--
+    inert: drawer links are not focusable when closed.
+    Removed by toggleMenu() when the drawer opens.
+-->
+<div class="hamburger-drawer" id="hamburgerDrawer" aria-label="Mobile navigation" inert></div>
 
 <script>
-    // Function to populate header's hero-nav and handle responsive behavior
+    // ─── NAV + RESPONSIVE LAYOUT ──────────────────────────────────────────────────
     (function () {
         const NAV_ITEMS = [
             { label: 'Home', href: '/' },
@@ -348,9 +399,9 @@
         if (!header || !logo || !nav || !hamburger || !drawer) return;
 
         nav.innerHTML = NAV_ITEMS.map(i => `<a href="${i.href}">${i.label}</a>`).join('');
-        drawer.innerHTML = NAV_ITEMS.map(i => `<a href="${i.href}" onclick="toggleMenu()">${i.label}</a>`).join('');
 
-        hamburger.addEventListener('click', toggleMenu);
+        // Drawer links call toggleMenu() to close the drawer on navigation
+        drawer.innerHTML = NAV_ITEMS.map(i => `<a href="${i.href}" onclick="toggleMenu()">${i.label}</a>`).join('');
 
         let textWidthsAt1rem = [];
 
@@ -401,14 +452,22 @@
 
     })();
 
+    // ─── HAMBURGER TOGGLE ─────────────────────────────────────────────────────────
     function toggleMenu() {
         const hamburger = document.getElementById('hamburger');
         const drawer = document.getElementById('hamburgerDrawer');
         if (!drawer || !hamburger) return;
+
         hamburger.classList.toggle('active');
         drawer.classList.toggle('active');
-        document.body.style.position = drawer.classList.contains('active') ? 'fixed' : '';
-        document.body.style.width = drawer.classList.contains('active') ? '100%' : '';
+
+        const isOpen = drawer.classList.contains('active');
+        hamburger.setAttribute('aria-expanded', isOpen);
+        if (isOpen) drawer.removeAttribute('inert');
+        else drawer.setAttribute('inert', '');
+
+        document.body.style.position = isOpen ? 'fixed' : '';
+        document.body.style.width = isOpen ? '100%' : '';
     }
 
     // Close drawer when clicking outside
@@ -421,33 +480,71 @@
         }
     });
 
-    // Close drawer when scrolling outside
-    let touchStartY = 0;
-    window.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, { passive: true });
-    window.addEventListener('touchmove', (e) => {
+    // Close drawer on outside touch-scroll
+    window.addEventListener('touchmove', function (e) {
         const drawer = document.getElementById('hamburgerDrawer');
-        if (drawer && drawer.classList.contains('active') && !drawer.contains(e.target)) toggleMenu();
+        if (drawer && drawer.classList.contains('active') && !drawer.contains(e.target)) {
+            toggleMenu();
+        }
     }, { passive: true });
 
-    // Account dropdown with working session check
+    // ─── ACCOUNT DROPDOWN ─────────────────────────────────────────────────────────
     (function () {
         const container = document.getElementById('customAccount');
+
+        // Render Sign In immediately as a non-blocking default
+        container.innerHTML = '<a href="/web/login">Sign In</a>';
+
         fetch('/web/session/get_session_info', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: '{}'
-        }).then(r => r.json()).then(data => {
-            const uid = data.result?.uid;
-            if (uid && uid !== false) {
-                container.innerHTML = `<a href="#" id="accountToggle"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a><div id="accountMenu" style="display:none;"><a href="/my/home">My Account</a><a href="/web/session/logout?redirect=/">Logout</a></div>`;
-                const toggle = document.getElementById('accountToggle');
-                const menu = document.getElementById('accountMenu');
-                toggle.onclick = e => { e.preventDefault(); e.stopPropagation(); menu.style.display = menu.style.display === 'none' ? 'block' : 'none'; };
-                document.addEventListener('click', e => { if (!container.contains(e.target)) menu.style.display = 'none'; });
-            } else {
-                container.innerHTML = '<a href="/web/login">Sign In</a>';
-            }
-        }).catch(() => { container.innerHTML = '<a href="/web/login">Sign In</a>'; });
+            body: '{}',
+            priority: 'low'
+        })
+            .then(r => {
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                return r.json();
+            })
+            .then(data => {
+                const uid = data.result?.uid;
+                if (uid && uid !== false) {
+                    container.innerHTML = `
+                        <a href="#" id="accountToggle" aria-haspopup="true" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" aria-hidden="true" focusable="false">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </a>
+                        <div id="accountMenu" role="menu" style="display:none;">
+                            <a href="/my/home" role="menuitem">My Account</a>
+                            <a href="/web/session/logout?redirect=/" role="menuitem">Logout</a>
+                        </div>`;
+
+                    const toggle = document.getElementById('accountToggle');
+                    const menu = document.getElementById('accountMenu');
+
+                    toggle.onclick = e => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const isVisible = menu.style.display !== 'none';
+                        menu.style.display = isVisible ? 'none' : 'block';
+                        toggle.setAttribute('aria-expanded', !isVisible);
+                    };
+
+                    document.addEventListener('click', e => {
+                        if (!container.contains(e.target) && menu.style.display !== 'none') {
+                            menu.style.display = 'none';
+                            toggle.setAttribute('aria-expanded', false);
+                        }
+                    });
+                }
+                // Unauthenticated: Sign In already rendered, nothing to do
+            })
+            .catch(() => {
+                // On error, Sign In already rendered, leave it
+            });
     })();
 </script>
