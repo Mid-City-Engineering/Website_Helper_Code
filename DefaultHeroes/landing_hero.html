@@ -29,6 +29,14 @@
         border-bottom: 1px solid rgba(212, 175, 133, 0.3);
     }
 
+    /* Explicit button reset so utility-bar buttons render correctly */
+    .utility-bar button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
     .utility-bar-logo {
         width: 3.5vh;
         height: 3.5vh;
@@ -38,7 +46,8 @@
         border: 1px solid rgba(212, 175, 133, 0.4);
     }
 
-    .utility-bar a:has(.utility-bar-logo) {
+    /* Scroll-to-top is now a <button>, not an <a> */
+    .utility-bar button:has(.utility-bar-logo) {
         margin-right: auto;
         display: flex;
         align-items: center;
@@ -48,6 +57,19 @@
         display: flex;
         gap: 0.5rem;
         align-items: center;
+    }
+
+    /* Visually-hidden label for the search input */
+    #customSearchForm label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 
     .utility-bar input[type="search"] {
@@ -128,7 +150,9 @@
         overflow: hidden;
     }
 
-    .hero-media {
+    /* Poster image sits beneath the video; hidden via JS once video plays */
+    .hero-media,
+    .hero-poster {
         position: absolute;
         top: 0;
         left: 0;
@@ -144,8 +168,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        /* background: rgba(0, 0, 0, 0.15); */
+        height: 100vh;
         z-index: 2;
     }
 
@@ -167,15 +190,20 @@
                 rgba(0, 0, 0, 0) 80%);
     }
 
+    .hero-logo {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .hero-logo .main-product-or-series {
+        font-family: 'Michroma', sans-serif;
         font-size: 1.15rem;
         font-weight: 400;
         text-align: left;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         padding-top: 0;
-
-        /* Gradient text - white for 60%, then fade to grey */
         background: linear-gradient(to right, white 60%, #b0b0b0 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -183,6 +211,7 @@
     }
 
     .hero-logo .signature {
+        font-family: 'Michroma', sans-serif;
         color: white;
         font-size: .85rem;
         letter-spacing: 0.1em;
@@ -197,9 +226,7 @@
         flex: 1;
         min-width: 0;
         flex-wrap: nowrap;
-        /* explicit no wrapping ever */
         overflow: hidden;
-        /* safety net so it never bleeds */
         margin-left: var(--header-logo-nav-gap);
     }
 
@@ -217,9 +244,12 @@
         opacity: 0.7;
     }
 
-    /* Hamburger menu - hidden on desktop */
+    /* Hamburger — hidden on desktop, revealed by JS when nav can't fit */
     .hamburger {
         display: none;
+        background: none;
+        border: none;
+        padding: 0;
         flex-direction: column;
         gap: 6px;
         cursor: pointer;
@@ -250,7 +280,7 @@
         transform: rotate(-45deg) translate(8px, -8px);
     }
 
-    /* Hamburger drawer menu */
+    /* Hamburger drawer */
     .hamburger-drawer {
         display: block;
         position: fixed;
@@ -294,14 +324,11 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        /* Changed from center to flex-start */
         color: white;
         height: var(--hero-overall-height);
         width: 100%;
         padding-left: 4rem;
-        /* Match the hero-header padding */
         padding-top: calc(6vh + 10rem);
-        /* 6vh utility bar + approximate header height + some spacing */
     }
 
     .hero-content .media-subheading-container {
@@ -319,8 +346,6 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
         padding-top: 0;
-
-        /* Gradient text - white for 60%, then fade to grey */
         background: linear-gradient(to right, white 60%, #b0b0b0 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -333,7 +358,6 @@
 
     /* Tablet: 481px to 768px */
     @media (max-width: 768px) and (min-width: 481px) {
-
         :root {
             --hero-overall-height: 85vh;
         }
@@ -359,10 +383,6 @@
 
         .hero-header {
             padding: 2rem 3rem 0.5rem 3rem;
-        }
-
-        .hero-logo h2 {
-            font-size: 1.3rem;
         }
 
         .hero-content {
@@ -410,10 +430,6 @@
             padding: 1.5rem 2rem 0.5rem 2rem;
         }
 
-        .hero-logo h2 {
-            font-size: 1.1rem;
-        }
-
         .hamburger-drawer {
             width: 100%;
         }
@@ -433,53 +449,111 @@
 <div class="hero-wrapper">
 
     <div class="utility-bar">
-        <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
-            <img src="/documents/content/naZlHr47T1uGIwXrx_h2uQo2f?download=0" alt="Mid City Engineering"
-                class="utility-bar-logo">
-        </a>
+        <!--
+            Scroll-to-top: <button> instead of <a href="#"> so it's unambiguously
+            an action (not a navigation link) for screen readers and crawlers.
+            aria-label describes the action since there is no visible text.
+        -->
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top">
+            <img src="/documents/content/naZlHr47T1uGIwXrx_h2uQo2f?download=0" alt="" class="utility-bar-logo"
+                width="40" height="40">
+        </button>
 
-        <form method="get" action="/website/search" id="customSearchForm"><input type="search" name="search"
-                id="customSearchInput" placeholder="Search..."><input name="order" type="hidden"
-                value="name asc"><button type="submit" id="customSearchBtn"><svg xmlns="http://www.w3.org/2000/svg"
-                    width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
+        <!--
+            Visually-hidden <label> associates the search input with accessible text
+            without showing it on screen (WCAG 1.3.1 / 4.1.2).
+        -->
+        <form method="get" action="/website/search" id="customSearchForm">
+            <label for="customSearchInput">Search</label>
+            <input type="search" name="search" id="customSearchInput" placeholder="Search...">
+            <input name="order" type="hidden" value="name asc">
+            <button type="submit" id="customSearchBtn" aria-label="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true" focusable="false">
                     <circle cx="11" cy="11" r="8"></circle>
                     <path d="m21 21-4.35-4.35"></path>
-                </svg></button></form><a href="/shop/cart"><svg xmlns="http://www.w3.org/2000/svg" width="15"
-                height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+                </svg>
+            </button>
+        </form>
+
+        <!-- aria-label gives the cart link an accessible name (icon-only link) -->
+        <a href="/shop/cart" aria-label="Shopping cart">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                focusable="false">
                 <circle cx="8" cy="21" r="1"></circle>
                 <circle cx="19" cy="21" r="1"></circle>
                 <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
-            </svg></a>
+            </svg>
+        </a>
+
+        <!--
+            #customAccount starts empty; JS renders "Sign In" immediately,
+            then upgrades to the account dropdown if the user is authenticated.
+        -->
         <div id="customAccount"></div>
     </div>
 
-    <section class="hero-media-section">
-        <video class="hero-media" autoplay="" muted="" loop="" playsinline="">
-            <source src="/documents/content/VQWv3tSOQlyJZCE1nn7-Fgo16?download=0">
-            Your browser does not support the video tag.
+    <section class="hero-media-section" aria-label="Hero">
+        <!--
+            LCP PATTERN: The poster <img> is placed before the <video> so the browser
+            can display it the moment the DOM is parsed, well before the video is ready.
+            - fetchpriority="high" tells the browser to fetch this above other images.
+            - aria-hidden="true" keeps decorative media out of the a11y tree.
+            - The <video>'s onplaying handler hides the poster once the video starts,
+              preventing a visible flash between the two.
+            - The <link rel="preload"> that injects this poster URL is handled by the
+              loader script (see posterMediaLink variable below).
+        -->
+        <img class="hero-poster" id="heroPoster" src="" alt="" aria-hidden="true" fetchpriority="high" width="1920"
+            height="1080" style="display:none;">
+
+        <video class="hero-media" aria-hidden="true" autoplay muted loop playsinline
+            onplaying="document.getElementById('heroPoster').style.display='none'">
+            <source src="/documents/content/VQWv3tSOQlyJZCE1nn7-Fgo16?download=0" type="video/mp4">
         </video>
+
         <div class="hero-overlay"></div>
+
         <header class="hero-header">
             <div class="hero-logo">
-                <a href="/">
-                    <h2 class="main-product-or-series">Product Name/Series</h2>
-                    <h2 class="signature">By MID CITY ENGINEERING</h2>
-                </a>
+                <!--
+                    Logo text uses <p> tags, not <h2>, so it doesn't pollute the
+                    document heading outline. The page h1 belongs to hero-content;
+                    section h2s belong to story/collab/global sections below.
+                -->
+                <h1 class="main-product-or-series">Product Name/Series</h1>
+                <a href="/" class="signature" aria-label="Mid City Engineering — Home">By MID CITY ENGINEERING</a>
             </div>
-            <nav class="hero-nav"></nav>
-            <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+
+            <!-- Filled via JS; aria-label distinguishes it from the footer nav landmark -->
+            <nav class="hero-nav" aria-label="Main navigation"></nav>
+
+            <!--
+                Hamburger: <button> (not <div>) for keyboard and screen-reader access.
+                aria-expanded tracks open/closed state; aria-controls points to the drawer.
+            -->
+            <button class="hamburger" aria-expanded="false" aria-controls="hamburgerDrawer"
+                aria-label="Toggle navigation" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </header>
 
-        <div class="hamburger-drawer" id="hamburgerDrawer"></div>
+        <!--
+            inert: drawer links are not focusable or readable when closed.
+            Removed by toggleMenu() when the drawer opens.
+        -->
+        <div class="hamburger-drawer" id="hamburgerDrawer" aria-label="Mobile navigation" inert></div>
+
         <div class="hero-content">
             <div class="media-subheading-container">
-                <h2 class="media-subheading"></h2>
+                <p class="media-subheading"></p>
             </div>
-
             <div class="slogan">
-                <h2></h2>
+                <p></p>
             </div>
         </div>
     </section>
@@ -487,9 +561,8 @@
 
 <script>
 
-    // Function to populate header's hero-nav and handle responsive behavior
+    // ─── NAV + RESPONSIVE LAYOUT ──────────────────────────────────────────────────
     (function () {
-        // ─── CONFIG ──────────────────────────────────────────────────────────────
         const NAV_ITEMS = [
             { label: 'Home', href: '/' },
             { label: 'About Us', href: '/about-us' },
@@ -500,11 +573,10 @@
             { label: 'Support', href: '/support' },
         ];
 
-        const MIN_FONT_REM = 0.90;   // below this → hamburger
-        const MAX_FONT_REM = 1.15;   // cap on large screens
-        const ITEM_PAD_REM = 0.75;   // horizontal padding each side per item
+        const MIN_FONT_REM = 0.90;
+        const MAX_FONT_REM = 1.15;
+        const ITEM_PAD_REM = 0.75;
 
-        // ─── ELEMENT REFS ────────────────────────────────────────────────────────
         const header = document.querySelector('.hero-header');
         const logo = document.querySelector('.hero-logo');
         const nav = document.querySelector('.hero-nav');
@@ -513,21 +585,19 @@
 
         if (!header || !logo || !nav || !hamburger || !drawer) return;
 
-        // ─── POPULATE NAV + DRAWER ───────────────────────────────────────────────
         nav.innerHTML = NAV_ITEMS
             .map(item => `<a href="${item.href}">${item.label}</a>`)
             .join('');
 
+        // Drawer links call toggleMenu() to close the drawer on navigation
         drawer.innerHTML = NAV_ITEMS
             .map(item => `<a href="${item.href}" onclick="toggleMenu()">${item.label}</a>`)
             .join('');
 
-        // ─── MEASURE TEXT WIDTHS AT 1rem (after fonts ready) ─────────────────────
         let textWidthsAt1rem = [];
 
         function measureNavItems() {
             const remPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
-
             const clone = nav.cloneNode(true);
             Object.assign(clone.style, {
                 position: 'absolute',
@@ -542,182 +612,137 @@
             textWidthsAt1rem = Array.from(clone.querySelectorAll('a'))
                 .map(a => a.getBoundingClientRect().width);
             document.body.removeChild(clone);
-
             return remPx;
         }
 
-        // ─── LAYOUT UPDATE ───────────────────────────────────────────────────────
         function update(remPx) {
             const headerRect = header.getBoundingClientRect();
             const logoRect = logo.getBoundingClientRect();
             const headerStyle = getComputedStyle(header);
-            const headerPad = parseFloat(headerStyle.paddingLeft)
-                + parseFloat(headerStyle.paddingRight);
-
-            // Inside update() or at measure time:
+            const headerPad = parseFloat(headerStyle.paddingLeft) + parseFloat(headerStyle.paddingRight);
             const navGapPx = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-logo-nav-gap')) * remPx;
             const available = headerRect.width - headerPad - logoRect.width - navGapPx - 32;
             const totalTextAt1rem = textWidthsAt1rem.reduce((s, w) => s + w, 0);
             const totalPaddingAt1rem = ITEM_PAD_REM * 2 * remPx * NAV_ITEMS.length;
             const totalAt1rem = totalTextAt1rem + totalPaddingAt1rem;
-
             const candidateFontRem = Math.min(available / totalAt1rem, MAX_FONT_REM);
 
             if (candidateFontRem < MIN_FONT_REM) {
-                // Show nav, hide hamburger
                 nav.style.display = 'none';
                 hamburger.style.display = 'flex';
             } else {
                 nav.style.display = 'flex';
                 hamburger.style.display = 'none';
                 nav.style.fontSize = candidateFontRem + 'rem';
-
-                // Safety: Close the drawer if the screen is resized back to large
                 drawer.classList.remove('active');
                 hamburger.classList.remove('active');
             }
         }
 
-        // ─── BOOT: wait for fonts, then measure + observe ────────────────────────
         document.fonts.ready.then(() => {
             const remPx = measureNavItems();
             update(remPx);
-
             const ro = new ResizeObserver(() => update(remPx));
             ro.observe(header);
         });
-
     })();
 
-    // To open hamburger menu
+    // ─── HAMBURGER TOGGLE ─────────────────────────────────────────────────────────
     function toggleMenu() {
         const hamburger = document.querySelector('.hamburger');
         const drawer = document.getElementById('hamburgerDrawer');
-
-        // Guard against null elements (e.g., in Odoo editor context)
         if (!drawer || !hamburger) return;
 
         hamburger.classList.toggle('active');
         drawer.classList.toggle('active');
-        document.body.style.position = drawer.classList.contains('active') ? 'fixed' : '';
-        document.body.style.width = drawer.classList.contains('active') ? '100%' : '';
+
+        const isOpen = drawer.classList.contains('active');
+        // aria-expanded keeps screen readers informed of open/closed state
+        hamburger.setAttribute('aria-expanded', isOpen);
+        // inert prevents focus/interaction with off-screen drawer links when closed
+        if (isOpen) drawer.removeAttribute('inert');
+        else drawer.setAttribute('inert', '');
+
+        document.body.style.position = isOpen ? 'fixed' : '';
+        document.body.style.width = isOpen ? '100%' : '';
     }
 
-    // Close drawer when clicking outside
+    // Close drawer on outside click
     document.addEventListener('click', function (event) {
         const drawer = document.getElementById('hamburgerDrawer');
         const hamburger = document.querySelector('.hamburger');
-
-        // Guard against null elements (e.g., in Odoo editor context)
         if (!drawer || !hamburger) return;
-
         if (drawer.classList.contains('active') && !drawer.contains(event.target) && !hamburger.contains(event.target)) {
             toggleMenu();
         }
     });
 
-    // Close drawer when scrolling outside
-    let touchStartY = 0;
-
-    window.addEventListener('touchstart', (e) => {
-        touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-
-    window.addEventListener('touchmove', (e) => {
+    // Close drawer on outside touch-scroll
+    window.addEventListener('touchmove', function (e) {
         const drawer = document.getElementById('hamburgerDrawer');
         if (drawer && drawer.classList.contains('active') && !drawer.contains(e.target)) {
             toggleMenu();
         }
     }, { passive: true });
 
-    // Account dropdown with working session check
+    // ─── ACCOUNT DROPDOWN ─────────────────────────────────────────────────────────
     (function () {
         const container = document.getElementById('customAccount');
 
-        console.log('[Auth Check] Starting authentication check...');
+        // Render Sign In immediately as a non-blocking default; upgraded below if authed
+        container.innerHTML = '<a href="/web/login">Sign In</a>';
 
-        // Check Odoo session via JSON-RPC POST with empty body
         fetch('/web/session/get_session_info', {
-
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-
-            ,
+            headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
-            body: '{}' // Empty JSON object is the key!
+            body: '{}',
+            priority: 'low'   // Non-critical; don't compete with LCP resources
+        })
+            .then(response => {
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                return response.json();
+            })
+            .then(data => {
+                const uid = data.result?.uid;
+                if (uid && uid !== false) {
+                    container.innerHTML = `
+                        <a href="#" id="accountToggle" aria-haspopup="true" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                aria-hidden="true" focusable="false">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </a>
+                        <div id="accountMenu" role="menu" style="display:none;">
+                            <a href="/my/home" role="menuitem">My Account</a>
+                            <a href="/web/session/logout?redirect=/" role="menuitem">Logout</a>
+                        </div>`;
 
-        }).then(response => {
-            console.log('[Auth Check] Response status:', response.status);
+                    const accountToggle = document.getElementById('accountToggle');
+                    const accountMenu = document.getElementById('accountMenu');
 
-            if (!response.ok) {
-                return response.text().then(text => {
-                    console.error('[Auth Check] Error response:', text);
+                    accountToggle.onclick = function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const isVisible = accountMenu.style.display !== 'none';
+                        accountMenu.style.display = isVisible ? 'none' : 'block';
+                        accountToggle.setAttribute('aria-expanded', !isVisible);
+                    };
 
-                    throw new Error(`HTTP response: ${response.status}`);
-                });
-            }
-
-            return response.json();
-
-        }).then(data => {
-            console.log('[Auth Check] Full response:', data);
-
-            // Odoo returns data in result.uid
-            const uid = data.result?.uid;
-            const isAuthenticated = uid && uid !== false;
-
-            console.log('[Auth Check] Authentication result:', {
-                isAuthenticated: isAuthenticated,
-                uid: uid,
-                username: data.result?.username || 'N/A',
-                name: data.result?.partner_display_name || 'N/A'
-            });
-
-            if (isAuthenticated) {
-                console.log('[Auth Check] ✓ User is authenticated - rendering account dropdown');
-
-                // Signed in - show dropdown
-                container.innerHTML = ` <a href="#" id="accountToggle" > <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" ></path> <circle cx="12" cy="7" r="4" ></circle> </svg> </a> <div id="accountMenu" style="display:none;" > <a href="/my/home" >My Account</a> <a href="/web/session/logout?redirect=/" >Logout</a> </div> `;
-
-                const accountToggle = document.getElementById('accountToggle');
-                const accountMenu = document.getElementById('accountMenu');
-
-                accountToggle.onclick = function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const isVisible = accountMenu.style.display !== 'none';
-                    accountMenu.style.display = isVisible ? 'none' : 'block';
-                    console.log('[Auth Check] Account menu toggled:', !isVisible ? 'opened' : 'closed');
+                    document.addEventListener('click', function (event) {
+                        if (!container.contains(event.target) && accountMenu.style.display !== 'none') {
+                            accountMenu.style.display = 'none';
+                            accountToggle.setAttribute('aria-expanded', false);
+                        }
+                    });
                 }
-
-                    ;
-
-                document.addEventListener('click', function (event) {
-                    if (!container.contains(event.target) && accountMenu.style.display !== 'none') {
-                        accountMenu.style.display = 'none';
-                        console.log('[Auth Check] Account menu closed (clicked outside)');
-                    }
-                });
-            }
-
-            else {
-                console.log('[Auth Check] ✗ User is NOT authenticated - rendering sign in link');
-
-                // Signed out - show sign in
-                container.innerHTML = '<a href="/web/login">Sign In</a>';
-            }
-
-        }).catch(error => {
-            console.error('[Auth Check] ✗ Session check FAILED:', error);
-            console.log('[Auth Check] Falling back to "Sign In" link due to error');
-
-            // Fallback to sign in
-            container.innerHTML = '<a href="/web/login">Sign In</a>';
-        });
-
-        console.log('[Auth Check] Fetch request sent...');
+                // Unauthenticated: Sign In link is already rendered; nothing to do
+            })
+            .catch(() => {
+                // On error, Sign In link is already rendered; leave it
+            });
     })();
 
 </script>

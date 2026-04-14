@@ -1,12 +1,22 @@
 <script>
     // change from null to actual string for replacement
     productName = 'Plug-&-Play Alarm Kits'; // change from null to actual string for replacement
-    backgroundMediaIsImage = false;
-    backgroundMediaLink = "/documents/content/Rl6cwHm-SBGKvUl8Li9Q_Ao68?download=0"; // change from null to actual string for replacement
+    backgroundVideoLink = "/documents/content/Rl6cwHm-SBGKvUl8Li9Q_Ao68?download=0";
+    posterMediaLink = "/documents/content/PyUL7CpsRbCdsr3-jkJMRwofe?download=0"; // change from null to actual string for replacement
+    posterAlt = 'Keyfob triggering custom installed alarm system';
     mediaObjectPosition = null;
     mediaObjectPositionMobile = null;
     mediaObjectPositionTablet = null;
     headerBackground = 'linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.8) 60%, rgba(0, 0, 0, 0.4) 100%)';
+    // Kick off the poster fetch as early as possible
+    if (posterMediaLink != null) {
+        const preload = document.createElement('link');
+        preload.rel = 'preload';
+        preload.as = 'image';
+        preload.href = posterMediaLink;
+        preload.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(preload);
+    }
 </script>
 
 <style>
@@ -43,9 +53,10 @@
 <div class="hero-placeholder" id="custom-header-hero"></div>
 
 <script>
-
     (function () {
-        fetch('/documents/content/gyEq9xruTVyrodnhyJDfGgo43?download=0')
+        // const TEMPLATE_HERO_LINK = '/documents/content/gyEq9xruTVyrodnhyJDfGgo43?download=0'
+        const TEMPLATE_HERO_LINK = '/documents/content/kqWThsUaSk-E3VDlpHzo7wo100?download=0'
+        fetch(TEMPLATE_HERO_LINK)
             .then(r => r.text())
             .then(html => {
                 const container = document.getElementById('custom-header-hero');
@@ -74,44 +85,47 @@
                     });
                 }
 
-                // Code to override the hero h2 title
+                // Override product name
                 const mainProductOrSeries = container.querySelector('.main-product-or-series');
                 if (mainProductOrSeries && productName != null) {
                     mainProductOrSeries.innerHTML = productName;
                 }
 
-                // Override background media
-                if (backgroundMediaLink != null) {
-                    if (backgroundMediaIsImage) {
-                        const media = container.querySelector('.hero-media');
-                        if (media) {
-                            const img = document.createElement('img');
-                            img.className = media.className;
-                            img.src = backgroundMediaLink;
-                            img.alt = 'Hero image';
-                            img.loading = 'eager';
-                            media.replaceWith(img);
-                        }
-                    } else {
-                        const videoSource = container.querySelector('.hero-media source');
-                        if (videoSource) {
-                            videoSource.src = backgroundMediaLink;
-                            videoSource.parentElement.load();
-                        }
-                    }
+                // Wire up poster image
+                const heroPoster = container.querySelector('#heroPoster');
+                const heroVideo = container.querySelector('.hero-media');
+
+                if (heroPoster && posterMediaLink != null) {
+                    heroPoster.src = posterMediaLink;
+                    heroPoster.alt = posterAlt ?? '';
+                    heroPoster.style.display = '';
                 }
 
-                // Override media focus point
-                const heroMedia = container.querySelector('.hero-media');
-                if (heroMedia && mediaObjectPosition != null) {
+                // Wire up video, or remove it if no video is provided
+                if (backgroundVideoLink != null) {
+                    const source = heroVideo.querySelector('source');
+                    if (source) {
+                        source.src = backgroundVideoLink;
+                        heroVideo.load();
+                    }
+                } else {
+                    heroVideo.remove();
+                }
+
+                // Override media focus point — applies to both poster and video
+                // so the framing stays consistent before and after the video loads
+                if (mediaObjectPosition != null) {
+                    const mediaElements = [heroPoster, backgroundVideoLink != null ? heroVideo : null]
+                        .filter(Boolean);
+
                     function applyMediaPosition() {
-                        if (window.matchMedia('(max-width: 480px)').matches) {
-                            heroMedia.style.objectPosition = mediaObjectPositionMobile ?? mediaObjectPosition;
-                        } else if (window.matchMedia('(max-width: 768px)').matches) {
-                            heroMedia.style.objectPosition = mediaObjectPositionTablet ?? mediaObjectPosition;
-                        } else {
-                            heroMedia.style.objectPosition = mediaObjectPosition;
-                        }
+                        const position = window.matchMedia('(max-width: 480px)').matches
+                            ? (mediaObjectPositionMobile ?? mediaObjectPosition)
+                            : window.matchMedia('(max-width: 768px)').matches
+                                ? (mediaObjectPositionTablet ?? mediaObjectPosition)
+                                : mediaObjectPosition;
+
+                        mediaElements.forEach(el => el.style.objectPosition = position);
                     }
                     applyMediaPosition();
                     window.addEventListener('resize', applyMediaPosition);
